@@ -1,0 +1,1068 @@
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+from BaseClasses import ItemClassification, Location
+
+from . import items
+
+if TYPE_CHECKING:
+    from .world import PerfectDarkWorld
+
+LOCATION_NAME_TO_ID = {
+    "Defection - Agent Objective 1": 1,
+    "Investigation - Agent Objective 1": 4,
+	"Investigation - Agent Objective 2": 5,
+    "Extraction - Agent Objective 1": 7,
+	"Extraction - Agent Objective 2": 8,
+	"Extraction - Agent Objective 3": 9,
+    "Carrington Villa - Agent Objective 1": 10,
+	"Carrington Villa - Agent Objective 2": 11,
+	"Carrington Villa - Agent Objective 3": 12,
+    "Chicago - Agent Objective 1": 13,
+	"Chicago - Agent Objective 2": 14,
+	"Chicago - Agent Objective 3": 15,
+    "G5 Building - Agent Objective 1": 16,
+	"G5 Building - Agent Objective 2": 17,
+	"G5 Building - Agent Objective 3": 18,
+    "Infiltration - Agent Objective 1": 19,
+	"Infiltration - Agent Objective 2": 20,
+	"Infiltration - Agent Objective 3": 21,
+    "Rescue - Agent Objective 1": 22,
+	"Rescue - Agent Objective 2": 23,
+	"Rescue - Agent Objective 3": 24,
+    "Escape - Agent Objective 1": 25,
+	"Escape - Agent Objective 2": 26,
+	"Escape - Agent Objective 3": 27,
+    "Air Base - Agent Objective 1": 28,
+	"Air Base - Agent Objective 2": 29,
+	"Air Base - Agent Objective 3": 30,
+    "Air Force One - Agent Objective 1": 31,
+	"Air Force One - Agent Objective 2": 32,
+	"Air Force One - Agent Objective 3": 33,
+    "Crash Site - Agent Objective 1": 34,
+	"Crash Site - Agent Objective 2": 35,
+	"Crash Site - Agent Objective 3": 36,
+    "Pelagic II - Agent Objective 1": 37,
+	"Pelagic II - Agent Objective 2": 38,
+	"Pelagic II - Agent Objective 3": 39,
+    "Deep Sea - Agent Objective 1": 40,
+	"Deep Sea - Agent Objective 2": 41,
+	"Deep Sea - Agent Objective 3": 42,
+    "Carrington Institute - Agent Objective 1": 43,
+	"Carrington Institute - Agent Objective 2": 44,
+	"Carrington Institute - Agent Objective 3": 45,
+    "Attack Ship - Agent Objective 1": 46,
+	"Attack Ship - Agent Objective 2": 47,
+	"Attack Ship - Agent Objective 3": 48,
+    "Skedar Ruins - Agent Objective 1": 49,
+	"Skedar Ruins - Agent Objective 2": 50,
+	"Skedar Ruins - Agent Objective 3": 51,
+    "Mr. Blonde's Revenge - Agent Objective 1": 52,
+    "Maian SOS - Agent Objective 1": 55,
+    "WAR! - Agent Objective 1": 58,
+    "The Duel - Agent Objective 1": 61,
+	"Defection - Special Agent Objective 1": 62,
+	"Defection - Special Agent Objective 2": 63,
+	"Defection - Special Agent Objective 3": 64,
+	"Defection - Special Agent Objective 4": 65,
+    "Investigation - Special Agent Objective 1": 66,
+	"Investigation - Special Agent Objective 2": 67,
+	"Investigation - Special Agent Objective 3": 68,
+	"Investigation - Special Agent Objective 4": 69,
+    "Extraction - Special Agent Objective 1": 70,
+	"Extraction - Special Agent Objective 2": 71,
+	"Extraction - Special Agent Objective 3": 72,
+	"Extraction - Special Agent Objective 4": 73,
+    "Carrington Villa - Special Agent Objective 1": 74,
+	"Carrington Villa - Special Agent Objective 2": 75,
+	"Carrington Villa - Special Agent Objective 3": 76,
+	"Carrington Villa - Special Agent Objective 4": 77,
+    "Chicago - Special Agent Objective 1": 78,
+	"Chicago - Special Agent Objective 2": 79,
+	"Chicago - Special Agent Objective 3": 80,
+	"Chicago - Special Agent Objective 4": 81,
+    "G5 Building - Special Agent Objective 1": 82,
+	"G5 Building - Special Agent Objective 2": 83,
+	"G5 Building - Special Agent Objective 3": 84,
+	"G5 Building - Special Agent Objective 4": 85,
+    "Infiltration - Special Agent Objective 1": 86,
+	"Infiltration - Special Agent Objective 2": 87,
+	"Infiltration - Special Agent Objective 3": 88,
+	"Infiltration - Special Agent Objective 4": 89,
+    "Rescue - Special Agent Objective 1": 90,
+	"Rescue - Special Agent Objective 2": 91,
+	"Rescue - Special Agent Objective 3": 92,
+	"Rescue - Special Agent Objective 4": 93,
+    "Escape - Special Agent Objective 1": 94,
+	"Escape - Special Agent Objective 2": 95,
+	"Escape - Special Agent Objective 3": 96,
+	"Escape - Special Agent Objective 4": 97,
+    "Air Base - Special Agent Objective 1": 98,
+	"Air Base - Special Agent Objective 2": 99,
+	"Air Base - Special Agent Objective 3": 100,
+	"Air Base - Special Agent Objective 4": 101,
+    "Air Force One - Special Agent Objective 1": 102,
+	"Air Force One - Special Agent Objective 2": 103,
+	"Air Force One - Special Agent Objective 3": 104,
+	"Air Force One - Special Agent Objective 4": 105,
+    "Crash Site - Special Agent Objective 1": 106,
+	"Crash Site - Special Agent Objective 2": 107,
+	"Crash Site - Special Agent Objective 3": 108,
+	"Crash Site - Special Agent Objective 4": 109,
+    "Pelagic II - Special Agent Objective 1": 110,
+	"Pelagic II - Special Agent Objective 2": 111,
+	"Pelagic II - Special Agent Objective 3": 112,
+	"Pelagic II - Special Agent Objective 4": 113,
+    "Deep Sea - Special Agent Objective 1": 114,
+	"Deep Sea - Special Agent Objective 2": 115,
+	"Deep Sea - Special Agent Objective 3": 116,
+	"Deep Sea - Special Agent Objective 4": 117,
+    "Carrington Institute - Special Agent Objective 1": 118,
+	"Carrington Institute - Special Agent Objective 2": 119,
+	"Carrington Institute - Special Agent Objective 3": 120,
+	"Carrington Institute - Special Agent Objective 4": 121,
+    "Attack Ship - Special Agent Objective 1": 122,
+	"Attack Ship - Special Agent Objective 2": 123,
+	"Attack Ship - Special Agent Objective 3": 124,
+	"Attack Ship - Special Agent Objective 4": 125,
+    "Skedar Ruins - Special Agent Objective 1": 126,
+	"Skedar Ruins - Special Agent Objective 2": 127,
+	"Skedar Ruins - Special Agent Objective 3": 128,
+	"Skedar Ruins - Special Agent Objective 4": 129,
+    "Mr. Blonde's Revenge - Special Agent Objective 1": 130,
+	"Mr. Blonde's Revenge - Special Agent Objective 2": 131,
+    "Maian SOS - Special Agent Objective 1": 134,
+	"Maian SOS - Special Agent Objective 2": 135,
+    "WAR! - Special Agent Objective 1": 138,
+	"WAR! - Special Agent Objective 2": 139,
+    "The Duel - Special Agent Objective 1": 142,
+	"The Duel - Special Agent Objective 2": 143,
+	"Defection - Perfect Agent Objective 1": 144,
+	"Defection - Perfect Agent Objective 2": 145,
+	"Defection - Perfect Agent Objective 3": 146,
+	"Defection - Perfect Agent Objective 4": 147,
+	"Defection - Perfect Agent Objective 5": 148,
+	"Investigation - Perfect Agent Objective 1": 149,
+	"Investigation - Perfect Agent Objective 2": 150,
+	"Investigation - Perfect Agent Objective 3": 151,
+	"Investigation - Perfect Agent Objective 4": 152,
+	"Investigation - Perfect Agent Objective 5": 153,
+	"Extraction - Perfect Agent Objective 1": 154,
+	"Extraction - Perfect Agent Objective 2": 155,
+	"Extraction - Perfect Agent Objective 3": 156,
+	"Extraction - Perfect Agent Objective 4": 157,
+	"Extraction - Perfect Agent Objective 5": 158,
+	"Carrington Villa - Perfect Agent Objective 1": 159,
+	"Carrington Villa - Perfect Agent Objective 2": 160,
+	"Carrington Villa - Perfect Agent Objective 3": 161,
+	"Carrington Villa - Perfect Agent Objective 4": 162,
+	"Carrington Villa - Perfect Agent Objective 5": 163,
+	"Chicago - Perfect Agent Objective 1": 164,
+	"Chicago - Perfect Agent Objective 2": 165,
+	"Chicago - Perfect Agent Objective 3": 166,
+	"Chicago - Perfect Agent Objective 4": 167,
+	"Chicago - Perfect Agent Objective 5": 168,
+	"G5 Building - Perfect Agent Objective 1": 169,
+	"G5 Building - Perfect Agent Objective 2": 170,
+	"G5 Building - Perfect Agent Objective 3": 171,
+	"G5 Building - Perfect Agent Objective 4": 172,
+	"G5 Building - Perfect Agent Objective 5": 173,
+	"Infiltration - Perfect Agent Objective 1": 174,
+	"Infiltration - Perfect Agent Objective 2": 175,
+	"Infiltration - Perfect Agent Objective 3": 176,
+	"Infiltration - Perfect Agent Objective 4": 177,
+	"Infiltration - Perfect Agent Objective 5": 178,
+	"Rescue - Perfect Agent Objective 1": 179,
+	"Rescue - Perfect Agent Objective 2": 180,
+	"Rescue - Perfect Agent Objective 3": 181,
+	"Rescue - Perfect Agent Objective 4": 182,
+	"Rescue - Perfect Agent Objective 5": 183,
+	"Escape - Perfect Agent Objective 1": 184,
+	"Escape - Perfect Agent Objective 2": 185,
+	"Escape - Perfect Agent Objective 3": 186,
+	"Escape - Perfect Agent Objective 4": 187,
+	"Escape - Perfect Agent Objective 5": 188,
+	"Air Base - Perfect Agent Objective 1": 189,
+	"Air Base - Perfect Agent Objective 2": 190,
+	"Air Base - Perfect Agent Objective 3": 191,
+	"Air Base - Perfect Agent Objective 4": 192,
+	"Air Base - Perfect Agent Objective 5": 193,
+	"Air Force One - Perfect Agent Objective 1": 194,
+	"Air Force One - Perfect Agent Objective 2": 195,
+	"Air Force One - Perfect Agent Objective 3": 196,
+	"Air Force One - Perfect Agent Objective 4": 197,
+	"Air Force One - Perfect Agent Objective 5": 198,
+	"Crash Site - Perfect Agent Objective 1": 199,
+	"Crash Site - Perfect Agent Objective 2": 200,
+	"Crash Site - Perfect Agent Objective 3": 201,
+	"Crash Site - Perfect Agent Objective 4": 202,
+	"Crash Site - Perfect Agent Objective 5": 203,
+	"Pelagic II - Perfect Agent Objective 1": 204,
+	"Pelagic II - Perfect Agent Objective 2": 205,
+	"Pelagic II - Perfect Agent Objective 3": 206,
+	"Pelagic II - Perfect Agent Objective 4": 207,
+	"Pelagic II - Perfect Agent Objective 5": 208,
+	"Deep Sea - Perfect Agent Objective 1": 209,
+	"Deep Sea - Perfect Agent Objective 2": 210,
+	"Deep Sea - Perfect Agent Objective 3": 211,
+	"Deep Sea - Perfect Agent Objective 4": 212,
+	"Deep Sea - Perfect Agent Objective 5": 213,
+	"Carrington Institute - Perfect Agent Objective 1": 214,
+	"Carrington Institute - Perfect Agent Objective 2": 215,
+	"Carrington Institute - Perfect Agent Objective 3": 216,
+	"Carrington Institute - Perfect Agent Objective 4": 217,
+	"Carrington Institute - Perfect Agent Objective 5": 218,
+	"Attack Ship - Perfect Agent Objective 1": 219,
+	"Attack Ship - Perfect Agent Objective 2": 220,
+	"Attack Ship - Perfect Agent Objective 3": 221,
+	"Attack Ship - Perfect Agent Objective 4": 222,
+	"Attack Ship - Perfect Agent Objective 5": 223,
+	"Skedar Ruins - Perfect Agent Objective 1": 224,
+	"Skedar Ruins - Perfect Agent Objective 2": 225,
+	"Skedar Ruins - Perfect Agent Objective 3": 226,
+	"Skedar Ruins - Perfect Agent Objective 4": 227,
+	"Skedar Ruins - Perfect Agent Objective 5": 228,
+	"Mr. Blonde's Revenge - Perfect Agent Objective 1": 229,
+	"Mr. Blonde's Revenge - Perfect Agent Objective 2": 230,
+	"Mr. Blonde's Revenge - Perfect Agent Objective 3": 231,
+	"Maian SOS - Perfect Agent Objective 1": 234,
+	"Maian SOS - Perfect Agent Objective 2": 235,
+	"Maian SOS - Perfect Agent Objective 3": 236,
+	"WAR! - Perfect Agent Objective 1": 239,
+	"WAR! - Perfect Agent Objective 2": 240,
+	"WAR! - Perfect Agent Objective 3": 241,	
+	"The Duel - Perfect Agent Objective 1": 244,
+	"The Duel - Perfect Agent Objective 2": 245,
+	"The Duel - Perfect Agent Objective 3": 246,
+    "Complete: Defection - Agent": 247,
+    "Complete: Defection - Special Agent": 248,
+    "Complete: Defection - Perfect Agent": 249,
+    "Complete: Investigation - Agent": 250,
+    "Complete: Investigation - Special Agent": 251,
+    "Complete: Investigation - Perfect Agent": 252,
+    "Complete: Extraction - Agent": 253,
+    "Complete: Extraction - Special Agent": 254,
+    "Complete: Extraction - Perfect Agent": 255,
+    "Complete: Carrington Villa - Agent": 256,
+    "Complete: Carrington Villa - Special Agent": 257,
+    "Complete: Carrington Villa - Perfect Agent": 258,
+    "Complete: Chicago - Agent": 259,
+    "Complete: Chicago - Special Agent": 260,
+    "Complete: Chicago - Perfect Agent": 261,
+    "Complete: G5 Building - Agent": 262,
+    "Complete: G5 Building - Special Agent": 263,
+    "Complete: G5 Building - Perfect Agent": 264,
+    "Complete: Infiltration - Agent": 265,
+    "Complete: Infiltration - Special Agent": 266,
+    "Complete: Infiltration - Perfect Agent": 267,
+    "Complete: Rescue - Agent": 268,
+    "Complete: Rescue - Special Agent": 269,
+    "Complete: Rescue - Perfect Agent": 270,
+    "Complete: Escape - Agent": 271,
+    "Complete: Escape - Special Agent": 272,
+    "Complete: Escape - Perfect Agent": 273,
+    "Complete: Air Base - Agent": 274,
+    "Complete: Air Base - Special Agent": 275,
+    "Complete: Air Base - Perfect Agent": 276,
+    "Complete: Air Force One - Agent": 277,
+    "Complete: Air Force One - Special Agent": 278,
+    "Complete: Air Force One - Perfect Agent": 279,
+    "Complete: Crash Site - Agent": 280,
+    "Complete: Crash Site - Special Agent": 281,
+    "Complete: Crash Site - Perfect Agent": 282,
+    "Complete: Pelagic II - Agent": 283,
+    "Complete: Pelagic II - Special Agent": 284,
+    "Complete: Pelagic II - Perfect Agent": 285,
+    "Complete: Deep Sea - Agent": 286,
+    "Complete: Deep Sea - Special Agent": 287,
+    "Complete: Deep Sea - Perfect Agent": 288,
+    "Complete: Carrington Institute - Agent": 289,
+    "Complete: Carrington Institute - Special Agent": 290,
+    "Complete: Carrington Institute - Perfect Agent": 291,
+    "Complete: Attack Ship - Agent": 292,
+    "Complete: Attack Ship - Special Agent": 293,
+    "Complete: Attack Ship - Perfect Agent": 294,
+    "Complete: Skedar Ruins - Agent": 295,
+    "Complete: Skedar Ruins - Special Agent": 296,
+    "Complete: Skedar Ruins - Perfect Agent": 297,
+    "Complete: Mr. Blonde's Revenge - Agent": 298,
+    "Complete: Mr. Blonde's Revenge - Special Agent": 299,
+    "Complete: Mr. Blonde's Revenge - Perfect Agent": 300,
+    "Complete: Maian SOS - Agent": 301,
+    "Complete: Maian SOS - Special Agent": 302,
+    "Complete: Maian SOS - Perfect Agent": 303,
+    "Complete: WAR! - Agent": 304,
+    "Complete: WAR! - Special Agent": 305,
+    "Complete: WAR! - Perfect Agent": 306,
+    "Complete: The Duel - Agent": 307,
+    "Complete: The Duel - Special Agent": 308,
+    "Complete: The Duel - Perfect Agent": 309,
+	"Complete: Challenge 1": 310,
+	"Complete: Challenge 2": 311,
+	"Complete: Challenge 3": 312,
+	"Complete: Challenge 4": 313,
+	"Complete: Challenge 5": 314,
+	"Complete: Challenge 6": 315,
+	"Complete: Challenge 7": 316,
+	"Complete: Challenge 8": 317,
+	"Complete: Challenge 9": 318,
+	"Complete: Challenge 10": 319,
+	"Complete: Challenge 11": 320,
+	"Complete: Challenge 12": 321,
+	"Complete: Challenge 13": 322,
+	"Complete: Challenge 14": 323,
+	"Complete: Challenge 15": 324,
+	"Complete: Challenge 16": 325,
+	"Complete: Challenge 17": 326,
+	"Complete: Challenge 18": 327,
+	"Complete: Challenge 19": 328,
+	"Complete: Challenge 20": 329,
+	"Complete: Challenge 21": 330,
+	"Complete: Challenge 22": 331,
+	"Complete: Challenge 23": 332,
+	"Complete: Challenge 24": 333,
+	"Complete: Challenge 25": 334,
+	"Complete: Challenge 26": 335,
+	"Complete: Challenge 27": 336,
+	"Complete: Challenge 28": 337,
+	"Complete: Challenge 29": 338,
+	"Complete: Challenge 30": 339,
+    "Firing Range: Falcon 2 - Bronze": 340,
+    "Firing Range: Falcon 2 - Silver": 341,
+    "Firing Range: Falcon 2 - Gold": 342,
+    "Firing Range: Falcon 2 (Silencer) - Bronze": 343,
+    "Firing Range: Falcon 2 (Silencer) - Silver": 344,
+    "Firing Range: Falcon 2 (Silencer) - Gold": 345,
+    "Firing Range: Falcon 2 (Scope) - Bronze": 346,
+    "Firing Range: Falcon 2 (Scope) - Silver": 347,
+    "Firing Range: Falcon 2 (Scope) - Gold": 348,
+    "Firing Range: MagSec 4 - Bronze": 349,
+    "Firing Range: MagSec 4 - Silver": 350,
+    "Firing Range: MagSec 4 - Gold": 351,
+    "Firing Range: Mauler - Bronze": 352,
+    "Firing Range: Mauler - Silver": 353,
+    "Firing Range: Mauler - Gold": 354,
+    "Firing Range: Phoenix - Bronze": 355,
+    "Firing Range: Phoenix - Silver": 356,
+    "Firing Range: Phoenix - Gold": 357,
+    "Firing Range: DY357 Magnum - Bronze": 358,
+    "Firing Range: DY357 Magnum - Silver": 359,
+    "Firing Range: DY357 Magnum - Gold": 360,
+    "Firing Range: DY357-LX - Bronze": 361,
+    "Firing Range: DY357-LX - Silver": 362,
+    "Firing Range: DY357-LX - Gold": 363,
+    "Firing Range: CMP150 - Bronze": 364,
+    "Firing Range: CMP150 - Silver": 365,
+    "Firing Range: CMP150 - Gold": 366,
+    "Firing Range: Cyclone - Bronze": 367,
+    "Firing Range: Cyclone - Silver": 368,
+    "Firing Range: Cyclone - Gold": 369,
+    "Firing Range: Callisto NTG - Bronze": 370,
+    "Firing Range: Callisto NTG - Silver": 371,
+    "Firing Range: Callisto NTG - Gold": 372,
+    "Firing Range: RC-P120 - Bronze": 373,
+    "Firing Range: RC-P120 - Silver": 374,
+    "Firing Range: RC-P120 - Gold": 375,
+    "Firing Range: Laptop Gun - Bronze": 376,
+    "Firing Range: Laptop Gun - Silver": 377,
+    "Firing Range: Laptop Gun - Gold": 378,
+    "Firing Range: Dragon - Bronze": 379,
+    "Firing Range: Dragon - Silver": 380,
+    "Firing Range: Dragon - Gold": 381,
+    "Firing Range: K7 Avenger - Bronze": 382,
+    "Firing Range: K7 Avenger - Silver": 383,
+    "Firing Range: K7 Avenger - Gold": 384,
+    "Firing Range: AR34 - Bronze": 385,
+    "Firing Range: AR34 - Silver": 386,
+    "Firing Range: AR34 - Gold": 387,
+    "Firing Range: SuperDragon - Bronze": 388,
+    "Firing Range: SuperDragon - Silver": 389,
+    "Firing Range: SuperDragon - Gold": 390,
+    "Firing Range: Shotgun - Bronze": 391,
+    "Firing Range: Shotgun - Silver": 392,
+    "Firing Range: Shotgun - Gold": 393,
+    "Firing Range: Reaper - Bronze": 394,
+    "Firing Range: Reaper - Silver": 395,
+    "Firing Range: Reaper - Gold": 396,
+    "Firing Range: Sniper Rifle - Bronze": 397,
+    "Firing Range: Sniper Rifle - Silver": 398,
+    "Firing Range: Sniper Rifle - Gold": 399,
+    "Firing Range: FarSight XR-20 - Bronze": 400,
+    "Firing Range: FarSight XR-20 - Silver": 401,
+    "Firing Range: FarSight XR-20 - Gold": 402,
+    "Firing Range: Devastator - Bronze": 403,
+    "Firing Range: Devastator - Silver": 404,
+    "Firing Range: Devastator - Gold": 405,
+    "Firing Range: Rocket Launcher - Bronze": 406,
+    "Firing Range: Rocket Launcher - Silver": 407,
+    "Firing Range: Rocket Launcher - Gold": 408,
+    "Firing Range: Slayer - Bronze": 409,
+    "Firing Range: Slayer - Silver": 410,
+    "Firing Range: Slayer - Gold": 411,
+    "Firing Range: Combat Knife - Bronze": 412,
+    "Firing Range: Combat Knife - Silver": 413,
+    "Firing Range: Combat Knife - Gold": 414,
+    "Firing Range: Crossbow - Bronze": 415,
+    "Firing Range: Crossbow - Silver": 416,
+    "Firing Range: Crossbow - Gold": 417,
+    "Firing Range: Tranquilizer - Bronze": 418,
+    "Firing Range: Tranquilizer - Silver": 419,
+    "Firing Range: Tranquilizer - Gold": 420,
+    "Firing Range: Laser - Bronze": 421,
+    "Firing Range: Laser - Silver": 422,
+    "Firing Range: Laser - Gold": 423,
+    "Firing Range: Grenade - Bronze": 424,
+    "Firing Range: Grenade - Silver": 425,
+    "Firing Range: Grenade - Gold": 426,
+    # "Firing Range: N-Bomb - Bronze": 427,
+    # "Firing Range: N-Bomb - Silver": 428,
+    # "Firing Range: N-Bomb - Gold": 429,
+    "Firing Range: Timed Mine - Bronze": 430,
+    "Firing Range: Timed Mine - Silver": 431,
+    "Firing Range: Timed Mine - Gold": 432,
+    "Firing Range: Proximity Mine - Bronze": 433,
+    "Firing Range: Proximity Mine - Silver": 434,
+    "Firing Range: Proximity Mine - Gold": 435,
+    "Firing Range: Remote Mine - Bronze": 436,
+    "Firing Range: Remote Mine - Silver": 437,
+    "Firing Range: Remote Mine - Gold": 438,
+    "Device Training: Data Uplink": 439,
+    "Device Training: ECM Mine": 440,
+    "Device Training: CamSpy": 441,
+    "Device Training: Night Vision": 442,
+    "Device Training: Door Decoder": 443,
+    "Device Training: R-Tracker": 444,
+    "Device Training: IR Scanner": 445,
+    "Device Training: X-Ray Scanner": 446,
+    "Device Training: Disguise": 447,
+    "Device Training: Cloaking Device": 448,
+    "Holotraining 1: Looking Around": 449,
+    "Holotraining 2: Movement 1": 450,
+    "Holotraining 3: Movement 2": 451,
+    "Holotraining 4: Unarmed Combat 1": 452,
+    "Holotraining 5: Unarmed Combat 2": 453,
+    "Holotraining 6: Live Combat 1": 454,
+    "Holotraining 7: Live Combat 2": 455,
+}
+
+class PerfectDarkLocation(Location):
+    game = "Perfect Dark"
+
+
+def get_location_names_with_ids(location_names: list[str]) -> dict[str, int | None]:
+    return {location_name: LOCATION_NAME_TO_ID[location_name] for location_name in location_names}
+
+
+def create_all_locations(world: PerfectDarkWorld) -> None:
+    create_regular_locations(world)
+
+
+def create_regular_locations(world: PerfectDarkWorld) -> None:
+    carrington_institute = world.get_region("Carrington Institute")
+    defection = world.get_region("Defection")
+    investigation = world.get_region("Investigation")
+    extraction = world.get_region("Extraction")
+    villa = world.get_region("Carrington Villa")
+    chicago = world.get_region("Chicago")
+    g5_building = world.get_region("G5 Building")
+    infiltration = world.get_region("Infiltration")
+    rescue = world.get_region("Rescue")
+    escape = world.get_region("Escape")
+    air_base = world.get_region("Air Base")
+    air_force_one = world.get_region("Air Force One")
+    crash_site = world.get_region("Crash Site")
+    pelagic = world.get_region("Pelagic II")
+    deep_sea = world.get_region("Deep Sea")
+    institute_defense = world.get_region("Carrington Institute Defense")
+    attack_ship = world.get_region("Attack Ship")
+    skedar_ruins = world.get_region("Skedar Ruins")
+    mbr = world.get_region("Mr. Blonde's Revenge")
+    maian_sos = world.get_region("Maian SOS")
+    war = world.get_region("War!")
+    duel = world.get_region("The Duel")
+
+    defection_locations = get_location_names_with_ids(
+        [
+            # "Defection - Agent Objective 1",
+            # "Defection - Special Agent Objective 1",
+            # "Defection - Special Agent Objective 2",
+            # "Defection - Special Agent Objective 3",
+            # "Defection - Special Agent Objective 4",
+            "Defection - Perfect Agent Objective 1",
+            "Defection - Perfect Agent Objective 2",
+            "Defection - Perfect Agent Objective 3",
+            "Defection - Perfect Agent Objective 4",
+            "Defection - Perfect Agent Objective 5",
+            # "Complete: Defection - Agent",
+            # "Complete: Defection - Special Agent",
+            "Complete: Defection - Perfect Agent"
+        ]
+    )
+    defection.add_locations(defection_locations, PerfectDarkLocation)
+
+    investigation_locations = get_location_names_with_ids(
+        [
+            # "Investigation - Agent Objective 1",
+            # "Investigation - Agent Objective 2",
+            # "Investigation - Special Agent Objective 1",
+            # "Investigation - Special Agent Objective 2",
+            # "Investigation - Special Agent Objective 3",
+            # "Investigation - Special Agent Objective 4",
+            "Investigation - Perfect Agent Objective 1",
+            "Investigation - Perfect Agent Objective 2",
+            "Investigation - Perfect Agent Objective 3",
+            "Investigation - Perfect Agent Objective 4",
+            "Investigation - Perfect Agent Objective 5",
+            # "Complete: Investigation - Agent",
+            # "Complete: Investigation - Special Agent",
+            "Complete: Investigation - Perfect Agent"
+        ]
+    )
+    investigation.add_locations(investigation_locations, PerfectDarkLocation)
+
+    extraction_locations = get_location_names_with_ids(
+        [
+            # "Extraction - Agent Objective 1",
+            # "Extraction - Agent Objective 2",
+            # "Extraction - Agent Objective 3",
+            # "Extraction - Special Agent Objective 1",
+            # "Extraction - Special Agent Objective 2",
+            # "Extraction - Special Agent Objective 3",
+            # "Extraction - Special Agent Objective 4",
+            "Extraction - Perfect Agent Objective 1",
+            "Extraction - Perfect Agent Objective 2",
+            "Extraction - Perfect Agent Objective 3",
+            "Extraction - Perfect Agent Objective 4",
+            "Extraction - Perfect Agent Objective 5",
+            # "Complete: Extraction - Agent",
+            # "Complete: Extraction - Special Agent",
+            "Complete: Extraction - Perfect Agent"
+        ]
+    )
+    extraction.add_locations(extraction_locations, PerfectDarkLocation)
+
+    villa_locations = get_location_names_with_ids(
+        [
+            # "Carrington Villa - Agent Objective 1",
+            # "Carrington Villa - Agent Objective 2",
+            # "Carrington Villa - Agent Objective 3",
+            # "Carrington Villa - Special Agent Objective 1",
+            # "Carrington Villa - Special Agent Objective 2",
+            # "Carrington Villa - Special Agent Objective 3",
+            # "Carrington Villa - Special Agent Objective 4",
+            "Carrington Villa - Perfect Agent Objective 1",
+            "Carrington Villa - Perfect Agent Objective 2",
+            "Carrington Villa - Perfect Agent Objective 3",
+            "Carrington Villa - Perfect Agent Objective 4",
+            "Carrington Villa - Perfect Agent Objective 5",
+            # "Complete: Carrington Villa - Agent",
+            # "Complete: Carrington Villa - Special Agent",
+            "Complete: Carrington Villa - Perfect Agent"
+        ]
+    )
+    villa.add_locations(villa_locations, PerfectDarkLocation)
+
+    chicago_locations = get_location_names_with_ids(
+        [
+            # "Chicago - Agent Objective 1",
+            # "Chicago - Agent Objective 2",
+            # "Chicago - Agent Objective 3",
+            # "Chicago - Special Agent Objective 1",
+            # "Chicago - Special Agent Objective 2",
+            # "Chicago - Special Agent Objective 3",
+            # "Chicago - Special Agent Objective 4",
+            "Chicago - Perfect Agent Objective 1",
+            "Chicago - Perfect Agent Objective 2",
+            "Chicago - Perfect Agent Objective 3",
+            "Chicago - Perfect Agent Objective 4",
+            "Chicago - Perfect Agent Objective 5",
+            # "Complete: Chicago - Agent",
+            # "Complete: Chicago - Special Agent",
+            "Complete: Chicago - Perfect Agent"
+        ]
+    )
+    chicago.add_locations(chicago_locations, PerfectDarkLocation)
+
+    g5_building_locations = get_location_names_with_ids(
+        [
+            # "G5 Building - Agent Objective 1",
+            # "G5 Building - Agent Objective 2",
+            # "G5 Building - Agent Objective 3",
+            # "G5 Building - Special Agent Objective 1",
+            # "G5 Building - Special Agent Objective 2",
+            # "G5 Building - Special Agent Objective 3",
+            # "G5 Building - Special Agent Objective 4",
+            "G5 Building - Perfect Agent Objective 1",
+            "G5 Building - Perfect Agent Objective 2",
+            "G5 Building - Perfect Agent Objective 3",
+            "G5 Building - Perfect Agent Objective 4",
+            "G5 Building - Perfect Agent Objective 5",
+            # "Complete: G5 Building - Agent",
+            # "Complete: G5 Building - Special Agent",
+            "Complete: G5 Building - Perfect Agent"
+        ]
+    )
+    g5_building.add_locations(g5_building_locations, PerfectDarkLocation)
+
+    infiltration_locations = get_location_names_with_ids(
+        [
+            # "Infiltration - Agent Objective 1",
+            # "Infiltration - Agent Objective 2",
+            # "Infiltration - Agent Objective 3",
+            # "Infiltration - Special Agent Objective 1",
+            # "Infiltration - Special Agent Objective 2",
+            # "Infiltration - Special Agent Objective 3",
+            # "Infiltration - Special Agent Objective 4",
+            "Infiltration - Perfect Agent Objective 1",
+            "Infiltration - Perfect Agent Objective 2",
+            "Infiltration - Perfect Agent Objective 3",
+            "Infiltration - Perfect Agent Objective 4",
+            "Infiltration - Perfect Agent Objective 5",
+            # "Complete: Infiltration - Agent",
+            # "Complete: Infiltration - Special Agent",
+            "Complete: Infiltration - Perfect Agent"
+        ]
+    )
+    infiltration.add_locations(infiltration_locations, PerfectDarkLocation)
+
+    rescue_locations = get_location_names_with_ids(
+        [
+            # "Rescue - Agent Objective 1",
+            # "Rescue - Agent Objective 2",
+            # "Rescue - Agent Objective 3",
+            # "Rescue - Special Agent Objective 1",
+            # "Rescue - Special Agent Objective 2",
+            # "Rescue - Special Agent Objective 3",
+            # "Rescue - Special Agent Objective 4",
+            "Rescue - Perfect Agent Objective 1",
+            "Rescue - Perfect Agent Objective 2",
+            "Rescue - Perfect Agent Objective 3",
+            "Rescue - Perfect Agent Objective 4",
+            "Rescue - Perfect Agent Objective 5",
+            # "Complete: Rescue - Agent",
+            # "Complete: Rescue - Special Agent",
+            "Complete: Rescue - Perfect Agent"
+        ]
+    )
+    rescue.add_locations(rescue_locations, PerfectDarkLocation)
+
+    escape_locations = get_location_names_with_ids(
+        [
+            # "Escape - Agent Objective 1",
+            # "Escape - Agent Objective 2",
+            # "Escape - Agent Objective 3",
+            # "Escape - Special Agent Objective 1",
+            # "Escape - Special Agent Objective 2",
+            # "Escape - Special Agent Objective 3",
+            # "Escape - Special Agent Objective 4",
+            "Escape - Perfect Agent Objective 1",
+            "Escape - Perfect Agent Objective 2",
+            "Escape - Perfect Agent Objective 3",
+            "Escape - Perfect Agent Objective 4",
+            "Escape - Perfect Agent Objective 5",
+            # "Complete: Escape - Agent",
+            # "Complete: Escape - Special Agent",
+            "Complete: Escape - Perfect Agent"
+        ]
+    )
+    escape.add_locations(escape_locations, PerfectDarkLocation)
+
+    air_base_locations = get_location_names_with_ids(
+        [
+            # "Air Base - Agent Objective 1",
+            # "Air Base - Agent Objective 2",
+            # "Air Base - Agent Objective 3",
+            # "Air Base - Special Agent Objective 1",
+            # "Air Base - Special Agent Objective 2",
+            # "Air Base - Special Agent Objective 3",
+            # "Air Base - Special Agent Objective 4",
+            "Air Base - Perfect Agent Objective 1",
+            "Air Base - Perfect Agent Objective 2",
+            "Air Base - Perfect Agent Objective 3",
+            "Air Base - Perfect Agent Objective 4",
+            "Air Base - Perfect Agent Objective 5",
+            # "Complete: Air Base - Agent",
+            # "Complete: Air Base - Special Agent",
+            "Complete: Air Base - Perfect Agent"
+        ]
+    )
+    air_base.add_locations(air_base_locations, PerfectDarkLocation)
+
+    air_force_one_locations = get_location_names_with_ids(
+        [
+            # "Air Force One - Agent Objective 1",
+            # "Air Force One - Agent Objective 2",
+            # "Air Force One - Agent Objective 3",
+            # "Air Force One - Special Agent Objective 1",
+            # "Air Force One - Special Agent Objective 2",
+            # "Air Force One - Special Agent Objective 3",
+            # "Air Force One - Special Agent Objective 4",
+            "Air Force One - Perfect Agent Objective 1",
+            "Air Force One - Perfect Agent Objective 2",
+            "Air Force One - Perfect Agent Objective 3",
+            "Air Force One - Perfect Agent Objective 4",
+            "Air Force One - Perfect Agent Objective 5",
+            # "Complete: Air Force One - Agent",
+            # "Complete: Air Force One - Special Agent",
+            "Complete: Air Force One - Perfect Agent"
+        ]
+    )
+    air_force_one.add_locations(air_force_one_locations, PerfectDarkLocation)
+
+    crash_site_locations = get_location_names_with_ids(
+        [
+            # "Crash Site - Agent Objective 1",
+            # "Crash Site - Agent Objective 2",
+            # "Crash Site - Agent Objective 3",
+            # "Crash Site - Special Agent Objective 1",
+            # "Crash Site - Special Agent Objective 2",
+            # "Crash Site - Special Agent Objective 3",
+            # "Crash Site - Special Agent Objective 4",
+            "Crash Site - Perfect Agent Objective 1",
+            "Crash Site - Perfect Agent Objective 2",
+            "Crash Site - Perfect Agent Objective 3",
+            "Crash Site - Perfect Agent Objective 4",
+            "Crash Site - Perfect Agent Objective 5",
+            # "Complete: Crash Site - Agent",
+            # "Complete: Crash Site - Special Agent",
+            "Complete: Crash Site - Perfect Agent"
+        ]
+    )
+    crash_site.add_locations(crash_site_locations, PerfectDarkLocation)
+
+    pelagic_locations = get_location_names_with_ids(
+        [
+            # "Pelagic II - Agent Objective 1",
+            # "Pelagic II - Agent Objective 2",
+            # "Pelagic II - Agent Objective 3",
+            # "Pelagic II - Special Agent Objective 1",
+            # "Pelagic II - Special Agent Objective 2",
+            # "Pelagic II - Special Agent Objective 3",
+            # "Pelagic II - Special Agent Objective 4",
+            "Pelagic II - Perfect Agent Objective 1",
+            "Pelagic II - Perfect Agent Objective 2",
+            "Pelagic II - Perfect Agent Objective 3",
+            "Pelagic II - Perfect Agent Objective 4",
+            "Pelagic II - Perfect Agent Objective 5",
+            # "Complete: Pelagic II - Agent",
+            # "Complete: Pelagic II - Special Agent",
+            "Complete: Pelagic II - Perfect Agent"
+        ]
+    )
+    pelagic.add_locations(pelagic_locations, PerfectDarkLocation)
+
+    deep_sea_locations = get_location_names_with_ids(
+        [
+            # "Deep Sea - Agent Objective 1",
+            # "Deep Sea - Agent Objective 2",
+            # "Deep Sea - Agent Objective 3",
+            # "Deep Sea - Special Agent Objective 1",
+            # "Deep Sea - Special Agent Objective 2",
+            # "Deep Sea - Special Agent Objective 3",
+            # "Deep Sea - Special Agent Objective 4",
+            "Deep Sea - Perfect Agent Objective 1",
+            "Deep Sea - Perfect Agent Objective 2",
+            "Deep Sea - Perfect Agent Objective 3",
+            "Deep Sea - Perfect Agent Objective 4",
+            "Deep Sea - Perfect Agent Objective 5",
+            # "Complete: Deep Sea - Agent",
+            # "Complete: Deep Sea - Special Agent",
+            "Complete: Deep Sea - Perfect Agent"
+        ]
+    )
+    deep_sea.add_locations(deep_sea_locations, PerfectDarkLocation)
+
+    institute_defense_locations = get_location_names_with_ids(
+        [
+            # "Carrington Institute - Agent Objective 1",
+            # "Carrington Institute - Agent Objective 2",
+            # "Carrington Institute - Agent Objective 3",
+            # "Carrington Institute - Special Agent Objective 1",
+            # "Carrington Institute - Special Agent Objective 2",
+            # "Carrington Institute - Special Agent Objective 3",
+            # "Carrington Institute - Special Agent Objective 4",
+            "Carrington Institute - Perfect Agent Objective 1",
+            "Carrington Institute - Perfect Agent Objective 2",
+            "Carrington Institute - Perfect Agent Objective 3",
+            "Carrington Institute - Perfect Agent Objective 4",
+            "Carrington Institute - Perfect Agent Objective 5",
+            # "Complete: Carrington Institute - Agent",
+            # "Complete: Carrington Institute - Special Agent",
+            "Complete: Carrington Institute - Perfect Agent"
+        ]
+    )
+    institute_defense.add_locations(institute_defense_locations, PerfectDarkLocation)
+
+    attack_ship_locations = get_location_names_with_ids(
+        [
+            # "Attack Ship - Agent Objective 1",
+            # "Attack Ship - Agent Objective 2",
+            # "Attack Ship - Agent Objective 3",
+            # "Attack Ship - Special Agent Objective 1",
+            # "Attack Ship - Special Agent Objective 2",
+            # "Attack Ship - Special Agent Objective 3",
+            # "Attack Ship - Special Agent Objective 4",
+            "Attack Ship - Perfect Agent Objective 1",
+            "Attack Ship - Perfect Agent Objective 2",
+            "Attack Ship - Perfect Agent Objective 3",
+            "Attack Ship - Perfect Agent Objective 4",
+            "Attack Ship - Perfect Agent Objective 5",
+            # "Complete: Attack Ship - Agent",
+            # "Complete: Attack Ship - Special Agent",
+            "Complete: Attack Ship - Perfect Agent"
+        ]
+    )
+    attack_ship.add_locations(attack_ship_locations, PerfectDarkLocation)
+
+    skedar_ruins_locations = get_location_names_with_ids(
+        [
+            # "Skedar Ruins - Agent Objective 1",
+            # "Skedar Ruins - Agent Objective 2",
+            # "Skedar Ruins - Agent Objective 3",
+            # "Skedar Ruins - Special Agent Objective 1",
+            # "Skedar Ruins - Special Agent Objective 2",
+            # "Skedar Ruins - Special Agent Objective 3",
+            # "Skedar Ruins - Special Agent Objective 4",
+            "Skedar Ruins - Perfect Agent Objective 1",
+            "Skedar Ruins - Perfect Agent Objective 2",
+            "Skedar Ruins - Perfect Agent Objective 3",
+            "Skedar Ruins - Perfect Agent Objective 4",
+            "Skedar Ruins - Perfect Agent Objective 5",
+            # "Complete: Skedar Ruins - Agent",
+            # "Complete: Skedar Ruins - Special Agent",
+            "Complete: Skedar Ruins - Perfect Agent"
+        ]
+    )
+    skedar_ruins.add_locations(skedar_ruins_locations, PerfectDarkLocation)
+
+    mbr_locations = get_location_names_with_ids(
+        [
+            # "Mr. Blonde's Revenge - Agent Objective 1",
+            # "Mr. Blonde's Revenge - Special Agent Objective 1",
+            # "Mr. Blonde's Revenge - Special Agent Objective 2",
+            "Mr. Blonde's Revenge - Perfect Agent Objective 1",
+            "Mr. Blonde's Revenge - Perfect Agent Objective 2",
+            "Mr. Blonde's Revenge - Perfect Agent Objective 3",
+            # "Complete: Mr. Blonde's Revenge - Agent",
+            # "Complete: Mr. Blonde's Revenge - Special Agent",
+            "Complete: Mr. Blonde's Revenge - Perfect Agent"
+        ]
+    )
+    mbr.add_locations(mbr_locations, PerfectDarkLocation)
+
+    maian_sos_locations = get_location_names_with_ids(
+        [
+            # "Maian SOS - Agent Objective 1",
+            # "Maian SOS - Special Agent Objective 1",
+            # "Maian SOS - Special Agent Objective 2",
+            "Maian SOS - Perfect Agent Objective 1",
+            "Maian SOS - Perfect Agent Objective 2",
+            "Maian SOS - Perfect Agent Objective 3",
+            # "Complete: Maian SOS - Agent",
+            # "Complete: Maian SOS - Special Agent",
+            "Complete: Maian SOS - Perfect Agent"
+        ]
+    )
+    maian_sos.add_locations(maian_sos_locations, PerfectDarkLocation)
+
+    war_locations = get_location_names_with_ids(
+        [
+            # "WAR! - Agent Objective 1",
+            # "WAR! - Special Agent Objective 1",
+            # "WAR! - Special Agent Objective 2",
+            "WAR! - Perfect Agent Objective 1",
+            "WAR! - Perfect Agent Objective 2",
+            "WAR! - Perfect Agent Objective 3",
+            # "Complete: WAR! - Agent",
+            # "Complete: WAR! - Special Agent",
+            "Complete: WAR! - Perfect Agent"
+        ]
+    )
+    war.add_locations(war_locations, PerfectDarkLocation)
+
+    duel_locations = get_location_names_with_ids(
+        [
+            # "The Duel - Agent Objective 1",
+            # "The Duel - Special Agent Objective 1",
+            # "The Duel - Special Agent Objective 2",
+            "The Duel - Perfect Agent Objective 1",
+            "The Duel - Perfect Agent Objective 2",
+            "The Duel - Perfect Agent Objective 3",
+            # "Complete: The Duel - Agent",
+            # "Complete: The Duel - Special Agent",
+            "Complete: The Duel - Perfect Agent"
+        ]
+    )
+    duel.add_locations(duel_locations, PerfectDarkLocation)
+
+    if world.options.challenges:
+        challenges_locations = get_location_names_with_ids(
+            [
+                "Complete: Challenge 1",
+                "Complete: Challenge 2",
+                "Complete: Challenge 3",
+                "Complete: Challenge 4",
+                "Complete: Challenge 5",
+                "Complete: Challenge 6",
+                "Complete: Challenge 7",
+                "Complete: Challenge 8",
+                "Complete: Challenge 9",
+                "Complete: Challenge 10",
+                "Complete: Challenge 11",
+                "Complete: Challenge 12",
+                "Complete: Challenge 13",
+                "Complete: Challenge 14",
+                "Complete: Challenge 15",
+                "Complete: Challenge 16",
+                "Complete: Challenge 17",
+                "Complete: Challenge 18",
+                "Complete: Challenge 19",
+                "Complete: Challenge 20",
+                "Complete: Challenge 21",
+                "Complete: Challenge 22",
+                "Complete: Challenge 23",
+                "Complete: Challenge 24",
+                "Complete: Challenge 25",
+                "Complete: Challenge 26",
+                "Complete: Challenge 27",
+                "Complete: Challenge 28",
+                "Complete: Challenge 29",
+                "Complete: Challenge 30"
+            ]
+        )
+        carrington_institute.add_locations(challenges_locations, PerfectDarkLocation)
+
+    if world.options.weapon_training:
+        training_locations = get_location_names_with_ids(
+            [
+                "Firing Range: Falcon 2 - Bronze",
+                "Firing Range: Falcon 2 - Silver",
+                "Firing Range: Falcon 2 - Gold",
+                "Firing Range: Falcon 2 (Silencer) - Bronze",
+                "Firing Range: Falcon 2 (Silencer) - Silver",
+                "Firing Range: Falcon 2 (Silencer) - Gold",
+                "Firing Range: Falcon 2 (Scope) - Bronze",
+                "Firing Range: Falcon 2 (Scope) - Silver",
+                "Firing Range: Falcon 2 (Scope) - Gold",
+                "Firing Range: MagSec 4 - Bronze",
+                "Firing Range: MagSec 4 - Silver",
+                "Firing Range: MagSec 4 - Gold",
+                "Firing Range: Mauler - Bronze",
+                "Firing Range: Mauler - Silver",
+                "Firing Range: Mauler - Gold",
+                "Firing Range: Phoenix - Bronze",
+                "Firing Range: Phoenix - Silver",
+                "Firing Range: Phoenix - Gold",
+                "Firing Range: DY357 Magnum - Bronze",
+                "Firing Range: DY357 Magnum - Silver",
+                "Firing Range: DY357 Magnum - Gold",
+                "Firing Range: DY357-LX - Bronze",
+                "Firing Range: DY357-LX - Silver",
+                "Firing Range: DY357-LX - Gold",
+                "Firing Range: CMP150 - Bronze",
+                "Firing Range: CMP150 - Silver",
+                "Firing Range: CMP150 - Gold",
+                "Firing Range: Cyclone - Bronze",
+                "Firing Range: Cyclone - Silver",
+                "Firing Range: Cyclone - Gold",
+                "Firing Range: Callisto NTG - Bronze",
+                "Firing Range: Callisto NTG - Silver",
+                "Firing Range: Callisto NTG - Gold",
+                "Firing Range: RC-P120 - Bronze",
+                "Firing Range: RC-P120 - Silver",
+                "Firing Range: RC-P120 - Gold",
+                "Firing Range: Laptop Gun - Bronze",
+                "Firing Range: Laptop Gun - Silver",
+                "Firing Range: Laptop Gun - Gold",
+                "Firing Range: Dragon - Bronze",
+                "Firing Range: Dragon - Silver",
+                "Firing Range: Dragon - Gold",
+                "Firing Range: K7 Avenger - Bronze",
+                "Firing Range: K7 Avenger - Silver",
+                "Firing Range: K7 Avenger - Gold",
+                "Firing Range: AR34 - Bronze",
+                "Firing Range: AR34 - Silver",
+                "Firing Range: AR34 - Gold",
+                "Firing Range: SuperDragon - Bronze",
+                "Firing Range: SuperDragon - Silver",
+                "Firing Range: SuperDragon - Gold",
+                "Firing Range: Shotgun - Bronze",
+                "Firing Range: Shotgun - Silver",
+                "Firing Range: Shotgun - Gold",
+                "Firing Range: Reaper - Bronze",
+                "Firing Range: Reaper - Silver",
+                "Firing Range: Reaper - Gold",
+                "Firing Range: Sniper Rifle - Bronze",
+                "Firing Range: Sniper Rifle - Silver",
+                "Firing Range: Sniper Rifle - Gold",
+                "Firing Range: FarSight XR-20 - Bronze",
+                "Firing Range: FarSight XR-20 - Silver",
+                "Firing Range: FarSight XR-20 - Gold",
+                "Firing Range: Devastator - Bronze",
+                "Firing Range: Devastator - Silver",
+                "Firing Range: Devastator - Gold",
+                "Firing Range: Rocket Launcher - Bronze",
+                "Firing Range: Rocket Launcher - Silver",
+                "Firing Range: Rocket Launcher - Gold",
+                "Firing Range: Slayer - Bronze",
+                "Firing Range: Slayer - Silver",
+                "Firing Range: Slayer - Gold",
+                "Firing Range: Combat Knife - Bronze",
+                "Firing Range: Combat Knife - Silver",
+                "Firing Range: Combat Knife - Gold",
+                "Firing Range: Crossbow - Bronze",
+                "Firing Range: Crossbow - Silver",
+                "Firing Range: Crossbow - Gold",
+                "Firing Range: Tranquilizer - Bronze",
+                "Firing Range: Tranquilizer - Silver",
+                "Firing Range: Tranquilizer - Gold",
+                "Firing Range: Laser - Bronze",
+                "Firing Range: Laser - Silver",
+                "Firing Range: Laser - Gold",
+                "Firing Range: Grenade - Bronze",
+                "Firing Range: Grenade - Silver",
+                "Firing Range: Grenade - Gold",
+                "Firing Range: Timed Mine - Bronze",
+                "Firing Range: Timed Mine - Silver",
+                "Firing Range: Timed Mine - Gold",
+                "Firing Range: Proximity Mine - Bronze",
+                "Firing Range: Proximity Mine - Silver",
+                "Firing Range: Proximity Mine - Gold",
+                "Firing Range: Remote Mine - Bronze",
+                "Firing Range: Remote Mine - Silver",
+                "Firing Range: Remote Mine - Gold"
+            ]
+        )
+        carrington_institute.add_locations(training_locations, PerfectDarkLocation)
+
+    if world.options.device_training:
+        device_training_locations = get_location_names_with_ids(
+            [
+                "Device Training: Data Uplink",
+                "Device Training: ECM Mine",
+                "Device Training: CamSpy",
+                "Device Training: Night Vision",
+                "Device Training: Door Decoder",
+                "Device Training: R-Tracker",
+                "Device Training: IR Scanner",
+                "Device Training: X-Ray Scanner",
+                "Device Training: Disguise",
+                "Device Training: Cloaking Device"
+            ]
+        )
+        carrington_institute.add_locations(device_training_locations, PerfectDarkLocation)
+
+    if world.options.holotraining:
+        holotraining_locations = get_location_names_with_ids(
+            [
+                "Holotraining 1: Looking Around",
+                "Holotraining 2: Movement 1",
+                "Holotraining 3: Movement 2",
+                "Holotraining 4: Unarmed Combat 1",
+                "Holotraining 5: Unarmed Combat 2",
+                "Holotraining 6: Live Combat 1",
+                "Holotraining 7: Live Combat 2"
+            ]
+        )
+        carrington_institute.add_locations(holotraining_locations, PerfectDarkLocation)
