@@ -2,21 +2,40 @@
 
 ## Required Software
 
-- [Archipelago](github.com/ArchipelagoMW/Archipelago/releases/latest)
+- [Archipelago 0.6.7](https://github.com/ArchipelagoMW/Archipelago/releases/latest)
 - [Perfect Dark apworld](https://github.com/ajeloom/Archipelago/releases)
 - [Perfect Dark AP Client](https://github.com/ajeloom/Archipelago/releases)
-- A Perfect Dark (NTSC 1.1) ROM file. The Archipelago community cannot provide these.
+- A Perfect Dark (NTSC 1.1) rom file. The Archipelago community cannot provide these.
 
-## How to play
+## Recommended Software
 
-First, you will need a room to connect to. Here is a guide to set one up: [Archipelago Setup Guide](/tutorial/Archipelago/setup_en#generating-a-game). Then you will need the Perfect Dark AP Client. To run the game, you have to place your rom in the data folder. You will also need to rename your rom to 'pd.ntsc-final.z64'. Now you can run 'pd.x86_64.exe' file and connect to a room with the Perfect Dark Client's console. I recommend using a new save file for each slot/room.
+- [Universal Tracker](https://github.com/FarisTheAncient/Archipelago/releases?q=Tracker) - tells you what missions, challenges, and other locations you can complete
 
-## Optional Software
+## Setup
 
-- Universal Tracker (https://github.com/FarisTheAncient/Archipelago/releases?q=Tracker)
+1. Install the perfect_dark.apworld with the Archipelago Launcher (Install APWorld) or you could put it in the 'custom_worlds' folder in your Archipelago directory
+2. Create a yaml file using the Archipelago Launcher (Generate Template Options) which can be found in the 'Players/Templates' folder. 
+3. Configure the yaml settings, then place it in the 'Players' folder in your Archipelago directory
+4. Generate your game in the Archipelago Launcher (Generate)
+5. Host the game through their [site](https://archipelago.gg/uploads) or locally
+6. Inside the Perfect Dark AP Client folder, place your rom in the data folder and rename it to 'pd.ntsc-final.z64'
+7. Open pd.x86_64 and use the '/connect ip:port slotname password' command in the console to connect to the server
+8. You are ready to play. I recommend making a new save file.
+
+More info for setting up: [Archipelago Setup Guide](https://archipelago.gg/tutorial/Archipelago/setup_en)
 
 ## Switching Rooms
 
-The Perfect Dark Client can seamlessly switch rooms without restarting.
+You can switch rooms without restarting the client. Simply type "/disconnect" in the Perfect Dark Client's console, then connect to a different slot/room.
 
-Simply type "/disconnect" in the Perfect Dark Client's console, then connect to a different slot/room.
+## Known issues
+
+- Disconnecting in the mission/challenge complete menus will crash the game
+- Closing the game will sometimes crash the client
+
+## Credits
+
+- fgsfdsfgs for creating the [PC port](https://github.com/fgsfdsfgs/perfect_dark) and everyone else who worked on it
+- Ryan Dwyer for decompiling the game
+- axxiim for helping with the logic
+- Maegis, Lebon14 for providing ideas for the Perfect Dark AP
