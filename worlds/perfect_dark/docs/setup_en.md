@@ -22,7 +22,7 @@
 7. Open pd.x86_64 and use the '/connect ip:port slotname password' command in the console to connect to the server
 8. You are ready to play. I recommend making a new save file.
 
-More info for setting up: [Archipelago Setup Guide](https://archipelago.gg/tutorial/Archipelago/setup_en)
+More info: [Archipelago Setup Guide](https://archipelago.gg/tutorial/Archipelago/setup_en)
 
 ## Switching Rooms
 
@@ -37,5 +37,6 @@ You can switch rooms without restarting the client. Simply type "/disconnect" in
 
 - fgsfdsfgs for creating the [PC port](https://github.com/fgsfdsfgs/perfect_dark) and everyone else who worked on it
 - Ryan Dwyer for decompiling the game
+- black-silver for making [apclientpp](https://github.com/black-sliver/apclientpp)
 - axxiim for helping with the logic
 - Maegis, Lebon14 for providing ideas for the Perfect Dark AP
