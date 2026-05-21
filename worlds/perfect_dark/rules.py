@@ -1337,14 +1337,20 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                             and state.has("Progressive Weapon", world.player, 18))
         
         if world.options.weapon_progression.value == world.options.weapon_progression.option_progressive_weapon_one_gun:
+            add_rule(air_base_prf_agent_obj_1, lambda state: state.has_all(("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise"), world.player))
+
+            add_rule(air_base_prf_agent_obj_2, lambda state: state.has_all(("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase"), world.player))
+
+            add_rule(air_base_prf_agent_obj_3, lambda state: state.has_all(("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise"), world.player))
+            
             # Given your weapon back
-            add_rule(air_base_prf_agent_obj_4, lambda state: state.has_all(("Air Base - Perfect Agent", "Stewardess Disguise", "Flight Plans"), world.player)
+            add_rule(air_base_prf_agent_obj_4, lambda state: state.has_all(("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Flight Plans"), world.player)
                                                              and state.has("Progressive Weapon", world.player, 2))
 
-            add_rule(air_base_prf_agent_obj_5, lambda state: state.has_all(("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans"), world.player)
+            add_rule(air_base_prf_agent_obj_5, lambda state: state.has_all(("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans"), world.player)
                                                              and state.has("Progressive Weapon", world.player, 2))
             
-            add_rule(air_base_prf_agent_complete, lambda state: state.has_all(("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans"), world.player)
+            add_rule(air_base_prf_agent_complete, lambda state: state.has_all(("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans"), world.player)
                                                                 and state.has("Progressive Weapon", world.player, 2))
 
 
@@ -2054,16 +2060,13 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(callisto_gold, lambda state: state.has("Progressive Weapon", world.player, 30))
             
             rcp120_bronze = world.get_location("Firing Range: RC-P120 - Bronze")
-            add_rule(rcp120_bronze, lambda state: state.has("RC-P120", world.player)
-                                                  or state.has("Progressive Weapon", world.player, 40))
+            add_rule(rcp120_bronze, lambda state: state.has("Progressive Weapon", world.player, 40))
             
             rcp120_silver = world.get_location("Firing Range: RC-P120 - Silver")
-            add_rule(rcp120_silver, lambda state: state.has("RC-P120", world.player)
-                                                  or state.has("Progressive Weapon", world.player, 40))
+            add_rule(rcp120_silver, lambda state: state.has("Progressive Weapon", world.player, 40))
             
             rcp120_gold = world.get_location("Firing Range: RC-P120 - Gold")
-            add_rule(rcp120_gold, lambda state: state.has("RC-P120", world.player)
-                                                or state.has("Progressive Weapon", world.player, 40))
+            add_rule(rcp120_gold, lambda state: state.has("Progressive Weapon", world.player, 40))
             
             laptopgun_bronze = world.get_location("Firing Range: Laptop Gun - Bronze")
             add_rule(laptopgun_bronze, lambda state: state.has("Progressive Weapon", world.player, 22))
@@ -2084,16 +2087,13 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(dragon_gold, lambda state: state.has("Progressive Weapon", world.player, 18))
             
             k7avenger_bronze = world.get_location("Firing Range: K7 Avenger - Bronze")
-            add_rule(k7avenger_bronze, lambda state: state.has("K7 Avenger", world.player)
-                                                     or state.has("Progressive Weapon", world.player, 29))
+            add_rule(k7avenger_bronze, lambda state: state.has("Progressive Weapon", world.player, 29))
             
             k7avenger_silver = world.get_location("Firing Range: K7 Avenger - Silver")
-            add_rule(k7avenger_silver, lambda state: state.has("K7 Avenger", world.player)
-                                                     or state.has("Progressive Weapon", world.player, 29))
+            add_rule(k7avenger_silver, lambda state: state.has("Progressive Weapon", world.player, 29))
             
             k7avenger_gold = world.get_location("Firing Range: K7 Avenger - Gold")
-            add_rule(k7avenger_gold, lambda state: state.has("K7 Avenger", world.player)
-                                                   or state.has("Progressive Weapon", world.player, 29))
+            add_rule(k7avenger_gold, lambda state: state.has("Progressive Weapon", world.player, 29))
             
             ar34_bronze = world.get_location("Firing Range: AR34 - Bronze")
             add_rule(ar34_bronze, lambda state: state.has("Progressive Weapon", world.player, 21))
@@ -2141,28 +2141,22 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(sniperrifle_gold, lambda state: state.has("Progressive Weapon", world.player, 11))
             
             farsight_bronze = world.get_location("Firing Range: FarSight XR-20 - Bronze")
-            add_rule(farsight_bronze, lambda state: state.has("FarSight XR-20", world.player)
-                                                    or state.has("Progressive Weapon", world.player, 42))
+            add_rule(farsight_bronze, lambda state: state.has("Progressive Weapon", world.player, 42))
             
             farsight_silver = world.get_location("Firing Range: FarSight XR-20 - Silver")
-            add_rule(farsight_silver, lambda state: state.has("FarSight XR-20", world.player)
-                                                    or state.has("Progressive Weapon", world.player, 42))
+            add_rule(farsight_silver, lambda state: state.has("Progressive Weapon", world.player, 42))
             
             farsight_gold = world.get_location("Firing Range: FarSight XR-20 - Gold")
-            add_rule(farsight_gold, lambda state: state.has("FarSight XR-20", world.player)
-                                                  or state.has("Progressive Weapon", world.player, 42))
+            add_rule(farsight_gold, lambda state: state.has("Progressive Weapon", world.player, 42))
             
             devastator_bronze = world.get_location("Firing Range: Devastator - Bronze")
-            add_rule(devastator_bronze, lambda state: state.has("Devastator", world.player)
-                                                      or state.has("Progressive Weapon", world.player, 35))
+            add_rule(devastator_bronze, lambda state: state.has("Progressive Weapon", world.player, 35))
             
             devastator_silver = world.get_location("Firing Range: Devastator - Silver")
-            add_rule(devastator_silver, lambda state: state.has("Devastator", world.player)
-                                                      or state.has("Progressive Weapon", world.player, 35))
+            add_rule(devastator_silver, lambda state: state.has("Progressive Weapon", world.player, 35))
             
             devastator_gold = world.get_location("Firing Range: Devastator - Gold")
-            add_rule(devastator_gold, lambda state: state.has("Devastator", world.player)
-                                                    or state.has("Progressive Weapon", world.player, 35))
+            add_rule(devastator_gold, lambda state: state.has("Progressive Weapon", world.player, 35))
             
             rocketlauncher_bronze = world.get_location("Firing Range: Rocket Launcher - Bronze")
             add_rule(rocketlauncher_bronze, lambda state: state.has("Progressive Weapon", world.player, 34))
@@ -2228,16 +2222,13 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(grenade_gold, lambda state: state.has("Progressive Weapon", world.player, 25))
             
             timedmine_bronze = world.get_location("Firing Range: Timed Mine - Bronze")
-            add_rule(timedmine_bronze, lambda state: state.has("Timed Mine", world.player)
-                                                     or state.has("Progressive Weapon", world.player, 24))
+            add_rule(timedmine_bronze, lambda state: state.has("Progressive Weapon", world.player, 24))
             
             timedmine_silver = world.get_location("Firing Range: Timed Mine - Silver")
-            add_rule(timedmine_silver, lambda state: state.has("Timed Mine", world.player)
-                                                     or state.has("Progressive Weapon", world.player, 24))
+            add_rule(timedmine_silver, lambda state: state.has("Progressive Weapon", world.player, 24))
             
             timedmine_gold = world.get_location("Firing Range: Timed Mine - Gold")
-            add_rule(timedmine_gold, lambda state: state.has("Timed Mine", world.player)
-                                                   or state.has("Progressive Weapon", world.player, 24))
+            add_rule(timedmine_gold, lambda state: state.has("Progressive Weapon", world.player, 24))
             
             proximitymine_bronze = world.get_location("Firing Range: Proximity Mine - Bronze")
             add_rule(proximitymine_bronze, lambda state: state.has("Progressive Weapon", world.player, 26))
@@ -2249,16 +2240,13 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(proximitymine_gold, lambda state: state.has("Progressive Weapon", world.player, 26))
             
             remotemine_bronze = world.get_location("Firing Range: Remote Mine - Bronze")
-            add_rule(remotemine_bronze, lambda state: state.has("Remote Mine", world.player)
-                                                      or state.has("Progressive Weapon", world.player, 27))
+            add_rule(remotemine_bronze, lambda state: state.has("Progressive Weapon", world.player, 27))
             
             remotemine_silver = world.get_location("Firing Range: Remote Mine - Silver")
-            add_rule(remotemine_silver, lambda state: state.has("Remote Mine", world.player)
-                                                      or state.has("Progressive Weapon", world.player, 27))
+            add_rule(remotemine_silver, lambda state: state.has("Progressive Weapon", world.player, 27))
             
             remotemine_gold = world.get_location("Firing Range: Remote Mine - Gold")
-            add_rule(remotemine_gold, lambda state: state.has("Remote Mine", world.player)
-                                                    or state.has("Progressive Weapon", world.player, 27))
+            add_rule(remotemine_gold, lambda state: state.has("Progressive Weapon", world.player, 27))
 
         if world.options.holotraining:
             dt_data_uplink = world.get_location("Holotraining 7: Live Combat 2")
