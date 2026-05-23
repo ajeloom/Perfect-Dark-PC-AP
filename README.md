@@ -5,6 +5,10 @@ This is a separate build of the Perfect Dark PC port that integrates [Archipelag
 
 For Perfect Dark, your weapons, gadgets, missions, and challenges are items that are locked until you find them. Weapons and gadgets that you normally start with in missions will not appear in your inventory and cannot be picked up until they are sent. To send checks, you will have to complete mission objectives, missions, challenges, etc. You can also change your gameplay settings to change your game's experience with the multiworld.
 
+To get started, follow our [setup guide](https://github.com/ajeloom/Perfect-Dark-PC-AP/blob/main/worlds/perfect_dark/docs/setup_en.md).
+
+You can [find our releases here](https://github.com/ajeloom/Perfect-Dark-PC-AP/releases).
+
 ## Current Features
 - Two goals:
   - Complete Skedar Ruins
