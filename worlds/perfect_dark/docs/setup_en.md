@@ -29,16 +29,3 @@ More info:
 ## Switching Rooms
 
 You can switch rooms without restarting the client. Simply type "/disconnect" in the Perfect Dark Client's console, then connect to a different slot/room.
-
-## Known issues
-
-- Disconnecting in the mission/challenge complete menus will crash the game
-- Closing the game will sometimes crash the client
-
-## Credits
-
-- fgsfdsfgs for creating the PC port and everyone else who worked on it
-- Ryan Dwyer for decompiling the game
-- black-silver for making [apclientpp](https://github.com/black-sliver/apclientpp)
-- axxiim for helping with the logic
-- Maegis, Lebon14 for providing ideas for the Perfect Dark AP
