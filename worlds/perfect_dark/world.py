@@ -36,16 +36,25 @@ class PerfectDarkWorld(World):
         return items.get_random_filler_item_name(self)
 
     def fill_slot_data(self) -> Mapping[str, Any]:
+        required_mission_stars = 0
+        if self.options.agent:
+            required_mission_stars += self.options.required_agent_mission_stars.value
+        if self.options.special_agent:
+            required_mission_stars += self.options.required_special_agent_mission_stars.value
+        if self.options.perfect_agent:
+            required_mission_stars += self.options.required_perfect_agent_mission_stars.value
+
         slot_data = {
             "options": {
                 "goal": self.options.goal.value,
-                "required_mission_stars": self.options.required_mission_stars.value,
+                "required_mission_stars": required_mission_stars,
                 "weapon_progression": self.options.weapon_progression.value,
-                "prog_weapon_in_challenges": self.options.prog_weapon_in_challenges.value,
+                "allow_progressive_weapon_in_challenges": self.options.allow_progressive_weapon_in_challenges.value,
                 "challenges": self.options.challenges.value,
                 "weapon_training": self.options.weapon_training.value,
                 "device_training": self.options.device_training.value,
                 "holotraining": self.options.holotraining.value,
+                "unlock_cheats": self.options.unlock_cheats.value,
                 "deathlink": self.options.deathlink.value,
             },
         }

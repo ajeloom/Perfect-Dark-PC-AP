@@ -10,12 +10,12 @@ if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
 LOCATION_NAME_TO_ID = {
-    "Defection - Agent Objective 1": 1,
-    "Investigation - Agent Objective 1": 4,
-	"Investigation - Agent Objective 2": 5,
-    "Extraction - Agent Objective 1": 7,
-	"Extraction - Agent Objective 2": 8,
-	"Extraction - Agent Objective 3": 9,
+    "dD Defection - Agent Objective 1": 1,
+    "dD Investigation - Agent Objective 1": 4,
+	"dD Investigation - Agent Objective 2": 5,
+    "dD Extraction - Agent Objective 1": 7,
+	"dD Extraction - Agent Objective 2": 8,
+	"dD Extraction - Agent Objective 3": 9,
     "Carrington Villa - Agent Objective 1": 10,
 	"Carrington Villa - Agent Objective 2": 11,
 	"Carrington Villa - Agent Objective 3": 12,
@@ -25,15 +25,15 @@ LOCATION_NAME_TO_ID = {
     "G5 Building - Agent Objective 1": 16,
 	"G5 Building - Agent Objective 2": 17,
 	"G5 Building - Agent Objective 3": 18,
-    "Infiltration - Agent Objective 1": 19,
-	"Infiltration - Agent Objective 2": 20,
-	"Infiltration - Agent Objective 3": 21,
-    "Rescue - Agent Objective 1": 22,
-	"Rescue - Agent Objective 2": 23,
-	"Rescue - Agent Objective 3": 24,
-    "Escape - Agent Objective 1": 25,
-	"Escape - Agent Objective 2": 26,
-	"Escape - Agent Objective 3": 27,
+    "A51 Infiltration - Agent Objective 1": 19,
+	"A51 Infiltration - Agent Objective 2": 20,
+	"A51 Infiltration - Agent Objective 3": 21,
+    "A51 Rescue - Agent Objective 1": 22,
+	"A51 Rescue - Agent Objective 2": 23,
+	"A51 Rescue - Agent Objective 3": 24,
+    "A51 Escape - Agent Objective 1": 25,
+	"A51 Escape - Agent Objective 2": 26,
+	"A51 Escape - Agent Objective 3": 27,
     "Air Base - Agent Objective 1": 28,
 	"Air Base - Agent Objective 2": 29,
 	"Air Base - Agent Objective 3": 30,
@@ -49,9 +49,9 @@ LOCATION_NAME_TO_ID = {
     "Deep Sea - Agent Objective 1": 40,
 	"Deep Sea - Agent Objective 2": 41,
 	"Deep Sea - Agent Objective 3": 42,
-    "Carrington Institute - Agent Objective 1": 43,
-	"Carrington Institute - Agent Objective 2": 44,
-	"Carrington Institute - Agent Objective 3": 45,
+    "CI Defense - Agent Objective 1": 43,
+	"CI Defense - Agent Objective 2": 44,
+	"CI Defense - Agent Objective 3": 45,
     "Attack Ship - Agent Objective 1": 46,
 	"Attack Ship - Agent Objective 2": 47,
 	"Attack Ship - Agent Objective 3": 48,
@@ -62,18 +62,18 @@ LOCATION_NAME_TO_ID = {
     "Maian SOS - Agent Objective 1": 55,
     "WAR! - Agent Objective 1": 58,
     "The Duel - Agent Objective 1": 61,
-	"Defection - Special Agent Objective 1": 62,
-	"Defection - Special Agent Objective 2": 63,
-	"Defection - Special Agent Objective 3": 64,
-	"Defection - Special Agent Objective 4": 65,
-    "Investigation - Special Agent Objective 1": 66,
-	"Investigation - Special Agent Objective 2": 67,
-	"Investigation - Special Agent Objective 3": 68,
-	"Investigation - Special Agent Objective 4": 69,
-    "Extraction - Special Agent Objective 1": 70,
-	"Extraction - Special Agent Objective 2": 71,
-	"Extraction - Special Agent Objective 3": 72,
-	"Extraction - Special Agent Objective 4": 73,
+	"dD Defection - Special Agent Objective 1": 62,
+	"dD Defection - Special Agent Objective 2": 63,
+	"dD Defection - Special Agent Objective 3": 64,
+	"dD Defection - Special Agent Objective 4": 65,
+    "dD Investigation - Special Agent Objective 1": 66,
+	"dD Investigation - Special Agent Objective 2": 67,
+	"dD Investigation - Special Agent Objective 3": 68,
+	"dD Investigation - Special Agent Objective 4": 69,
+    "dD Extraction - Special Agent Objective 1": 70,
+	"dD Extraction - Special Agent Objective 2": 71,
+	"dD Extraction - Special Agent Objective 3": 72,
+	"dD Extraction - Special Agent Objective 4": 73,
     "Carrington Villa - Special Agent Objective 1": 74,
 	"Carrington Villa - Special Agent Objective 2": 75,
 	"Carrington Villa - Special Agent Objective 3": 76,
@@ -86,18 +86,18 @@ LOCATION_NAME_TO_ID = {
 	"G5 Building - Special Agent Objective 2": 83,
 	"G5 Building - Special Agent Objective 3": 84,
 	"G5 Building - Special Agent Objective 4": 85,
-    "Infiltration - Special Agent Objective 1": 86,
-	"Infiltration - Special Agent Objective 2": 87,
-	"Infiltration - Special Agent Objective 3": 88,
-	"Infiltration - Special Agent Objective 4": 89,
-    "Rescue - Special Agent Objective 1": 90,
-	"Rescue - Special Agent Objective 2": 91,
-	"Rescue - Special Agent Objective 3": 92,
-	"Rescue - Special Agent Objective 4": 93,
-    "Escape - Special Agent Objective 1": 94,
-	"Escape - Special Agent Objective 2": 95,
-	"Escape - Special Agent Objective 3": 96,
-	"Escape - Special Agent Objective 4": 97,
+    "A51 Infiltration - Special Agent Objective 1": 86,
+	"A51 Infiltration - Special Agent Objective 2": 87,
+	"A51 Infiltration - Special Agent Objective 3": 88,
+	"A51 Infiltration - Special Agent Objective 4": 89,
+    "A51 Rescue - Special Agent Objective 1": 90,
+	"A51 Rescue - Special Agent Objective 2": 91,
+	"A51 Rescue - Special Agent Objective 3": 92,
+	"A51 Rescue - Special Agent Objective 4": 93,
+    "A51 Escape - Special Agent Objective 1": 94,
+	"A51 Escape - Special Agent Objective 2": 95,
+	"A51 Escape - Special Agent Objective 3": 96,
+	"A51 Escape - Special Agent Objective 4": 97,
     "Air Base - Special Agent Objective 1": 98,
 	"Air Base - Special Agent Objective 2": 99,
 	"Air Base - Special Agent Objective 3": 100,
@@ -118,10 +118,10 @@ LOCATION_NAME_TO_ID = {
 	"Deep Sea - Special Agent Objective 2": 115,
 	"Deep Sea - Special Agent Objective 3": 116,
 	"Deep Sea - Special Agent Objective 4": 117,
-    "Carrington Institute - Special Agent Objective 1": 118,
-	"Carrington Institute - Special Agent Objective 2": 119,
-	"Carrington Institute - Special Agent Objective 3": 120,
-	"Carrington Institute - Special Agent Objective 4": 121,
+    "CI Defense - Special Agent Objective 1": 118,
+	"CI Defense - Special Agent Objective 2": 119,
+	"CI Defense - Special Agent Objective 3": 120,
+	"CI Defense - Special Agent Objective 4": 121,
     "Attack Ship - Special Agent Objective 1": 122,
 	"Attack Ship - Special Agent Objective 2": 123,
 	"Attack Ship - Special Agent Objective 3": 124,
@@ -138,21 +138,21 @@ LOCATION_NAME_TO_ID = {
 	"WAR! - Special Agent Objective 2": 139,
     "The Duel - Special Agent Objective 1": 142,
 	"The Duel - Special Agent Objective 2": 143,
-	"Defection - Perfect Agent Objective 1": 144,
-	"Defection - Perfect Agent Objective 2": 145,
-	"Defection - Perfect Agent Objective 3": 146,
-	"Defection - Perfect Agent Objective 4": 147,
-	"Defection - Perfect Agent Objective 5": 148,
-	"Investigation - Perfect Agent Objective 1": 149,
-	"Investigation - Perfect Agent Objective 2": 150,
-	"Investigation - Perfect Agent Objective 3": 151,
-	"Investigation - Perfect Agent Objective 4": 152,
-	"Investigation - Perfect Agent Objective 5": 153,
-	"Extraction - Perfect Agent Objective 1": 154,
-	"Extraction - Perfect Agent Objective 2": 155,
-	"Extraction - Perfect Agent Objective 3": 156,
-	"Extraction - Perfect Agent Objective 4": 157,
-	"Extraction - Perfect Agent Objective 5": 158,
+	"dD Defection - Perfect Agent Objective 1": 144,
+	"dD Defection - Perfect Agent Objective 2": 145,
+	"dD Defection - Perfect Agent Objective 3": 146,
+	"dD Defection - Perfect Agent Objective 4": 147,
+	"dD Defection - Perfect Agent Objective 5": 148,
+	"dD Investigation - Perfect Agent Objective 1": 149,
+	"dD Investigation - Perfect Agent Objective 2": 150,
+	"dD Investigation - Perfect Agent Objective 3": 151,
+	"dD Investigation - Perfect Agent Objective 4": 152,
+	"dD Investigation - Perfect Agent Objective 5": 153,
+	"dD Extraction - Perfect Agent Objective 1": 154,
+	"dD Extraction - Perfect Agent Objective 2": 155,
+	"dD Extraction - Perfect Agent Objective 3": 156,
+	"dD Extraction - Perfect Agent Objective 4": 157,
+	"dD Extraction - Perfect Agent Objective 5": 158,
 	"Carrington Villa - Perfect Agent Objective 1": 159,
 	"Carrington Villa - Perfect Agent Objective 2": 160,
 	"Carrington Villa - Perfect Agent Objective 3": 161,
@@ -168,21 +168,21 @@ LOCATION_NAME_TO_ID = {
 	"G5 Building - Perfect Agent Objective 3": 171,
 	"G5 Building - Perfect Agent Objective 4": 172,
 	"G5 Building - Perfect Agent Objective 5": 173,
-	"Infiltration - Perfect Agent Objective 1": 174,
-	"Infiltration - Perfect Agent Objective 2": 175,
-	"Infiltration - Perfect Agent Objective 3": 176,
-	"Infiltration - Perfect Agent Objective 4": 177,
-	"Infiltration - Perfect Agent Objective 5": 178,
-	"Rescue - Perfect Agent Objective 1": 179,
-	"Rescue - Perfect Agent Objective 2": 180,
-	"Rescue - Perfect Agent Objective 3": 181,
-	"Rescue - Perfect Agent Objective 4": 182,
-	"Rescue - Perfect Agent Objective 5": 183,
-	"Escape - Perfect Agent Objective 1": 184,
-	"Escape - Perfect Agent Objective 2": 185,
-	"Escape - Perfect Agent Objective 3": 186,
-	"Escape - Perfect Agent Objective 4": 187,
-	"Escape - Perfect Agent Objective 5": 188,
+	"A51 Infiltration - Perfect Agent Objective 1": 174,
+	"A51 Infiltration - Perfect Agent Objective 2": 175,
+	"A51 Infiltration - Perfect Agent Objective 3": 176,
+	"A51 Infiltration - Perfect Agent Objective 4": 177,
+	"A51 Infiltration - Perfect Agent Objective 5": 178,
+	"A51 Rescue - Perfect Agent Objective 1": 179,
+	"A51 Rescue - Perfect Agent Objective 2": 180,
+	"A51 Rescue - Perfect Agent Objective 3": 181,
+	"A51 Rescue - Perfect Agent Objective 4": 182,
+	"A51 Rescue - Perfect Agent Objective 5": 183,
+	"A51 Escape - Perfect Agent Objective 1": 184,
+	"A51 Escape - Perfect Agent Objective 2": 185,
+	"A51 Escape - Perfect Agent Objective 3": 186,
+	"A51 Escape - Perfect Agent Objective 4": 187,
+	"A51 Escape - Perfect Agent Objective 5": 188,
 	"Air Base - Perfect Agent Objective 1": 189,
 	"Air Base - Perfect Agent Objective 2": 190,
 	"Air Base - Perfect Agent Objective 3": 191,
@@ -208,11 +208,11 @@ LOCATION_NAME_TO_ID = {
 	"Deep Sea - Perfect Agent Objective 3": 211,
 	"Deep Sea - Perfect Agent Objective 4": 212,
 	"Deep Sea - Perfect Agent Objective 5": 213,
-	"Carrington Institute - Perfect Agent Objective 1": 214,
-	"Carrington Institute - Perfect Agent Objective 2": 215,
-	"Carrington Institute - Perfect Agent Objective 3": 216,
-	"Carrington Institute - Perfect Agent Objective 4": 217,
-	"Carrington Institute - Perfect Agent Objective 5": 218,
+	"CI Defense - Perfect Agent Objective 1": 214,
+	"CI Defense - Perfect Agent Objective 2": 215,
+	"CI Defense - Perfect Agent Objective 3": 216,
+	"CI Defense - Perfect Agent Objective 4": 217,
+	"CI Defense - Perfect Agent Objective 5": 218,
 	"Attack Ship - Perfect Agent Objective 1": 219,
 	"Attack Ship - Perfect Agent Objective 2": 220,
 	"Attack Ship - Perfect Agent Objective 3": 221,
@@ -235,15 +235,15 @@ LOCATION_NAME_TO_ID = {
 	"The Duel - Perfect Agent Objective 1": 244,
 	"The Duel - Perfect Agent Objective 2": 245,
 	"The Duel - Perfect Agent Objective 3": 246,
-    "Complete: Defection - Agent": 247,
-    "Complete: Defection - Special Agent": 248,
-    "Complete: Defection - Perfect Agent": 249,
-    "Complete: Investigation - Agent": 250,
-    "Complete: Investigation - Special Agent": 251,
-    "Complete: Investigation - Perfect Agent": 252,
-    "Complete: Extraction - Agent": 253,
-    "Complete: Extraction - Special Agent": 254,
-    "Complete: Extraction - Perfect Agent": 255,
+    "Complete: dD Defection - Agent": 247,
+    "Complete: dD Defection - Special Agent": 248,
+    "Complete: dD Defection - Perfect Agent": 249,
+    "Complete: dD Investigation - Agent": 250,
+    "Complete: dD Investigation - Special Agent": 251,
+    "Complete: dD Investigation - Perfect Agent": 252,
+    "Complete: dD Extraction - Agent": 253,
+    "Complete: dD Extraction - Special Agent": 254,
+    "Complete: dD Extraction - Perfect Agent": 255,
     "Complete: Carrington Villa - Agent": 256,
     "Complete: Carrington Villa - Special Agent": 257,
     "Complete: Carrington Villa - Perfect Agent": 258,
@@ -253,15 +253,15 @@ LOCATION_NAME_TO_ID = {
     "Complete: G5 Building - Agent": 262,
     "Complete: G5 Building - Special Agent": 263,
     "Complete: G5 Building - Perfect Agent": 264,
-    "Complete: Infiltration - Agent": 265,
-    "Complete: Infiltration - Special Agent": 266,
-    "Complete: Infiltration - Perfect Agent": 267,
-    "Complete: Rescue - Agent": 268,
-    "Complete: Rescue - Special Agent": 269,
-    "Complete: Rescue - Perfect Agent": 270,
-    "Complete: Escape - Agent": 271,
-    "Complete: Escape - Special Agent": 272,
-    "Complete: Escape - Perfect Agent": 273,
+    "Complete: A51 Infiltration - Agent": 265,
+    "Complete: A51 Infiltration - Special Agent": 266,
+    "Complete: A51 Infiltration - Perfect Agent": 267,
+    "Complete: A51 Rescue - Agent": 268,
+    "Complete: A51 Rescue - Special Agent": 269,
+    "Complete: A51 Rescue - Perfect Agent": 270,
+    "Complete: A51 Escape - Agent": 271,
+    "Complete: A51 Escape - Special Agent": 272,
+    "Complete: A51 Escape - Perfect Agent": 273,
     "Complete: Air Base - Agent": 274,
     "Complete: Air Base - Special Agent": 275,
     "Complete: Air Base - Perfect Agent": 276,
@@ -277,9 +277,9 @@ LOCATION_NAME_TO_ID = {
     "Complete: Deep Sea - Agent": 286,
     "Complete: Deep Sea - Special Agent": 287,
     "Complete: Deep Sea - Perfect Agent": 288,
-    "Complete: Carrington Institute - Agent": 289,
-    "Complete: Carrington Institute - Special Agent": 290,
-    "Complete: Carrington Institute - Perfect Agent": 291,
+    "Complete: CI Defense - Agent": 289,
+    "Complete: CI Defense - Special Agent": 290,
+    "Complete: CI Defense - Perfect Agent": 291,
     "Complete: Attack Ship - Agent": 292,
     "Complete: Attack Ship - Special Agent": 293,
     "Complete: Attack Ship - Perfect Agent": 294,
@@ -444,6 +444,48 @@ LOCATION_NAME_TO_ID = {
     "Holotraining 5: Unarmed Combat 2": 453,
     "Holotraining 6: Live Combat 1": 454,
     "Holotraining 7: Live Combat 2": 455,
+    "Cheat Unlock: Complete dD Defection": 456,
+    "Cheat Unlock: Complete dD Investigation": 457,
+    "Cheat Unlock: Complete dD Extraction": 458,
+    "Cheat Unlock: Complete Carrington Villa": 459,
+    "Cheat Unlock: Complete Chicago": 460,
+    "Cheat Unlock: Complete G5 Building": 461,
+    "Cheat Unlock: Complete A51 Infiltration": 462,
+    "Cheat Unlock: Complete A51 Rescue": 463,
+    "Cheat Unlock: Complete A51 Escape": 464,
+    "Cheat Unlock: Complete Air Base": 465,
+    "Cheat Unlock: Complete Air Force One": 466,
+    "Cheat Unlock: Complete Crash Site": 467,
+    "Cheat Unlock: Complete Pelagic II" : 468,
+    "Cheat Unlock: Complete Deep Sea": 469,
+    "Cheat Unlock: Complete CI Defense": 470,
+    "Cheat Unlock: Complete Attack Ship": 471,
+    "Cheat Unlock: Complete Skedar Ruins": 472,
+    "Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30": 473,
+    "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30": 474,
+    "Cheat Unlock: Complete dD Extraction (Agent) in under 2:03": 475,
+    "Cheat Unlock: Complete Carrington Villa (Special Agent) in under 2:30": 476,
+    "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": 477,
+    "Cheat Unlock: Complete G5 Building (Agent) in under 1:40": 478,
+    "Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00": 479,
+    "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59": 480,
+    "Cheat Unlock: Complete A51 Escape (Agent) in under 3:50": 481,
+    "Cheat Unlock: Complete Air Base (Special Agent) in under 3:11": 482,
+    "Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55": 483,
+    "Cheat Unlock: Complete Crash Site (Agent) in under 2:50": 484,
+    "Cheat Unlock: Complete Pelagic II (Special Agent) in under 7:07": 485,
+    "Cheat Unlock: Complete Deep Sea (Perfect Agent) in under 7:27": 486,
+    "Cheat Unlock: Complete CI Defense (Agent) in under 1:45": 487,
+    "Cheat Unlock: Complete Attack Ship (Special Agent) in under 5:17": 488,
+    "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31": 489,
+    "Cheat Unlock: Get gold medals for Falcon 2, Falcon 2 (Silencer), and Falcon 2 (Scope)": 490,
+    "Cheat Unlock: Get gold medals for MagSec 4, Mauler, Phoenix, DY357 Magnum, and DY357-LX": 491,
+    "Cheat Unlock: Get gold medals for CMP150, Cyclone, Callisto NTG, and RC-P120": 492,
+    "Cheat Unlock: Get gold medals for Laptop Gun, Dragon, K7 Avenger, AR34, and SuperDragon": 493,
+    "Cheat Unlock: Get gold medals for Shotgun, Sniper Rifle, Rocket Launcher, and Slayer": 494,
+    "Cheat Unlock: Get gold medals for Timed Mine, Proximity Mine, and Remote Mine": 495,
+    "Cheat Unlock: Get gold medals for FarSight XR-20, Crossbow, Combat Knife, and Grenade": 496,
+    "Cheat Unlock: Get gold medals for Tranquilizer, Reaper, and Devastator": 497,
 }
 
 class PerfectDarkLocation(Location):
@@ -482,419 +524,675 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
     war = world.get_region("War!")
     duel = world.get_region("The Duel")
 
-    defection_locations = get_location_names_with_ids(
-        [
-            # "Defection - Agent Objective 1",
-            # "Defection - Special Agent Objective 1",
-            # "Defection - Special Agent Objective 2",
-            # "Defection - Special Agent Objective 3",
-            # "Defection - Special Agent Objective 4",
-            "Defection - Perfect Agent Objective 1",
-            "Defection - Perfect Agent Objective 2",
-            "Defection - Perfect Agent Objective 3",
-            "Defection - Perfect Agent Objective 4",
-            "Defection - Perfect Agent Objective 5",
-            # "Complete: Defection - Agent",
-            # "Complete: Defection - Special Agent",
-            "Complete: Defection - Perfect Agent"
-        ]
-    )
-    defection.add_locations(defection_locations, PerfectDarkLocation)
+    if world.options.agent:
+        defection_locations = get_location_names_with_ids(
+            [
+                "dD Defection - Agent Objective 1",
+                "Complete: dD Defection - Agent"
+            ]
+        )
+        defection.add_locations(defection_locations, PerfectDarkLocation)
 
-    investigation_locations = get_location_names_with_ids(
-        [
-            # "Investigation - Agent Objective 1",
-            # "Investigation - Agent Objective 2",
-            # "Investigation - Special Agent Objective 1",
-            # "Investigation - Special Agent Objective 2",
-            # "Investigation - Special Agent Objective 3",
-            # "Investigation - Special Agent Objective 4",
-            "Investigation - Perfect Agent Objective 1",
-            "Investigation - Perfect Agent Objective 2",
-            "Investigation - Perfect Agent Objective 3",
-            "Investigation - Perfect Agent Objective 4",
-            "Investigation - Perfect Agent Objective 5",
-            # "Complete: Investigation - Agent",
-            # "Complete: Investigation - Special Agent",
-            "Complete: Investigation - Perfect Agent"
-        ]
-    )
-    investigation.add_locations(investigation_locations, PerfectDarkLocation)
+        investigation_locations = get_location_names_with_ids(
+            [
+                "dD Investigation - Agent Objective 1",
+                "dD Investigation - Agent Objective 2",
+                "Complete: dD Investigation - Agent"
+            ]
+        )
+        investigation.add_locations(investigation_locations, PerfectDarkLocation)
 
-    extraction_locations = get_location_names_with_ids(
-        [
-            # "Extraction - Agent Objective 1",
-            # "Extraction - Agent Objective 2",
-            # "Extraction - Agent Objective 3",
-            # "Extraction - Special Agent Objective 1",
-            # "Extraction - Special Agent Objective 2",
-            # "Extraction - Special Agent Objective 3",
-            # "Extraction - Special Agent Objective 4",
-            "Extraction - Perfect Agent Objective 1",
-            "Extraction - Perfect Agent Objective 2",
-            "Extraction - Perfect Agent Objective 3",
-            "Extraction - Perfect Agent Objective 4",
-            "Extraction - Perfect Agent Objective 5",
-            # "Complete: Extraction - Agent",
-            # "Complete: Extraction - Special Agent",
-            "Complete: Extraction - Perfect Agent"
-        ]
-    )
-    extraction.add_locations(extraction_locations, PerfectDarkLocation)
+        extraction_locations = get_location_names_with_ids(
+            [
+                "dD Extraction - Agent Objective 1",
+                "dD Extraction - Agent Objective 2",
+                "dD Extraction - Agent Objective 3",
+                "Complete: dD Extraction - Agent"
+            ]
+        )
+        extraction.add_locations(extraction_locations, PerfectDarkLocation)
 
-    villa_locations = get_location_names_with_ids(
-        [
-            # "Carrington Villa - Agent Objective 1",
-            # "Carrington Villa - Agent Objective 2",
-            # "Carrington Villa - Agent Objective 3",
-            # "Carrington Villa - Special Agent Objective 1",
-            # "Carrington Villa - Special Agent Objective 2",
-            # "Carrington Villa - Special Agent Objective 3",
-            # "Carrington Villa - Special Agent Objective 4",
-            "Carrington Villa - Perfect Agent Objective 1",
-            "Carrington Villa - Perfect Agent Objective 2",
-            "Carrington Villa - Perfect Agent Objective 3",
-            "Carrington Villa - Perfect Agent Objective 4",
-            "Carrington Villa - Perfect Agent Objective 5",
-            # "Complete: Carrington Villa - Agent",
-            # "Complete: Carrington Villa - Special Agent",
-            "Complete: Carrington Villa - Perfect Agent"
-        ]
-    )
-    villa.add_locations(villa_locations, PerfectDarkLocation)
+        villa_locations = get_location_names_with_ids(
+            [
+                "Carrington Villa - Agent Objective 1",
+                "Carrington Villa - Agent Objective 2",
+                "Carrington Villa - Agent Objective 3",
+                "Complete: Carrington Villa - Agent"
+            ]
+        )
+        villa.add_locations(villa_locations, PerfectDarkLocation)
 
-    chicago_locations = get_location_names_with_ids(
-        [
-            # "Chicago - Agent Objective 1",
-            # "Chicago - Agent Objective 2",
-            # "Chicago - Agent Objective 3",
-            # "Chicago - Special Agent Objective 1",
-            # "Chicago - Special Agent Objective 2",
-            # "Chicago - Special Agent Objective 3",
-            # "Chicago - Special Agent Objective 4",
-            "Chicago - Perfect Agent Objective 1",
-            "Chicago - Perfect Agent Objective 2",
-            "Chicago - Perfect Agent Objective 3",
-            "Chicago - Perfect Agent Objective 4",
-            "Chicago - Perfect Agent Objective 5",
-            # "Complete: Chicago - Agent",
-            # "Complete: Chicago - Special Agent",
-            "Complete: Chicago - Perfect Agent"
-        ]
-    )
-    chicago.add_locations(chicago_locations, PerfectDarkLocation)
+        chicago_locations = get_location_names_with_ids(
+            [
+                "Chicago - Agent Objective 1",
+                "Chicago - Agent Objective 2",
+                "Chicago - Agent Objective 3",
+                "Complete: Chicago - Agent"
+            ]
+        )
+        chicago.add_locations(chicago_locations, PerfectDarkLocation)
 
-    g5_building_locations = get_location_names_with_ids(
-        [
-            # "G5 Building - Agent Objective 1",
-            # "G5 Building - Agent Objective 2",
-            # "G5 Building - Agent Objective 3",
-            # "G5 Building - Special Agent Objective 1",
-            # "G5 Building - Special Agent Objective 2",
-            # "G5 Building - Special Agent Objective 3",
-            # "G5 Building - Special Agent Objective 4",
-            "G5 Building - Perfect Agent Objective 1",
-            "G5 Building - Perfect Agent Objective 2",
-            "G5 Building - Perfect Agent Objective 3",
-            "G5 Building - Perfect Agent Objective 4",
-            "G5 Building - Perfect Agent Objective 5",
-            # "Complete: G5 Building - Agent",
-            # "Complete: G5 Building - Special Agent",
-            "Complete: G5 Building - Perfect Agent"
-        ]
-    )
-    g5_building.add_locations(g5_building_locations, PerfectDarkLocation)
+        g5_building_locations = get_location_names_with_ids(
+            [
+                "G5 Building - Agent Objective 1",
+                "G5 Building - Agent Objective 2",
+                "G5 Building - Agent Objective 3",
+                "Complete: G5 Building - Agent"
+            ]
+        )
+        g5_building.add_locations(g5_building_locations, PerfectDarkLocation)
 
-    infiltration_locations = get_location_names_with_ids(
-        [
-            # "Infiltration - Agent Objective 1",
-            # "Infiltration - Agent Objective 2",
-            # "Infiltration - Agent Objective 3",
-            # "Infiltration - Special Agent Objective 1",
-            # "Infiltration - Special Agent Objective 2",
-            # "Infiltration - Special Agent Objective 3",
-            # "Infiltration - Special Agent Objective 4",
-            "Infiltration - Perfect Agent Objective 1",
-            "Infiltration - Perfect Agent Objective 2",
-            "Infiltration - Perfect Agent Objective 3",
-            "Infiltration - Perfect Agent Objective 4",
-            "Infiltration - Perfect Agent Objective 5",
-            # "Complete: Infiltration - Agent",
-            # "Complete: Infiltration - Special Agent",
-            "Complete: Infiltration - Perfect Agent"
-        ]
-    )
-    infiltration.add_locations(infiltration_locations, PerfectDarkLocation)
+        infiltration_locations = get_location_names_with_ids(
+            [
+                "A51 Infiltration - Agent Objective 1",
+                "A51 Infiltration - Agent Objective 2",
+                "A51 Infiltration - Agent Objective 3",
+                "Complete: A51 Infiltration - Agent"
+            ]
+        )
+        infiltration.add_locations(infiltration_locations, PerfectDarkLocation)
 
-    rescue_locations = get_location_names_with_ids(
-        [
-            # "Rescue - Agent Objective 1",
-            # "Rescue - Agent Objective 2",
-            # "Rescue - Agent Objective 3",
-            # "Rescue - Special Agent Objective 1",
-            # "Rescue - Special Agent Objective 2",
-            # "Rescue - Special Agent Objective 3",
-            # "Rescue - Special Agent Objective 4",
-            "Rescue - Perfect Agent Objective 1",
-            "Rescue - Perfect Agent Objective 2",
-            "Rescue - Perfect Agent Objective 3",
-            "Rescue - Perfect Agent Objective 4",
-            "Rescue - Perfect Agent Objective 5",
-            # "Complete: Rescue - Agent",
-            # "Complete: Rescue - Special Agent",
-            "Complete: Rescue - Perfect Agent"
-        ]
-    )
-    rescue.add_locations(rescue_locations, PerfectDarkLocation)
+        rescue_locations = get_location_names_with_ids(
+            [
+                "A51 Rescue - Agent Objective 1",
+                "A51 Rescue - Agent Objective 2",
+                "A51 Rescue - Agent Objective 3",
+                "Complete: A51 Rescue - Agent"
+            ]
+        )
+        rescue.add_locations(rescue_locations, PerfectDarkLocation)
 
-    escape_locations = get_location_names_with_ids(
-        [
-            # "Escape - Agent Objective 1",
-            # "Escape - Agent Objective 2",
-            # "Escape - Agent Objective 3",
-            # "Escape - Special Agent Objective 1",
-            # "Escape - Special Agent Objective 2",
-            # "Escape - Special Agent Objective 3",
-            # "Escape - Special Agent Objective 4",
-            "Escape - Perfect Agent Objective 1",
-            "Escape - Perfect Agent Objective 2",
-            "Escape - Perfect Agent Objective 3",
-            "Escape - Perfect Agent Objective 4",
-            "Escape - Perfect Agent Objective 5",
-            # "Complete: Escape - Agent",
-            # "Complete: Escape - Special Agent",
-            "Complete: Escape - Perfect Agent"
-        ]
-    )
-    escape.add_locations(escape_locations, PerfectDarkLocation)
+        escape_locations = get_location_names_with_ids(
+            [
+                "A51 Escape - Agent Objective 1",
+                "A51 Escape - Agent Objective 2",
+                "A51 Escape - Agent Objective 3",
+                "Complete: A51 Escape - Agent"
+            ]
+        )
+        escape.add_locations(escape_locations, PerfectDarkLocation)
 
-    air_base_locations = get_location_names_with_ids(
-        [
-            # "Air Base - Agent Objective 1",
-            # "Air Base - Agent Objective 2",
-            # "Air Base - Agent Objective 3",
-            # "Air Base - Special Agent Objective 1",
-            # "Air Base - Special Agent Objective 2",
-            # "Air Base - Special Agent Objective 3",
-            # "Air Base - Special Agent Objective 4",
-            "Air Base - Perfect Agent Objective 1",
-            "Air Base - Perfect Agent Objective 2",
-            "Air Base - Perfect Agent Objective 3",
-            "Air Base - Perfect Agent Objective 4",
-            "Air Base - Perfect Agent Objective 5",
-            # "Complete: Air Base - Agent",
-            # "Complete: Air Base - Special Agent",
-            "Complete: Air Base - Perfect Agent"
-        ]
-    )
-    air_base.add_locations(air_base_locations, PerfectDarkLocation)
+        air_base_locations = get_location_names_with_ids(
+            [
+                "Air Base - Agent Objective 1",
+                "Air Base - Agent Objective 2",
+                "Air Base - Agent Objective 3",
+                "Complete: Air Base - Agent"
+            ]
+        )
+        air_base.add_locations(air_base_locations, PerfectDarkLocation)
 
-    air_force_one_locations = get_location_names_with_ids(
-        [
-            # "Air Force One - Agent Objective 1",
-            # "Air Force One - Agent Objective 2",
-            # "Air Force One - Agent Objective 3",
-            # "Air Force One - Special Agent Objective 1",
-            # "Air Force One - Special Agent Objective 2",
-            # "Air Force One - Special Agent Objective 3",
-            # "Air Force One - Special Agent Objective 4",
-            "Air Force One - Perfect Agent Objective 1",
-            "Air Force One - Perfect Agent Objective 2",
-            "Air Force One - Perfect Agent Objective 3",
-            "Air Force One - Perfect Agent Objective 4",
-            "Air Force One - Perfect Agent Objective 5",
-            # "Complete: Air Force One - Agent",
-            # "Complete: Air Force One - Special Agent",
-            "Complete: Air Force One - Perfect Agent"
-        ]
-    )
-    air_force_one.add_locations(air_force_one_locations, PerfectDarkLocation)
+        air_force_one_locations = get_location_names_with_ids(
+            [
+                "Air Force One - Agent Objective 1",
+                "Air Force One - Agent Objective 2",
+                "Air Force One - Agent Objective 3",
+                "Complete: Air Force One - Agent"
+            ]
+        )
+        air_force_one.add_locations(air_force_one_locations, PerfectDarkLocation)
 
-    crash_site_locations = get_location_names_with_ids(
-        [
-            # "Crash Site - Agent Objective 1",
-            # "Crash Site - Agent Objective 2",
-            # "Crash Site - Agent Objective 3",
-            # "Crash Site - Special Agent Objective 1",
-            # "Crash Site - Special Agent Objective 2",
-            # "Crash Site - Special Agent Objective 3",
-            # "Crash Site - Special Agent Objective 4",
-            "Crash Site - Perfect Agent Objective 1",
-            "Crash Site - Perfect Agent Objective 2",
-            "Crash Site - Perfect Agent Objective 3",
-            "Crash Site - Perfect Agent Objective 4",
-            "Crash Site - Perfect Agent Objective 5",
-            # "Complete: Crash Site - Agent",
-            # "Complete: Crash Site - Special Agent",
-            "Complete: Crash Site - Perfect Agent"
-        ]
-    )
-    crash_site.add_locations(crash_site_locations, PerfectDarkLocation)
+        crash_site_locations = get_location_names_with_ids(
+            [
+                "Crash Site - Agent Objective 1",
+                "Crash Site - Agent Objective 2",
+                "Crash Site - Agent Objective 3",
+                "Complete: Crash Site - Agent"
+            ]
+        )
+        crash_site.add_locations(crash_site_locations, PerfectDarkLocation)
 
-    pelagic_locations = get_location_names_with_ids(
-        [
-            # "Pelagic II - Agent Objective 1",
-            # "Pelagic II - Agent Objective 2",
-            # "Pelagic II - Agent Objective 3",
-            # "Pelagic II - Special Agent Objective 1",
-            # "Pelagic II - Special Agent Objective 2",
-            # "Pelagic II - Special Agent Objective 3",
-            # "Pelagic II - Special Agent Objective 4",
-            "Pelagic II - Perfect Agent Objective 1",
-            "Pelagic II - Perfect Agent Objective 2",
-            "Pelagic II - Perfect Agent Objective 3",
-            "Pelagic II - Perfect Agent Objective 4",
-            "Pelagic II - Perfect Agent Objective 5",
-            # "Complete: Pelagic II - Agent",
-            # "Complete: Pelagic II - Special Agent",
-            "Complete: Pelagic II - Perfect Agent"
-        ]
-    )
-    pelagic.add_locations(pelagic_locations, PerfectDarkLocation)
+        pelagic_locations = get_location_names_with_ids(
+            [
+                "Pelagic II - Agent Objective 1",
+                "Pelagic II - Agent Objective 2",
+                "Pelagic II - Agent Objective 3",
+                "Complete: Pelagic II - Agent"
+            ]
+        )
+        pelagic.add_locations(pelagic_locations, PerfectDarkLocation)
 
-    deep_sea_locations = get_location_names_with_ids(
-        [
-            # "Deep Sea - Agent Objective 1",
-            # "Deep Sea - Agent Objective 2",
-            # "Deep Sea - Agent Objective 3",
-            # "Deep Sea - Special Agent Objective 1",
-            # "Deep Sea - Special Agent Objective 2",
-            # "Deep Sea - Special Agent Objective 3",
-            # "Deep Sea - Special Agent Objective 4",
-            "Deep Sea - Perfect Agent Objective 1",
-            "Deep Sea - Perfect Agent Objective 2",
-            "Deep Sea - Perfect Agent Objective 3",
-            "Deep Sea - Perfect Agent Objective 4",
-            "Deep Sea - Perfect Agent Objective 5",
-            # "Complete: Deep Sea - Agent",
-            # "Complete: Deep Sea - Special Agent",
-            "Complete: Deep Sea - Perfect Agent"
-        ]
-    )
-    deep_sea.add_locations(deep_sea_locations, PerfectDarkLocation)
+        deep_sea_locations = get_location_names_with_ids(
+            [
+                "Deep Sea - Agent Objective 1",
+                "Deep Sea - Agent Objective 2",
+                "Deep Sea - Agent Objective 3",
+                "Complete: Deep Sea - Agent"
+            ]
+        )
+        deep_sea.add_locations(deep_sea_locations, PerfectDarkLocation)
 
-    institute_defense_locations = get_location_names_with_ids(
-        [
-            # "Carrington Institute - Agent Objective 1",
-            # "Carrington Institute - Agent Objective 2",
-            # "Carrington Institute - Agent Objective 3",
-            # "Carrington Institute - Special Agent Objective 1",
-            # "Carrington Institute - Special Agent Objective 2",
-            # "Carrington Institute - Special Agent Objective 3",
-            # "Carrington Institute - Special Agent Objective 4",
-            "Carrington Institute - Perfect Agent Objective 1",
-            "Carrington Institute - Perfect Agent Objective 2",
-            "Carrington Institute - Perfect Agent Objective 3",
-            "Carrington Institute - Perfect Agent Objective 4",
-            "Carrington Institute - Perfect Agent Objective 5",
-            # "Complete: Carrington Institute - Agent",
-            # "Complete: Carrington Institute - Special Agent",
-            "Complete: Carrington Institute - Perfect Agent"
-        ]
-    )
-    institute_defense.add_locations(institute_defense_locations, PerfectDarkLocation)
+        institute_defense_locations = get_location_names_with_ids(
+            [
+                "CI Defense - Agent Objective 1",
+                "CI Defense - Agent Objective 2",
+                "CI Defense - Agent Objective 3",
+                "Complete: CI Defense - Agent"
+            ]
+        )
+        institute_defense.add_locations(institute_defense_locations, PerfectDarkLocation)
 
-    attack_ship_locations = get_location_names_with_ids(
-        [
-            # "Attack Ship - Agent Objective 1",
-            # "Attack Ship - Agent Objective 2",
-            # "Attack Ship - Agent Objective 3",
-            # "Attack Ship - Special Agent Objective 1",
-            # "Attack Ship - Special Agent Objective 2",
-            # "Attack Ship - Special Agent Objective 3",
-            # "Attack Ship - Special Agent Objective 4",
-            "Attack Ship - Perfect Agent Objective 1",
-            "Attack Ship - Perfect Agent Objective 2",
-            "Attack Ship - Perfect Agent Objective 3",
-            "Attack Ship - Perfect Agent Objective 4",
-            "Attack Ship - Perfect Agent Objective 5",
-            # "Complete: Attack Ship - Agent",
-            # "Complete: Attack Ship - Special Agent",
-            "Complete: Attack Ship - Perfect Agent"
-        ]
-    )
-    attack_ship.add_locations(attack_ship_locations, PerfectDarkLocation)
+        attack_ship_locations = get_location_names_with_ids(
+            [
+                "Attack Ship - Agent Objective 1",
+                "Attack Ship - Agent Objective 2",
+                "Attack Ship - Agent Objective 3",
+                "Complete: Attack Ship - Agent"
+            ]
+        )
+        attack_ship.add_locations(attack_ship_locations, PerfectDarkLocation)
 
-    skedar_ruins_locations = get_location_names_with_ids(
-        [
-            # "Skedar Ruins - Agent Objective 1",
-            # "Skedar Ruins - Agent Objective 2",
-            # "Skedar Ruins - Agent Objective 3",
-            # "Skedar Ruins - Special Agent Objective 1",
-            # "Skedar Ruins - Special Agent Objective 2",
-            # "Skedar Ruins - Special Agent Objective 3",
-            # "Skedar Ruins - Special Agent Objective 4",
-            "Skedar Ruins - Perfect Agent Objective 1",
-            "Skedar Ruins - Perfect Agent Objective 2",
-            "Skedar Ruins - Perfect Agent Objective 3",
-            "Skedar Ruins - Perfect Agent Objective 4",
-            "Skedar Ruins - Perfect Agent Objective 5",
-            # "Complete: Skedar Ruins - Agent",
-            # "Complete: Skedar Ruins - Special Agent",
-            "Complete: Skedar Ruins - Perfect Agent"
-        ]
-    )
-    skedar_ruins.add_locations(skedar_ruins_locations, PerfectDarkLocation)
+        skedar_ruins_locations = get_location_names_with_ids(
+            [
+                "Skedar Ruins - Agent Objective 1",
+                "Skedar Ruins - Agent Objective 2",
+                "Skedar Ruins - Agent Objective 3",
+                "Complete: Skedar Ruins - Agent"
+            ]
+        )
+        skedar_ruins.add_locations(skedar_ruins_locations, PerfectDarkLocation)
 
-    mbr_locations = get_location_names_with_ids(
-        [
-            # "Mr. Blonde's Revenge - Agent Objective 1",
-            # "Mr. Blonde's Revenge - Special Agent Objective 1",
-            # "Mr. Blonde's Revenge - Special Agent Objective 2",
-            "Mr. Blonde's Revenge - Perfect Agent Objective 1",
-            "Mr. Blonde's Revenge - Perfect Agent Objective 2",
-            "Mr. Blonde's Revenge - Perfect Agent Objective 3",
-            # "Complete: Mr. Blonde's Revenge - Agent",
-            # "Complete: Mr. Blonde's Revenge - Special Agent",
-            "Complete: Mr. Blonde's Revenge - Perfect Agent"
-        ]
-    )
-    mbr.add_locations(mbr_locations, PerfectDarkLocation)
+        mbr_locations = get_location_names_with_ids(
+            [
+                "Mr. Blonde's Revenge - Agent Objective 1",
+                "Complete: Mr. Blonde's Revenge - Agent"
+            ]
+        )
+        mbr.add_locations(mbr_locations, PerfectDarkLocation)
 
-    maian_sos_locations = get_location_names_with_ids(
-        [
-            # "Maian SOS - Agent Objective 1",
-            # "Maian SOS - Special Agent Objective 1",
-            # "Maian SOS - Special Agent Objective 2",
-            "Maian SOS - Perfect Agent Objective 1",
-            "Maian SOS - Perfect Agent Objective 2",
-            "Maian SOS - Perfect Agent Objective 3",
-            # "Complete: Maian SOS - Agent",
-            # "Complete: Maian SOS - Special Agent",
-            "Complete: Maian SOS - Perfect Agent"
-        ]
-    )
-    maian_sos.add_locations(maian_sos_locations, PerfectDarkLocation)
+        maian_sos_locations = get_location_names_with_ids(
+            [
+                "Maian SOS - Agent Objective 1",
+                "Complete: Maian SOS - Agent"
+            ]
+        )
+        maian_sos.add_locations(maian_sos_locations, PerfectDarkLocation)
 
-    war_locations = get_location_names_with_ids(
-        [
-            # "WAR! - Agent Objective 1",
-            # "WAR! - Special Agent Objective 1",
-            # "WAR! - Special Agent Objective 2",
-            "WAR! - Perfect Agent Objective 1",
-            "WAR! - Perfect Agent Objective 2",
-            "WAR! - Perfect Agent Objective 3",
-            # "Complete: WAR! - Agent",
-            # "Complete: WAR! - Special Agent",
-            "Complete: WAR! - Perfect Agent"
-        ]
-    )
-    war.add_locations(war_locations, PerfectDarkLocation)
+        war_locations = get_location_names_with_ids(
+            [
+                "WAR! - Agent Objective 1",
+                "Complete: WAR! - Agent"
+            ]
+        )
+        war.add_locations(war_locations, PerfectDarkLocation)
 
-    duel_locations = get_location_names_with_ids(
-        [
-            # "The Duel - Agent Objective 1",
-            # "The Duel - Special Agent Objective 1",
-            # "The Duel - Special Agent Objective 2",
-            "The Duel - Perfect Agent Objective 1",
-            "The Duel - Perfect Agent Objective 2",
-            "The Duel - Perfect Agent Objective 3",
-            # "Complete: The Duel - Agent",
-            # "Complete: The Duel - Special Agent",
-            "Complete: The Duel - Perfect Agent"
-        ]
-    )
-    duel.add_locations(duel_locations, PerfectDarkLocation)
+        duel_locations = get_location_names_with_ids(
+            [
+                "The Duel - Agent Objective 1",
+                "Complete: The Duel - Agent"
+            ]
+        )
+        duel.add_locations(duel_locations, PerfectDarkLocation)
+
+    if world.options.special_agent:
+        defection_locations = get_location_names_with_ids(
+            [
+                "dD Defection - Special Agent Objective 1",
+                "dD Defection - Special Agent Objective 2",
+                "dD Defection - Special Agent Objective 3",
+                "dD Defection - Special Agent Objective 4",
+                "Complete: dD Defection - Special Agent"
+            ]
+        )
+        defection.add_locations(defection_locations, PerfectDarkLocation)
+
+        investigation_locations = get_location_names_with_ids(
+            [
+                "dD Investigation - Special Agent Objective 1",
+                "dD Investigation - Special Agent Objective 2",
+                "dD Investigation - Special Agent Objective 3",
+                "dD Investigation - Special Agent Objective 4",
+                "Complete: dD Investigation - Special Agent"
+            ]
+        )
+        investigation.add_locations(investigation_locations, PerfectDarkLocation)
+
+        extraction_locations = get_location_names_with_ids(
+            [
+                "dD Extraction - Special Agent Objective 1",
+                "dD Extraction - Special Agent Objective 2",
+                "dD Extraction - Special Agent Objective 3",
+                "dD Extraction - Special Agent Objective 4",
+                "Complete: dD Extraction - Special Agent"
+            ]
+        )
+        extraction.add_locations(extraction_locations, PerfectDarkLocation)
+
+        villa_locations = get_location_names_with_ids(
+            [
+                "Carrington Villa - Special Agent Objective 1",
+                "Carrington Villa - Special Agent Objective 2",
+                "Carrington Villa - Special Agent Objective 3",
+                "Carrington Villa - Special Agent Objective 4",
+                "Complete: Carrington Villa - Special Agent"
+            ]
+        )
+        villa.add_locations(villa_locations, PerfectDarkLocation)
+
+        chicago_locations = get_location_names_with_ids(
+            [
+                "Chicago - Special Agent Objective 1",
+                "Chicago - Special Agent Objective 2",
+                "Chicago - Special Agent Objective 3",
+                "Chicago - Special Agent Objective 4",
+                "Complete: Chicago - Special Agent"
+            ]
+        )
+        chicago.add_locations(chicago_locations, PerfectDarkLocation)
+
+        g5_building_locations = get_location_names_with_ids(
+            [
+                "G5 Building - Special Agent Objective 1",
+                "G5 Building - Special Agent Objective 2",
+                "G5 Building - Special Agent Objective 3",
+                "G5 Building - Special Agent Objective 4",
+                "Complete: G5 Building - Special Agent"
+            ]
+        )
+        g5_building.add_locations(g5_building_locations, PerfectDarkLocation)
+
+        infiltration_locations = get_location_names_with_ids(
+            [
+                "A51 Infiltration - Special Agent Objective 1",
+                "A51 Infiltration - Special Agent Objective 2",
+                "A51 Infiltration - Special Agent Objective 3",
+                "A51 Infiltration - Special Agent Objective 4",
+                "Complete: A51 Infiltration - Special Agent"
+            ]
+        )
+        infiltration.add_locations(infiltration_locations, PerfectDarkLocation)
+
+        rescue_locations = get_location_names_with_ids(
+            [
+                "A51 Rescue - Special Agent Objective 1",
+                "A51 Rescue - Special Agent Objective 2",
+                "A51 Rescue - Special Agent Objective 3",
+                "A51 Rescue - Special Agent Objective 4",
+                "Complete: A51 Rescue - Special Agent"
+            ]
+        )
+        rescue.add_locations(rescue_locations, PerfectDarkLocation)
+
+        escape_locations = get_location_names_with_ids(
+            [
+                "A51 Escape - Special Agent Objective 1",
+                "A51 Escape - Special Agent Objective 2",
+                "A51 Escape - Special Agent Objective 3",
+                "A51 Escape - Special Agent Objective 4",
+                "Complete: A51 Escape - Special Agent"
+            ]
+        )
+        escape.add_locations(escape_locations, PerfectDarkLocation)
+
+        air_base_locations = get_location_names_with_ids(
+            [
+                "Air Base - Special Agent Objective 1",
+                "Air Base - Special Agent Objective 2",
+                "Air Base - Special Agent Objective 3",
+                "Air Base - Special Agent Objective 4",
+                "Complete: Air Base - Special Agent"
+            ]
+        )
+        air_base.add_locations(air_base_locations, PerfectDarkLocation)
+
+        air_force_one_locations = get_location_names_with_ids(
+            [
+                "Air Force One - Special Agent Objective 1",
+                "Air Force One - Special Agent Objective 2",
+                "Air Force One - Special Agent Objective 3",
+                "Air Force One - Special Agent Objective 4",
+                "Complete: Air Force One - Special Agent"
+            ]
+        )
+        air_force_one.add_locations(air_force_one_locations, PerfectDarkLocation)
+
+        crash_site_locations = get_location_names_with_ids(
+            [
+                "Crash Site - Special Agent Objective 1",
+                "Crash Site - Special Agent Objective 2",
+                "Crash Site - Special Agent Objective 3",
+                "Crash Site - Special Agent Objective 4",
+                "Complete: Crash Site - Special Agent"
+            ]
+        )
+        crash_site.add_locations(crash_site_locations, PerfectDarkLocation)
+
+        pelagic_locations = get_location_names_with_ids(
+            [
+                "Pelagic II - Special Agent Objective 1",
+                "Pelagic II - Special Agent Objective 2",
+                "Pelagic II - Special Agent Objective 3",
+                "Pelagic II - Special Agent Objective 4",
+                "Complete: Pelagic II - Special Agent"
+            ]
+        )
+        pelagic.add_locations(pelagic_locations, PerfectDarkLocation)
+
+        deep_sea_locations = get_location_names_with_ids(
+            [
+                "Deep Sea - Special Agent Objective 1",
+                "Deep Sea - Special Agent Objective 2",
+                "Deep Sea - Special Agent Objective 3",
+                "Deep Sea - Special Agent Objective 4",
+                "Complete: Deep Sea - Special Agent"
+            ]
+        )
+        deep_sea.add_locations(deep_sea_locations, PerfectDarkLocation)
+
+        institute_defense_locations = get_location_names_with_ids(
+            [
+                "CI Defense - Special Agent Objective 1",
+                "CI Defense - Special Agent Objective 2",
+                "CI Defense - Special Agent Objective 3",
+                "CI Defense - Special Agent Objective 4",
+                "Complete: CI Defense - Special Agent"
+            ]
+        )
+        institute_defense.add_locations(institute_defense_locations, PerfectDarkLocation)
+
+        attack_ship_locations = get_location_names_with_ids(
+            [
+                "Attack Ship - Special Agent Objective 1",
+                "Attack Ship - Special Agent Objective 2",
+                "Attack Ship - Special Agent Objective 3",
+                "Attack Ship - Special Agent Objective 4",
+                "Complete: Attack Ship - Special Agent"
+            ]
+        )
+        attack_ship.add_locations(attack_ship_locations, PerfectDarkLocation)
+
+        skedar_ruins_locations = get_location_names_with_ids(
+            [
+                "Skedar Ruins - Special Agent Objective 1",
+                "Skedar Ruins - Special Agent Objective 2",
+                "Skedar Ruins - Special Agent Objective 3",
+                "Skedar Ruins - Special Agent Objective 4",
+                "Complete: Skedar Ruins - Special Agent"
+            ]
+        )
+        skedar_ruins.add_locations(skedar_ruins_locations, PerfectDarkLocation)
+
+        mbr_locations = get_location_names_with_ids(
+            [
+                "Mr. Blonde's Revenge - Special Agent Objective 1",
+                "Mr. Blonde's Revenge - Special Agent Objective 2",
+                "Complete: Mr. Blonde's Revenge - Special Agent"
+            ]
+        )
+        mbr.add_locations(mbr_locations, PerfectDarkLocation)
+
+        maian_sos_locations = get_location_names_with_ids(
+            [
+                "Maian SOS - Special Agent Objective 1",
+                "Maian SOS - Special Agent Objective 2",
+                "Complete: Maian SOS - Special Agent"
+            ]
+        )
+        maian_sos.add_locations(maian_sos_locations, PerfectDarkLocation)
+
+        war_locations = get_location_names_with_ids(
+            [
+                "WAR! - Special Agent Objective 1",
+                "WAR! - Special Agent Objective 2",
+                "Complete: WAR! - Special Agent"
+            ]
+        )
+        war.add_locations(war_locations, PerfectDarkLocation)
+
+        duel_locations = get_location_names_with_ids(
+            [
+                "The Duel - Special Agent Objective 1",
+                "The Duel - Special Agent Objective 2",
+                "Complete: The Duel - Special Agent"
+            ]
+        )
+        duel.add_locations(duel_locations, PerfectDarkLocation)
+
+
+    if world.options.perfect_agent:
+        defection_locations = get_location_names_with_ids(
+            [
+                "dD Defection - Perfect Agent Objective 1",
+                "dD Defection - Perfect Agent Objective 2",
+                "dD Defection - Perfect Agent Objective 3",
+                "dD Defection - Perfect Agent Objective 4",
+                "dD Defection - Perfect Agent Objective 5",
+                "Complete: dD Defection - Perfect Agent"
+            ]
+        )
+        defection.add_locations(defection_locations, PerfectDarkLocation)
+
+        investigation_locations = get_location_names_with_ids(
+            [
+                "dD Investigation - Perfect Agent Objective 1",
+                "dD Investigation - Perfect Agent Objective 2",
+                "dD Investigation - Perfect Agent Objective 3",
+                "dD Investigation - Perfect Agent Objective 4",
+                "dD Investigation - Perfect Agent Objective 5",
+                "Complete: dD Investigation - Perfect Agent"
+            ]
+        )
+        investigation.add_locations(investigation_locations, PerfectDarkLocation)
+
+        extraction_locations = get_location_names_with_ids(
+            [
+                "dD Extraction - Perfect Agent Objective 1",
+                "dD Extraction - Perfect Agent Objective 2",
+                "dD Extraction - Perfect Agent Objective 3",
+                "dD Extraction - Perfect Agent Objective 4",
+                "dD Extraction - Perfect Agent Objective 5",
+                "Complete: dD Extraction - Perfect Agent"
+            ]
+        )
+        extraction.add_locations(extraction_locations, PerfectDarkLocation)
+
+        villa_locations = get_location_names_with_ids(
+            [
+                "Carrington Villa - Perfect Agent Objective 1",
+                "Carrington Villa - Perfect Agent Objective 2",
+                "Carrington Villa - Perfect Agent Objective 3",
+                "Carrington Villa - Perfect Agent Objective 4",
+                "Carrington Villa - Perfect Agent Objective 5",
+                "Complete: Carrington Villa - Perfect Agent"
+            ]
+        )
+        villa.add_locations(villa_locations, PerfectDarkLocation)
+
+        chicago_locations = get_location_names_with_ids(
+            [
+                "Chicago - Perfect Agent Objective 1",
+                "Chicago - Perfect Agent Objective 2",
+                "Chicago - Perfect Agent Objective 3",
+                "Chicago - Perfect Agent Objective 4",
+                "Chicago - Perfect Agent Objective 5",
+                "Complete: Chicago - Perfect Agent"
+            ]
+        )
+        chicago.add_locations(chicago_locations, PerfectDarkLocation)
+
+        g5_building_locations = get_location_names_with_ids(
+            [
+                "G5 Building - Perfect Agent Objective 1",
+                "G5 Building - Perfect Agent Objective 2",
+                "G5 Building - Perfect Agent Objective 3",
+                "G5 Building - Perfect Agent Objective 4",
+                "G5 Building - Perfect Agent Objective 5",
+                "Complete: G5 Building - Perfect Agent"
+            ]
+        )
+        g5_building.add_locations(g5_building_locations, PerfectDarkLocation)
+
+        infiltration_locations = get_location_names_with_ids(
+            [
+                "A51 Infiltration - Perfect Agent Objective 1",
+                "A51 Infiltration - Perfect Agent Objective 2",
+                "A51 Infiltration - Perfect Agent Objective 3",
+                "A51 Infiltration - Perfect Agent Objective 4",
+                "A51 Infiltration - Perfect Agent Objective 5",
+                "Complete: A51 Infiltration - Perfect Agent"
+            ]
+        )
+        infiltration.add_locations(infiltration_locations, PerfectDarkLocation)
+
+        rescue_locations = get_location_names_with_ids(
+            [
+                "A51 Rescue - Perfect Agent Objective 1",
+                "A51 Rescue - Perfect Agent Objective 2",
+                "A51 Rescue - Perfect Agent Objective 3",
+                "A51 Rescue - Perfect Agent Objective 4",
+                "A51 Rescue - Perfect Agent Objective 5",
+                "Complete: A51 Rescue - Perfect Agent"
+            ]
+        )
+        rescue.add_locations(rescue_locations, PerfectDarkLocation)
+
+        escape_locations = get_location_names_with_ids(
+            [
+                "A51 Escape - Perfect Agent Objective 1",
+                "A51 Escape - Perfect Agent Objective 2",
+                "A51 Escape - Perfect Agent Objective 3",
+                "A51 Escape - Perfect Agent Objective 4",
+                "A51 Escape - Perfect Agent Objective 5",
+                "Complete: A51 Escape - Perfect Agent"
+            ]
+        )
+        escape.add_locations(escape_locations, PerfectDarkLocation)
+
+        air_base_locations = get_location_names_with_ids(
+            [
+                "Air Base - Perfect Agent Objective 1",
+                "Air Base - Perfect Agent Objective 2",
+                "Air Base - Perfect Agent Objective 3",
+                "Air Base - Perfect Agent Objective 4",
+                "Air Base - Perfect Agent Objective 5",
+                "Complete: Air Base - Perfect Agent"
+            ]
+        )
+        air_base.add_locations(air_base_locations, PerfectDarkLocation)
+
+        air_force_one_locations = get_location_names_with_ids(
+            [
+                "Air Force One - Perfect Agent Objective 1",
+                "Air Force One - Perfect Agent Objective 2",
+                "Air Force One - Perfect Agent Objective 3",
+                "Air Force One - Perfect Agent Objective 4",
+                "Air Force One - Perfect Agent Objective 5",
+                "Complete: Air Force One - Perfect Agent"
+            ]
+        )
+        air_force_one.add_locations(air_force_one_locations, PerfectDarkLocation)
+
+        crash_site_locations = get_location_names_with_ids(
+            [
+                "Crash Site - Perfect Agent Objective 1",
+                "Crash Site - Perfect Agent Objective 2",
+                "Crash Site - Perfect Agent Objective 3",
+                "Crash Site - Perfect Agent Objective 4",
+                "Crash Site - Perfect Agent Objective 5",
+                "Complete: Crash Site - Perfect Agent"
+            ]
+        )
+        crash_site.add_locations(crash_site_locations, PerfectDarkLocation)
+
+        pelagic_locations = get_location_names_with_ids(
+            [
+                "Pelagic II - Perfect Agent Objective 1",
+                "Pelagic II - Perfect Agent Objective 2",
+                "Pelagic II - Perfect Agent Objective 3",
+                "Pelagic II - Perfect Agent Objective 4",
+                "Pelagic II - Perfect Agent Objective 5",
+                "Complete: Pelagic II - Perfect Agent"
+            ]
+        )
+        pelagic.add_locations(pelagic_locations, PerfectDarkLocation)
+
+        deep_sea_locations = get_location_names_with_ids(
+            [
+                "Deep Sea - Perfect Agent Objective 1",
+                "Deep Sea - Perfect Agent Objective 2",
+                "Deep Sea - Perfect Agent Objective 3",
+                "Deep Sea - Perfect Agent Objective 4",
+                "Deep Sea - Perfect Agent Objective 5",
+                "Complete: Deep Sea - Perfect Agent"
+            ]
+        )
+        deep_sea.add_locations(deep_sea_locations, PerfectDarkLocation)
+
+        institute_defense_locations = get_location_names_with_ids(
+            [
+                "CI Defense - Perfect Agent Objective 1",
+                "CI Defense - Perfect Agent Objective 2",
+                "CI Defense - Perfect Agent Objective 3",
+                "CI Defense - Perfect Agent Objective 4",
+                "CI Defense - Perfect Agent Objective 5",
+                "Complete: CI Defense - Perfect Agent"
+            ]
+        )
+        institute_defense.add_locations(institute_defense_locations, PerfectDarkLocation)
+
+        attack_ship_locations = get_location_names_with_ids(
+            [
+                "Attack Ship - Perfect Agent Objective 1",
+                "Attack Ship - Perfect Agent Objective 2",
+                "Attack Ship - Perfect Agent Objective 3",
+                "Attack Ship - Perfect Agent Objective 4",
+                "Attack Ship - Perfect Agent Objective 5",
+                "Complete: Attack Ship - Perfect Agent"
+            ]
+        )
+        attack_ship.add_locations(attack_ship_locations, PerfectDarkLocation)
+
+        skedar_ruins_locations = get_location_names_with_ids(
+            [
+                "Skedar Ruins - Perfect Agent Objective 1",
+                "Skedar Ruins - Perfect Agent Objective 2",
+                "Skedar Ruins - Perfect Agent Objective 3",
+                "Skedar Ruins - Perfect Agent Objective 4",
+                "Skedar Ruins - Perfect Agent Objective 5",
+                "Complete: Skedar Ruins - Perfect Agent"
+            ]
+        )
+        skedar_ruins.add_locations(skedar_ruins_locations, PerfectDarkLocation)
+
+        mbr_locations = get_location_names_with_ids(
+            [
+                "Mr. Blonde's Revenge - Perfect Agent Objective 1",
+                "Mr. Blonde's Revenge - Perfect Agent Objective 2",
+                "Mr. Blonde's Revenge - Perfect Agent Objective 3",
+                "Complete: Mr. Blonde's Revenge - Perfect Agent"
+            ]
+        )
+        mbr.add_locations(mbr_locations, PerfectDarkLocation)
+
+        maian_sos_locations = get_location_names_with_ids(
+            [
+                "Maian SOS - Perfect Agent Objective 1",
+                "Maian SOS - Perfect Agent Objective 2",
+                "Maian SOS - Perfect Agent Objective 3",
+                "Complete: Maian SOS - Perfect Agent"
+            ]
+        )
+        maian_sos.add_locations(maian_sos_locations, PerfectDarkLocation)
+
+        war_locations = get_location_names_with_ids(
+            [
+                "WAR! - Perfect Agent Objective 1",
+                "WAR! - Perfect Agent Objective 2",
+                "WAR! - Perfect Agent Objective 3",
+                "Complete: WAR! - Perfect Agent"
+            ]
+        )
+        war.add_locations(war_locations, PerfectDarkLocation)
+
+        duel_locations = get_location_names_with_ids(
+            [
+                "The Duel - Perfect Agent Objective 1",
+                "The Duel - Perfect Agent Objective 2",
+                "The Duel - Perfect Agent Objective 3",
+                "Complete: The Duel - Perfect Agent"
+            ]
+        )
+        duel.add_locations(duel_locations, PerfectDarkLocation)
 
     if world.options.challenges:
         challenges_locations = get_location_names_with_ids(
@@ -1066,3 +1364,260 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             ]
         )
         carrington_institute.add_locations(holotraining_locations, PerfectDarkLocation)
+
+    if world.options.unlock_cheats:
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete dD Defection"
+            ]
+        )
+        defection.add_locations(cheat_locations, PerfectDarkLocation)
+
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete dD Investigation"
+            ]
+        )
+        investigation.add_locations(cheat_locations, PerfectDarkLocation)
+
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete dD Extraction"
+            ]
+        )
+        extraction.add_locations(cheat_locations, PerfectDarkLocation)
+
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete Carrington Villa"
+            ]
+        )
+        villa.add_locations(cheat_locations, PerfectDarkLocation)
+
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete Chicago"
+            ]
+        )
+        chicago.add_locations(cheat_locations, PerfectDarkLocation)
+        
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete G5 Building"
+            ]
+        )
+        g5_building.add_locations(cheat_locations, PerfectDarkLocation)
+        
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete A51 Infiltration"
+            ]
+        )
+        infiltration.add_locations(cheat_locations, PerfectDarkLocation)
+        
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete A51 Rescue"
+            ]
+        )
+        rescue.add_locations(cheat_locations, PerfectDarkLocation)
+        
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete A51 Escape"
+            ]
+        )
+        escape.add_locations(cheat_locations, PerfectDarkLocation)
+        
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete Air Base"
+            ]
+        )
+        air_base.add_locations(cheat_locations, PerfectDarkLocation)
+        
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete Air Force One"
+            ]
+        )
+        air_force_one.add_locations(cheat_locations, PerfectDarkLocation)
+        
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete Crash Site"
+            ]
+        )
+        crash_site.add_locations(cheat_locations, PerfectDarkLocation)
+        
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete Pelagic II"
+            ]
+        )
+        pelagic.add_locations(cheat_locations, PerfectDarkLocation)
+        
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete Deep Sea"
+            ]
+        )
+        deep_sea.add_locations(cheat_locations, PerfectDarkLocation)
+        
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete CI Defense"
+            ]
+        )
+        institute_defense.add_locations(cheat_locations, PerfectDarkLocation)
+        
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete Attack Ship"
+            ]
+        )
+        attack_ship.add_locations(cheat_locations, PerfectDarkLocation)
+        
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Complete Skedar Ruins"
+            ]
+        )
+        skedar_ruins.add_locations(cheat_locations, PerfectDarkLocation)
+
+        if world.options.agent:
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete dD Extraction (Agent) in under 2:03"
+                ]
+            )
+            extraction.add_locations(cheat_locations, PerfectDarkLocation)
+
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete G5 Building (Agent) in under 1:40"
+                ]
+            )
+            g5_building.add_locations(cheat_locations, PerfectDarkLocation)
+
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete A51 Escape (Agent) in under 3:50"
+                ]
+            )
+            escape.add_locations(cheat_locations, PerfectDarkLocation)
+
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete Crash Site (Agent) in under 2:50"
+                ]
+            )
+            crash_site.add_locations(cheat_locations, PerfectDarkLocation)
+
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete CI Defense (Agent) in under 1:45"
+                ]
+            )
+            institute_defense.add_locations(cheat_locations, PerfectDarkLocation)
+
+        if world.options.special_agent:
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30"
+                ]
+            )
+            defection.add_locations(cheat_locations, PerfectDarkLocation)
+
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete Carrington Villa (Special Agent) in under 2:30"
+                ]
+            )
+            villa.add_locations(cheat_locations, PerfectDarkLocation)
+            
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00"
+                ]
+            )
+            infiltration.add_locations(cheat_locations, PerfectDarkLocation)
+            
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete Air Base (Special Agent) in under 3:11"
+                ]
+            )
+            air_base.add_locations(cheat_locations, PerfectDarkLocation)
+
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete Pelagic II (Special Agent) in under 7:07"
+                ]
+            )
+            pelagic.add_locations(cheat_locations, PerfectDarkLocation)
+
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete Attack Ship (Special Agent) in under 5:17"
+                ]
+            )
+            attack_ship.add_locations(cheat_locations, PerfectDarkLocation)
+
+        if world.options.perfect_agent:
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30"
+                ]
+            )
+            investigation.add_locations(cheat_locations, PerfectDarkLocation)
+
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00"
+                ]
+            )
+            chicago.add_locations(cheat_locations, PerfectDarkLocation)
+
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59"
+                ]
+            )
+            rescue.add_locations(cheat_locations, PerfectDarkLocation)
+
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55"
+                ]
+            )
+            air_force_one.add_locations(cheat_locations, PerfectDarkLocation)
+
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete Deep Sea (Perfect Agent) in under 7:27"
+                ]
+            )
+            deep_sea.add_locations(cheat_locations, PerfectDarkLocation)
+
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"
+                ]
+            )
+            skedar_ruins.add_locations(cheat_locations, PerfectDarkLocation)
+
+        if world.options.weapon_training:
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Get gold medals for Falcon 2, Falcon 2 (Silencer), and Falcon 2 (Scope)",
+                    "Cheat Unlock: Get gold medals for MagSec 4, Mauler, Phoenix, DY357 Magnum, and DY357-LX",
+                    "Cheat Unlock: Get gold medals for CMP150, Cyclone, Callisto NTG, and RC-P120",
+                    "Cheat Unlock: Get gold medals for Laptop Gun, Dragon, K7 Avenger, AR34, and SuperDragon",
+                    "Cheat Unlock: Get gold medals for Shotgun, Sniper Rifle, Rocket Launcher, and Slayer",
+                    "Cheat Unlock: Get gold medals for Timed Mine, Proximity Mine, and Remote Mine",
+                    "Cheat Unlock: Get gold medals for FarSight XR-20, Crossbow, Combat Knife, and Grenade",
+                    "Cheat Unlock: Get gold medals for Tranquilizer, Reaper, and Devastator",
+                ]
+            )            
+            carrington_institute.add_locations(cheat_locations, PerfectDarkLocation)

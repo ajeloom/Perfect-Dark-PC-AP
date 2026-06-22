@@ -7,11 +7,11 @@ from BaseClasses import Item, ItemClassification
 if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
-from .options import Goal
+from .options import Goal, MissionLogic, WeaponProgression
 
 ITEM_NAME_TO_ID = {
-    "NONE": 1,
-    "UNARMED": 2,
+    # "NONE": 1,
+    # "UNARMED": 2,
     "Falcon 2": 3,
     "Falcon 2 (Silencer)": 4,
     "Falcon 2 (Scope)": 5,
@@ -46,14 +46,14 @@ ITEM_NAME_TO_ID = {
     "Proximity Mine": 34,
     "Remote Mine": 35,
     "Combat Boost": 36,
-	"PP9i": 37,
-	"CC13": 38,
-	"KL01313": 39,
-	"KF7 Special": 40,
-	"ZZT (9mm)": 41,
-	"DMC": 42,
-	"AR53": 43,
-	"RC-P45": 44,
+	# "PP9i": 37,
+	# "CC13": 38,
+	# "KL01313": 39,
+	# "KF7 Special": 40,
+	# "ZZT (9mm)": 41,
+	# "DMC": 42,
+	# "AR53": 43,
+	# "RC-P45": 44,
     "Psychosis Gun": 45,
 	"Night Vision": 46,
 	"CamSpy": 47,
@@ -61,8 +61,8 @@ ITEM_NAME_TO_ID = {
 	"IR Scanner": 49,
 	"Cloaking Device": 50,
 	"Horizon Scanner": 51,
-    "TESTER": 52,
-    "ROCKETLAUNCHER_34": 53,
+    # "TESTER": 52,
+    # "ROCKETLAUNCHER_34": 53,
 	"ECM Mine": 54,
 	"Data Uplink": 55,
 	"R-Tracker": 56,
@@ -83,7 +83,7 @@ ITEM_NAME_TO_ID = {
 	"G5 Building Level 2 Key Card": 71,
 	"Medlab 2 Key Card": 72,
 	"Op Room Key Card": 73,
-	"Air Force One Key Cards": 74,
+	"Air Force One Lift Key Card": 74,
 	"Cellar Key Card": 75,
 	"Area 51 Lift Key Card": 76,
 	"Cassandra's Office Key Card": 77,
@@ -91,76 +91,76 @@ ITEM_NAME_TO_ID = {
 	"WEAPON_BRIEFCASE": 79,
 	"Shield Tech Item": 80,
 	"De Vries' Necklace": 81,
-    "HAMMER": 82,
-    "SCREWDRIVER": 83,
-    "ROCKET": 84,
-    "HOMINGROCKET": 85,
-    "GRENADEROUND": 86,
-    "BOLT": 87,
+    "Air Force One Left Room Key Card": 82,     # "HAMMER": 82,
+    "Air Force One Right Room Key Card": 83,    # "SCREWDRIVER": 83,
+    # "ROCKET": 84,
+    # "HOMINGROCKET": 85,
+    # "GRENADEROUND": 86,
+    # "BOLT": 87,
     "Briefcase": 88,
-	"SKROCKET": 89,
-    "CHOPPERGUN": 90,
-    "WATCHLASER": 91,
+	# "SKROCKET": 89,
+    # "CHOPPERGUN": 90,
+    # "WATCHLASER": 91,
     "Shield": 92,
-	"DISABLED": 93,
-    "SUICIDEPILL": 94,
-    "Defection - Agent": 95,
-    "Investigation - Agent": 96,
-    "Extraction - Agent": 97,
+	# "DISABLED": 93,
+    # "SUICIDEPILL": 94,
+    "dD Defection - Agent": 95,
+    "dD Investigation - Agent": 96,
+    "dD Extraction - Agent": 97,
     "Carrington Villa - Agent": 98,
     "Chicago - Agent": 99,
     "G5 Building - Agent": 100,
-    "Infiltration - Agent": 101,
-    "Rescue - Agent": 102,
-    "Escape - Agent": 103,
+    "A51 Infiltration - Agent": 101,
+    "A51 Rescue - Agent": 102,
+    "A51 Escape - Agent": 103,
     "Air Base - Agent": 104,
     "Air Force One - Agent": 105,
     "Crash Site - Agent": 106,
     "Pelagic II - Agent": 107,
     "Deep Sea - Agent": 108,
-    "Carrington Institute - Agent": 109,
+    "CI Defense - Agent": 109,
     "Attack Ship - Agent": 110,
     "Skedar Ruins - Agent": 111,
     "Mr. Blonde's Revenge - Agent": 112,
     "Maian SOS - Agent": 113,
     "WAR! - Agent": 114,
     "The Duel - Agent": 115,
-    "Defection - Special Agent": 116,
-    "Investigation - Special Agent": 117,
-    "Extraction - Special Agent": 118,
+    "dD Defection - Special Agent": 116,
+    "dD Investigation - Special Agent": 117,
+    "dD Extraction - Special Agent": 118,
     "Carrington Villa - Special Agent": 119,
     "Chicago - Special Agent": 120,
     "G5 Building - Special Agent": 121,
-    "Infiltration - Special Agent": 122,
-    "Rescue - Special Agent": 123,
-    "Escape - Special Agent": 124,
+    "A51 Infiltration - Special Agent": 122,
+    "A51 Rescue - Special Agent": 123,
+    "A51 Escape - Special Agent": 124,
     "Air Base - Special Agent": 125,
     "Air Force One - Special Agent": 126,
     "Crash Site - Special Agent": 127,
     "Pelagic II - Special Agent": 128,
     "Deep Sea - Special Agent": 129,
-    "Carrington Institute - Special Agent": 130,
+    "CI Defense - Special Agent": 130,
     "Attack Ship - Special Agent": 131,
     "Skedar Ruins - Special Agent": 132,
     "Mr. Blonde's Revenge - Special Agent": 133,
     "Maian SOS - Special Agent": 134,
     "WAR! - Special Agent": 135,
     "The Duel - Special Agent": 136,
-    "Defection - Perfect Agent": 137,
-    "Investigation - Perfect Agent": 138,
-    "Extraction - Perfect Agent": 139,
+    "dD Defection - Perfect Agent": 137,
+    "dD Investigation - Perfect Agent": 138,
+    "dD Extraction - Perfect Agent": 139,
     "Carrington Villa - Perfect Agent": 140,
     "Chicago - Perfect Agent": 141,
     "G5 Building - Perfect Agent": 142,
-    "Infiltration - Perfect Agent": 143,
-    "Rescue - Perfect Agent": 144,
-    "Escape - Perfect Agent": 145,
+    "A51 Infiltration - Perfect Agent": 143,
+    "A51 Rescue - Perfect Agent": 144,
+    "A51 Escape - Perfect Agent": 145,
     "Air Base - Perfect Agent": 146,
     "Air Force One - Perfect Agent": 147,
     "Crash Site - Perfect Agent": 148,
     "Pelagic II - Perfect Agent": 149,
     "Deep Sea - Perfect Agent": 150,
-    "Carrington Institute - Perfect Agent": 151,
+    "CI Defense - Perfect Agent": 151,
     "Attack Ship - Perfect Agent": 152,
     "Skedar Ruins - Perfect Agent": 153,
     "Mr. Blonde's Revenge - Perfect Agent": 154,
@@ -198,39 +198,58 @@ ITEM_NAME_TO_ID = {
 	"Challenge 29": 186,
 	"Challenge 30": 187,
     "Progressive Weapon": 188,
-    "Cheese": 189,
-    "Trap": 190,
-    "Mission Star": 191,
-    "Victory": 192,
+    "Cheat: Hurricane Fists": 189,
+    "Cheat: Cloaking Device": 190,
+    "Cheat: Invincible": 191,
+    "Cheat: All Guns in Solo": 192,
+    "Cheat: Unlimited Ammo": 193,
+    "Cheat: Unlimited Ammo, No Reloads": 194,
+    "Cheat: Slo-mo Single Player": 195,
+    "Cheat: DK Mode": 196,
+    "Cheat: Trent's Magnum": 197,
+    "Cheat: FarSight": 198,
+    "Cheat: Small Jo": 199,
+    "Cheat: Small Characters": 200,
+    "Cheat: Enemy Shields": 201,
+    "Cheat: Jo Shield": 202,
+    "Cheat: Super Shield": 203,
+    "Cheat: Classic Sight": 204,
+    "Cheat: Team Heads Only": 205,
+    "Cheat: Play as Elvis": 206,
+    "Cheat: Enemy Rockets": 207,
+    "Cheat: Unlimited Ammo - Laptop Sentry Gun": 208,
+    "Cheat: Marquis of Queensbury Rules": 209,
+    "Cheat: Perfect Darkness": 210,
+    "Cheat: Pugilist": 211,
+    "Cheat: Hotshot": 212,
+    "Cheat: Hit and Run": 213,
+    "Cheat: Alien": 214,
+    "Cheat: R-Tracker/Weapon Cache Locations": 215,
+    "Cheat: Rocket Launcher": 216,
+    "Cheat: Sniper Rifle": 217,
+    "Cheat: X-Ray Scanner": 218,
+    "Cheat: SuperDragon": 219,
+    "Cheat: Laptop Gun": 220,
+    "Cheat: Phoenix": 221,
+    "Cheat: Psychosis Gun": 222,
+    "Cheat: PP9i": 223,
+    "Cheat: CC13": 224,
+    "Cheat: KL01313": 225,
+    "Cheat: KF7 Special": 226,
+    "Cheat: ZZT (9mm)": 227,
+    "Cheat: DMC": 228,
+    "Cheat: AR53": 229,
+    "Cheat: RC-P45": 230,
+    "Cheese": 231,
+    "Trap": 232,
+    "Mission Star": 233,
+    "Victory": 234,
 }
 
-STARTING_MISSION_ID_TO_NAME = {
-    1: "Defection - Perfect Agent",
-    2: "Investigation - Perfect Agent",
-    3: "Extraction - Perfect Agent",
-    4: "Carrington Villa - Perfect Agent",
-    5: "Chicago - Perfect Agent",
-    6: "G5 Building - Perfect Agent",
-    7: "Infiltration - Perfect Agent",
-    8: "Rescue - Perfect Agent",
-    9: "Escape - Perfect Agent",
-    10: "Air Base - Perfect Agent",
-    11: "Air Force One - Perfect Agent",
-    12: "Crash Site - Perfect Agent",
-    13: "Pelagic II - Perfect Agent",
-    14: "Deep Sea - Perfect Agent",
-    15: "Carrington Institute - Perfect Agent",
-    16: "Attack Ship - Perfect Agent",
-    17: "Mr. Blonde's Revenge - Perfect Agent",
-    18: "Maian SOS - Perfect Agent",
-    19: "WAR! - Perfect Agent",
-    20: "The Duel - Perfect Agent",
-    21: "Skedar Ruins - Perfect Agent",
-}
 
 DEFAULT_ITEM_CLASSIFICATIONS = {
-    "NONE": ItemClassification.filler,
-    "UNARMED": ItemClassification.progression,
+    # "NONE": ItemClassification.filler,
+    # "UNARMED": ItemClassification.progression,
     "Falcon 2": ItemClassification.progression,
     "Falcon 2 (Silencer)": ItemClassification.progression,
     "Falcon 2 (Scope)": ItemClassification.progression,
@@ -265,14 +284,14 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Proximity Mine": ItemClassification.progression,
     "Remote Mine": ItemClassification.progression,
     "Combat Boost": ItemClassification.filler,
-	"PP9i": ItemClassification.filler,
-	"CC13": ItemClassification.filler,
-	"KL01313": ItemClassification.filler,
-	"KF7 Special": ItemClassification.filler,
-	"ZZT (9mm)": ItemClassification.filler,
-	"DMC": ItemClassification.filler,
-	"AR53": ItemClassification.filler,
-	"RC-P45": ItemClassification.filler,
+	# "PP9i": ItemClassification.filler,
+	# "CC13": ItemClassification.filler,
+	# "KL01313": ItemClassification.filler,
+	# "KF7 Special": ItemClassification.filler,
+	# "ZZT (9mm)": ItemClassification.filler,
+	# "DMC": ItemClassification.filler,
+	# "AR53": ItemClassification.filler,
+	# "RC-P45": ItemClassification.filler,
     "Psychosis Gun": ItemClassification.filler,
 	"Night Vision": ItemClassification.progression | ItemClassification.useful,
 	"CamSpy": ItemClassification.progression | ItemClassification.useful,
@@ -280,8 +299,8 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
 	"IR Scanner": ItemClassification.progression | ItemClassification.useful,
 	"Cloaking Device": ItemClassification.progression | ItemClassification.useful,
 	"Horizon Scanner": ItemClassification.filler,
-    "TESTER": ItemClassification.filler,
-    "ROCKETLAUNCHER_34": ItemClassification.filler,
+    # "TESTER": ItemClassification.filler,
+    # "ROCKETLAUNCHER_34": ItemClassification.filler,
 	"ECM Mine": ItemClassification.progression | ItemClassification.useful,
 	"Data Uplink": ItemClassification.progression | ItemClassification.useful,
 	"R-Tracker": ItemClassification.progression | ItemClassification.useful,
@@ -302,7 +321,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
 	"G5 Building Level 2 Key Card": ItemClassification.progression | ItemClassification.useful,
 	"Medlab 2 Key Card": ItemClassification.progression | ItemClassification.useful,
 	"Op Room Key Card": ItemClassification.progression | ItemClassification.useful,
-	"Air Force One Key Cards": ItemClassification.progression | ItemClassification.useful,
+	"Air Force One Lift Key Card": ItemClassification.progression | ItemClassification.useful,
 	"Cellar Key Card": ItemClassification.progression | ItemClassification.useful,
 	"Area 51 Lift Key Card": ItemClassification.progression | ItemClassification.useful,
 	"Cassandra's Office Key Card": ItemClassification.filler,
@@ -310,28 +329,28 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
 	"WEAPON_BRIEFCASE": ItemClassification.filler,
 	"Shield Tech Item": ItemClassification.progression | ItemClassification.useful,
 	"De Vries' Necklace": ItemClassification.progression | ItemClassification.useful,
-    "HAMMER": ItemClassification.filler,
-    "SCREWDRIVER": ItemClassification.filler,
-    "ROCKET": ItemClassification.filler,
-    "HOMINGROCKET": ItemClassification.filler,
-    "GRENADEROUND": ItemClassification.filler,
-    "BOLT": ItemClassification.filler,
+    "Air Force One Left Room Key Card": ItemClassification.filler,                      # "HAMMER": ItemClassification.filler,
+    "Air Force One Right Room Key Card": ItemClassification.filler,                     # "SCREWDRIVER": ItemClassification.filler,
+    # "ROCKET": ItemClassification.filler,
+    # "HOMINGROCKET": ItemClassification.filler,
+    # "GRENADEROUND": ItemClassification.filler,
+    # "BOLT": ItemClassification.filler,
     "Briefcase": ItemClassification.progression | ItemClassification.useful,
-	"SKROCKET": ItemClassification.filler,
-    "CHOPPERGUN": ItemClassification.filler,
-    "WATCHLASER": ItemClassification.filler,
-    "Shield": ItemClassification.progression | ItemClassification.useful,
-	"DISABLED": ItemClassification.filler,
-    "SUICIDEPILL": ItemClassification.filler,
-    "Defection - Agent": ItemClassification.progression | ItemClassification.useful,
-    "Defection - Special Agent": ItemClassification.progression | ItemClassification.useful,
-    "Defection - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
-    "Investigation - Agent": ItemClassification.progression | ItemClassification.useful,
-    "Investigation - Special Agent": ItemClassification.progression | ItemClassification.useful,
-    "Investigation - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
-    "Extraction - Agent": ItemClassification.progression | ItemClassification.useful,
-    "Extraction - Special Agent": ItemClassification.progression | ItemClassification.useful,
-    "Extraction - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
+	# "SKROCKET": ItemClassification.filler,
+    # "CHOPPERGUN": ItemClassification.filler,
+    # "WATCHLASER": ItemClassification.filler,
+    "Shield": ItemClassification.useful,
+	# "DISABLED": ItemClassification.filler,
+    # "SUICIDEPILL": ItemClassification.filler,
+    "dD Defection - Agent": ItemClassification.progression | ItemClassification.useful,
+    "dD Defection - Special Agent": ItemClassification.progression | ItemClassification.useful,
+    "dD Defection - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
+    "dD Investigation - Agent": ItemClassification.progression | ItemClassification.useful,
+    "dD Investigation - Special Agent": ItemClassification.progression | ItemClassification.useful,
+    "dD Investigation - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
+    "dD Extraction - Agent": ItemClassification.progression | ItemClassification.useful,
+    "dD Extraction - Special Agent": ItemClassification.progression | ItemClassification.useful,
+    "dD Extraction - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
     "Carrington Villa - Agent": ItemClassification.progression | ItemClassification.useful,
     "Carrington Villa - Special Agent": ItemClassification.progression | ItemClassification.useful,
     "Carrington Villa - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
@@ -341,15 +360,15 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "G5 Building - Agent": ItemClassification.progression | ItemClassification.useful,
     "G5 Building - Special Agent": ItemClassification.progression | ItemClassification.useful,
     "G5 Building - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
-    "Infiltration - Agent": ItemClassification.progression | ItemClassification.useful,
-    "Infiltration - Special Agent": ItemClassification.progression | ItemClassification.useful,
-    "Infiltration - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
-    "Rescue - Agent": ItemClassification.progression | ItemClassification.useful,
-    "Rescue - Special Agent": ItemClassification.progression | ItemClassification.useful,
-    "Rescue - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
-    "Escape - Agent": ItemClassification.progression | ItemClassification.useful,
-    "Escape - Special Agent": ItemClassification.progression | ItemClassification.useful,
-    "Escape - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
+    "A51 Infiltration - Agent": ItemClassification.progression | ItemClassification.useful,
+    "A51 Infiltration - Special Agent": ItemClassification.progression | ItemClassification.useful,
+    "A51 Infiltration - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
+    "A51 Rescue - Agent": ItemClassification.progression | ItemClassification.useful,
+    "A51 Rescue - Special Agent": ItemClassification.progression | ItemClassification.useful,
+    "A51 Rescue - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
+    "A51 Escape - Agent": ItemClassification.progression | ItemClassification.useful,
+    "A51 Escape - Special Agent": ItemClassification.progression | ItemClassification.useful,
+    "A51 Escape - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
     "Air Base - Agent": ItemClassification.progression | ItemClassification.useful,
     "Air Base - Special Agent": ItemClassification.progression | ItemClassification.useful,
     "Air Base - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
@@ -365,9 +384,9 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Deep Sea - Agent": ItemClassification.progression | ItemClassification.useful,
     "Deep Sea - Special Agent": ItemClassification.progression | ItemClassification.useful,
     "Deep Sea - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
-    "Carrington Institute - Agent": ItemClassification.progression | ItemClassification.useful,
-    "Carrington Institute - Special Agent": ItemClassification.progression | ItemClassification.useful,
-    "Carrington Institute - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
+    "CI Defense - Agent": ItemClassification.progression | ItemClassification.useful,
+    "CI Defense - Special Agent": ItemClassification.progression | ItemClassification.useful,
+    "CI Defense - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
     "Attack Ship - Agent": ItemClassification.progression | ItemClassification.useful,
     "Attack Ship - Special Agent": ItemClassification.progression | ItemClassification.useful,
     "Attack Ship - Perfect Agent": ItemClassification.progression | ItemClassification.useful,
@@ -417,6 +436,48 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
 	"Challenge 29": ItemClassification.progression | ItemClassification.useful,
 	"Challenge 30": ItemClassification.progression | ItemClassification.useful,
     "Progressive Weapon": ItemClassification.progression,
+    "Cheat: DK Mode": ItemClassification.filler,
+    "Cheat: Small Jo": ItemClassification.filler,
+    "Cheat: Small Characters": ItemClassification.filler,
+    "Cheat: Team Heads Only": ItemClassification.filler,
+    "Cheat: Play as Elvis": ItemClassification.filler,
+    "Cheat: Slo-mo Single Player": ItemClassification.filler,
+    "Cheat: Invincible": ItemClassification.useful,
+    "Cheat: Cloaking Device": ItemClassification.useful,
+    "Cheat: Marquis of Queensbury Rules": ItemClassification.useful,
+    "Cheat: Jo Shield": ItemClassification.useful,
+    "Cheat: Super Shield": ItemClassification.useful,
+    "Cheat: Enemy Shields": ItemClassification.filler,
+    "Cheat: Enemy Rockets": ItemClassification.filler,
+    "Cheat: Perfect Darkness": ItemClassification.filler,
+    "Cheat: Rocket Launcher": ItemClassification.useful,
+    "Cheat: Sniper Rifle": ItemClassification.useful,
+    "Cheat: SuperDragon": ItemClassification.useful,
+    "Cheat: Laptop Gun": ItemClassification.useful,
+    "Cheat: Phoenix": ItemClassification.useful,
+    "Cheat: Psychosis Gun": ItemClassification.useful,
+    "Cheat: Trent's Magnum": ItemClassification.useful,
+    "Cheat: FarSight": ItemClassification.useful,
+    "Cheat: PP9i": ItemClassification.useful,
+    "Cheat: CC13": ItemClassification.useful,
+    "Cheat: KL01313": ItemClassification.useful,
+    "Cheat: KF7 Special": ItemClassification.useful,
+    "Cheat: ZZT (9mm)": ItemClassification.useful,
+    "Cheat: DMC": ItemClassification.useful,
+    "Cheat: AR53": ItemClassification.useful,
+    "Cheat: RC-P45": ItemClassification.useful,
+    "Cheat: Classic Sight": ItemClassification.filler,
+    "Cheat: Unlimited Ammo - Laptop Sentry Gun": ItemClassification.useful,
+    "Cheat: Hurricane Fists": ItemClassification.filler,
+    "Cheat: Unlimited Ammo": ItemClassification.useful,
+    "Cheat: Unlimited Ammo, No Reloads": ItemClassification.useful,
+    "Cheat: X-Ray Scanner": ItemClassification.useful,
+    "Cheat: R-Tracker/Weapon Cache Locations": ItemClassification.useful,
+    "Cheat: All Guns in Solo": ItemClassification.useful,
+    "Cheat: Pugilist": ItemClassification.filler,
+    "Cheat: Hotshot": ItemClassification.useful,
+    "Cheat: Hit and Run": ItemClassification.useful,
+    "Cheat: Alien": ItemClassification.useful,
     "Cheese": ItemClassification.filler,
     "Trap": ItemClassification.trap,
     "Mission Star": ItemClassification.progression | ItemClassification.useful,
@@ -436,6 +497,15 @@ def get_random_filler_item_name(world: PerfectDarkWorld) -> str:
 
 def create_item_with_correct_classification(world: PerfectDarkWorld, name: str) -> PerfectDarkItem:
     classification = DEFAULT_ITEM_CLASSIFICATIONS[name]
+
+    if ((world.options.mission_logic.value == MissionLogic.option_veteran 
+            or world.options.mission_logic.value == MissionLogic.option_hard)
+        and world.options.weapon_progression.value == WeaponProgression.option_vanilla):
+        if name == "Air Force One Left Room Key Card":
+            classification = ItemClassification.progression
+        elif name == "Air Force One Right Room Key Card":
+            classification = ItemClassification.progression
+
     return PerfectDarkItem(name, classification, ITEM_NAME_TO_ID[name], world.player)
 
 
@@ -449,57 +519,154 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         world.create_item("IR Scanner"),
         world.create_item("Cloaking Device"),
         world.create_item("Horizon Scanner"),
-        world.create_item("ECM Mine"),
         world.create_item("Data Uplink"),
         world.create_item("R-Tracker"),
         world.create_item("President Scanner"),
         world.create_item("Door Decoder"),
         world.create_item("Alien Medpack"),
         world.create_item("Explosives"),
-        world.create_item("Skedar Bomb"),
-        world.create_item("Comms Rider"),
-        world.create_item("Tracer Bug"),
         world.create_item("Target Amplifier"),
         world.create_item("Lab Clothes"),
         world.create_item("Stewardess Disguise"),
-        world.create_item("Flight Plans"),
-        world.create_item("Research Tape"),
         world.create_item("Backup Disk"),
         world.create_item("G5 Building Level 1 Key Card"),
         world.create_item("G5 Building Level 2 Key Card"),
-        world.create_item("Medlab 2 Key Card"), 
-        world.create_item("Op Room Key Card"), 
-        world.create_item("Air Force One Key Cards"),
+        world.create_item("Medlab 2 Key Card"),
+        world.create_item("Op Room Key Card"),
         world.create_item("Cellar Key Card"),
         world.create_item("Area 51 Lift Key Card"),
         world.create_item("Suitcase"),
-        world.create_item("Shield Tech Item"),
-        world.create_item("De Vries' Necklace"),
-        world.create_item("Shield"),
-        world.create_item("Defection - Perfect Agent"),
-        world.create_item("Investigation - Perfect Agent"),
-        world.create_item("Extraction - Perfect Agent"),
-        world.create_item("Carrington Villa - Perfect Agent"),
-        world.create_item("Chicago - Perfect Agent"),
-        world.create_item("G5 Building - Perfect Agent"),
-        world.create_item("Infiltration - Perfect Agent"),
-        world.create_item("Rescue - Perfect Agent"),
-        world.create_item("Escape - Perfect Agent"),
-        world.create_item("Air Base - Perfect Agent"),
-        world.create_item("Air Force One - Perfect Agent"),
-        world.create_item("Crash Site - Perfect Agent"),
-        world.create_item("Pelagic II - Perfect Agent"),
-        world.create_item("Deep Sea - Perfect Agent"),
-        world.create_item("Carrington Institute - Perfect Agent"),
-        world.create_item("Attack Ship - Perfect Agent"),
-        world.create_item("Skedar Ruins - Perfect Agent"),
-        world.create_item("Mr. Blonde's Revenge - Perfect Agent"),
-        world.create_item("Maian SOS - Perfect Agent"),
-        world.create_item("WAR! - Perfect Agent"),
-        world.create_item("The Duel - Perfect Agent"),
+        world.create_item("Air Force One Left Room Key Card"),
+        world.create_item("Air Force One Right Room Key Card"),
+        world.create_item("Cheat: DK Mode"),
+        world.create_item("Cheat: Small Jo"),
+        world.create_item("Cheat: Small Characters"),
+        world.create_item("Cheat: Team Heads Only"),
+        world.create_item("Cheat: Play as Elvis"),
+        world.create_item("Cheat: Slo-mo Single Player"),
+        world.create_item("Cheat: Invincible"),
+        world.create_item("Cheat: Cloaking Device"),
+        world.create_item("Cheat: Marquis of Queensbury Rules"),
+        world.create_item("Cheat: Jo Shield"),
+        world.create_item("Cheat: Super Shield"),
+        world.create_item("Cheat: Enemy Shields"),
+        world.create_item("Cheat: Enemy Rockets"),
+        world.create_item("Cheat: Perfect Darkness"),
+        world.create_item("Cheat: Rocket Launcher"),
+        world.create_item("Cheat: Sniper Rifle"),
+        world.create_item("Cheat: SuperDragon"),
+        world.create_item("Cheat: Laptop Gun"),
+        world.create_item("Cheat: Phoenix"),
+        world.create_item("Cheat: Psychosis Gun"),
+        world.create_item("Cheat: Trent's Magnum"),
+        world.create_item("Cheat: FarSight"),
+        world.create_item("Cheat: PP9i"),
+        world.create_item("Cheat: CC13"),
+        world.create_item("Cheat: KL01313"),
+        world.create_item("Cheat: KF7 Special"),
+        world.create_item("Cheat: ZZT (9mm)"),
+        world.create_item("Cheat: DMC"),
+        world.create_item("Cheat: AR53"),
+        world.create_item("Cheat: RC-P45"),
+        world.create_item("Cheat: Classic Sight"),
+        world.create_item("Cheat: Unlimited Ammo - Laptop Sentry Gun"),
+        world.create_item("Cheat: Hurricane Fists"),
+        world.create_item("Cheat: Unlimited Ammo"),
+        world.create_item("Cheat: Unlimited Ammo, No Reloads"),
+        world.create_item("Cheat: X-Ray Scanner"),
+        world.create_item("Cheat: R-Tracker/Weapon Cache Locations"),
+        world.create_item("Cheat: All Guns in Solo"),
+        world.create_item("Cheat: Pugilist"),
+        world.create_item("Cheat: Hotshot"),
+        world.create_item("Cheat: Hit and Run"),
+        world.create_item("Cheat: Alien"),
     ]
 
-    if world.options.weapon_progression.value == world.options.weapon_progression.option_vanilla:
+    if world.options.agent or world.options.special_agent or world.options.challenges:
+        itempool.append(world.create_item("Shield"))
+
+    if world.options.agent:
+        itempool.append(world.create_item("dD Defection - Agent"))
+        itempool.append(world.create_item("dD Investigation - Agent"))
+        itempool.append(world.create_item("dD Extraction - Agent"))
+        itempool.append(world.create_item("Carrington Villa - Agent"))
+        itempool.append(world.create_item("Chicago - Agent"))
+        itempool.append(world.create_item("G5 Building - Agent"))
+        itempool.append(world.create_item("A51 Infiltration - Agent"))
+        itempool.append(world.create_item("A51 Rescue - Agent"))
+        itempool.append(world.create_item("A51 Escape - Agent"))
+        itempool.append(world.create_item("Air Base - Agent"))
+        itempool.append(world.create_item("Air Force One - Agent"))
+        itempool.append(world.create_item("Crash Site - Agent"))
+        itempool.append(world.create_item("Pelagic II - Agent"))
+        itempool.append(world.create_item("Deep Sea - Agent"))
+        itempool.append(world.create_item("CI Defense - Agent"))
+        itempool.append(world.create_item("Attack Ship - Agent"))
+        itempool.append(world.create_item("Skedar Ruins - Agent"))
+        itempool.append(world.create_item("Mr. Blonde's Revenge - Agent"))
+        itempool.append(world.create_item("Maian SOS - Agent"))
+        itempool.append(world.create_item("WAR! - Agent"))
+        itempool.append(world.create_item("The Duel - Agent"))
+
+    if world.options.special_agent or world.options.perfect_agent:
+        itempool.append(world.create_item("ECM Mine"))
+        itempool.append(world.create_item("Skedar Bomb"))
+        itempool.append(world.create_item("Comms Rider"))
+        itempool.append(world.create_item("Air Force One Lift Key Card"))
+        itempool.append(world.create_item("De Vries' Necklace"))
+
+    if world.options.special_agent:
+        itempool.append(world.create_item("dD Defection - Special Agent"))
+        itempool.append(world.create_item("dD Investigation - Special Agent"))
+        itempool.append(world.create_item("dD Extraction - Special Agent"))
+        itempool.append(world.create_item("Carrington Villa - Special Agent"))
+        itempool.append(world.create_item("Chicago - Special Agent"))
+        itempool.append(world.create_item("G5 Building - Special Agent"))
+        itempool.append(world.create_item("A51 Infiltration - Special Agent"))
+        itempool.append(world.create_item("A51 Rescue - Special Agent"))
+        itempool.append(world.create_item("A51 Escape - Special Agent"))
+        itempool.append(world.create_item("Air Base - Special Agent"))
+        itempool.append(world.create_item("Air Force One - Special Agent"))
+        itempool.append(world.create_item("Crash Site - Special Agent"))
+        itempool.append(world.create_item("Pelagic II - Special Agent"))
+        itempool.append(world.create_item("Deep Sea - Special Agent"))
+        itempool.append(world.create_item("CI Defense - Special Agent"))
+        itempool.append(world.create_item("Attack Ship - Special Agent"))
+        itempool.append(world.create_item("Skedar Ruins - Special Agent"))
+        itempool.append(world.create_item("Mr. Blonde's Revenge - Special Agent"))
+        itempool.append(world.create_item("Maian SOS - Special Agent"))
+        itempool.append(world.create_item("WAR! - Special Agent"))
+        itempool.append(world.create_item("The Duel - Special Agent"))
+
+    if world.options.perfect_agent:
+        itempool.append(world.create_item("Tracer Bug"))
+        itempool.append(world.create_item("Flight Plans"))
+        itempool.append(world.create_item("Research Tape"))
+        itempool.append(world.create_item("Shield Tech Item"))
+
+        itempool.append(world.create_item("dD Defection - Perfect Agent"))
+        itempool.append(world.create_item("dD Investigation - Perfect Agent"))
+        itempool.append(world.create_item("dD Extraction - Perfect Agent"))
+        itempool.append(world.create_item("Carrington Villa - Perfect Agent"))
+        itempool.append(world.create_item("Chicago - Perfect Agent"))
+        itempool.append(world.create_item("G5 Building - Perfect Agent"))
+        itempool.append(world.create_item("A51 Infiltration - Perfect Agent"))
+        itempool.append(world.create_item("A51 Rescue - Perfect Agent"))
+        itempool.append(world.create_item("A51 Escape - Perfect Agent"))
+        itempool.append(world.create_item("Air Base - Perfect Agent"))
+        itempool.append(world.create_item("Air Force One - Perfect Agent"))
+        itempool.append(world.create_item("Crash Site - Perfect Agent"))
+        itempool.append(world.create_item("Pelagic II - Perfect Agent"))
+        itempool.append(world.create_item("Deep Sea - Perfect Agent"))
+        itempool.append(world.create_item("CI Defense - Perfect Agent"))
+        itempool.append(world.create_item("Attack Ship - Perfect Agent"))
+        itempool.append(world.create_item("Skedar Ruins - Perfect Agent"))
+        itempool.append(world.create_item("Mr. Blonde's Revenge - Perfect Agent"))
+        itempool.append(world.create_item("Maian SOS - Perfect Agent"))
+        itempool.append(world.create_item("WAR! - Perfect Agent"))
+        itempool.append(world.create_item("The Duel - Perfect Agent"))
+
+    if world.options.weapon_progression.value == WeaponProgression.option_vanilla:
         itempool.append(world.create_item("Falcon 2"))
         itempool.append(world.create_item("Falcon 2 (Silencer)"))
         itempool.append(world.create_item("Falcon 2 (Scope)"))
@@ -533,22 +700,16 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         itempool.append(world.create_item("Timed Mine"))
         itempool.append(world.create_item("Proximity Mine"))
         itempool.append(world.create_item("Remote Mine"))
-        itempool.append(world.create_item("PP9i"))
-        itempool.append(world.create_item("CC13"))
-        itempool.append(world.create_item("KL01313"))
-        itempool.append(world.create_item("KF7 Special"))
-        itempool.append(world.create_item("ZZT (9mm)"))
-        itempool.append(world.create_item("DMC"))
-        itempool.append(world.create_item("AR53"))
-        itempool.append(world.create_item("RC-P45"))
         itempool.append(world.create_item("Psychosis Gun"))
-    elif world.options.weapon_progression.value > world.options.weapon_progression.option_vanilla:
+    elif world.options.weapon_progression.value > WeaponProgression.option_vanilla:
         itempool.append(world.create_item("RC-P120"))
-        itempool.append(world.create_item("K7 Avenger"))
-        itempool.append(world.create_item("FarSight XR-20"))
         itempool.append(world.create_item("Devastator"))
         itempool.append(world.create_item("Timed Mine"))
         itempool.append(world.create_item("Remote Mine"))
+
+        if world.options.perfect_agent:
+            itempool.append(world.create_item("K7 Avenger"))
+            itempool.append(world.create_item("FarSight XR-20"))
         for x in range(42):
             itempool.append(world.create_item("Progressive Weapon"))
 
@@ -618,92 +779,178 @@ def create_all_items(world:PerfectDarkWorld) -> None:
             remove_starting_item_from_pool(world, "Challenge 30", itempool)
 
     if world.options.goal == Goal.option_complete_skedar_ruins:
-        world.get_location("Complete: Skedar Ruins - Perfect Agent").place_locked_item(world.create_item("Victory"))
+        if world.options.agent:
+            world.get_location("Complete: Skedar Ruins - Agent").place_locked_item(world.create_item("Victory"))
+        if world.options.special_agent:
+            world.get_location("Complete: Skedar Ruins - Special Agent").place_locked_item(world.create_item("Victory"))
+        if world.options.perfect_agent:
+            world.get_location("Complete: Skedar Ruins - Perfect Agent").place_locked_item(world.create_item("Victory"))
     elif world.options.goal == Goal.option_collect_mission_stars:
-        mission_locations = [
-            # "Complete: Defection - Agent",
-            # "Complete: Defection - Special Agent",
-            "Complete: Defection - Perfect Agent",
-            # "Complete: Investigation - Agent",
-            # "Complete: Investigation - Special Agent",
-            "Complete: Investigation - Perfect Agent",
-            # "Complete: Extraction - Agent",
-            # "Complete: Extraction - Special Agent",
-            "Complete: Extraction - Perfect Agent",
-            # "Complete: Carrington Villa - Agent",
-            # "Complete: Carrington Villa - Special Agent",
-            "Complete: Carrington Villa - Perfect Agent",
-            # "Complete: Chicago - Agent",
-            # "Complete: Chicago - Special Agent",
-            "Complete: Chicago - Perfect Agent",
-            # "Complete: G5 Building - Agent",
-            # "Complete: G5 Building - Special Agent",
-            "Complete: G5 Building - Perfect Agent",
-            # "Complete: Infiltration - Agent",
-            # "Complete: Infiltration - Special Agent",
-            "Complete: Infiltration - Perfect Agent",
-            # "Complete: Rescue - Agent",
-            # "Complete: Rescue - Special Agent",
-            "Complete: Rescue - Perfect Agent",
-            # "Complete: Escape - Agent",
-            # "Complete: Escape - Special Agent",
-            "Complete: Escape - Perfect Agent",
-            # "Complete: Air Base - Agent",
-            # "Complete: Air Base - Special Agent",
-            "Complete: Air Base - Perfect Agent",
-            # "Complete: Air Force One - Agent",
-            # "Complete: Air Force One - Special Agent",
-            "Complete: Air Force One - Perfect Agent",
-            # "Complete: Crash Site - Agent",
-            # "Complete: Crash Site - Special Agent",
-            "Complete: Crash Site - Perfect Agent",
-            # "Complete: Pelagic II - Agent",
-            # "Complete: Pelagic II - Special Agent",
-            "Complete: Pelagic II - Perfect Agent",
-            # "Complete: Deep Sea - Agent",
-            # "Complete: Deep Sea - Special Agent",
-            "Complete: Deep Sea - Perfect Agent",
-            # "Complete: Carrington Institute - Agent",
-            # "Complete: Carrington Institute - Special Agent",
-            "Complete: Carrington Institute - Perfect Agent",
-            # "Complete: Attack Ship - Agent",
-            # "Complete: Attack Ship - Special Agent",
-            "Complete: Attack Ship - Perfect Agent",
-            # "Complete: Skedar Ruins - Agent",
-            # "Complete: Skedar Ruins - Special Agent",
-            "Complete: Skedar Ruins - Perfect Agent",
-            # "Complete: Mr. Blonde's Revenge - Agent",
-            # "Complete: Mr. Blonde's Revenge - Special Agent",
-            "Complete: Mr. Blonde's Revenge - Perfect Agent",
-            # "Complete: Maian SOS - Agent",
-            # "Complete: Maian SOS - Special Agent",
-            "Complete: Maian SOS - Perfect Agent",
-            # "Complete: WAR! - Agent",
-            # "Complete: WAR! - Special Agent",
-            "Complete: WAR! - Perfect Agent",
-            # "Complete: The Duel - Agent",
-            # "Complete: The Duel - Special Agent",
-            "Complete: The Duel - Perfect Agent",
-        ]
+        mission_locations = []
+
+        if world.options.agent:
+            mission_locations.append("Complete: dD Defection - Agent")
+            mission_locations.append("Complete: dD Investigation - Agent")
+            mission_locations.append("Complete: dD Extraction - Agent")
+            mission_locations.append("Complete: Carrington Villa - Agent")
+            mission_locations.append("Complete: Chicago - Agent")
+            mission_locations.append("Complete: G5 Building - Agent")
+            mission_locations.append("Complete: A51 Infiltration - Agent")
+            mission_locations.append("Complete: A51 Rescue - Agent")
+            mission_locations.append("Complete: A51 Escape - Agent")
+            mission_locations.append("Complete: Air Base - Agent")
+            mission_locations.append("Complete: Air Force One - Agent")
+            mission_locations.append("Complete: Crash Site - Agent")
+            mission_locations.append("Complete: Pelagic II - Agent")
+            mission_locations.append("Complete: Deep Sea - Agent")
+            mission_locations.append("Complete: CI Defense - Agent")
+            mission_locations.append("Complete: Attack Ship - Agent")
+            mission_locations.append("Complete: Skedar Ruins - Agent")
+            mission_locations.append("Complete: Mr. Blonde's Revenge - Agent")
+            mission_locations.append("Complete: Maian SOS - Agent")
+            mission_locations.append("Complete: WAR! - Agent")
+            mission_locations.append("Complete: The Duel - Agent")
+
+        if world.options.special_agent:
+            mission_locations.append("Complete: dD Defection - Special Agent")
+            mission_locations.append("Complete: dD Investigation - Special Agent")
+            mission_locations.append("Complete: dD Extraction - Special Agent")
+            mission_locations.append("Complete: Carrington Villa - Special Agent")
+            mission_locations.append("Complete: Chicago - Special Agent")
+            mission_locations.append("Complete: G5 Building - Special Agent")
+            mission_locations.append("Complete: A51 Infiltration - Special Agent")
+            mission_locations.append("Complete: A51 Rescue - Special Agent")
+            mission_locations.append("Complete: A51 Escape - Special Agent")
+            mission_locations.append("Complete: Air Base - Special Agent")
+            mission_locations.append("Complete: Air Force One - Special Agent")
+            mission_locations.append("Complete: Crash Site - Special Agent")
+            mission_locations.append("Complete: Pelagic II - Special Agent")
+            mission_locations.append("Complete: Deep Sea - Special Agent")
+            mission_locations.append("Complete: CI Defense - Special Agent")
+            mission_locations.append("Complete: Attack Ship - Special Agent")
+            mission_locations.append("Complete: Skedar Ruins - Special Agent")
+            mission_locations.append("Complete: Mr. Blonde's Revenge - Special Agent")
+            mission_locations.append("Complete: Maian SOS - Special Agent")
+            mission_locations.append("Complete: WAR! - Special Agent")
+            mission_locations.append("Complete: The Duel - Special Agent")
+
+        if world.options.perfect_agent:
+            mission_locations.append("Complete: dD Defection - Perfect Agent")
+            mission_locations.append("Complete: dD Investigation - Perfect Agent")
+            mission_locations.append("Complete: dD Extraction - Perfect Agent")
+            mission_locations.append("Complete: Carrington Villa - Perfect Agent")
+            mission_locations.append("Complete: Chicago - Perfect Agent")
+            mission_locations.append("Complete: G5 Building - Perfect Agent")
+            mission_locations.append("Complete: A51 Infiltration - Perfect Agent")
+            mission_locations.append("Complete: A51 Rescue - Perfect Agent")
+            mission_locations.append("Complete: A51 Escape - Perfect Agent")
+            mission_locations.append("Complete: Air Base - Perfect Agent")
+            mission_locations.append("Complete: Air Force One - Perfect Agent")
+            mission_locations.append("Complete: Crash Site - Perfect Agent")
+            mission_locations.append("Complete: Pelagic II - Perfect Agent")
+            mission_locations.append("Complete: Deep Sea - Perfect Agent")
+            mission_locations.append("Complete: CI Defense - Perfect Agent")
+            mission_locations.append("Complete: Attack Ship - Perfect Agent")
+            mission_locations.append("Complete: Skedar Ruins - Perfect Agent")
+            mission_locations.append("Complete: Mr. Blonde's Revenge - Perfect Agent")
+            mission_locations.append("Complete: Maian SOS - Perfect Agent")
+            mission_locations.append("Complete: WAR! - Perfect Agent")
+            mission_locations.append("Complete: The Duel - Perfect Agent")
+
         for location in mission_locations:
             world.get_location(location).place_locked_item(world.create_item("Mission Star"))
     
     # Start with a random mission
     if world.options.start_with_mission:
-        if world.options.goal == Goal.option_complete_skedar_ruins:
-            itemID = world.random.randint(1, 20)
-        else:
-            itemID = world.random.randint(1, 21)
-        remove_starting_item_from_pool(world, STARTING_MISSION_ID_TO_NAME[itemID], itempool)
+        missions = []
+
+        if world.options.agent:
+            missions.append("dD Defection - Agent")
+            missions.append("dD Investigation - Agent")
+            missions.append("dD Extraction - Agent")
+            missions.append("Carrington Villa - Agent")
+            missions.append("Chicago - Agent")
+            missions.append("G5 Building - Agent")
+            missions.append("A51 Infiltration - Agent")
+            missions.append("A51 Rescue - Agent")
+            missions.append("A51 Escape - Agent")
+            missions.append("Air Base - Agent")
+            missions.append("Air Force One - Agent")
+            missions.append("Crash Site - Agent")
+            missions.append("Pelagic II - Agent")
+            missions.append("Deep Sea - Agent")
+            missions.append("CI Defense - Agent")
+            missions.append("Attack Ship - Agent")
+            missions.append("Skedar Ruins - Agent")
+            missions.append("Mr. Blonde's Revenge - Agent")
+            missions.append("Maian SOS - Agent")
+            missions.append("WAR! - Agent")
+            missions.append("The Duel - Agent")
+
+        if world.options.special_agent:
+            missions.append("dD Defection - Special Agent")
+            missions.append("dD Investigation - Special Agent")
+            missions.append("dD Extraction - Special Agent")
+            missions.append("Carrington Villa - Special Agent")
+            missions.append("Chicago - Special Agent")
+            missions.append("G5 Building - Special Agent")
+            missions.append("A51 Infiltration - Special Agent")
+            missions.append("A51 Rescue - Special Agent")
+            missions.append("A51 Escape - Special Agent")
+            missions.append("Air Base - Special Agent")
+            missions.append("Air Force One - Special Agent")
+            missions.append("Crash Site - Special Agent")
+            missions.append("Pelagic II - Special Agent")
+            missions.append("Deep Sea - Special Agent")
+            missions.append("CI Defense - Special Agent")
+            missions.append("Attack Ship - Special Agent")
+            missions.append("Skedar Ruins - Special Agent")
+            missions.append("Mr. Blonde's Revenge - Special Agent")
+            missions.append("Maian SOS - Special Agent")
+            missions.append("WAR! - Special Agent")
+            missions.append("The Duel - Special Agent")
+
+        if world.options.perfect_agent:
+            missions.append("dD Defection - Perfect Agent")
+            missions.append("dD Investigation - Perfect Agent")
+            missions.append("dD Extraction - Perfect Agent")
+            missions.append("Carrington Villa - Perfect Agent")
+            missions.append("Chicago - Perfect Agent")
+            missions.append("G5 Building - Perfect Agent")
+            missions.append("A51 Infiltration - Perfect Agent")
+            missions.append("A51 Rescue - Perfect Agent")
+            missions.append("A51 Escape - Perfect Agent")
+            missions.append("Air Base - Perfect Agent")
+            missions.append("Air Force One - Perfect Agent")
+            missions.append("Crash Site - Perfect Agent")
+            missions.append("Pelagic II - Perfect Agent")
+            missions.append("Deep Sea - Perfect Agent")
+            missions.append("CI Defense - Perfect Agent")
+            missions.append("Attack Ship - Perfect Agent")
+            missions.append("Skedar Ruins - Perfect Agent")
+            missions.append("Mr. Blonde's Revenge - Perfect Agent")
+            missions.append("Maian SOS - Perfect Agent")
+            missions.append("WAR! - Perfect Agent")
+            missions.append("The Duel - Perfect Agent")
+
+        if world.options.goal == Goal.option_collect_mission_stars:
+            if world.options.agent:
+                missions.append("Skedar Ruins - Agent")
+            if world.options.special_agent:
+                missions.append("Skedar Ruins - Special Agent")
+            if world.options.perfect_agent:
+                missions.append("Skedar Ruins - Perfect Agent")
+
+        item = world.random.choice(missions)
+        remove_starting_item_from_pool(world, item, itempool)
 
     # Start with a random weapon
     if world.options.start_with_weapon:
-        if world.options.weapon_progression.value == world.options.weapon_progression.option_vanilla:
+        if world.options.weapon_progression.value == WeaponProgression.option_vanilla:
             itemID = world.random.randint(3, 35)
             remove_starting_item_from_pool(world, list(ITEM_NAME_TO_ID.keys())[list(ITEM_NAME_TO_ID.values()).index(itemID)], itempool)
-        elif world.options.weapon_progression.value > world.options.weapon_progression.option_vanilla:
+        elif world.options.weapon_progression.value > WeaponProgression.option_vanilla:
             remove_starting_item_from_pool(world, "Progressive Weapon", itempool)
-            
 
     # Fill with filler items if there is not enough items to locations
     number_of_items = len(itempool)
