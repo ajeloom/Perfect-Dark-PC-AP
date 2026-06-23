@@ -10972,7 +10972,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
 
             challenge_22 = world.get_location("Complete: Challenge 22")
             add_rule(challenge_22, lambda state: state.has_all(("Challenge 22", "Briefcase"), world.player)
-                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Crossbow"]))
+                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
 
             challenge_23 = world.get_location("Complete: Challenge 23")
             add_rule(challenge_23, lambda state: state.has("Challenge 23", world.player)
