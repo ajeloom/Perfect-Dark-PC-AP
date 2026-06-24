@@ -2349,11 +2349,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                 or (state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)))
 
                 air_base_sp_agent_obj_4 = world.get_location("Air Base - Special Agent Objective 4")
-                add_rule(air_base_sp_agent_obj_4, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise"), world.player)
+                add_rule(air_base_sp_agent_obj_4, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise", "Suitcase"), world.player)
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
                 
                 air_base_sp_agent_complete = world.get_location("Complete: Air Base - Special Agent")
-                add_rule(air_base_sp_agent_complete, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise"), world.player)
+                add_rule(air_base_sp_agent_complete, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise", "Suitcase"), world.player)
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
             elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
@@ -2367,11 +2367,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                 add_rule(air_base_sp_agent_obj_3, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player))
 
                 air_base_sp_agent_obj_4 = world.get_location("Air Base - Special Agent Objective 4")
-                add_rule(air_base_sp_agent_obj_4, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)
+                add_rule(air_base_sp_agent_obj_4, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"), world.player)
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
                 
                 air_base_sp_agent_complete = world.get_location("Complete: Air Base - Special Agent")
-                add_rule(air_base_sp_agent_complete, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)
+                add_rule(air_base_sp_agent_complete, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"), world.player)
                                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
 
@@ -3415,7 +3415,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                 cheat_air_base_complete = world.get_location("Cheat Unlock: Complete Air Base")
                 add_rule(cheat_air_base_complete, lambda state: (state.has_all(("Air Base - Agent", "Stewardess Disguise"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("Air Base - Special Agent", "Stewardess Disguise"), world.player)
+                                                                or (state.has_all(("Air Base - Special Agent", "Stewardess Disguise", "Suitcase"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
                                                                 or (state.has_all(("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])))
@@ -3424,7 +3424,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                 cheat_air_base_complete = world.get_location("Cheat Unlock: Complete Air Base")
                 add_rule(cheat_air_base_complete, lambda state: (state.has_all(("Air Base - Agent", "CamSpy", "Stewardess Disguise"), world.player)
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)
+                                                                or (state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"), world.player)
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
                                                                 or (state.has_all(("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans"), world.player)
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])))
@@ -3584,12 +3584,12 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                 # Air Base
                 if world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon:
                     cheat_air_base_timed_complete = world.get_location("Cheat Unlock: Complete Air Base (Special Agent) in under 3:11")
-                    add_rule(cheat_air_base_timed_complete, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise"), world.player)
+                    add_rule(cheat_air_base_timed_complete, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise", "Suitcase"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
                 elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
                     cheat_air_base_timed_complete = world.get_location("Cheat Unlock: Complete Air Base (Special Agent) in under 3:11")
-                    add_rule(cheat_air_base_timed_complete, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)
+                    add_rule(cheat_air_base_timed_complete, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"), world.player)
                                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
 
@@ -5672,11 +5672,11 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                                 or (state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)))
 
                 air_base_sp_agent_obj_4 = world.get_location("Air Base - Special Agent Objective 4")
-                add_rule(air_base_sp_agent_obj_4, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise"), world.player)
+                add_rule(air_base_sp_agent_obj_4, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise", "Suitcase"), world.player)
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
                 
                 air_base_sp_agent_complete = world.get_location("Complete: Air Base - Special Agent")
-                add_rule(air_base_sp_agent_complete, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise"), world.player)
+                add_rule(air_base_sp_agent_complete, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise", "Suitcase"), world.player)
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
             elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
@@ -5690,11 +5690,11 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                 add_rule(air_base_sp_agent_obj_3, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player))
 
                 air_base_sp_agent_obj_4 = world.get_location("Air Base - Special Agent Objective 4")
-                add_rule(air_base_sp_agent_obj_4, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)
+                add_rule(air_base_sp_agent_obj_4, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"), world.player)
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
                 
                 air_base_sp_agent_complete = world.get_location("Complete: Air Base - Special Agent")
-                add_rule(air_base_sp_agent_complete, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)
+                add_rule(air_base_sp_agent_complete, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"), world.player)
                                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
 
@@ -6674,7 +6674,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                 cheat_air_base_complete = world.get_location("Cheat Unlock: Complete Air Base")
                 add_rule(cheat_air_base_complete, lambda state: (state.has_all(("Air Base - Agent", "Stewardess Disguise"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("Air Base - Special Agent", "Stewardess Disguise"), world.player)
+                                                                or (state.has_all(("Air Base - Special Agent", "Stewardess Disguise", "Suitcase"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
                                                                 or (state.has_all(("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])))
@@ -6683,7 +6683,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                 cheat_air_base_complete = world.get_location("Cheat Unlock: Complete Air Base")
                 add_rule(cheat_air_base_complete, lambda state: (state.has_all(("Air Base - Agent", "CamSpy", "Stewardess Disguise"), world.player)
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)
+                                                                or (state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"), world.player)
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
                                                                 or (state.has_all(("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans"), world.player)
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])))
@@ -6844,12 +6844,12 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                 # Air Base
                 if world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon:
                     cheat_air_base_timed_complete = world.get_location("Cheat Unlock: Complete Air Base (Special Agent) in under 3:11")
-                    add_rule(cheat_air_base_timed_complete, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise"), world.player)
+                    add_rule(cheat_air_base_timed_complete, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise", "Suitcase"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
                 elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
                     cheat_air_base_timed_complete = world.get_location("Cheat Unlock: Complete Air Base (Special Agent) in under 3:11")
-                    add_rule(cheat_air_base_timed_complete, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)
+                    add_rule(cheat_air_base_timed_complete, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"), world.player)
                                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
 
@@ -9185,11 +9185,11 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                                 or (state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)))
 
                 air_base_sp_agent_obj_4 = world.get_location("Air Base - Special Agent Objective 4")
-                add_rule(air_base_sp_agent_obj_4, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise"), world.player)
+                add_rule(air_base_sp_agent_obj_4, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise", "Suitcase"), world.player)
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
                 
                 air_base_sp_agent_complete = world.get_location("Complete: Air Base - Special Agent")
-                add_rule(air_base_sp_agent_complete, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise"), world.player)
+                add_rule(air_base_sp_agent_complete, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise", "Suitcase"), world.player)
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
             elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
@@ -9203,11 +9203,11 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                 add_rule(air_base_sp_agent_obj_3, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player))
 
                 air_base_sp_agent_obj_4 = world.get_location("Air Base - Special Agent Objective 4")
-                add_rule(air_base_sp_agent_obj_4, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)
+                add_rule(air_base_sp_agent_obj_4, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"), world.player)
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
                 
                 air_base_sp_agent_complete = world.get_location("Complete: Air Base - Special Agent")
-                add_rule(air_base_sp_agent_complete, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)
+                add_rule(air_base_sp_agent_complete, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"), world.player)
                                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
 
@@ -10167,7 +10167,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                 cheat_air_base_complete = world.get_location("Cheat Unlock: Complete Air Base")
                 add_rule(cheat_air_base_complete, lambda state: (state.has_all(("Air Base - Agent", "Stewardess Disguise"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("Air Base - Special Agent", "Stewardess Disguise"), world.player)
+                                                                or (state.has_all(("Air Base - Special Agent", "Stewardess Disguise", "Suitcase"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
                                                                 or (state.has_all(("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])))
@@ -10176,7 +10176,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                 cheat_air_base_complete = world.get_location("Cheat Unlock: Complete Air Base")
                 add_rule(cheat_air_base_complete, lambda state: (state.has_all(("Air Base - Agent", "CamSpy", "Stewardess Disguise"), world.player)
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)
+                                                                or (state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"), world.player)
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
                                                                 or (state.has_all(("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans"), world.player)
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])))
@@ -10337,12 +10337,12 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                 # Air Base
                 if world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon:
                     cheat_air_base_timed_complete = world.get_location("Cheat Unlock: Complete Air Base (Special Agent) in under 3:11")
-                    add_rule(cheat_air_base_timed_complete, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise"), world.player)
+                    add_rule(cheat_air_base_timed_complete, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise", "Suitcase"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
                 elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
                     cheat_air_base_timed_complete = world.get_location("Cheat Unlock: Complete Air Base (Special Agent) in under 3:11")
-                    add_rule(cheat_air_base_timed_complete, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"), world.player)
+                    add_rule(cheat_air_base_timed_complete, lambda state: state.has_all(("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"), world.player)
                                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
 
