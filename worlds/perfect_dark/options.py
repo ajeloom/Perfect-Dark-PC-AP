@@ -5,8 +5,9 @@ from Options import Choice, OptionGroup, PerGameCommonOptions, Range, Toggle
 class Goal(Choice):
     """
     Sets the goal in order to beat the game. 
-    - Complete Skedar Ruins: only requires you completing this mission on any difficulty
-    - Collect Mission Stars: requires you to collect mission stars by completing missions
+
+    - Complete Skedar Ruins: Only requires you completing Skedar Ruins on any difficulty.
+    - Collect Mission Stars: Requires you to collect mission stars by completing missions.
     """
 
     display_name = "Goal"
@@ -21,11 +22,13 @@ class MissionLogic(Choice):
     """
     Choose how hard the logic will be for the missions. 
     This will also affect cheats as they share the same logic.
+
     - Normal: The logic expects you to have the starting weapon in missions.
     - Veteran: The logic is the same as Normal but it expects you to use hidden items.
     - Hard: The logic expects you to disarm enemies for a weapon in missions.
     - Perfect: The logic expects you to play near perfect in missions.
-    (Hard and Perfect includes the hidden items in logic)
+
+    Note: Hard and Perfect includes the hidden items in logic
     """
 
     display_name = "Mission Logic"
@@ -121,18 +124,24 @@ class StartWithMission(Toggle):
 class WeaponProgression(Choice):
     """
     Choose how weapon progression will work in your game.
-    - Vanilla: You have to find each weapon in order to use and pick them up.
-               You can only use weapons that normally appear in the missions/challenges.
-    - Progressive Weapon: You will progress through weapons from weakest to strongest. 
-                          Allowing you to use weapons in missions/challenges they don't appear in. 
-                          Any previous progressive weapons will be in your inventory. Weapons required  
-                          for mission objectives are in the itempool so you can do some locations earlier.
-    - Progressive Weapon (One Gun): You progress through the weapons in the same order, but you are stuck 
-                                    with the current progressive weapon until you find another one. 
-                                    You are given infinite ammo and, on certain missions, a laser to prevent softlocks. 
-                                    In missions, only weapons required for some objectives can be picked up. 
-                                    In challenges, you are allowed to pick up other weapons. 
-                                    Only recommended for people who are looking for a challenging run.
+
+    - Vanilla:
+        You have to find each weapon in order to use and pick them up.
+        You can only use weapons that normally appear in the missions/challenges.
+    
+    - Progressive Weapon:
+        You will progress through weapons from weakest to strongest. 
+        Allowing you to use weapons in missions/challenges they don't appear in. 
+        Any previous progressive weapons will be in your inventory. Weapons required  
+        for mission objectives are in the itempool so you can do some locations earlier.
+    
+    - Progressive Weapon (One Gun):
+        You progress through the weapons in the same order, but you are stuck 
+        with the current progressive weapon until you find another one. 
+        You are given infinite ammo and, on certain missions, a laser to prevent softlocks. 
+        In missions, only weapons required for some objectives can be picked up. 
+        In challenges, you are allowed to pick up other weapons. 
+        Only recommended for people who are looking for a challenging run.
     """
 
     display_name = "Weapon Progression"
@@ -148,7 +157,10 @@ class ProgressiveWeaponsInChallenges(Toggle):
     """
     Allows you to use progressive weapons in challenges.
     This option only works if challenges are enabled.
-    - False: You will have to pick up weapons in the challenge that you have reached progressively.
+
+    - False: You will have to pick up weapons in the challenge 
+             that you have reached progressively.
+             
     - True: Your progressive weapons will be in your inventory.
     """
 
@@ -158,7 +170,8 @@ class ProgressiveWeaponsInChallenges(Toggle):
 class StartWithWeapon(Toggle):
     """
     Start with a weapon in your inventory.
-    If weapon progression is vanilla, then you will start with a random weapon in your inventory.
+    If weapon progression is vanilla, then you will 
+    start with a random weapon in your inventory.
     """
 
     display_name = "Start With a Weapon"
@@ -187,7 +200,7 @@ class Challenges(Toggle):
 class StartWithAllChallenges(Toggle):
     """
     Start with all 30 combat simulator challenges in your inventory. 
-    This option will only work if challenges are in the itempool. 
+    This option will only work if challenges are enabled. 
     Recommend enabling this if there are not enough locations in your multiworld.
     """
 
@@ -222,8 +235,12 @@ class UnlockCheats(Toggle):
     """
     Adds the unlockable cheats as checks.
     Some checks require certain difficulties or weapon training.
-    False: You can unlock the cheat the normal way or wait for it to be sent to you.
-    True: You have to wait for a cheat to be sent to you.
+
+    - False: Meeting the requirements to unlock a cheat won't send a check.
+             You can unlock the cheat the normal way or wait for it to be sent to you.
+
+    - True: Meeting the requirements to unlock a cheat will send a check.
+            You can't unlock cheats the normal way, so you have to wait for it be sent to you.
     """
 
     display_name = "Unlock Cheats"
