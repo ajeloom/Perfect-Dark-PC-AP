@@ -15,14 +15,14 @@ PROGRESSIVE_WEAPON_NAME_TO_ID = {
     "Psychosis Gun": 2,
     "Tranquilizer": 3,
     "KL01313": 4,
-    "Laser": 5,
-    "Crossbow": 6,
-    "Sniper Rifle": 7,
-    "Falcon 2": 8,
-    "Falcon 2 (Silencer)": 9,
-    "Falcon 2 (Scope)": 10,
-    "PP9i": 11,
-	"CC13": 12,
+    "CC13": 5,
+    "Laser": 6,
+    "Crossbow": 7,
+    "Sniper Rifle": 8,
+    "Falcon 2": 9,
+    "Falcon 2 (Silencer)": 10,
+    "Falcon 2 (Scope)": 11,
+    "PP9i": 12,
     "MagSec 4": 13,
     "DY357 Magnum": 14,
     "Shotgun": 15,
@@ -259,16 +259,20 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 6 - G5 Building
             g5_agent_obj_1 = world.get_location("G5 Building - Agent Objective 1")
-            add_rule(g5_agent_obj_1, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy"), world.player))
+            add_rule(g5_agent_obj_1, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy"), world.player)
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy"), world.player))
 
             g5_agent_obj_2 = world.get_location("G5 Building - Agent Objective 2")
-            add_rule(g5_agent_obj_2, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
+            add_rule(g5_agent_obj_2, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player)
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
 
             g5_agent_obj_3 = world.get_location("G5 Building - Agent Objective 3")
-            add_rule(g5_agent_obj_3, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
+            add_rule(g5_agent_obj_3, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player)
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
 
             g5_agent_complete = world.get_location("Complete: G5 Building - Agent")
-            add_rule(g5_agent_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
+            add_rule(g5_agent_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                      or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
 
 
             # Stage 7 - Infiltration
@@ -276,13 +280,16 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(infiltration_agent_obj_1, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Explosives"), world.player))
 
             infiltration_agent_obj_2 = world.get_location("A51 Infiltration - Agent Objective 2")
-            add_rule(infiltration_agent_obj_2, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_agent_obj_2, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Area 51 Lift Key Card"), world.player)
+                                                             or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Area 51 Master Key"), world.player))
 
             infiltration_agent_obj_3 = world.get_location("A51 Infiltration - Agent Objective 3")
-            add_rule(infiltration_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                             or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Master Key"), world.player))
 
             infiltration_agent_complete = world.get_location("Complete: A51 Infiltration - Agent")
-            add_rule(infiltration_agent_complete, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_agent_complete, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Master Key"), world.player))
 
 
             # Stage 8 - Rescue
@@ -290,13 +297,16 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(rescue_agent_obj_1, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes"), world.player))
 
             rescue_agent_obj_2 = world.get_location("A51 Rescue - Agent Objective 2")
-            add_rule(rescue_agent_obj_2, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes", "Medlab 2 Key Card"), world.player))
+            add_rule(rescue_agent_obj_2, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                       or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes", "Area 51 Master Key"), world.player))
 
             rescue_agent_obj_3 = world.get_location("A51 Rescue - Agent Objective 3")
-            add_rule(rescue_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+            add_rule(rescue_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                       or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player))
             
             rescue_agent_complete = world.get_location("Complete: A51 Rescue - Agent")
-            add_rule(rescue_agent_complete, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+            add_rule(rescue_agent_complete, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player))
 
 
             # Stage 9 - Escape
@@ -352,17 +362,20 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                 air_force_one_agent_obj_2 = world.get_location("Air Force One - Agent Objective 2")
                 add_rule(air_force_one_agent_obj_2, lambda state: state.has_all(("Air Force One - Agent", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player)
                                                                   or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger"), world.player)
-                                                                  or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger"), world.player))
+                                                                  or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger"), world.player)
+                                                                  or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Master Key", "K7 Avenger"), world.player))
 
                 air_force_one_agent_obj_3 = world.get_location("Air Force One - Agent Objective 3")
                 add_rule(air_force_one_agent_obj_3, lambda state: state.has_all(("Air Force One - Agent", "Laptop Gun", "Timed Mine"), world.player)
                                                                   or state.has_all(("Air Force One - Agent", "Cyclone", "Air Force One Left Room Key Card", "Timed Mine"), world.player)
-                                                                  or state.has_all(("Air Force One - Agent", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player))
+                                                                  or state.has_all(("Air Force One - Agent", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player)
+                                                                  or state.has_all(("Air Force One - Agent", "Cyclone", "Air Force One Master Key", "Timed Mine"), world.player))
 
                 air_force_one_agent_complete = world.get_location("Complete: Air Force One - Agent")
                 add_rule(air_force_one_agent_complete, lambda state: state.has_all(("Air Force One - Agent", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
                                                                      or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player))
+                                                                     or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Master Key", "K7 Avenger", "Timed Mine"), world.player))            
 
 
             # Stage 12 - Crash Site
@@ -490,16 +503,19 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(defection_sp_agent_obj_1, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "Falcon 2 (Silencer)"), world.player))
 
             defection_sp_agent_obj_2 = world.get_location("dD Defection - Special Agent Objective 2")
-            add_rule(defection_sp_agent_obj_2, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace", "Falcon 2 (Silencer)"), world.player))
+            add_rule(defection_sp_agent_obj_2, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace", "Falcon 2 (Silencer)"), world.player)
+                                                             or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key", "Falcon 2 (Silencer)"), world.player))
 
             defection_sp_agent_obj_3 = world.get_location("dD Defection - Special Agent Objective 3")
             add_rule(defection_sp_agent_obj_3, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
             defection_sp_agent_obj_4 = world.get_location("dD Defection - Special Agent Objective 4")
-            add_rule(defection_sp_agent_obj_4, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player))
+            add_rule(defection_sp_agent_obj_4, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                             or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
             defection_sp_agent_complete = world.get_location("Complete: dD Defection - Special Agent")
-            add_rule(defection_sp_agent_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player))
+            add_rule(defection_sp_agent_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                                or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
 
             # Stage 2 - Investigation
@@ -590,19 +606,24 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 6 - G5 Building
             g5_sp_agent_obj_1 = world.get_location("G5 Building - Special Agent Objective 1")
-            add_rule(g5_sp_agent_obj_1, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)"), world.player))
+            add_rule(g5_sp_agent_obj_1, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)"), world.player))
 
             g5_sp_agent_obj_2 = world.get_location("G5 Building - Special Agent Objective 2")
-            add_rule(g5_sp_agent_obj_2, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy"), world.player))
+            add_rule(g5_sp_agent_obj_2, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy"), world.player))
 
             g5_sp_agent_obj_3 = world.get_location("G5 Building - Special Agent Objective 3")
-            add_rule(g5_sp_agent_obj_3, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
+            add_rule(g5_sp_agent_obj_3, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
 
             g5_sp_agent_obj_4 = world.get_location("G5 Building - Special Agent Objective 4")
-            add_rule(g5_sp_agent_obj_4, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Remote Mine"), world.player))
+            add_rule(g5_sp_agent_obj_4, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "Remote Mine"), world.player))
 
             g5_sp_agent_complete = world.get_location("Complete: G5 Building - Special Agent")
-            add_rule(g5_sp_agent_complete, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
+            add_rule(g5_sp_agent_complete, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                         or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
 
 
             # Stage 7 - Infiltration
@@ -613,13 +634,16 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(infiltration_sp_agent_obj_2, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Comms Rider"), world.player))
 
             infiltration_sp_agent_obj_3 = world.get_location("A51 Infiltration - Special Agent Objective 3")
-            add_rule(infiltration_sp_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_sp_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Area 51 Master Key"), world.player))
 
             infiltration_sp_agent_obj_4 = world.get_location("A51 Infiltration - Special Agent Objective 4")
-            add_rule(infiltration_sp_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_sp_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
             infiltration_sp_agent_complete = world.get_location("Complete: A51 Infiltration - Special Agent")
-            add_rule(infiltration_sp_agent_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_sp_agent_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                   or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
 
             # Stage 8 - Rescue
@@ -630,13 +654,16 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(rescue_sp_agent_obj_2, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes"), world.player))
 
             rescue_sp_agent_obj_3 = world.get_location("A51 Rescue - Special Agent Objective 3")
-            add_rule(rescue_sp_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player))
+            add_rule(rescue_sp_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
             rescue_sp_agent_obj_4 = world.get_location("A51 Rescue - Special Agent Objective 4")
-            add_rule(rescue_sp_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+            add_rule(rescue_sp_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
             
             rescue_sp_agent_complete = world.get_location("Complete: A51 Rescue - Special Agent")
-            add_rule(rescue_sp_agent_complete, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+            add_rule(rescue_sp_agent_complete, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                             or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
 
             # Stage 9 - Escape
@@ -681,41 +708,54 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             # Stage 11 - Air Force One
             if world.options.mission_logic.value == MissionLogic.option_normal:
                 air_force_one_sp_agent_obj_1 = world.get_location("Air Force One - Special Agent Objective 1")
-                add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+                add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
                 air_force_one_sp_agent_obj_2 = world.get_location("Air Force One - Special Agent Objective 2")
-                add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+                add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
                 air_force_one_sp_agent_obj_3 = world.get_location("Air Force One - Special Agent Objective 3")
-                add_rule(air_force_one_sp_agent_obj_3, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player))
+                add_rule(air_force_one_sp_agent_obj_3, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player)
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player))
 
                 air_force_one_sp_agent_obj_4 = world.get_location("Air Force One - Special Agent Objective 4")
-                add_rule(air_force_one_sp_agent_obj_4, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player))
+                add_rule(air_force_one_sp_agent_obj_4, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player))
 
                 air_force_one_sp_agent_complete = world.get_location("Complete: Air Force One - Special Agent")
-                add_rule(air_force_one_sp_agent_complete, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player))
+                add_rule(air_force_one_sp_agent_complete, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                        or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player))
 
             elif world.options.mission_logic.value == MissionLogic.option_veteran:
                 air_force_one_sp_agent_obj_1 = world.get_location("Air Force One - Special Agent Objective 1")
-                add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+                add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
                 air_force_one_sp_agent_obj_2 = world.get_location("Air Force One - Special Agent Objective 2")
-                add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+                add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
                 air_force_one_sp_agent_obj_3 = world.get_location("Air Force One - Special Agent Objective 3")
                 add_rule(air_force_one_sp_agent_obj_3, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player)
                                                                      or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger"), world.player)
-                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger"), world.player))
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger"), world.player)
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player)
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger"), world.player))
 
                 air_force_one_sp_agent_obj_4 = world.get_location("Air Force One - Special Agent Objective 4")
                 add_rule(air_force_one_sp_agent_obj_4, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
                                                                      or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player))
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player))
 
                 air_force_one_sp_agent_complete = world.get_location("Complete: Air Force One - Special Agent")
                 add_rule(air_force_one_sp_agent_complete, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
                                                                         or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
-                                                                        or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player))
+                                                                        or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                        or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                        or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger", "Timed Mine"), world.player))
 
 
             # Stage 12 - Crash Site
@@ -874,7 +914,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(defection_prf_agent_obj_1, lambda state: state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "Falcon 2 (Silencer)"), world.player))
 
             defection_prf_agent_obj_2 = world.get_location("dD Defection - Perfect Agent Objective 2")
-            add_rule(defection_prf_agent_obj_2, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace", "Falcon 2 (Silencer)"), world.player))
+            add_rule(defection_prf_agent_obj_2, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace", "Falcon 2 (Silencer)"), world.player)
+                                                              or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key", "Falcon 2 (Silencer)"), world.player))
 
             defection_prf_agent_obj_3 = world.get_location("dD Defection - Perfect Agent Objective 3")
             add_rule(defection_prf_agent_obj_3, lambda state: state.has_all(("dD Defection - Perfect Agent", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player))
@@ -883,10 +924,12 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(defection_prf_agent_obj_4, lambda state: state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
             defection_prf_agent_obj_5 = world.get_location("dD Defection - Perfect Agent Objective 5")
-            add_rule(defection_prf_agent_obj_5, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player))
+            add_rule(defection_prf_agent_obj_5, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                              or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
             defection_prf_agent_complete = world.get_location("Complete: dD Defection - Perfect Agent")
-            add_rule(defection_prf_agent_complete, lambda state: state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player))
+            add_rule(defection_prf_agent_complete, lambda state: state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                                 or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
 
             # Stage 2 - Investigation
@@ -1016,23 +1059,29 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 6 - G5 Building
             g5_prf_agent_obj_1 = world.get_location("G5 Building - Perfect Agent Objective 1")
-            add_rule(g5_prf_agent_obj_1, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)"), world.player))
+            add_rule(g5_prf_agent_obj_1, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)"), world.player))
 
             g5_prf_agent_obj_2 = world.get_location("G5 Building - Perfect Agent Objective 2")
-            add_rule(g5_prf_agent_obj_2, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)"), world.player))
+            add_rule(g5_prf_agent_obj_2, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)"), world.player))
 
             g5_prf_agent_obj_3 = world.get_location("G5 Building - Perfect Agent Objective 3")
-            add_rule(g5_prf_agent_obj_3, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy"), world.player))
+            add_rule(g5_prf_agent_obj_3, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy"), world.player))
 
             g5_prf_agent_obj_4 = world.get_location("G5 Building - Perfect Agent Objective 4")
-            add_rule(g5_prf_agent_obj_4, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
+            add_rule(g5_prf_agent_obj_4, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
 
             g5_prf_agent_obj_5 = world.get_location("G5 Building - Perfect Agent Objective 5")
-            add_rule(g5_prf_agent_obj_5, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Remote Mine"), world.player))
+            add_rule(g5_prf_agent_obj_5, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Remote Mine"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "Remote Mine"), world.player))
 
             g5_prf_agent_complete = world.get_location("Complete: G5 Building - Perfect Agent")
-            add_rule(g5_prf_agent_complete, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
-
+            add_rule(g5_prf_agent_complete, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                          or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
+            
 
             # Stage 7 - Infiltration
             infiltration_prf_agent_obj_1 = world.get_location("A51 Infiltration - Perfect Agent Objective 1")
@@ -1045,13 +1094,16 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(infiltration_prf_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4"), world.player))
 
             infiltration_prf_agent_obj_4 = world.get_location("A51 Infiltration - Perfect Agent Objective 4")
-            add_rule(infiltration_prf_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_prf_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Area 51 Lift Key Card"), world.player)
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Area 51 Master Key"), world.player))
 
             infiltration_prf_agent_obj_5 = world.get_location("A51 Infiltration - Perfect Agent Objective 5")
-            add_rule(infiltration_prf_agent_obj_5, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_prf_agent_obj_5, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
             infiltration_prf_agent_complete = world.get_location("Complete: A51 Infiltration - Perfect Agent")
-            add_rule(infiltration_prf_agent_complete, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_prf_agent_complete, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
 
             # Stage 8 - Rescue
@@ -1065,13 +1117,16 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(rescue_prf_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes"), world.player))
 
             rescue_prf_agent_obj_4 = world.get_location("A51 Rescue - Perfect Agent Objective 4")
-            add_rule(rescue_prf_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player))
+            add_rule(rescue_prf_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
             rescue_prf_agent_obj_5 = world.get_location("A51 Rescue - Perfect Agent Objective 5")
-            add_rule(rescue_prf_agent_obj_5, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+            add_rule(rescue_prf_agent_obj_5, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
             
             rescue_prf_agent_complete = world.get_location("Complete: A51 Rescue - Perfect Agent")
-            add_rule(rescue_prf_agent_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+            add_rule(rescue_prf_agent_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                              or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
 
             # Stage 9 - Escape
@@ -1151,49 +1206,65 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             # Stage 11 - Air Force One
             if world.options.mission_logic.value == MissionLogic.option_normal:
                 air_force_one_prf_agent_obj_1 = world.get_location("Air Force One - Perfect Agent Objective 1")
-                add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+                add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
                 air_force_one_prf_agent_obj_2 = world.get_location("Air Force One - Perfect Agent Objective 2")
-                add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+                add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
                 air_force_one_prf_agent_obj_3 = world.get_location("Air Force One - Perfect Agent Objective 3")
-                add_rule(air_force_one_prf_agent_obj_3, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player))
+                add_rule(air_force_one_prf_agent_obj_3, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player) )
 
                 air_force_one_prf_agent_obj_4 = world.get_location("Air Force One - Perfect Agent Objective 4")
-                add_rule(air_force_one_prf_agent_obj_4, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player))
+                add_rule(air_force_one_prf_agent_obj_4, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player))
 
                 air_force_one_prf_agent_obj_5 = world.get_location("Air Force One - Perfect Agent Objective 5")
-                add_rule(air_force_one_prf_agent_obj_5, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player))
+                add_rule(air_force_one_prf_agent_obj_5, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player))
 
                 air_force_one_prf_agent_complete = world.get_location("Complete: Air Force One - Perfect Agent")
-                add_rule(air_force_one_prf_agent_complete, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player))
+                add_rule(air_force_one_prf_agent_complete, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                         or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player))
 
             elif world.options.mission_logic.value == MissionLogic.option_veteran:
                 air_force_one_prf_agent_obj_1 = world.get_location("Air Force One - Perfect Agent Objective 1")
-                add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+                add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
                 air_force_one_prf_agent_obj_2 = world.get_location("Air Force One - Perfect Agent Objective 2")
-                add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+                add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
                 air_force_one_prf_agent_obj_3 = world.get_location("Air Force One - Perfect Agent Objective 3")
                 add_rule(air_force_one_prf_agent_obj_3, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player)
                                                                       or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger"), world.player)
-                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger"), world.player))
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player) 
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger"), world.player))
 
                 air_force_one_prf_agent_obj_4 = world.get_location("Air Force One - Perfect Agent Objective 4")
                 add_rule(air_force_one_prf_agent_obj_4, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
                                                                       or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "Timed Mine"), world.player)
-                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player))
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player))
 
                 air_force_one_prf_agent_obj_5 = world.get_location("Air Force One - Perfect Agent Objective 5")
                 add_rule(air_force_one_prf_agent_obj_5, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
                                                                       or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "Timed Mine"), world.player)
-                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player))
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player))
 
                 air_force_one_prf_agent_complete = world.get_location("Complete: Air Force One - Perfect Agent")
                 add_rule(air_force_one_prf_agent_complete, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
                                                                          or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
-                                                                         or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player))
+                                                                         or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                         or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                         or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger", "Timed Mine"), world.player))
 
 
             # Stage 12 - Crash Site
@@ -1427,7 +1498,9 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             cheat_defection_complete = world.get_location("Cheat Unlock: Complete dD Defection")
             add_rule(cheat_defection_complete, lambda state: state.has_all(("dD Defection - Agent", "Falcon 2 (Silencer)", "CMP150"), world.player)
                                                              or state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player)
-                                                             or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player))
+                                                             or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                             or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                             or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
 
             # Investigation
@@ -1469,22 +1542,31 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             # G5 Building
             cheat_g5_complete = world.get_location("Cheat Unlock: Complete G5 Building")
             add_rule(cheat_g5_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                      or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
                                                       or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
-                                                      or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
 
 
             # Infiltration
             cheat_infiltration_complete = world.get_location("Cheat Unlock: Complete A51 Infiltration")
             add_rule(cheat_infiltration_complete, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Master Key"), world.player)
                                                                 or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
 
             # Rescue
             cheat_rescue_complete = world.get_location("Cheat Unlock: Complete A51 Rescue")
             add_rule(cheat_rescue_complete, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player)
                                                           or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                          or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
 
             # Escape
@@ -1508,20 +1590,27 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             if world.options.mission_logic.value == MissionLogic.option_normal:
                 cheat_air_force_one_complete = world.get_location("Cheat Unlock: Complete Air Force One")
                 add_rule(cheat_air_force_one_complete, lambda state: state.has_all(("Air Force One - Agent", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
-                                                                    or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
-                                                                    or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player))
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player))
 
             elif world.options.mission_logic.value == MissionLogic.option_veteran:
                 cheat_air_force_one_complete = world.get_location("Cheat Unlock: Complete Air Force One")
                 add_rule(cheat_air_force_one_complete, lambda state: state.has_all(("Air Force One - Agent", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
                                                                      or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
                                                                      or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Master Key", "K7 Avenger", "Timed Mine"), world.player)
                                                                      or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
                                                                      or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
                                                                      or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger", "Timed Mine"), world.player)
                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player))
+                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger", "Timed Mine"), world.player))
 
 
             # Crash Site
@@ -1590,7 +1679,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
                 # G5 Building
                 cheat_g5_timed_complete = world.get_location("Cheat Unlock: Complete G5 Building (Agent) in under 1:40")
-                add_rule(cheat_g5_timed_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
+                add_rule(cheat_g5_timed_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
 
 
                 # Escape
@@ -1610,7 +1700,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             if world.options.special_agent:
                 # Defection
                 cheat_defection_timed_complete = world.get_location("Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30")
-                add_rule(cheat_defection_timed_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player))
+                add_rule(cheat_defection_timed_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                                       or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
 
                 # Villa
@@ -1620,7 +1711,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
                 # Infiltration
                 cheat_infiltration_timed_complete = world.get_location("Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00")
-                add_rule(cheat_infiltration_timed_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+                add_rule(cheat_infiltration_timed_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                          or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
 
                 # Air Base
@@ -1651,12 +1743,23 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
                 # Rescue
                 cheat_rescue_timed_complete = world.get_location("Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59")
-                add_rule(cheat_rescue_timed_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+                add_rule(cheat_rescue_timed_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
 
                 # Air Force One
-                cheat_air_force_one_timed_complete = world.get_location("Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55")
-                add_rule(cheat_air_force_one_timed_complete, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player))
+                if world.options.mission_logic.value == MissionLogic.option_normal:
+                    cheat_air_force_one_timed_complete = world.get_location("Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55")
+                    add_rule(cheat_air_force_one_timed_complete, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                               or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player))
+                
+                elif world.options.mission_logic.value == MissionLogic.option_veteran:
+                    cheat_air_force_one_timed_complete = world.get_location("Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55")
+                    add_rule(cheat_air_force_one_timed_complete, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                               or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                               or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                               or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                               or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger", "Timed Mine"), world.player))
 
 
                 # Deep Sea
@@ -1783,19 +1886,23 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 6 - G5 Building
             g5_agent_obj_1 = world.get_location("G5 Building - Agent Objective 1")
-            add_rule(g5_agent_obj_1, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+            add_rule(g5_agent_obj_1, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+                                                        or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CamSpy"), world.player))
                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_agent_obj_2 = world.get_location("G5 Building - Agent Objective 2")
-            add_rule(g5_agent_obj_2, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_agent_obj_2, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+                                                        or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Door Decoder", "Backup Disk"), world.player))
                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_agent_obj_3 = world.get_location("G5 Building - Agent Objective 3")
-            add_rule(g5_agent_obj_3, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_agent_obj_3, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+                                                        or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Door Decoder", "Backup Disk"), world.player))
                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_agent_complete = world.get_location("Complete: G5 Building - Agent")
-            add_rule(g5_agent_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_agent_complete, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                        or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                       and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -1805,15 +1912,18 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_agent_obj_2 = world.get_location("A51 Infiltration - Agent Objective 2")
-            add_rule(infiltration_agent_obj_2, lambda state: state.has_all(("A51 Infiltration - Agent", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_agent_obj_2, lambda state: (state.has_all(("A51 Infiltration - Agent", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Area 51 Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_agent_obj_3 = world.get_location("A51 Infiltration - Agent Objective 3")
-            add_rule(infiltration_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_agent_obj_3, lambda state: (state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_agent_complete = world.get_location("Complete: A51 Infiltration - Agent")
-            add_rule(infiltration_agent_complete, lambda state: state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_agent_complete, lambda state: (state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -1823,15 +1933,18 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_agent_obj_2 = world.get_location("A51 Rescue - Agent Objective 2")
-            add_rule(rescue_agent_obj_2, lambda state: state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+            add_rule(rescue_agent_obj_2, lambda state: (state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                            or state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_agent_obj_3 = world.get_location("A51 Rescue - Agent Objective 3")
-            add_rule(rescue_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_agent_obj_3, lambda state: (state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                            or state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
             
             rescue_agent_complete = world.get_location("Complete: A51 Rescue - Agent")
-            add_rule(rescue_agent_complete, lambda state: state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_agent_complete, lambda state: (state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                            or state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -2095,7 +2208,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"]))
 
             defection_sp_agent_obj_2 = world.get_location("dD Defection - Special Agent Objective 2")
-            add_rule(defection_sp_agent_obj_2, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player)
+            add_rule(defection_sp_agent_obj_2, lambda state: (state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player)
+                                                                or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"]))
 
             defection_sp_agent_obj_3 = world.get_location("dD Defection - Special Agent Objective 3")
@@ -2103,11 +2217,13 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             defection_sp_agent_obj_4 = world.get_location("dD Defection - Special Agent Objective 4")
-            add_rule(defection_sp_agent_obj_4, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player)
+            add_rule(defection_sp_agent_obj_4, lambda state: (state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player)
+                                                                or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             defection_sp_agent_complete = world.get_location("Complete: dD Defection - Special Agent")
-            add_rule(defection_sp_agent_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+            add_rule(defection_sp_agent_complete, lambda state: (state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                                                                    or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -2241,27 +2357,34 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 6 - G5 Building
             g5_sp_agent_obj_1 = world.get_location("G5 Building - Special Agent Objective 1")
-            add_rule(g5_sp_agent_obj_1, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+            add_rule(g5_sp_agent_obj_1, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                        or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key"), world.player))
                                                       and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_sp_agent_obj_2 = world.get_location("G5 Building - Special Agent Objective 2")
-            add_rule(g5_sp_agent_obj_2, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+            add_rule(g5_sp_agent_obj_2, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+                                                        or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy"), world.player))
                                                       and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_sp_agent_obj_3 = world.get_location("G5 Building - Special Agent Objective 3")
-            add_rule(g5_sp_agent_obj_3, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_sp_agent_obj_3, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+                                                        or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Door Decoder", "Backup Disk"), world.player))
                                                       and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_sp_agent_obj_4 = world.get_location("G5 Building - Special Agent Objective 4")
-            add_rule(g5_sp_agent_obj_4, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Remote Mine"), world.player)
+            add_rule(g5_sp_agent_obj_4, lambda state: ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Remote Mine"), world.player)
+                                                                or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Remote Mine"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                      or (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                      or ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                                or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
 
             g5_sp_agent_complete = world.get_location("Complete: G5 Building - Special Agent")
-            add_rule(g5_sp_agent_complete, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+            add_rule(g5_sp_agent_complete, lambda state: ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                                or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                         or (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                         or ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
 
 
@@ -2275,15 +2398,18 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_sp_agent_obj_3 = world.get_location("A51 Infiltration - Special Agent Objective 3")
-            add_rule(infiltration_sp_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_sp_agent_obj_3, lambda state: (state.has_all(("A51 Infiltration - Special Agent", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Special Agent", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_sp_agent_obj_4 = world.get_location("A51 Infiltration - Special Agent Objective 4")
-            add_rule(infiltration_sp_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_sp_agent_obj_4, lambda state: (state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_sp_agent_complete = world.get_location("Complete: A51 Infiltration - Special Agent")
-            add_rule(infiltration_sp_agent_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_sp_agent_complete, lambda state: (state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -2297,15 +2423,18 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_sp_agent_obj_3 = world.get_location("A51 Rescue - Special Agent Objective 3")
-            add_rule(rescue_sp_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+            add_rule(rescue_sp_agent_obj_3, lambda state: (state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                            or state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_sp_agent_obj_4 = world.get_location("A51 Rescue - Special Agent Objective 4")
-            add_rule(rescue_sp_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_sp_agent_obj_4, lambda state: (state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                            or state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
             
             rescue_sp_agent_complete = world.get_location("Complete: A51 Rescue - Special Agent")
-            add_rule(rescue_sp_agent_complete, lambda state: state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_sp_agent_complete, lambda state: (state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -2377,25 +2506,32 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 11 - Air Force One
             air_force_one_sp_agent_obj_1 = world.get_location("Air Force One - Special Agent Objective 1")
-            add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_sp_agent_obj_2 = world.get_location("Air Force One - Special Agent Objective 2")
-            add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_sp_agent_obj_3 = world.get_location("Air Force One - Special Agent Objective 3")
-            add_rule(air_force_one_sp_agent_obj_3, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+            add_rule(air_force_one_sp_agent_obj_3, lambda state: (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                    or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             air_force_one_sp_agent_obj_4 = world.get_location("Air Force One - Special Agent Objective 4")
-            add_rule(air_force_one_sp_agent_obj_4, lambda state: (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_sp_agent_obj_4, lambda state: ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                        or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                 or (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                 or ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                        or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
             air_force_one_sp_agent_complete = world.get_location("Complete: Air Force One - Special Agent")
-            add_rule(air_force_one_sp_agent_complete, lambda state: (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_sp_agent_complete, lambda state: ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                            or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                    or (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                    or ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                            or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
 
@@ -2629,7 +2765,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                               and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"]))
 
             defection_prf_agent_obj_2 = world.get_location("dD Defection - Perfect Agent Objective 2")
-            add_rule(defection_prf_agent_obj_2, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player)
+            add_rule(defection_prf_agent_obj_2, lambda state: (state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player)
+                                                                    or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key"), world.player))
                                                               and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"]))
 
             defection_prf_agent_obj_3 = world.get_location("dD Defection - Perfect Agent Objective 3")
@@ -2641,11 +2778,13 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                               and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             defection_prf_agent_obj_5 = world.get_location("dD Defection - Perfect Agent Objective 5")
-            add_rule(defection_prf_agent_obj_5, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player)
+            add_rule(defection_prf_agent_obj_5, lambda state: (state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player)
+                                                                    or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key"), world.player))
                                                               and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             defection_prf_agent_complete = world.get_location("Complete: dD Defection - Perfect Agent")
-            add_rule(defection_prf_agent_complete, lambda state: state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink"), world.player)
+            add_rule(defection_prf_agent_complete, lambda state: (state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink"), world.player)
+                                                                    or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink"), world.player))
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -2804,31 +2943,39 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 6 - G5 Building
             g5_prf_agent_obj_1 = world.get_location("G5 Building - Perfect Agent Objective 1")
-            add_rule(g5_prf_agent_obj_1, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+            add_rule(g5_prf_agent_obj_1, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                            or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             g5_prf_agent_obj_2 = world.get_location("G5 Building - Perfect Agent Objective 2")
-            add_rule(g5_prf_agent_obj_2, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+            add_rule(g5_prf_agent_obj_2, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                            or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             g5_prf_agent_obj_3 = world.get_location("G5 Building - Perfect Agent Objective 3")
-            add_rule(g5_prf_agent_obj_3, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+            add_rule(g5_prf_agent_obj_3, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+                                                            or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             g5_prf_agent_obj_4 = world.get_location("G5 Building - Perfect Agent Objective 4")
-            add_rule(g5_prf_agent_obj_4, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_prf_agent_obj_4, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+                                                            or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Door Decoder", "Backup Disk"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             g5_prf_agent_obj_5 = world.get_location("G5 Building - Perfect Agent Objective 5")
-            add_rule(g5_prf_agent_obj_5, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Remote Mine"), world.player)
+            add_rule(g5_prf_agent_obj_5, lambda state: ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Remote Mine"), world.player)
+                                                                or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Remote Mine"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                        or (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                        or ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                                or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
 
             g5_prf_agent_complete = world.get_location("Complete: G5 Building - Perfect Agent")
-            add_rule(g5_prf_agent_complete, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+            add_rule(g5_prf_agent_complete, lambda state: ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                                or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                        or (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                        or ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
             
 
@@ -2846,15 +2993,18 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_obj_4 = world.get_location("A51 Infiltration - Perfect Agent Objective 4")
-            add_rule(infiltration_prf_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_prf_agent_obj_4, lambda state: (state.has_all(("A51 Infiltration - Perfect Agent", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "Area 51 Master Key"), world.player))
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_obj_5 = world.get_location("A51 Infiltration - Perfect Agent Objective 5")
-            add_rule(infiltration_prf_agent_obj_5, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_prf_agent_obj_5, lambda state: (state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_complete = world.get_location("Complete: A51 Infiltration - Perfect Agent")
-            add_rule(infiltration_prf_agent_complete, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_prf_agent_complete, lambda state: (state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -2872,15 +3022,18 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                            and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_prf_agent_obj_4 = world.get_location("A51 Rescue - Perfect Agent Objective 4")
-            add_rule(rescue_prf_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+            add_rule(rescue_prf_agent_obj_4, lambda state: (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                            and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_prf_agent_obj_5 = world.get_location("A51 Rescue - Perfect Agent Objective 5")
-            add_rule(rescue_prf_agent_obj_5, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_prf_agent_obj_5, lambda state: (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                            and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
             
             rescue_prf_agent_complete = world.get_location("Complete: A51 Rescue - Perfect Agent")
-            add_rule(rescue_prf_agent_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_prf_agent_complete, lambda state: (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                               and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -2964,31 +3117,40 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 11 - Air Force One
             air_force_one_prf_agent_obj_1 = world.get_location("Air Force One - Perfect Agent Objective 1")
-            add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_prf_agent_obj_2 = world.get_location("Air Force One - Perfect Agent Objective 2")
-            add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_prf_agent_obj_3 = world.get_location("Air Force One - Perfect Agent Objective 3")
-            add_rule(air_force_one_prf_agent_obj_3, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
-                                                                and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
+            add_rule(air_force_one_prf_agent_obj_3, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
+                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             air_force_one_prf_agent_obj_4 = world.get_location("Air Force One - Perfect Agent Objective 4")
-            add_rule(air_force_one_prf_agent_obj_4, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_prf_agent_obj_4, lambda state: ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
             air_force_one_prf_agent_obj_5 = world.get_location("Air Force One - Perfect Agent Objective 5")
-            add_rule(air_force_one_prf_agent_obj_5, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_prf_agent_obj_5, lambda state: ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
             air_force_one_prf_agent_complete = world.get_location("Complete: Air Force One - Perfect Agent")
-            add_rule(air_force_one_prf_agent_complete, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_prf_agent_complete, lambda state: ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                            or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                    or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                     or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                            or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
 
@@ -3311,11 +3473,12 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             cheat_defection_complete = world.get_location("Cheat Unlock: Complete dD Defection")
             add_rule(cheat_defection_complete, lambda state: (state.has("dD Defection - Agent", world.player)
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"]))
-                                                             or (state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                                                             or ((state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                                                                    or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                             or (state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink"), world.player)
+                                                             or ((state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink"), world.player)
+                                                                    or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])))
-            # add_rule(cheat_defection_complete, lambda state: (state.has("dD Defection - Agent", world.player)
 
 
             # Investigation
@@ -3368,35 +3531,46 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
             # G5 Building
             cheat_g5_complete = world.get_location("Cheat Unlock: Complete G5 Building")
-            add_rule(cheat_g5_complete, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(cheat_g5_complete, lambda state: ((state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                      or ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or (((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                                    or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                            or (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                            or ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                    or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
-                                                      or ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or (((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                                    or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                            or (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                            or ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                    or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"]))))
 
 
             # Infiltration
             cheat_infiltration_complete = world.get_location("Cheat Unlock: Complete A51 Infiltration")
-            add_rule(cheat_infiltration_complete, lambda state: (state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+            add_rule(cheat_infiltration_complete, lambda state: ((state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or ((state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or ((state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])))
 
 
             # Rescue
             cheat_rescue_complete = world.get_location("Cheat Unlock: Complete A51 Rescue")
-            add_rule(cheat_rescue_complete, lambda state: (state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(cheat_rescue_complete, lambda state: ((state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                          or (state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or ((state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                          or (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or ((state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])))
 
 
@@ -3434,15 +3608,19 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             cheat_air_force_one_complete = world.get_location("Cheat Unlock: Complete Air Force One")
             add_rule(cheat_air_force_one_complete, lambda state: ((state.has_all(("Air Force One - Agent", "Suitcase", "Timed Mine"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                 or (state.has_all(("Air Force One - Agent", "Suitcase"), world.player)
+                                                                    or (state.has_all(("Air Force One - Agent", "Suitcase"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
-                                                                 or ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                 or (((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                            or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                    or (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                    or ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                            or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
-                                                                 or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                 or (((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                            or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                    or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                     or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                            or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))))
 
 
@@ -3539,7 +3717,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
                 # G5 Building
                 cheat_g5_timed_complete = world.get_location("Cheat Unlock: Complete G5 Building (Agent) in under 1:40")
-                add_rule(cheat_g5_timed_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                add_rule(cheat_g5_timed_complete, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                    or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -3565,7 +3744,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             if world.options.special_agent:
                 # Defection
                 cheat_defection_timed_complete = world.get_location("Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30")
-                add_rule(cheat_defection_timed_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                add_rule(cheat_defection_timed_complete, lambda state: (state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                                                                            or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key"), world.player))
                                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -3577,7 +3757,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
                 # Infiltration
                 cheat_infiltration_timed_complete = world.get_location("Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00")
-                add_rule(cheat_infiltration_timed_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                add_rule(cheat_infiltration_timed_complete, lambda state: (state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                            or state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -3623,15 +3804,18 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
                 # Rescue
                 cheat_rescue_timed_complete = world.get_location("Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59")
-                add_rule(cheat_rescue_timed_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                add_rule(cheat_rescue_timed_complete, lambda state: (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                        or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
                 # Air Force One
                 cheat_air_force_one_timed_complete = world.get_location("Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55")
-                add_rule(cheat_air_force_one_timed_complete, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                add_rule(cheat_air_force_one_timed_complete, lambda state: ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                                    or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                           or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                           or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                                    or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
 
@@ -3735,17 +3919,22 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             # Stage 6 - G5 Building
             g5_agent_obj_1 = world.get_location("G5 Building - Agent Objective 1")
             add_rule(g5_agent_obj_1, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy"), world.player)
-                                                   or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy"), world.player))
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy"), world.player)
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy"), world.player)
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CMP150", "CamSpy"), world.player))
 
             g5_agent_obj_2 = world.get_location("G5 Building - Agent Objective 2")
-            add_rule(g5_agent_obj_2, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
+            add_rule(g5_agent_obj_2, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player)
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
 
             g5_agent_obj_3 = world.get_location("G5 Building - Agent Objective 3")
-            add_rule(g5_agent_obj_3, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
+            add_rule(g5_agent_obj_3, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player)
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
 
             g5_agent_complete = world.get_location("Complete: G5 Building - Agent")
-            add_rule(g5_agent_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
-
+            add_rule(g5_agent_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                      or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
+            
 
             # Stage 7 - Infiltration
             infiltration_agent_obj_1 = world.get_location("A51 Infiltration - Agent Objective 1")
@@ -3754,13 +3943,17 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
             infiltration_agent_obj_2 = world.get_location("A51 Infiltration - Agent Objective 2")
             add_rule(infiltration_agent_obj_2, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Area 51 Lift Key Card"), world.player)
-                                                             or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Area 51 Lift Key Card"), world.player))
+                                                             or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Area 51 Lift Key Card"), world.player)
+                                                             or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Area 51 Master Key"), world.player)
+                                                             or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Area 51 Master Key"), world.player))
 
             infiltration_agent_obj_3 = world.get_location("A51 Infiltration - Agent Objective 3")
-            add_rule(infiltration_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                             or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Master Key"), world.player))
 
             infiltration_agent_complete = world.get_location("Complete: A51 Infiltration - Agent")
-            add_rule(infiltration_agent_complete, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_agent_complete, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Master Key"), world.player))
 
 
             # Stage 8 - Rescue
@@ -3771,13 +3964,18 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             rescue_agent_obj_2 = world.get_location("A51 Rescue - Agent Objective 2")
             add_rule(rescue_agent_obj_2, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes", "Medlab 2 Key Card"), world.player)
                                                        or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card"), world.player)
-                                                       or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card"), world.player))
+                                                       or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                       or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                       or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                       or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player))
 
             rescue_agent_obj_3 = world.get_location("A51 Rescue - Agent Objective 3")
-            add_rule(rescue_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+            add_rule(rescue_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                       or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player))
             
             rescue_agent_complete = world.get_location("Complete: A51 Rescue - Agent")
-            add_rule(rescue_agent_complete, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+            add_rule(rescue_agent_complete, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player))
 
 
             # Stage 9 - Escape
@@ -3821,17 +4019,20 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             air_force_one_agent_obj_2 = world.get_location("Air Force One - Agent Objective 2")
             add_rule(air_force_one_agent_obj_2, lambda state: state.has_all(("Air Force One - Agent", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player)
                                                               or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger"), world.player)
-                                                              or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger"), world.player))
+                                                              or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger"), world.player)
+                                                              or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Master Key", "K7 Avenger"), world.player))
 
             air_force_one_agent_obj_3 = world.get_location("Air Force One - Agent Objective 3")
             add_rule(air_force_one_agent_obj_3, lambda state: state.has_all(("Air Force One - Agent", "Laptop Gun", "Timed Mine"), world.player)
                                                               or state.has_all(("Air Force One - Agent", "Cyclone", "Air Force One Left Room Key Card", "Timed Mine"), world.player)
-                                                              or state.has_all(("Air Force One - Agent", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player))
+                                                              or state.has_all(("Air Force One - Agent", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player)
+                                                              or state.has_all(("Air Force One - Agent", "Cyclone", "Air Force One Master Key", "Timed Mine"), world.player))
 
             air_force_one_agent_complete = world.get_location("Complete: Air Force One - Agent")
             add_rule(air_force_one_agent_complete, lambda state: state.has_all(("Air Force One - Agent", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
                                                                  or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
-                                                                 or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player))
+                                                                 or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Master Key", "K7 Avenger", "Timed Mine"), world.player))
 
 
             # Stage 12 - Crash Site
@@ -3970,16 +4171,20 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
             defection_sp_agent_obj_2 = world.get_location("dD Defection - Special Agent Objective 2")
             add_rule(defection_sp_agent_obj_2, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace", "Falcon 2 (Silencer)"), world.player)
-                                                             or state.has_all(("dD Defection - Special Agent", "De Vries' Necklace", "CMP150"), world.player))
+                                                             or state.has_all(("dD Defection - Special Agent", "De Vries' Necklace", "CMP150"), world.player)
+                                                             or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key", "Falcon 2 (Silencer)"), world.player)
+                                                             or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key", "CMP150"), world.player))
 
             defection_sp_agent_obj_3 = world.get_location("dD Defection - Special Agent Objective 3")
             add_rule(defection_sp_agent_obj_3, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
             defection_sp_agent_obj_4 = world.get_location("dD Defection - Special Agent Objective 4")
-            add_rule(defection_sp_agent_obj_4, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player))
+            add_rule(defection_sp_agent_obj_4, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                             or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
             defection_sp_agent_complete = world.get_location("Complete: dD Defection - Special Agent")
-            add_rule(defection_sp_agent_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player))
+            add_rule(defection_sp_agent_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                                or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
 
             # Stage 2 - Investigation
@@ -4066,21 +4271,29 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             # Stage 6 - G5 Building
             g5_sp_agent_obj_1 = world.get_location("G5 Building - Special Agent Objective 1")
             add_rule(g5_sp_agent_obj_1, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)"), world.player)
-                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150"), world.player))
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CMP150"), world.player))
 
             g5_sp_agent_obj_2 = world.get_location("G5 Building - Special Agent Objective 2")
             add_rule(g5_sp_agent_obj_2, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy"), world.player)
-                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy"), world.player))
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CMP150", "CamSpy"), world.player))
 
             g5_sp_agent_obj_3 = world.get_location("G5 Building - Special Agent Objective 3")
-            add_rule(g5_sp_agent_obj_3, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
+            add_rule(g5_sp_agent_obj_3, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
 
             g5_sp_agent_obj_4 = world.get_location("G5 Building - Special Agent Objective 4")
-            add_rule(g5_sp_agent_obj_4, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Remote Mine"), world.player))
+            add_rule(g5_sp_agent_obj_4, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "Remote Mine"), world.player))
 
             g5_sp_agent_complete = world.get_location("Complete: G5 Building - Special Agent")
-            add_rule(g5_sp_agent_complete, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
+            add_rule(g5_sp_agent_complete, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                         or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
 
+            
 
             # Stage 7 - Infiltration
             infiltration_sp_agent_obj_1 = world.get_location("A51 Infiltration - Special Agent Objective 1")
@@ -4093,13 +4306,17 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
             infiltration_sp_agent_obj_3 = world.get_location("A51 Infiltration - Special Agent Objective 3")
             add_rule(infiltration_sp_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Area 51 Lift Key Card"), world.player)
-                                                                or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Area 51 Lift Key Card"), world.player))
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Area 51 Master Key"), world.player))
 
             infiltration_sp_agent_obj_4 = world.get_location("A51 Infiltration - Special Agent Objective 4")
-            add_rule(infiltration_sp_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_sp_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
             infiltration_sp_agent_complete = world.get_location("Complete: A51 Infiltration - Special Agent")
-            add_rule(infiltration_sp_agent_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_sp_agent_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                   or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
 
             # Stage 8 - Rescue
@@ -4113,13 +4330,16 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                           or state.has_all(("A51 Rescue - Special Agent", "Dragon", "SuperDragon", "Lab Clothes"), world.player))
 
             rescue_sp_agent_obj_3 = world.get_location("A51 Rescue - Special Agent Objective 3")
-            add_rule(rescue_sp_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player))
+            add_rule(rescue_sp_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
             rescue_sp_agent_obj_4 = world.get_location("A51 Rescue - Special Agent Objective 4")
-            add_rule(rescue_sp_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+            add_rule(rescue_sp_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
             
             rescue_sp_agent_complete = world.get_location("Complete: A51 Rescue - Special Agent")
-            add_rule(rescue_sp_agent_complete, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+            add_rule(rescue_sp_agent_complete, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                             or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
 
             # Stage 9 - Escape
@@ -4164,25 +4384,33 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 11 - Air Force One
             air_force_one_sp_agent_obj_1 = world.get_location("Air Force One - Special Agent Objective 1")
-            add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_sp_agent_obj_2 = world.get_location("Air Force One - Special Agent Objective 2")
-            add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_sp_agent_obj_3 = world.get_location("Air Force One - Special Agent Objective 3")
             add_rule(air_force_one_sp_agent_obj_3, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player)
                                                                  or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger"), world.player)
-                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger"), world.player))
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger"), world.player))
 
             air_force_one_sp_agent_obj_4 = world.get_location("Air Force One - Special Agent Objective 4")
             add_rule(air_force_one_sp_agent_obj_4, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
                                                                  or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "Timed Mine"), world.player)
-                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player))
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player))            
 
             air_force_one_sp_agent_complete = world.get_location("Complete: Air Force One - Special Agent")
             add_rule(air_force_one_sp_agent_complete, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
-                                                                    or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player))
+                                                                    or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                    or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                    or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger", "Timed Mine"), world.player))
 
 
             # Stage 12 - Crash Site
@@ -4354,7 +4582,9 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
             defection_prf_agent_obj_2 = world.get_location("dD Defection - Perfect Agent Objective 2")
             add_rule(defection_prf_agent_obj_2, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace", "Falcon 2 (Silencer)"), world.player)
-                                                              or state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace", "CMP150"), world.player))
+                                                              or state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace", "CMP150"), world.player)
+                                                              or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key", "Falcon 2 (Silencer)"), world.player)
+                                                              or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key", "CMP150"), world.player))
 
             defection_prf_agent_obj_3 = world.get_location("dD Defection - Perfect Agent Objective 3")
             add_rule(defection_prf_agent_obj_3, lambda state: state.has_all(("dD Defection - Perfect Agent", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player))
@@ -4363,10 +4593,12 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(defection_prf_agent_obj_4, lambda state: state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
             defection_prf_agent_obj_5 = world.get_location("dD Defection - Perfect Agent Objective 5")
-            add_rule(defection_prf_agent_obj_5, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player))
+            add_rule(defection_prf_agent_obj_5, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                              or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
             defection_prf_agent_complete = world.get_location("Complete: dD Defection - Perfect Agent")
-            add_rule(defection_prf_agent_complete, lambda state: state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player))
+            add_rule(defection_prf_agent_complete, lambda state: state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                                 or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
 
             # Stage 2 - Investigation
@@ -4468,25 +4700,34 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             # Stage 6 - G5 Building
             g5_prf_agent_obj_1 = world.get_location("G5 Building - Perfect Agent Objective 1")
             add_rule(g5_prf_agent_obj_1, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)"), world.player)
-                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150"), world.player))
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CMP150"), world.player))
 
             g5_prf_agent_obj_2 = world.get_location("G5 Building - Perfect Agent Objective 2")
             add_rule(g5_prf_agent_obj_2, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)"), world.player)
-                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150"), world.player))
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CMP150"), world.player))
 
             g5_prf_agent_obj_3 = world.get_location("G5 Building - Perfect Agent Objective 3")
             add_rule(g5_prf_agent_obj_3, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy"), world.player)
-                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy"), world.player))
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CMP150", "CamSpy"), world.player))
 
             g5_prf_agent_obj_4 = world.get_location("G5 Building - Perfect Agent Objective 4")
-            add_rule(g5_prf_agent_obj_4, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
+            add_rule(g5_prf_agent_obj_4, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "Door Decoder", "Backup Disk"), world.player))
 
             g5_prf_agent_obj_5 = world.get_location("G5 Building - Perfect Agent Objective 5")
-            add_rule(g5_prf_agent_obj_5, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Remote Mine"), world.player))
+            add_rule(g5_prf_agent_obj_5, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "Remote Mine"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "Remote Mine"), world.player))
 
             g5_prf_agent_complete = world.get_location("Complete: G5 Building - Perfect Agent")
-            add_rule(g5_prf_agent_complete, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
-
+            add_rule(g5_prf_agent_complete, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                          or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
+            
 
             # Stage 7 - Infiltration
             infiltration_prf_agent_obj_1 = world.get_location("A51 Infiltration - Perfect Agent Objective 1")
@@ -4502,13 +4743,17 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
             infiltration_prf_agent_obj_4 = world.get_location("A51 Infiltration - Perfect Agent Objective 4")
             add_rule(infiltration_prf_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Area 51 Lift Key Card"), world.player)
-                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Area 51 Lift Key Card"), world.player))
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Area 51 Lift Key Card"), world.player)
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Area 51 Master Key"), world.player)
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Area 51 Master Key"), world.player))
 
             infiltration_prf_agent_obj_5 = world.get_location("A51 Infiltration - Perfect Agent Objective 5")
-            add_rule(infiltration_prf_agent_obj_5, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_prf_agent_obj_5, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
             infiltration_prf_agent_complete = world.get_location("Complete: A51 Infiltration - Perfect Agent")
-            add_rule(infiltration_prf_agent_complete, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+            add_rule(infiltration_prf_agent_complete, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
 
             # Stage 8 - Rescue
@@ -4526,13 +4771,16 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                            or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Lab Clothes"), world.player))
 
             rescue_prf_agent_obj_4 = world.get_location("A51 Rescue - Perfect Agent Objective 4")
-            add_rule(rescue_prf_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player))
+            add_rule(rescue_prf_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
             rescue_prf_agent_obj_5 = world.get_location("A51 Rescue - Perfect Agent Objective 5")
-            add_rule(rescue_prf_agent_obj_5, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+            add_rule(rescue_prf_agent_obj_5, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
             
             rescue_prf_agent_complete = world.get_location("Complete: A51 Rescue - Perfect Agent")
-            add_rule(rescue_prf_agent_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+            add_rule(rescue_prf_agent_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                              or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
 
             # Stage 9 - Escape
@@ -4587,30 +4835,40 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 11 - Air Force One
             air_force_one_prf_agent_obj_1 = world.get_location("Air Force One - Perfect Agent Objective 1")
-            add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_prf_agent_obj_2 = world.get_location("Air Force One - Perfect Agent Objective 2")
-            add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_prf_agent_obj_3 = world.get_location("Air Force One - Perfect Agent Objective 3")
             add_rule(air_force_one_prf_agent_obj_3, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player)
                                                                   or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger"), world.player)
-                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger"), world.player))
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger"), world.player))
 
             air_force_one_prf_agent_obj_4 = world.get_location("Air Force One - Perfect Agent Objective 4")
             add_rule(air_force_one_prf_agent_obj_4, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
                                                                   or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "Timed Mine"), world.player)
-                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player))
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player))
 
             air_force_one_prf_agent_obj_5 = world.get_location("Air Force One - Perfect Agent Objective 5")
             add_rule(air_force_one_prf_agent_obj_5, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
                                                                   or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "Timed Mine"), world.player)
-                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player))
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "Timed Mine"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player))
 
             air_force_one_prf_agent_complete = world.get_location("Complete: Air Force One - Perfect Agent")
             add_rule(air_force_one_prf_agent_complete, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player))
+                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger", "Timed Mine"), world.player))
 
 
             # Stage 12 - Crash Site
@@ -4821,7 +5079,9 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(cheat_defection_complete, lambda state: state.has_all(("dD Defection - Agent", "Falcon 2 (Silencer)"), world.player)
                                                              or state.has_all(("dD Defection - Agent", "CMP150"), world.player)
                                                              or state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player)
-                                                             or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player))
+                                                             or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                             or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                             or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
 
             # Investigation
@@ -4858,22 +5118,31 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             # G5 Building
             cheat_g5_complete = world.get_location("Cheat Unlock: Complete G5 Building")
             add_rule(cheat_g5_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                      or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
                                                       or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
-                                                      or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
 
 
             # Infiltration
             cheat_infiltration_complete = world.get_location("Cheat Unlock: Complete A51 Infiltration")
-            add_rule(cheat_infiltration_complete, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon" "Explosives", "Area 51 Lift Key Card"), world.player)
+            add_rule(cheat_infiltration_complete, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Area 51 Master Key"), world.player)
                                                                 or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
 
             # Rescue
             cheat_rescue_complete = world.get_location("Cheat Unlock: Complete A51 Rescue")
             add_rule(cheat_rescue_complete, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player)
                                                           or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                          or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
 
             # Escape
@@ -4898,12 +5167,17 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(cheat_air_force_one_complete, lambda state: state.has_all(("Air Force One - Agent", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
                                                                  or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
                                                                  or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Agent", "Suitcase", "Cyclone", "Air Force One Master Key", "K7 Avenger", "Timed Mine"), world.player)
                                                                  or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
                                                                  or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
                                                                  or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger", "Timed Mine"), world.player)
                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
-                                                                 or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player))
+                                                                 or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger", "Timed Mine"), world.player))
 
 
             # Crash Site
@@ -4962,7 +5236,8 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
                 # G5 Building
                 cheat_g5_timed_complete = world.get_location("Cheat Unlock: Complete G5 Building (Agent) in under 1:40")
-                add_rule(cheat_g5_timed_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
+                add_rule(cheat_g5_timed_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
 
 
                 # Escape
@@ -4983,7 +5258,8 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             if world.options.special_agent:
                 # Defection
                 cheat_defection_timed_complete = world.get_location("Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30")
-                add_rule(cheat_defection_timed_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player))
+                add_rule(cheat_defection_timed_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "Falcon 2 (Silencer)", "CMP150"), world.player)
+                                                                       or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key", "Falcon 2 (Silencer)", "CMP150"), world.player))
 
 
                 # Villa
@@ -4993,7 +5269,8 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
                 # Infiltration
                 cheat_infiltration_timed_complete = world.get_location("Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00")
-                add_rule(cheat_infiltration_timed_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+                add_rule(cheat_infiltration_timed_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                          or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
 
                 # Air Base
@@ -5025,14 +5302,17 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
                 # Rescue
                 cheat_rescue_timed_complete = world.get_location("Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59")
-                add_rule(cheat_rescue_timed_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+                add_rule(cheat_rescue_timed_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
 
                 # Air Force One
                 cheat_air_force_one_timed_complete = world.get_location("Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55")
                 add_rule(cheat_air_force_one_timed_complete, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
                                                                            or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Left Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
-                                                                           or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player))
+                                                                           or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Air Force One Right Room Key Card", "K7 Avenger", "Timed Mine"), world.player)
+                                                                           or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine"), world.player)
+                                                                           or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "K7 Avenger", "Timed Mine"), world.player))
 
 
                 # Deep Sea
@@ -5136,19 +5416,23 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 6 - G5 Building
             g5_agent_obj_1 = world.get_location("G5 Building - Agent Objective 1")
-            add_rule(g5_agent_obj_1, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+            add_rule(g5_agent_obj_1, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+                                                        or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CamSpy"), world.player))
                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_agent_obj_2 = world.get_location("G5 Building - Agent Objective 2")
-            add_rule(g5_agent_obj_2, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_agent_obj_2, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+                                                        or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Door Decoder", "Backup Disk"), world.player))
                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_agent_obj_3 = world.get_location("G5 Building - Agent Objective 3")
-            add_rule(g5_agent_obj_3, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_agent_obj_3, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+                                                        or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Door Decoder", "Backup Disk"), world.player))
                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_agent_complete = world.get_location("Complete: G5 Building - Agent")
-            add_rule(g5_agent_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_agent_complete, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                        or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                       and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -5158,15 +5442,18 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_agent_obj_2 = world.get_location("A51 Infiltration - Agent Objective 2")
-            add_rule(infiltration_agent_obj_2, lambda state: state.has_all(("A51 Infiltration - Agent", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_agent_obj_2, lambda state: (state.has_all(("A51 Infiltration - Agent", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Area 51 Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_agent_obj_3 = world.get_location("A51 Infiltration - Agent Objective 3")
-            add_rule(infiltration_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_agent_obj_3, lambda state: (state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_agent_complete = world.get_location("Complete: A51 Infiltration - Agent")
-            add_rule(infiltration_agent_complete, lambda state: state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_agent_complete, lambda state: (state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -5176,15 +5463,18 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_agent_obj_2 = world.get_location("A51 Rescue - Agent Objective 2")
-            add_rule(rescue_agent_obj_2, lambda state: state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+            add_rule(rescue_agent_obj_2, lambda state: (state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                            or state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_agent_obj_3 = world.get_location("A51 Rescue - Agent Objective 3")
-            add_rule(rescue_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_agent_obj_3, lambda state: (state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                            or state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
             
             rescue_agent_complete = world.get_location("Complete: A51 Rescue - Agent")
-            add_rule(rescue_agent_complete, lambda state: state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_agent_complete, lambda state: (state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                            or state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -5448,7 +5738,8 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"]))
 
             defection_sp_agent_obj_2 = world.get_location("dD Defection - Special Agent Objective 2")
-            add_rule(defection_sp_agent_obj_2, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player)
+            add_rule(defection_sp_agent_obj_2, lambda state: (state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player)
+                                                                or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"]))
 
             defection_sp_agent_obj_3 = world.get_location("dD Defection - Special Agent Objective 3")
@@ -5456,11 +5747,13 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             defection_sp_agent_obj_4 = world.get_location("dD Defection - Special Agent Objective 4")
-            add_rule(defection_sp_agent_obj_4, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player)
+            add_rule(defection_sp_agent_obj_4, lambda state: (state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player)
+                                                                or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             defection_sp_agent_complete = world.get_location("Complete: dD Defection - Special Agent")
-            add_rule(defection_sp_agent_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+            add_rule(defection_sp_agent_complete, lambda state: (state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                                                                    or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -5564,27 +5857,34 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 6 - G5 Building
             g5_sp_agent_obj_1 = world.get_location("G5 Building - Special Agent Objective 1")
-            add_rule(g5_sp_agent_obj_1, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+            add_rule(g5_sp_agent_obj_1, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                        or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key"), world.player))
                                                       and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_sp_agent_obj_2 = world.get_location("G5 Building - Special Agent Objective 2")
-            add_rule(g5_sp_agent_obj_2, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+            add_rule(g5_sp_agent_obj_2, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+                                                        or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy"), world.player))
                                                       and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_sp_agent_obj_3 = world.get_location("G5 Building - Special Agent Objective 3")
-            add_rule(g5_sp_agent_obj_3, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_sp_agent_obj_3, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+                                                        or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Door Decoder", "Backup Disk"), world.player))
                                                       and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_sp_agent_obj_4 = world.get_location("G5 Building - Special Agent Objective 4")
-            add_rule(g5_sp_agent_obj_4, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Remote Mine"), world.player)
+            add_rule(g5_sp_agent_obj_4, lambda state: ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Remote Mine"), world.player)
+                                                                or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Remote Mine"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                      or (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                      or ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                                or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
 
             g5_sp_agent_complete = world.get_location("Complete: G5 Building - Special Agent")
-            add_rule(g5_sp_agent_complete, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+            add_rule(g5_sp_agent_complete, lambda state: ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                                or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                         or (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                         or ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
 
 
@@ -5598,15 +5898,18 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_sp_agent_obj_3 = world.get_location("A51 Infiltration - Special Agent Objective 3")
-            add_rule(infiltration_sp_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_sp_agent_obj_3, lambda state: (state.has_all(("A51 Infiltration - Special Agent", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Special Agent", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_sp_agent_obj_4 = world.get_location("A51 Infiltration - Special Agent Objective 4")
-            add_rule(infiltration_sp_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_sp_agent_obj_4, lambda state: (state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_sp_agent_complete = world.get_location("Complete: A51 Infiltration - Special Agent")
-            add_rule(infiltration_sp_agent_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_sp_agent_complete, lambda state: (state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -5620,15 +5923,18 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_sp_agent_obj_3 = world.get_location("A51 Rescue - Special Agent Objective 3")
-            add_rule(rescue_sp_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+            add_rule(rescue_sp_agent_obj_3, lambda state: (state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_sp_agent_obj_4 = world.get_location("A51 Rescue - Special Agent Objective 4")
-            add_rule(rescue_sp_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_sp_agent_obj_4, lambda state: (state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
             
             rescue_sp_agent_complete = world.get_location("Complete: A51 Rescue - Special Agent")
-            add_rule(rescue_sp_agent_complete, lambda state: state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_sp_agent_complete, lambda state: (state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -5700,25 +6006,32 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 11 - Air Force One
             air_force_one_sp_agent_obj_1 = world.get_location("Air Force One - Special Agent Objective 1")
-            add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_sp_agent_obj_2 = world.get_location("Air Force One - Special Agent Objective 2")
-            add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_sp_agent_obj_3 = world.get_location("Air Force One - Special Agent Objective 3")
-            add_rule(air_force_one_sp_agent_obj_3, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+            add_rule(air_force_one_sp_agent_obj_3, lambda state: (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                    or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             air_force_one_sp_agent_obj_4 = world.get_location("Air Force One - Special Agent Objective 4")
-            add_rule(air_force_one_sp_agent_obj_4, lambda state: (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_sp_agent_obj_4, lambda state: ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                        or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                 or (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                 or ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                        or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
             air_force_one_sp_agent_complete = world.get_location("Complete: Air Force One - Special Agent")
-            add_rule(air_force_one_sp_agent_complete, lambda state: (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_sp_agent_complete, lambda state: ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                            or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                    or (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                    or ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                            or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
 
@@ -5953,7 +6266,8 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                               and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"]))
 
             defection_prf_agent_obj_2 = world.get_location("dD Defection - Perfect Agent Objective 2")
-            add_rule(defection_prf_agent_obj_2, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player)
+            add_rule(defection_prf_agent_obj_2, lambda state: (state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player)
+                                                                or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key"), world.player))
                                                               and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"]))
 
             defection_prf_agent_obj_3 = world.get_location("dD Defection - Perfect Agent Objective 3")
@@ -5965,11 +6279,13 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                               and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             defection_prf_agent_obj_5 = world.get_location("dD Defection - Perfect Agent Objective 5")
-            add_rule(defection_prf_agent_obj_5, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player)
+            add_rule(defection_prf_agent_obj_5, lambda state: (state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player)
+                                                                or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key"), world.player))
                                                               and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             defection_prf_agent_complete = world.get_location("Complete: dD Defection - Perfect Agent")
-            add_rule(defection_prf_agent_complete, lambda state: state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink"), world.player)
+            add_rule(defection_prf_agent_complete, lambda state: (state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink"), world.player)
+                                                                    or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink"), world.player))
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -6094,31 +6410,39 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 6 - G5 Building
             g5_prf_agent_obj_1 = world.get_location("G5 Building - Perfect Agent Objective 1")
-            add_rule(g5_prf_agent_obj_1, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+            add_rule(g5_prf_agent_obj_1, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                            or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             g5_prf_agent_obj_2 = world.get_location("G5 Building - Perfect Agent Objective 2")
-            add_rule(g5_prf_agent_obj_2, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+            add_rule(g5_prf_agent_obj_2, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                            or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             g5_prf_agent_obj_3 = world.get_location("G5 Building - Perfect Agent Objective 3")
-            add_rule(g5_prf_agent_obj_3, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+            add_rule(g5_prf_agent_obj_3, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+                                                            or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             g5_prf_agent_obj_4 = world.get_location("G5 Building - Perfect Agent Objective 4")
-            add_rule(g5_prf_agent_obj_4, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_prf_agent_obj_4, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+                                                            or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Door Decoder", "Backup Disk"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             g5_prf_agent_obj_5 = world.get_location("G5 Building - Perfect Agent Objective 5")
-            add_rule(g5_prf_agent_obj_5, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Remote Mine"), world.player)
+            add_rule(g5_prf_agent_obj_5, lambda state: ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Remote Mine"), world.player)
+                                                                or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Remote Mine"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                        or (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                        or ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                                or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
 
             g5_prf_agent_complete = world.get_location("Complete: G5 Building - Perfect Agent")
-            add_rule(g5_prf_agent_complete, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+            add_rule(g5_prf_agent_complete, lambda state: ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                                or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                        or (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                        or ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
             
 
@@ -6136,15 +6460,18 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_obj_4 = world.get_location("A51 Infiltration - Perfect Agent Objective 4")
-            add_rule(infiltration_prf_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_prf_agent_obj_4, lambda state: (state.has_all(("A51 Infiltration - Perfect Agent", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "Area 51 Master Key"), world.player))
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_obj_5 = world.get_location("A51 Infiltration - Perfect Agent Objective 5")
-            add_rule(infiltration_prf_agent_obj_5, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_prf_agent_obj_5, lambda state: (state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_complete = world.get_location("Complete: A51 Infiltration - Perfect Agent")
-            add_rule(infiltration_prf_agent_complete, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_prf_agent_complete, lambda state: (state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -6162,15 +6489,18 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                            and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_prf_agent_obj_4 = world.get_location("A51 Rescue - Perfect Agent Objective 4")
-            add_rule(rescue_prf_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+            add_rule(rescue_prf_agent_obj_4, lambda state: (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                            and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_prf_agent_obj_5 = world.get_location("A51 Rescue - Perfect Agent Objective 5")
-            add_rule(rescue_prf_agent_obj_5, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_prf_agent_obj_5, lambda state: (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                            and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
             
             rescue_prf_agent_complete = world.get_location("Complete: A51 Rescue - Perfect Agent")
-            add_rule(rescue_prf_agent_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_prf_agent_complete, lambda state: (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                               and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -6254,31 +6584,40 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 11 - Air Force One
             air_force_one_prf_agent_obj_1 = world.get_location("Air Force One - Perfect Agent Objective 1")
-            add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_prf_agent_obj_2 = world.get_location("Air Force One - Perfect Agent Objective 2")
-            add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_prf_agent_obj_3 = world.get_location("Air Force One - Perfect Agent Objective 3")
-            add_rule(air_force_one_prf_agent_obj_3, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
-                                                                and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
+            add_rule(air_force_one_prf_agent_obj_3, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
+                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             air_force_one_prf_agent_obj_4 = world.get_location("Air Force One - Perfect Agent Objective 4")
-            add_rule(air_force_one_prf_agent_obj_4, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_prf_agent_obj_4, lambda state: ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
             air_force_one_prf_agent_obj_5 = world.get_location("Air Force One - Perfect Agent Objective 5")
-            add_rule(air_force_one_prf_agent_obj_5, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_prf_agent_obj_5, lambda state: ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
             air_force_one_prf_agent_complete = world.get_location("Complete: Air Force One - Perfect Agent")
-            add_rule(air_force_one_prf_agent_complete, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_prf_agent_complete, lambda state: ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                            or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                    or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                     or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                            or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
 
@@ -6571,9 +6910,11 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             cheat_defection_complete = world.get_location("Cheat Unlock: Complete dD Defection")
             add_rule(cheat_defection_complete, lambda state: (state.has("dD Defection - Agent", world.player)
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"]))
-                                                             or (state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                                                             or ((state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                                                                    or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                             or (state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink"), world.player)
+                                                             or ((state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink"), world.player)
+                                                                    or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])))
 
 
@@ -6627,35 +6968,46 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
             # G5 Building
             cheat_g5_complete = world.get_location("Cheat Unlock: Complete G5 Building")
-            add_rule(cheat_g5_complete, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(cheat_g5_complete, lambda state: ((state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                      or ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or (((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                                    or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                            or (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                            or ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                    or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
-                                                      or ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or (((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                                    or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                            or (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                            or ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                    or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"]))))
 
 
             # Infiltration
             cheat_infiltration_complete = world.get_location("Cheat Unlock: Complete A51 Infiltration")
-            add_rule(cheat_infiltration_complete, lambda state: (state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+            add_rule(cheat_infiltration_complete, lambda state: ((state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or ((state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or ((state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])))
 
 
             # Rescue
             cheat_rescue_complete = world.get_location("Cheat Unlock: Complete A51 Rescue")
-            add_rule(cheat_rescue_complete, lambda state: (state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(cheat_rescue_complete, lambda state: ((state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                          or (state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or ((state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                          or (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or ((state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])))
 
 
@@ -6693,15 +7045,19 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             cheat_air_force_one_complete = world.get_location("Cheat Unlock: Complete Air Force One")
             add_rule(cheat_air_force_one_complete, lambda state: ((state.has_all(("Air Force One - Agent", "Suitcase", "Timed Mine"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                 or (state.has_all(("Air Force One - Agent", "Suitcase"), world.player)
+                                                                    or (state.has_all(("Air Force One - Agent", "Suitcase"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
-                                                                 or ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                 or (((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                            or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                    or (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                    or ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                            or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
-                                                                 or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                 or (((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                            or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                    or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                     or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                            or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))))
 
 
@@ -6798,7 +7154,8 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
                 # G5 Building
                 cheat_g5_timed_complete = world.get_location("Cheat Unlock: Complete G5 Building (Agent) in under 1:40")
-                add_rule(cheat_g5_timed_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                add_rule(cheat_g5_timed_complete, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                    or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -6825,7 +7182,8 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             if world.options.special_agent:
                 # Defection
                 cheat_defection_timed_complete = world.get_location("Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30")
-                add_rule(cheat_defection_timed_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                add_rule(cheat_defection_timed_complete, lambda state: (state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                                                                            or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key"), world.player))
                                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -6837,7 +7195,8 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
                 # Infiltration
                 cheat_infiltration_timed_complete = world.get_location("Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00")
-                add_rule(cheat_infiltration_timed_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                add_rule(cheat_infiltration_timed_complete, lambda state: (state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                                or state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -6845,7 +7204,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                 if world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon:
                     cheat_air_base_timed_complete = world.get_location("Cheat Unlock: Complete Air Base (Special Agent) in under 3:11")
                     add_rule(cheat_air_base_timed_complete, lambda state: state.has_all(("Air Base - Special Agent", "Stewardess Disguise", "Suitcase"), world.player)
-                                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
+                                                                          and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
                 elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
                     cheat_air_base_timed_complete = world.get_location("Cheat Unlock: Complete Air Base (Special Agent) in under 3:11")
@@ -6884,15 +7243,18 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
                 # Rescue
                 cheat_rescue_timed_complete = world.get_location("Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59")
-                add_rule(cheat_rescue_timed_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                add_rule(cheat_rescue_timed_complete, lambda state: (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                        or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
                 # Air Force One
                 cheat_air_force_one_timed_complete = world.get_location("Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55")
-                add_rule(cheat_air_force_one_timed_complete, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                add_rule(cheat_air_force_one_timed_complete, lambda state: ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                                    or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                           or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                           or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                                    or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
 
@@ -7007,20 +7369,30 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             # Stage 6 - G5 Building
             g5_agent_obj_1 = world.get_location("G5 Building - Agent Objective 1")
             add_rule(g5_agent_obj_1, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy"), world.player)
-                                                   or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy"), world.player))
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy"), world.player)
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy"), world.player)
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CMP150", "CamSpy"), world.player))
 
             g5_agent_obj_2 = world.get_location("G5 Building - Agent Objective 2")
             add_rule(g5_agent_obj_2, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "Door Decoder", "Backup Disk"), world.player)
-                                                       or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "Door Decoder", "Backup Disk"), world.player))
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "Door Decoder", "Backup Disk"), world.player)
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "Door Decoder", "Backup Disk"), world.player)
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CMP150", "Door Decoder", "Backup Disk"), world.player))
 
             g5_agent_obj_3 = world.get_location("G5 Building - Agent Objective 3")
             add_rule(g5_agent_obj_3, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "Door Decoder", "Backup Disk"), world.player)
-                                                       or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "Door Decoder", "Backup Disk"), world.player))
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "Door Decoder", "Backup Disk"), world.player)
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "Door Decoder", "Backup Disk"), world.player)
+                                                   or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CMP150", "Door Decoder", "Backup Disk"), world.player))
 
             g5_agent_complete = world.get_location("Complete: G5 Building - Agent")
             add_rule(g5_agent_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
-                                                          or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
+                                                      or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                      or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                      or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
  
+            
+
 
             # Stage 7 - Infiltration
             infiltration_agent_obj_1 = world.get_location("A51 Infiltration - Agent Objective 1")
@@ -7029,17 +7401,25 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             infiltration_agent_obj_2 = world.get_location("A51 Infiltration - Agent Objective 2")
             add_rule(infiltration_agent_obj_2, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Area 51 Lift Key Card"), world.player)
-                                                             or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Area 51 Lift Key Card"), world.player))
+                                                             or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Area 51 Lift Key Card"), world.player)
+                                                             or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Area 51 Master Key"), world.player)
+                                                             or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Area 51 Master Key"), world.player))
 
             infiltration_agent_obj_3 = world.get_location("A51 Infiltration - Agent Objective 3")
             add_rule(infiltration_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Explosives", "Area 51 Lift Key Card"), world.player)
                                                              or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
-                                                             or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player))
+                                                             or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                             or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Explosives", "Area 51 Master Key"), world.player)
+                                                             or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Dragon", "Explosives", "Area 51 Master Key"), world.player)
+                                                             or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Dragon", "Explosives", "Area 51 Master Key"), world.player))
 
             infiltration_agent_complete = world.get_location("Complete: A51 Infiltration - Agent")
             add_rule(infiltration_agent_complete, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Explosives", "Area 51 Lift Key Card"), world.player)
-                                                                    or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
-                                                                    or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)) 
+                                                                or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Explosives", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Dragon", "Explosives", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Dragon", "Explosives", "Area 51 Master Key"), world.player)) 
 
 
             # Stage 8 - Rescue
@@ -7050,17 +7430,26 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             rescue_agent_obj_2 = world.get_location("A51 Rescue - Agent Objective 2")
             add_rule(rescue_agent_obj_2, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes", "Medlab 2 Key Card"), world.player)
                                                        or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card"), world.player)
-                                                       or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card"), world.player))
+                                                       or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                       or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                       or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                       or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player))
 
             rescue_agent_obj_3 = world.get_location("A51 Rescue - Agent Objective 3")
             add_rule(rescue_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
                                                        or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                       or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+                                                       or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                       or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                       or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                       or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player))
             
             rescue_agent_complete = world.get_location("Complete: A51 Rescue - Agent")
             add_rule(rescue_agent_complete, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
                                                           or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                          or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+                                                          or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player))
 
 
             # Stage 9 - Escape
@@ -7109,18 +7498,18 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             air_force_one_agent_obj_2 = world.get_location("Air Force One - Agent Objective 2")
             add_rule(air_force_one_agent_obj_2, lambda state: state.has_all(("Air Force One - Agent", "Laptop Gun"), world.player)
-                                                                  or state.has_all(("Air Force One - Agent", "Cyclone"), world.player)
-                                                                  or state.has_all(("Air Force One - Agent", "K7 Avenger"), world.player))
+                                                              or state.has_all(("Air Force One - Agent", "Cyclone"), world.player)
+                                                              or state.has_all(("Air Force One - Agent", "K7 Avenger"), world.player))
 
             air_force_one_agent_obj_3 = world.get_location("Air Force One - Agent Objective 3")
             add_rule(air_force_one_agent_obj_3, lambda state: state.has_all(("Air Force One - Agent", "Laptop Gun", "Timed Mine"), world.player)
-                                                                  or state.has_all(("Air Force One - Agent", "Cyclone", "Timed Mine"), world.player)
-                                                                  or state.has_all(("Air Force One - Agent", "K7 Avenger", "Timed Mine"), world.player))
+                                                              or state.has_all(("Air Force One - Agent", "Cyclone", "Timed Mine"), world.player)
+                                                              or state.has_all(("Air Force One - Agent", "K7 Avenger", "Timed Mine"), world.player))
 
             air_force_one_agent_complete = world.get_location("Complete: Air Force One - Agent")
             add_rule(air_force_one_agent_complete, lambda state: state.has_all(("Air Force One - Agent", "Laptop Gun", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Agent", "Cyclone", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Agent", "K7 Avenger", "Timed Mine"), world.player))
+                                                                 or state.has_all(("Air Force One - Agent", "Cyclone", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Agent", "K7 Avenger", "Timed Mine"), world.player))
 
 
             # Stage 12 - Crash Site
@@ -7276,7 +7665,8 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(defection_sp_agent_obj_1, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine"), world.player))
 
             defection_sp_agent_obj_2 = world.get_location("dD Defection - Special Agent Objective 2")
-            add_rule(defection_sp_agent_obj_2, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player))
+            add_rule(defection_sp_agent_obj_2, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player)
+                                                             or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key"), world.player))
 
             defection_sp_agent_obj_3 = world.get_location("dD Defection - Special Agent Objective 3")
             add_rule(defection_sp_agent_obj_3, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "Falcon 2 (Silencer)"), world.player)
@@ -7284,11 +7674,15 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             defection_sp_agent_obj_4 = world.get_location("dD Defection - Special Agent Objective 4")
             add_rule(defection_sp_agent_obj_4, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace", "Falcon 2 (Silencer)"), world.player)
-                                                             or state.has_all(("dD Defection - Special Agent", "De Vries' Necklace", "CMP150"), world.player))
+                                                             or state.has_all(("dD Defection - Special Agent", "De Vries' Necklace", "CMP150"), world.player)
+                                                             or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key", "Falcon 2 (Silencer)"), world.player)
+                                                             or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key", "CMP150"), world.player))
 
             defection_sp_agent_complete = world.get_location("Complete: dD Defection - Special Agent")
             add_rule(defection_sp_agent_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "Falcon 2 (Silencer)"), world.player)
-                                                                or state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "CMP150"), world.player))
+                                                                or state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "CMP150"), world.player)
+                                                                or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key", "Falcon 2 (Silencer)"), world.player)
+                                                                or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key", "CMP150"), world.player))
 
 
             # Stage 2 - Investigation
@@ -7392,23 +7786,33 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             # Stage 6 - G5 Building
             g5_sp_agent_obj_1 = world.get_location("G5 Building - Special Agent Objective 1")
             add_rule(g5_sp_agent_obj_1, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)"), world.player)
-                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150"), world.player))
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CMP150"), world.player))
 
             g5_sp_agent_obj_2 = world.get_location("G5 Building - Special Agent Objective 2")
             add_rule(g5_sp_agent_obj_2, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy"), world.player)
-                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy"), world.player))
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CMP150", "CamSpy"), world.player))
 
             g5_sp_agent_obj_3 = world.get_location("G5 Building - Special Agent Objective 3")
             add_rule(g5_sp_agent_obj_3, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "Door Decoder", "Backup Disk"), world.player)
-                                                          or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "Door Decoder", "Backup Disk"), world.player))
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "Door Decoder", "Backup Disk"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "Door Decoder", "Backup Disk"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CMP150", "Door Decoder", "Backup Disk"), world.player))
 
             g5_sp_agent_obj_4 = world.get_location("G5 Building - Special Agent Objective 4")
             add_rule(g5_sp_agent_obj_4, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "Remote Mine"), world.player)
-                                                          or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "Remote Mine"), world.player))
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CMP150", "Remote Mine"), world.player))
 
             g5_sp_agent_complete = world.get_location("Complete: G5 Building - Special Agent")
             add_rule(g5_sp_agent_complete, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
-                                                             or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
+                                                         or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                         or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                         or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
 
 
             # Stage 7 - Infiltration
@@ -7422,17 +7826,25 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             infiltration_sp_agent_obj_3 = world.get_location("A51 Infiltration - Special Agent Objective 3")
             add_rule(infiltration_sp_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Area 51 Lift Key Card"), world.player)
-                                                                or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Area 51 Lift Key Card"), world.player))
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Area 51 Master Key"), world.player))
 
             infiltration_sp_agent_obj_4 = world.get_location("A51 Infiltration - Special Agent Objective 4")
             add_rule(infiltration_sp_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                    or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                    or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Dragon" "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Dragon" "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Dragon" "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
             infiltration_sp_agent_complete = world.get_location("Complete: A51 Infiltration - Special Agent")
             add_rule(infiltration_sp_agent_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                       or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                       or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Dragon" "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+                                                                   or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                   or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Dragon" "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                   or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                   or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                   or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Dragon" "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
 
             # Stage 8 - Rescue
@@ -7447,18 +7859,27 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             rescue_sp_agent_obj_3 = world.get_location("A51 Rescue - Special Agent Objective 3")
             add_rule(rescue_sp_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
-                                                            or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
-                                                            or state.has_all(("A51 Rescue - Special Agent", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player))
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
             rescue_sp_agent_obj_4 = world.get_location("A51 Rescue - Special Agent Objective 4")
             add_rule(rescue_sp_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                            or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                            or state.has_all(("A51 Rescue - Special Agent", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
             
             rescue_sp_agent_complete = world.get_location("Complete: A51 Rescue - Special Agent")
             add_rule(rescue_sp_agent_complete, lambda state: state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                                or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                                or state.has_all(("A51 Rescue - Special Agent", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+                                                             or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                             or state.has_all(("A51 Rescue - Special Agent", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                             or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                             or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                             or state.has_all(("A51 Rescue - Special Agent", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
 
             # Stage 9 - Escape
@@ -7514,25 +7935,36 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 11 - Air Force One
             air_force_one_sp_agent_obj_1 = world.get_location("Air Force One - Special Agent Objective 1")
-            add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_sp_agent_obj_2 = world.get_location("Air Force One - Special Agent Objective 2")
-            add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_sp_agent_obj_3 = world.get_location("Air Force One - Special Agent Objective 3")
             add_rule(air_force_one_sp_agent_obj_3, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun"), world.player)
-                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone"), world.player)
-                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger"), world.player))
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Cyclone"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "K7 Avenger"), world.player))
 
             air_force_one_sp_agent_obj_4 = world.get_location("Air Force One - Special Agent Objective 4")
             add_rule(air_force_one_sp_agent_obj_4, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
 
             air_force_one_sp_agent_complete = world.get_location("Complete: Air Force One - Special Agent")
             add_rule(air_force_one_sp_agent_complete, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
-                                                                        or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
-                                                                        or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
+                                                                    or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                    or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player)
+                                                                    or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                    or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                    or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
 
 
             # Stage 12 - Crash Site
@@ -7725,7 +8157,8 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(defection_prf_agent_obj_1, lambda state: state.has_all(("dD Defection - Perfect Agent", "ECM Mine"), world.player))
 
             defection_prf_agent_obj_2 = world.get_location("dD Defection - Perfect Agent Objective 2")
-            add_rule(defection_prf_agent_obj_2, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player))
+            add_rule(defection_prf_agent_obj_2, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player)
+                                                              or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key"), world.player))
 
             defection_prf_agent_obj_3 = world.get_location("dD Defection - Perfect Agent Objective 3")
             add_rule(defection_prf_agent_obj_3, lambda state: state.has_all(("dD Defection - Perfect Agent", "Data Uplink", "Falcon 2 (Silencer)"), world.player)
@@ -7737,11 +8170,15 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             defection_prf_agent_obj_5 = world.get_location("dD Defection - Perfect Agent Objective 5")
             add_rule(defection_prf_agent_obj_5, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace", "Falcon 2 (Silencer)"), world.player)
-                                                              or state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace", "CMP150"), world.player))
+                                                              or state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace", "CMP150"), world.player)
+                                                              or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key", "Falcon 2 (Silencer)"), world.player)
+                                                              or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key", "CMP150"), world.player))
 
             defection_prf_agent_complete = world.get_location("Complete: dD Defection - Perfect Agent")
             add_rule(defection_prf_agent_complete, lambda state: state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "Falcon 2 (Silencer)"), world.player)
-                                                                 or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "CMP150"), world.player))
+                                                                 or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "CMP150"), world.player)
+                                                                 or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink", "Falcon 2 (Silencer)"), world.player)
+                                                                 or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink", "CMP150"), world.player))
 
 
             # Stage 2 - Investigation
@@ -7864,27 +8301,39 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             # Stage 6 - G5 Building
             g5_prf_agent_obj_1 = world.get_location("G5 Building - Perfect Agent Objective 1")
             add_rule(g5_prf_agent_obj_1, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)"), world.player)
-                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150"), world.player))
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CMP150"), world.player))
 
             g5_prf_agent_obj_2 = world.get_location("G5 Building - Perfect Agent Objective 2")
             add_rule(g5_prf_agent_obj_2, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)"), world.player)
-                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150"), world.player))
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CMP150"), world.player))
 
             g5_prf_agent_obj_3 = world.get_location("G5 Building - Perfect Agent Objective 3")
             add_rule(g5_prf_agent_obj_3, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy"), world.player)
-                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy"), world.player))
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CMP150", "CamSpy"), world.player))
 
             g5_prf_agent_obj_4 = world.get_location("G5 Building - Perfect Agent Objective 4")
             add_rule(g5_prf_agent_obj_4, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "Door Decoder", "Backup Disk"), world.player)
-                                                           or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "Door Decoder", "Backup Disk"), world.player))
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "Door Decoder", "Backup Disk"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "Door Decoder", "Backup Disk"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CMP150", "Door Decoder", "Backup Disk"), world.player))
 
             g5_prf_agent_obj_5 = world.get_location("G5 Building - Perfect Agent Objective 5")
             add_rule(g5_prf_agent_obj_5, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "Remote Mine"), world.player)
-                                                           or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "Remote Mine"), world.player))
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "Remote Mine"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "Remote Mine"), world.player)
+                                                       or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CMP150", "Remote Mine"), world.player))
 
             g5_prf_agent_complete = world.get_location("Complete: G5 Building - Perfect Agent")
             add_rule(g5_prf_agent_complete, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
-                                                              or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
+                                                          or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                          or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                          or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
 
 
             # Stage 7 - Infiltration
@@ -7898,21 +8347,29 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             infiltration_prf_agent_obj_3 = world.get_location("A51 Infiltration - Perfect Agent Objective 3")
             add_rule(infiltration_prf_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2"), world.player)
-                                                                     or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4"), world.player))
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4"), world.player))
 
             infiltration_prf_agent_obj_4 = world.get_location("A51 Infiltration - Perfect Agent Objective 4")
             add_rule(infiltration_prf_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Area 51 Lift Key Card"), world.player)
-                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Area 51 Lift Key Card"), world.player))
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Area 51 Lift Key Card"), world.player)
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Area 51 Master Key"), world.player)
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Area 51 Master Key"), world.player))
 
             infiltration_prf_agent_obj_5 = world.get_location("A51 Infiltration - Perfect Agent Objective 5")
             add_rule(infiltration_prf_agent_obj_5, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                     or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                     or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                 or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
             infiltration_prf_agent_complete = world.get_location("Complete: A51 Infiltration - Perfect Agent")
             add_rule(infiltration_prf_agent_complete, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                        or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                        or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))            
 
 
             # Stage 8 - Rescue
@@ -7931,18 +8388,27 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             rescue_prf_agent_obj_4 = world.get_location("A51 Rescue - Perfect Agent Objective 4")
             add_rule(rescue_prf_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
-                                                               or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
-                                                               or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player))
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
             rescue_prf_agent_obj_5 = world.get_location("A51 Rescue - Perfect Agent Objective 5")
             add_rule(rescue_prf_agent_obj_5, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                               or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                               or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                           or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
             
             rescue_prf_agent_complete = world.get_location("Complete: A51 Rescue - Perfect Agent")
             add_rule(rescue_prf_agent_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                                  or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                                  or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+                                                              or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                              or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                              or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                              or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                              or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
             
 
             # Stage 9 - Escape
@@ -8010,30 +8476,44 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 11 - Air Force One
             air_force_one_prf_agent_obj_1 = world.get_location("Air Force One - Perfect Agent Objective 1")
-            add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_prf_agent_obj_2 = world.get_location("Air Force One - Perfect Agent Objective 2")
-            add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_prf_agent_obj_3 = world.get_location("Air Force One - Perfect Agent Objective 3")
             add_rule(air_force_one_prf_agent_obj_3, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun"), world.player)
-                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone"), world.player)
-                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger"), world.player))
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "K7 Avenger"), world.player))
 
             air_force_one_prf_agent_obj_4 = world.get_location("Air Force One - Perfect Agent Objective 4")
             add_rule(air_force_one_prf_agent_obj_4, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
-                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
-                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
 
             air_force_one_prf_agent_obj_5 = world.get_location("Air Force One - Perfect Agent Objective 5")
             add_rule(air_force_one_prf_agent_obj_5, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
                                                                       or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
-                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                      or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
 
             air_force_one_prf_agent_complete = world.get_location("Complete: Air Force One - Perfect Agent")
             add_rule(air_force_one_prf_agent_complete, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
-                                                                         or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
-                                                                         or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
+                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
 
 
             # Stage 12 - Crash Site
@@ -8273,8 +8753,12 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(cheat_defection_complete, lambda state: state.has("dD Defection - Agent", world.player)
                                                                  or state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "Falcon 2 (Silencer)"), world.player)
                                                                  or state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "CMP150"), world.player)
+                                                                 or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key", "Falcon 2 (Silencer)"), world.player)
+                                                                 or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key", "CMP150"), world.player)
                                                                  or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "Falcon 2 (Silencer)"), world.player)
-                                                                 or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "CMP150"), world.player))
+                                                                 or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink", "CMP150"), world.player)
+                                                                 or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink", "Falcon 2 (Silencer)"), world.player)
+                                                                 or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink", "CMP150"), world.player))
 
 
             # Investigation
@@ -8327,37 +8811,61 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             # G5 Building
             cheat_g5_complete = world.get_location("Cheat Unlock: Complete G5 Building")
             add_rule(cheat_g5_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
-                                                          or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
-                                                          or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
-                                                          or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
-                                                          or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
-                                                          or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
+                                                      or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                      or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                      or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CMP150", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
 
 
             # Infiltration
             cheat_infiltration_complete = world.get_location("Cheat Unlock: Complete A51 Infiltration")
             add_rule(cheat_infiltration_complete, lambda state: state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Explosives", "Area 51 Lift Key Card"), world.player)
-                                                                    or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
-                                                                    or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
-                                                                    or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                    or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                    or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Dragon" "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+                                                                or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Dragon", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "MagSec 4", "Explosives", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Falcon 2", "Dragon", "Explosives", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "MagSec 4", "Dragon", "Explosives", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Dragon" "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Dragon" "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Perfect Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Perfect Agent", "MagSec 4", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
 
             # Rescue
             cheat_rescue_complete = world.get_location("Cheat Unlock: Complete A51 Rescue")
             add_rule(cheat_rescue_complete, lambda state: state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                              or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                              or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                              or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                              or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                              or state.has_all(("A51 Rescue - Special Agent", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                              or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                              or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                              or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))
+                                                          or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "Dragon", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Agent", "Falcon 2 (Silencer)", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Agent", "Dragon", "SuperDragon", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "Dragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Falcon 2 (Silencer)", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Special Agent", "Dragon", "SuperDragon", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                          or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
 
 
             # Escape
@@ -8389,14 +8897,20 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             # Air Force One
             cheat_air_force_one_complete = world.get_location("Cheat Unlock: Complete Air Force One")
             add_rule(cheat_air_force_one_complete, lambda state: state.has_all(("Air Force One - Agent", "Laptop Gun", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Agent", "Cyclone", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Agent", "K7 Avenger", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
-                                                                     or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
+                                                                 or state.has_all(("Air Force One - Agent", "Cyclone", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Agent", "K7 Avenger", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "K7 Avenger", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                 or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
 
 
             # Crash Site
@@ -8475,7 +8989,9 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                 # G5 Building
                 cheat_g5_timed_complete = world.get_location("Cheat Unlock: Complete G5 Building (Agent) in under 1:40")
                 add_rule(cheat_g5_timed_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
-                                                                    or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
+                                                                or state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Falcon 2 (Silencer)", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CMP150", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
 
 
                 # Escape
@@ -8501,7 +9017,9 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                 # Defection
                 cheat_defection_timed_complete = world.get_location("Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30")
                 add_rule(cheat_defection_timed_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "Falcon 2 (Silencer)"), world.player)
-                                                                           or state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "CMP150"), world.player))
+                                                                       or state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace", "CMP150"), world.player)
+                                                                       or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key", "Falcon 2 (Silencer)"), world.player)
+                                                                       or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key", "CMP150"), world.player))
 
 
                 # Villa
@@ -8513,8 +9031,11 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                 # Infiltration
                 cheat_infiltration_timed_complete = world.get_location("Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00")
                 add_rule(cheat_infiltration_timed_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                              or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
-                                                                              or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Dragon" "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player))
+                                                                          or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                          or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Dragon" "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                          or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "MagSec 4", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                          or state.has_all(("A51 Infiltration - Special Agent", "Falcon 2", "Dragon", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player)
+                                                                          or state.has_all(("A51 Infiltration - Special Agent", "MagSec 4", "Dragon" "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
 
 
                 # Air Base
@@ -8553,15 +9074,21 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                 # Rescue
                 cheat_rescue_timed_complete = world.get_location("Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59")
                 add_rule(cheat_rescue_timed_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                                        or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
-                                                                        or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player))                    
+                                                                    or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "Dragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Perfect Agent", "Falcon 2 (Silencer)", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Perfect Agent", "Dragon", "SuperDragon", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))                    
 
 
                 # Air Force One
                 cheat_air_force_one_timed_complete = world.get_location("Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55")
                 add_rule(cheat_air_force_one_timed_complete, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
-                                                                               or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
-                                                                               or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
+                                                                           or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                           or state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "K7 Avenger", "Timed Mine"), world.player)
+                                                                           or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Laptop Gun", "Timed Mine"), world.player)
+                                                                           or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Cyclone", "Timed Mine"), world.player)
+                                                                           or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "K7 Avenger", "Timed Mine"), world.player))
 
 
                 # Deep Sea
@@ -8659,19 +9186,23 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 6 - G5 Building
             g5_agent_obj_1 = world.get_location("G5 Building - Agent Objective 1")
-            add_rule(g5_agent_obj_1, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+            add_rule(g5_agent_obj_1, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+                                                        or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CamSpy"), world.player))
                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_agent_obj_2 = world.get_location("G5 Building - Agent Objective 2")
-            add_rule(g5_agent_obj_2, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_agent_obj_2, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+                                                        or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Door Decoder", "Backup Disk"), world.player))
                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_agent_obj_3 = world.get_location("G5 Building - Agent Objective 3")
-            add_rule(g5_agent_obj_3, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_agent_obj_3, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+                                                        or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "Door Decoder", "Backup Disk"), world.player))
                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_agent_complete = world.get_location("Complete: G5 Building - Agent")
-            add_rule(g5_agent_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_agent_complete, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                        or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                       and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -8681,15 +9212,18 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_agent_obj_2 = world.get_location("A51 Infiltration - Agent Objective 2")
-            add_rule(infiltration_agent_obj_2, lambda state: state.has_all(("A51 Infiltration - Agent", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_agent_obj_2, lambda state: (state.has_all(("A51 Infiltration - Agent", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Area 51 Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_agent_obj_3 = world.get_location("A51 Infiltration - Agent Objective 3")
-            add_rule(infiltration_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_agent_obj_3, lambda state: (state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                or state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_agent_complete = world.get_location("Complete: A51 Infiltration - Agent")
-            add_rule(infiltration_agent_complete, lambda state: state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_agent_complete, lambda state: (state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -8699,15 +9233,18 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_agent_obj_2 = world.get_location("A51 Rescue - Agent Objective 2")
-            add_rule(rescue_agent_obj_2, lambda state: state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+            add_rule(rescue_agent_obj_2, lambda state: (state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                            or state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_agent_obj_3 = world.get_location("A51 Rescue - Agent Objective 3")
-            add_rule(rescue_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_agent_obj_3, lambda state: (state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                            or state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
             
             rescue_agent_complete = world.get_location("Complete: A51 Rescue - Agent")
-            add_rule(rescue_agent_complete, lambda state: state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_agent_complete, lambda state: (state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                            or state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -8967,18 +9504,21 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(defection_sp_agent_obj_1, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine"), world.player))
 
             defection_sp_agent_obj_2 = world.get_location("dD Defection - Special Agent Objective 2")
-            add_rule(defection_sp_agent_obj_2, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player))
+            add_rule(defection_sp_agent_obj_2, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player)
+                                                             or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key"), world.player))
 
             defection_sp_agent_obj_3 = world.get_location("dD Defection - Special Agent Objective 3")
             add_rule(defection_sp_agent_obj_3, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine"), world.player)
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             defection_sp_agent_obj_4 = world.get_location("dD Defection - Special Agent Objective 4")
-            add_rule(defection_sp_agent_obj_4, lambda state: state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player)
+            add_rule(defection_sp_agent_obj_4, lambda state: (state.has_all(("dD Defection - Special Agent", "De Vries' Necklace"), world.player)
+                                                                or state.has_all(("dD Defection - Special Agent", "dataDyne Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             defection_sp_agent_complete = world.get_location("Complete: dD Defection - Special Agent")
-            add_rule(defection_sp_agent_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+            add_rule(defection_sp_agent_complete, lambda state: (state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                                                                    or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -9077,27 +9617,34 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 6 - G5 Building
             g5_sp_agent_obj_1 = world.get_location("G5 Building - Special Agent Objective 1")
-            add_rule(g5_sp_agent_obj_1, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+            add_rule(g5_sp_agent_obj_1, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                            or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key"), world.player))
                                                       and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_sp_agent_obj_2 = world.get_location("G5 Building - Special Agent Objective 2")
-            add_rule(g5_sp_agent_obj_2, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+            add_rule(g5_sp_agent_obj_2, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+                                                            or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy"), world.player))
                                                       and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_sp_agent_obj_3 = world.get_location("G5 Building - Special Agent Objective 3")
-            add_rule(g5_sp_agent_obj_3, lambda state: state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_sp_agent_obj_3, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+                                                            or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Door Decoder", "Backup Disk"), world.player))
                                                       and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             g5_sp_agent_obj_4 = world.get_location("G5 Building - Special Agent Objective 4")
-            add_rule(g5_sp_agent_obj_4, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Remote Mine"), world.player)
+            add_rule(g5_sp_agent_obj_4, lambda state: ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Remote Mine"), world.player)
+                                                                or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "Remote Mine"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                      or (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                      or ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                                or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
 
             g5_sp_agent_complete = world.get_location("Complete: G5 Building - Special Agent")
-            add_rule(g5_sp_agent_complete, lambda state: (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+            add_rule(g5_sp_agent_complete, lambda state: ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                                or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                         or (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                         or ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
 
 
@@ -9111,15 +9658,18 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_sp_agent_obj_3 = world.get_location("A51 Infiltration - Special Agent Objective 3")
-            add_rule(infiltration_sp_agent_obj_3, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_sp_agent_obj_3, lambda state: (state.has_all(("A51 Infiltration - Special Agent", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Special Agent", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_sp_agent_obj_4 = world.get_location("A51 Infiltration - Special Agent Objective 4")
-            add_rule(infiltration_sp_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_sp_agent_obj_4, lambda state: (state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_sp_agent_complete = world.get_location("Complete: A51 Infiltration - Special Agent")
-            add_rule(infiltration_sp_agent_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_sp_agent_complete, lambda state: (state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -9133,15 +9683,18 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_sp_agent_obj_3 = world.get_location("A51 Rescue - Special Agent Objective 3")
-            add_rule(rescue_sp_agent_obj_3, lambda state: state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+            add_rule(rescue_sp_agent_obj_3, lambda state: (state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_sp_agent_obj_4 = world.get_location("A51 Rescue - Special Agent Objective 4")
-            add_rule(rescue_sp_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_sp_agent_obj_4, lambda state: (state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
             
             rescue_sp_agent_complete = world.get_location("Complete: A51 Rescue - Special Agent")
-            add_rule(rescue_sp_agent_complete, lambda state: state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_sp_agent_complete, lambda state: (state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                              and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -9213,25 +9766,32 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 11 - Air Force One
             air_force_one_sp_agent_obj_1 = world.get_location("Air Force One - Special Agent Objective 1")
-            add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_sp_agent_obj_1, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_sp_agent_obj_2 = world.get_location("Air Force One - Special Agent Objective 2")
-            add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_sp_agent_obj_2, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                 or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_sp_agent_obj_3 = world.get_location("Air Force One - Special Agent Objective 3")
-            add_rule(air_force_one_sp_agent_obj_3, lambda state: state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+            add_rule(air_force_one_sp_agent_obj_3, lambda state: (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                    or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             air_force_one_sp_agent_obj_4 = world.get_location("Air Force One - Special Agent Objective 4")
-            add_rule(air_force_one_sp_agent_obj_4, lambda state: (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_sp_agent_obj_4, lambda state: ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                        or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                 or (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                 or ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                        or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
             air_force_one_sp_agent_complete = world.get_location("Complete: Air Force One - Special Agent")
-            add_rule(air_force_one_sp_agent_complete, lambda state: (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_sp_agent_complete, lambda state: ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                            or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                    or (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                    or ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                            or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
 
@@ -9459,7 +10019,8 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(defection_prf_agent_obj_1, lambda state: state.has_all(("dD Defection - Perfect Agent", "ECM Mine"), world.player))
 
             defection_prf_agent_obj_2 = world.get_location("dD Defection - Perfect Agent Objective 2")
-            add_rule(defection_prf_agent_obj_2, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player))
+            add_rule(defection_prf_agent_obj_2, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player)
+                                                              or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key"), world.player))
 
             defection_prf_agent_obj_3 = world.get_location("dD Defection - Perfect Agent Objective 3")
             add_rule(defection_prf_agent_obj_3, lambda state: state.has_all(("dD Defection - Perfect Agent", "Data Uplink"), world.player)
@@ -9470,11 +10031,13 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                               and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             defection_prf_agent_obj_5 = world.get_location("dD Defection - Perfect Agent Objective 5")
-            add_rule(defection_prf_agent_obj_5, lambda state: state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player)
+            add_rule(defection_prf_agent_obj_5, lambda state: (state.has_all(("dD Defection - Perfect Agent", "De Vries' Necklace"), world.player)
+                                                                    or state.has_all(("dD Defection - Perfect Agent", "dataDyne Master Key"), world.player))
                                                               and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
             defection_prf_agent_complete = world.get_location("Complete: dD Defection - Perfect Agent")
-            add_rule(defection_prf_agent_complete, lambda state: state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink"), world.player)
+            add_rule(defection_prf_agent_complete, lambda state: (state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink"), world.player)
+                                                                    or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink"), world.player))
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -9593,31 +10156,39 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 6 - G5 Building
             g5_prf_agent_obj_1 = world.get_location("G5 Building - Perfect Agent Objective 1")
-            add_rule(g5_prf_agent_obj_1, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+            add_rule(g5_prf_agent_obj_1, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                            or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             g5_prf_agent_obj_2 = world.get_location("G5 Building - Perfect Agent Objective 2")
-            add_rule(g5_prf_agent_obj_2, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+            add_rule(g5_prf_agent_obj_2, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                            or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             g5_prf_agent_obj_3 = world.get_location("G5 Building - Perfect Agent Objective 3")
-            add_rule(g5_prf_agent_obj_3, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+            add_rule(g5_prf_agent_obj_3, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy"), world.player)
+                                                            or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             g5_prf_agent_obj_4 = world.get_location("G5 Building - Perfect Agent Objective 4")
-            add_rule(g5_prf_agent_obj_4, lambda state: state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(g5_prf_agent_obj_4, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Door Decoder", "Backup Disk"), world.player)
+                                                            or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Door Decoder", "Backup Disk"), world.player))
                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             g5_prf_agent_obj_5 = world.get_location("G5 Building - Perfect Agent Objective 5")
-            add_rule(g5_prf_agent_obj_5, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Remote Mine"), world.player)
+            add_rule(g5_prf_agent_obj_5, lambda state: ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "Remote Mine"), world.player)
+                                                                or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "Remote Mine"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                        or (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                        or ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card"), world.player)
+                                                                or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
 
             g5_prf_agent_complete = world.get_location("Complete: G5 Building - Perfect Agent")
-            add_rule(g5_prf_agent_complete, lambda state: (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+            add_rule(g5_prf_agent_complete, lambda state: ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                                or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                        or (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                        or ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
             
 
@@ -9635,15 +10206,18 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_obj_4 = world.get_location("A51 Infiltration - Perfect Agent Objective 4")
-            add_rule(infiltration_prf_agent_obj_4, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_prf_agent_obj_4, lambda state: (state.has_all(("A51 Infiltration - Perfect Agent", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "Area 51 Master Key"), world.player))
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_obj_5 = world.get_location("A51 Infiltration - Perfect Agent Objective 5")
-            add_rule(infiltration_prf_agent_obj_5, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_prf_agent_obj_5, lambda state: (state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                    or state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_complete = world.get_location("Complete: A51 Infiltration - Perfect Agent")
-            add_rule(infiltration_prf_agent_complete, lambda state: state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+            add_rule(infiltration_prf_agent_complete, lambda state: (state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -9661,15 +10235,18 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                            and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_prf_agent_obj_4 = world.get_location("A51 Rescue - Perfect Agent Objective 4")
-            add_rule(rescue_prf_agent_obj_4, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+            add_rule(rescue_prf_agent_obj_4, lambda state: (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                            and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             rescue_prf_agent_obj_5 = world.get_location("A51 Rescue - Perfect Agent Objective 5")
-            add_rule(rescue_prf_agent_obj_5, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_prf_agent_obj_5, lambda state: (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                            and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
             
             rescue_prf_agent_complete = world.get_location("Complete: A51 Rescue - Perfect Agent")
-            add_rule(rescue_prf_agent_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(rescue_prf_agent_complete, lambda state: (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                               and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -9753,31 +10330,40 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             # Stage 11 - Air Force One
             air_force_one_prf_agent_obj_1 = world.get_location("Air Force One - Perfect Agent Objective 1")
-            add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_prf_agent_obj_1, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_prf_agent_obj_2 = world.get_location("Air Force One - Perfect Agent Objective 2")
-            add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player))
+            add_rule(air_force_one_prf_agent_obj_2, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
 
             air_force_one_prf_agent_obj_3 = world.get_location("Air Force One - Perfect Agent Objective 3")
-            add_rule(air_force_one_prf_agent_obj_3, lambda state: state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
-                                                                and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
+            add_rule(air_force_one_prf_agent_obj_3, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                    or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
+                                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             air_force_one_prf_agent_obj_4 = world.get_location("Air Force One - Perfect Agent Objective 4")
-            add_rule(air_force_one_prf_agent_obj_4, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_prf_agent_obj_4, lambda state: ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
             air_force_one_prf_agent_obj_5 = world.get_location("Air Force One - Perfect Agent Objective 5")
-            add_rule(air_force_one_prf_agent_obj_5, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_prf_agent_obj_5, lambda state: ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                  or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                        or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
             air_force_one_prf_agent_complete = world.get_location("Complete: Air Force One - Perfect Agent")
-            add_rule(air_force_one_prf_agent_complete, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+            add_rule(air_force_one_prf_agent_complete, lambda state: ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                            or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                    or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                     or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                            or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
 
@@ -10064,10 +10650,12 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             # Defection
             cheat_defection_complete = world.get_location("Cheat Unlock: Complete dD Defection")
             add_rule(cheat_defection_complete, lambda state: state.has("dD Defection - Agent", world.player)
-                                                                 or (state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
-                                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                                 or (state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink"), world.player)
-                                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])))
+                                                             or ((state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                                                                    or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key"), world.player))
+                                                                and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
+                                                             or ((state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "De Vries' Necklace", "Data Uplink"), world.player)
+                                                                    or state.has_all(("dD Defection - Perfect Agent", "ECM Mine", "dataDyne Master Key", "Data Uplink"), world.player))
+                                                                and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])))
 
 
             # Investigation
@@ -10120,35 +10708,46 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             # G5 Building
             cheat_g5_complete = world.get_location("Cheat Unlock: Complete G5 Building")
-            add_rule(cheat_g5_complete, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+            add_rule(cheat_g5_complete, lambda state: ((state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                             and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                      or ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or (((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                                    or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
-                                                            or (state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                            or ((state.has_all(("G5 Building - Special Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                    or state.has_all(("G5 Building - Special Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
-                                                      or ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                      or (((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player)
+                                                                    or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                            or (state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                            or ((state.has_all(("G5 Building - Perfect Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                    or state.has_all(("G5 Building - Perfect Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"]))))
 
 
             # Infiltration
             cheat_infiltration_complete = world.get_location("Cheat Unlock: Complete A51 Infiltration")
-            add_rule(cheat_infiltration_complete, lambda state: (state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+            add_rule(cheat_infiltration_complete, lambda state: ((state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Agent", "Explosives", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or ((state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                or (state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                or ((state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                        or state.has_all(("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])))
 
 
             # Rescue
             cheat_rescue_complete = world.get_location("Cheat Unlock: Complete A51 Rescue")
-            add_rule(cheat_rescue_complete, lambda state: (state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+            add_rule(cheat_rescue_complete, lambda state: ((state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Agent", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                          or (state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or ((state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                          or (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                          or ((state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                    or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])))
 
 
@@ -10186,15 +10785,19 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             cheat_air_force_one_complete = world.get_location("Cheat Unlock: Complete Air Force One")
             add_rule(cheat_air_force_one_complete, lambda state: ((state.has_all(("Air Force One - Agent", "Suitcase", "Timed Mine"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                 or (state.has_all(("Air Force One - Agent", "Suitcase"), world.player)
+                                                                    or (state.has_all(("Air Force One - Agent", "Suitcase"), world.player)
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
-                                                                 or ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                 or (((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                            or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                    or (state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                    or ((state.has_all(("Air Force One - Special Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                            or state.has_all(("Air Force One - Special Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
-                                                                 or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                 or (((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                            or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                    or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                     or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                            or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                         and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))))
 
 
@@ -10291,7 +10894,8 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
                 # G5 Building
                 cheat_g5_timed_complete = world.get_location("Cheat Unlock: Complete G5 Building (Agent) in under 1:40")
-                add_rule(cheat_g5_timed_complete, lambda state: state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                add_rule(cheat_g5_timed_complete, lambda state: (state.has_all(("G5 Building - Agent", "G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card", "CamSpy", "Door Decoder", "Backup Disk"), world.player)
+                                                                    or state.has_all(("G5 Building - Agent", "G5 Building Master Key", "CamSpy", "Door Decoder", "Backup Disk"), world.player))
                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -10318,7 +10922,8 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             if world.options.special_agent:
                 # Defection
                 cheat_defection_timed_complete = world.get_location("Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30")
-                add_rule(cheat_defection_timed_complete, lambda state: state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                add_rule(cheat_defection_timed_complete, lambda state: (state.has_all(("dD Defection - Special Agent", "ECM Mine", "De Vries' Necklace"), world.player)
+                                                                            or state.has_all(("dD Defection - Special Agent", "ECM Mine", "dataDyne Master Key"), world.player))
                                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
 
 
@@ -10330,7 +10935,8 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
                 # Infiltration
                 cheat_infiltration_timed_complete = world.get_location("Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00")
-                add_rule(cheat_infiltration_timed_complete, lambda state: state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                add_rule(cheat_infiltration_timed_complete, lambda state: (state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Lift Key Card"), world.player)
+                                                                            or state.has_all(("A51 Infiltration - Special Agent", "Explosives", "Comms Rider", "Area 51 Master Key"), world.player))
                                                                           and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
@@ -10377,15 +10983,18 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
                 # Rescue
                 cheat_rescue_timed_complete = world.get_location("Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59")
-                add_rule(cheat_rescue_timed_complete, lambda state: state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                add_rule(cheat_rescue_timed_complete, lambda state: (state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Medlab 2 Key Card", "Op Room Key Card"), world.player)
+                                                                        or state.has_all(("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes", "Area 51 Master Key"), world.player))
                                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
 
                 # Air Force One
                 cheat_air_force_one_timed_complete = world.get_location("Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55")
-                add_rule(cheat_air_force_one_timed_complete, lambda state: (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                add_rule(cheat_air_force_one_timed_complete, lambda state: ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase", "Timed Mine"), world.player)
+                                                                                    or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase", "Timed Mine"), world.player))
                                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
-                                                                           or (state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                           or ((state.has_all(("Air Force One - Perfect Agent", "Air Force One Lift Key Card", "Suitcase"), world.player)
+                                                                                    or state.has_all(("Air Force One - Perfect Agent", "Air Force One Master Key", "Suitcase"), world.player))
                                                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
 

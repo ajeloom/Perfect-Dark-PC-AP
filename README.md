@@ -9,6 +9,8 @@ To get started, follow our [setup guide](https://github.com/ajeloom/Perfect-Dark
 
 You can [find our releases here](https://github.com/ajeloom/Perfect-Dark-PC-AP/releases).
 
+If you find any issues or want to suggest anything to add, please report them on our [issues page](https://github.com/ajeloom/Perfect-Dark-PC-AP/issues).
+
 ## Current Features
 - Two goals:
   - Complete Skedar Ruins
@@ -20,12 +22,11 @@ You can [find our releases here](https://github.com/ajeloom/Perfect-Dark-PC-AP/r
   - Firing Range
   - Device Training
   - Holotraining
+  - Cheat Unlocks
 - Weapon Progression
 - Death Link
 - Random player characters
 - Random music
-
-Perfect Agent is the only difficulty that sends checks for now.
 
 ## Known issues
 
@@ -33,7 +34,6 @@ Perfect Agent is the only difficulty that sends checks for now.
 - Closing the game will sometimes crash the client
 
 ## Planned Features
-- Agent and Special Agent checks
 - Linux and Mac Support
 
 ## Credits
@@ -43,3 +43,4 @@ Perfect Agent is the only difficulty that sends checks for now.
 - black-silver for creating [apclientpp](https://github.com/black-sliver/apclientpp)
 - axxiim for helping with the logic
 - Maegis, Lebon14 for providing ideas for the Perfect Dark AP
+- Everyone on the AP discord server who provided feedback and suggestions

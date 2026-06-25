@@ -164,6 +164,16 @@ class StartWithWeapon(Toggle):
     display_name = "Start With a Weapon"
 
 
+class MasterKey(Toggle):
+    """
+    Combines any key cards into one item for the mission area.
+    Any missions that only have one key card will just use that item.
+    You will still need to pick up the key card in the mission to use it.
+    """
+
+    display_name = "Master Key"
+
+
 class Challenges(Toggle):
     """
     Adds all 30 combat simulator challenges as checks.
@@ -243,6 +253,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     weapon_progression: WeaponProgression
     allow_progressive_weapon_in_challenges: ProgressiveWeaponsInChallenges
     start_with_weapon: StartWithWeapon
+    master_key: MasterKey
     challenges: Challenges
     start_with_all_challenges: StartWithAllChallenges
     weapon_training: WeaponTraining
@@ -268,6 +279,7 @@ option_groups = [
             WeaponProgression,
             ProgressiveWeaponsInChallenges,
             StartWithWeapon,
+            MasterKey,
             Challenges,
             StartWithAllChallenges,
             WeaponTraining,
@@ -293,6 +305,7 @@ option_presets = {
         "weapon_progression": WeaponProgression.option_vanilla,
         "allow_progressive_weapon_in_challenges": False,
         "start_with_weapon": True,
+        "master_key": False,
         "challenges": False,
         "start_with_all_challenges": False,
         "weapon_training": False,
@@ -314,6 +327,7 @@ option_presets = {
         "weapon_progression": WeaponProgression.option_progressive_weapon,
         "allow_progressive_weapon_in_challenges": False,
         "start_with_weapon": True,
+        "master_key": False,
         "challenges": True,
         "start_with_all_challenges": False,
         "weapon_training": True,
