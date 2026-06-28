@@ -8,7 +8,7 @@ from worlds.generic.Rules import add_rule, set_rule
 if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
-from .options import Goal, MissionLogic, WeaponProgression
+from .options import Goal, MissionLogic, WeaponProgression, ChallengeLogic
 
 PROGRESSIVE_WEAPON_NAME_TO_ID = {
     "Combat Knife": 1,
@@ -11048,6 +11048,99 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(cheat_rcp45, lambda state: state.has_all(("Tranquilizer", "Reaper", "Devastator"), world.player))
 
         if world.options.challenges:
+            if world.options.challenge_logic.value == ChallengeLogic.option_strict:
+                challenge_1 = world.get_location("Complete: Challenge 1")
+                add_rule(challenge_1, lambda state: state.has_all(("Challenge 1", "Falcon 2", "CMP150", "Sniper Rifle", "DY357 Magnum", "Dragon"), world.player))
+
+                challenge_2 = world.get_location("Complete: Challenge 2")
+                add_rule(challenge_2, lambda state: state.has_all(("Challenge 2", "Combat Knife", "Falcon 2", "Cyclone", "Dragon", "Rocket Launcher"), world.player))
+
+                challenge_3 = world.get_location("Complete: Challenge 3")
+                add_rule(challenge_3, lambda state: state.has_all(("Challenge 3", "MagSec 4", "CMP150", "Timed Mine", "Dragon", "AR34"), world.player))
+
+                challenge_4 = world.get_location("Complete: Challenge 4")
+                add_rule(challenge_4, lambda state: state.has_all(("Challenge 4", "MagSec 4", "CMP150", "Dragon", "K7 Avenger", "Shield"), world.player))
+
+                challenge_5 = world.get_location("Complete: Challenge 5")
+                add_rule(challenge_5, lambda state: state.has_all(("Challenge 5", "Cyclone", "Grenade", "AR34", "FarSight XR-20", "Shield"), world.player))
+
+                challenge_6 = world.get_location("Complete: Challenge 6")
+                add_rule(challenge_6, lambda state: state.has_all(("Challenge 6", "Briefcase", "CMP150", "DY357 Magnum", "Shotgun", "K7 Avenger", "Shield"), world.player))
+
+                challenge_7 = world.get_location("Complete: Challenge 7")
+                add_rule(challenge_7, lambda state: state.has_all(("Challenge 7", "Falcon 2 (Silencer)", "MagSec 4", "Cyclone", "Grenade", "Shield"), world.player))
+
+                challenge_8 = world.get_location("Complete: Challenge 8")
+                add_rule(challenge_8, lambda state: state.has_all(("Challenge 8", "Briefcase", "MagSec 4", "K7 Avenger", "Shotgun", "SuperDragon", "Shield"), world.player))
+
+                challenge_9 = world.get_location("Complete: Challenge 9")
+                add_rule(challenge_9, lambda state: state.has_all(("Challenge 9", "Falcon 2", "DY357 Magnum", "Timed Mine", "Laptop Gun", "FarSight XR-20"), world.player))
+
+                challenge_10 = world.get_location("Complete: Challenge 10")
+                add_rule(challenge_10, lambda state: state.has_all(("Challenge 10", "Data Uplink", "CMP150", "Cyclone", "Remote Mine", "AR34", "Shield"), world.player))
+
+                challenge_11 = world.get_location("Complete: Challenge 11")
+                add_rule(challenge_11, lambda state: state.has_all(("Challenge 11", "MagSec 4", "Tranquilizer", "Shotgun", "K7 Avenger", "Shield"), world.player))
+
+                challenge_12 = world.get_location("Complete: Challenge 12")
+                add_rule(challenge_12, lambda state: state.has_all(("Challenge 12", "Falcon 2 (Scope)", "Sniper Rifle", "Shotgun", "SuperDragon", "Shield"), world.player))
+
+                challenge_13 = world.get_location("Complete: Challenge 13")
+                add_rule(challenge_13, lambda state: state.has_all(("Challenge 13", "Falcon 2 (Silencer)", "Tranquilizer", "Laptop Gun", "Grenade", "Reaper"), world.player))
+
+                challenge_14 = world.get_location("Complete: Challenge 14")
+                add_rule(challenge_14, lambda state: state.has_all(("Challenge 14", "Briefcase", "Cyclone", "SuperDragon", "K7 Avenger", "FarSight XR-20", "Cloaking Device"), world.player))
+
+                challenge_15 = world.get_location("Complete: Challenge 15")
+                add_rule(challenge_15, lambda state: state.has_all(("Challenge 15", "Briefcase", "MagSec 4", "Dragon", "Shotgun", "Devastator", "Shield"), world.player))
+
+                challenge_16 = world.get_location("Complete: Challenge 16")
+                add_rule(challenge_16, lambda state: state.has_all(("Challenge 16", "Falcon 2", "K7 Avenger", "SuperDragon", "Proximity Mine", "Shield"), world.player))
+
+                challenge_17 = world.get_location("Complete: Challenge 17")
+                add_rule(challenge_17, lambda state: state.has_all(("Challenge 17", "DY357 Magnum", "AR34", "Reaper", "Slayer", "Shield"), world.player))
+
+                challenge_18 = world.get_location("Complete: Challenge 18")
+                add_rule(challenge_18, lambda state: state.has_all(("Challenge 18", "Falcon 2", "Phoenix", "Tranquilizer", "Laptop Gun", "Shield", "Cloaking Device"), world.player))
+
+                challenge_19 = world.get_location("Complete: Challenge 19")
+                add_rule(challenge_19, lambda state: state.has_all(("Challenge 19", "CMP150", "Shotgun", "Rocket Launcher", "FarSight XR-20", "Shield", "Combat Boost"), world.player))
+
+                challenge_20 = world.get_location("Complete: Challenge 20")
+                add_rule(challenge_20, lambda state: state.has_all(("Challenge 20", "Mauler", "Falcon 2", "MagSec 4", "DY357 Magnum", "Shield"), world.player))
+
+                challenge_21 = world.get_location("Complete: Challenge 21")
+                add_rule(challenge_21, lambda state: state.has_all(("Challenge 21", "Data Uplink", "Mauler", "Reaper", "Shotgun", "Callisto NTG", "Cloaking Device"), world.player))
+
+                challenge_22 = world.get_location("Complete: Challenge 22")
+                add_rule(challenge_22, lambda state: state.has_all(("Challenge 22", "Briefcase", "Falcon 2", "Sniper Rifle", "Crossbow", "K7 Avenger", "Shield"), world.player))
+
+                challenge_23 = world.get_location("Complete: Challenge 23")
+                add_rule(challenge_23, lambda state: state.has_all(("Challenge 23", "MagSec 4", "Grenade", "Laptop Gun", "RC-P120", "Shield", "Combat Boost"), world.player))
+
+                challenge_24 = world.get_location("Complete: Challenge 24")
+                add_rule(challenge_24, lambda state: state.has_all(("Challenge 24", "Briefcase", "CMP150", "Tranquilizer", "Devastator", "SuperDragon", "DY357-LX"), world.player))
+
+                challenge_25 = world.get_location("Complete: Challenge 25")
+                add_rule(challenge_25, lambda state: state.has_all(("Challenge 25", "Mauler", "N-Bomb", "K7 Avenger", "FarSight XR-20", "Cloaking Device"), world.player))
+
+                challenge_26 = world.get_location("Complete: Challenge 26")
+                add_rule(challenge_26, lambda state: state.has_all(("Challenge 26", "Falcon 2", "Mauler", "Cyclone", "Laptop Gun", "Reaper"), world.player))
+
+                challenge_27 = world.get_location("Complete: Challenge 27")
+                add_rule(challenge_27, lambda state: state.has_all(("Challenge 27", "Data Uplink", "Falcon 2", "MagSec 4", "CMP150", "Rocket Launcher", "Shield"), world.player))
+
+                challenge_28 = world.get_location("Complete: Challenge 28")
+                add_rule(challenge_28, lambda state: state.has_all(("Challenge 28", "Briefcase", "Falcon 2", "Falcon 2 (Silencer)", "DY357 Magnum", "AR34", "Shotgun"), world.player))
+
+                challenge_29 = world.get_location("Complete: Challenge 29")
+                add_rule(challenge_29, lambda state: state.has_all(("Challenge 29", "Falcon 2", "Cyclone", "DY357 Magnum", "CMP150", "Dragon"), world.player))
+
+                challenge_30 = world.get_location("Complete: Challenge 30")
+                add_rule(challenge_30, lambda state: state.has_all(("Challenge 30", "Falcon 2", "Falcon 2 (Scope)", "MagSec 4", "Mauler", "DY357 Magnum"), world.player))
+
+
+            elif world.options.challenge_logic.value == ChallengeLogic.option_normal:
             challenge_1 = world.get_location("Complete: Challenge 1")
             add_rule(challenge_1, lambda state: state.has_all(("Challenge 1", "Falcon 2"), world.player)
                                                 or state.has_all(("Challenge 1", "CMP150"), world.player)
@@ -11059,10 +11152,10 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(challenge_2, lambda state: state.has_all(("Challenge 2", "Rocket Launcher"), world.player))
 
             challenge_3 = world.get_location("Complete: Challenge 3")
-            add_rule(challenge_3, lambda state: state.has_all(("Challenge 3", "Timed Mine"), world.player))
+                add_rule(challenge_3, lambda state: state.has_all(("Challenge 3", "Timed Mine", "Dragon", "AR34"), world.player))
 
             challenge_4 = world.get_location("Complete: Challenge 4")
-            add_rule(challenge_4, lambda state: state.has_all(("Challenge 4", "K7 Avenger"), world.player))
+                add_rule(challenge_4, lambda state: state.has_all(("Challenge 4", "K7 Avenger", "Shield"), world.player))
 
             challenge_5 = world.get_location("Complete: Challenge 5")
             add_rule(challenge_5, lambda state: state.has_all(("Challenge 5", "FarSight XR-20"), world.player))
@@ -11086,8 +11179,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                 or state.has_all(("Challenge 8", "Briefcase", "SuperDragon"), world.player))
 
             challenge_9 = world.get_location("Complete: Challenge 9")
-            add_rule(challenge_9, lambda state: state.has_all(("Challenge 9", "FarSight XR-20"), world.player)
-                                                or state.has_all(("Challenge 9", "Laptop Gun"), world.player))
+                add_rule(challenge_9, lambda state: state.has_all(("Challenge 9", "FarSight XR-20", "Laptop Gun"), world.player))
 
             challenge_10 = world.get_location("Complete: Challenge 10")
             add_rule(challenge_10, lambda state: state.has_all(("Challenge 10", "Data Uplink", "CMP150"), world.player)
@@ -11099,13 +11191,13 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(challenge_11, lambda state: state.has_all(("Challenge 11", "Shotgun", "Tranquilizer"), world.player))
 
             challenge_12 = world.get_location("Complete: Challenge 12")
-            add_rule(challenge_12, lambda state: state.has_all(("Challenge 12", "SuperDragon"), world.player))
+                add_rule(challenge_12, lambda state: state.has_all(("Challenge 12", "Falcon 2 (Scope)"), world.player)
+                                                     or state.has_all(("Challenge 12", "Sniper Rifle"), world.player)
+                                                     or state.has_all(("Challenge 12", "Shotgun"), world.player)
+                                                     or state.has_all(("Challenge 12", "SuperDragon"), world.player))
 
             challenge_13 = world.get_location("Complete: Challenge 13")
-            add_rule(challenge_13, lambda state: state.has_all(("Challenge 13", "Tranquilizer", "Falcon 2 (Silencer)"), world.player)
-                                                or state.has_all(("Challenge 13", "Tranquilizer", "Laptop Gun"), world.player)
-                                                or state.has_all(("Challenge 13", "Tranquilizer", "Grenade"), world.player)
-                                                or state.has_all(("Challenge 13", "Tranquilizer", "Reaper"), world.player))
+                add_rule(challenge_13, lambda state: state.has_all(("Challenge 13", "Tranquilizer"), world.player))
 
             challenge_14 = world.get_location("Complete: Challenge 14")
             add_rule(challenge_14, lambda state: state.has_all(("Challenge 14", "Briefcase", "Cloaking Device", "Cyclone"), world.player)
@@ -11114,56 +11206,244 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                 or state.has_all(("Challenge 14", "Briefcase", "Cloaking Device", "FarSight XR-20"), world.player))
 
             challenge_15 = world.get_location("Complete: Challenge 15")
-            add_rule(challenge_15, lambda state: state.has_all(("Challenge 15", "Briefcase", "Devastator", "MagSec 4"), world.player)
-                                                or state.has_all(("Challenge 15", "Briefcase", "Devastator", "Dragon"), world.player)
-                                                or state.has_all(("Challenge 15", "Briefcase", "Devastator", "Shotgun"), world.player))
+                add_rule(challenge_15, lambda state: state.has_all(("Challenge 15", "Briefcase", "Devastator"), world.player))
 
             challenge_16 = world.get_location("Complete: Challenge 16")
-            add_rule(challenge_16, lambda state: state.has_all(("Challenge 16", "Proximity Mine", "SuperDragon"), world.player))
+                add_rule(challenge_16, lambda state: state.has_all(("Challenge 16", "Falcon 2", "K7 Avenger", "SuperDragon", "Proximity Mine", "Shield"), world.player))
 
             challenge_17 = world.get_location("Complete: Challenge 17")
-            add_rule(challenge_17, lambda state: state.has_all(("Challenge 17", "Slayer", "AR34", "Reaper"), world.player))
+                add_rule(challenge_17, lambda state: state.has_all(("Challenge 17", "DY357 Magnum", "AR34", "Reaper", "Slayer", "Shield"), world.player))
 
             challenge_18 = world.get_location("Complete: Challenge 18")
-            add_rule(challenge_18, lambda state: state.has_all(("Challenge 18", "Cloaking Device", "Laptop Gun", "Tranquilizer"), world.player))
+                add_rule(challenge_18, lambda state: state.has_all(("Challenge 18", "Falcon 2", "Phoenix", "Tranquilizer", "Laptop Gun", "Shield", "Cloaking Device"), world.player))
 
             challenge_19 = world.get_location("Complete: Challenge 19")
-            add_rule(challenge_19, lambda state: state.has_all(("Challenge 19", "Rocket Launcher", "FarSight XR-20", "CMP150", "Shotgun"), world.player))
+                add_rule(challenge_19, lambda state: state.has_all(("Challenge 19", "CMP150", "Shotgun", "Rocket Launcher", "FarSight XR-20", "Shield"), world.player))
 
             challenge_20 = world.get_location("Complete: Challenge 20")
-            add_rule(challenge_20, lambda state: state.has_all(("Challenge 20", "MagSec 4", "Mauler"), world.player))
+                add_rule(challenge_20, lambda state: state.has_all(("Challenge 20", "Mauler", "Falcon 2", "MagSec 4", "DY357 Magnum", "Shield"), world.player))
 
             challenge_21 = world.get_location("Complete: Challenge 21")
-            add_rule(challenge_21, lambda state: state.has_all(("Challenge 21", "Data Uplink", "Cloaking Device", "Callisto NTG", "Reaper", "Shotgun"), world.player)
-                                                or state.has_all(("Challenge 21", "Data Uplink", "Cloaking Device", "Callisto NTG", "Reaper", "Mauler"), world.player))
+                add_rule(challenge_21, lambda state: state.has_all(("Challenge 21", "Data Uplink", "Mauler", "Reaper", "Shotgun", "Callisto NTG", "Cloaking Device"), world.player))
 
             challenge_22 = world.get_location("Complete: Challenge 22")
-            add_rule(challenge_22, lambda state: state.has_all(("Challenge 22", "Briefcase", "Crossbow", "Sniper Rifle", "K7 Avenger", "Falcon 2"), world.player))
+                add_rule(challenge_22, lambda state: state.has_all(("Challenge 22", "Briefcase", "Falcon 2", "Sniper Rifle", "Crossbow", "K7 Avenger", "Shield"), world.player))
 
             challenge_23 = world.get_location("Complete: Challenge 23")
-            add_rule(challenge_23, lambda state: state.has_all(("Challenge 23", "RC-P120", "Laptop Gun", "MagSec 4", "Grenade"), world.player))
+                add_rule(challenge_23, lambda state: state.has_all(("Challenge 23", "MagSec 4", "Grenade", "Laptop Gun", "RC-P120", "Shield"), world.player))
 
             challenge_24 = world.get_location("Complete: Challenge 24")
-            add_rule(challenge_24, lambda state: state.has_all(("Challenge 24", "Briefcase", "DY357-LX", "Tranquilizer", "Devastator", "SuperDragon", "CMP150"), world.player))
+                add_rule(challenge_24, lambda state: state.has_all(("Challenge 24", "Briefcase", "CMP150", "Tranquilizer", "Devastator", "SuperDragon", "DY357-LX"), world.player))
 
             challenge_25 = world.get_location("Complete: Challenge 25")
-            add_rule(challenge_25, lambda state: state.has_all(("Challenge 25", "Cloaking Device", "N-Bomb", "FarSight XR-20", "Mauler"), world.player)
-                                                or state.has_all(("Challenge 25", "Cloaking Device", "N-Bomb", "FarSight XR-20", "K7 Avenger"), world.player))
+                add_rule(challenge_25, lambda state: state.has_all(("Challenge 25", "Mauler", "N-Bomb", "K7 Avenger", "FarSight XR-20", "Cloaking Device"), world.player))
 
             challenge_26 = world.get_location("Complete: Challenge 26")
-            add_rule(challenge_26, lambda state: state.has_all(("Challenge 26", "Mauler", "Cyclone", "Laptop Gun", "Reaper"), world.player))
+                add_rule(challenge_26, lambda state: state.has_all(("Challenge 26", "Falcon 2", "Mauler", "Cyclone", "Laptop Gun", "Reaper"), world.player))
 
             challenge_27 = world.get_location("Complete: Challenge 27")
-            add_rule(challenge_27, lambda state: state.has_all(("Challenge 27", "Data Uplink", "Rocket Launcher", "CMP150", "MagSec 4", "Falcon 2"), world.player))
+                add_rule(challenge_27, lambda state: state.has_all(("Challenge 27", "Data Uplink", "Falcon 2", "MagSec 4", "CMP150", "Rocket Launcher", "Shield"), world.player))
 
             challenge_28 = world.get_location("Complete: Challenge 28")
             add_rule(challenge_28, lambda state: state.has_all(("Challenge 28", "Briefcase", "Falcon 2", "Falcon 2 (Silencer)", "DY357 Magnum", "AR34", "Shotgun"), world.player))
 
             challenge_29 = world.get_location("Complete: Challenge 29")
-            add_rule(challenge_29, lambda state: state.has_all(("Challenge 29", "DY357 Magnum", "Dragon", "CMP150", "Cyclone", "Falcon 2"), world.player))
+                add_rule(challenge_29, lambda state: state.has_all(("Challenge 29", "Falcon 2", "Cyclone", "DY357 Magnum", "CMP150", "Dragon"), world.player))
+
+                challenge_30 = world.get_location("Complete: Challenge 30")
+                add_rule(challenge_30, lambda state: state.has_all(("Challenge 30", "Falcon 2", "Falcon 2 (Scope)", "MagSec 4", "Mauler", "DY357 Magnum"), world.player))
+
+
+            elif world.options.challenge_logic.value == ChallengeLogic.option_hard:
+                challenge_1 = world.get_location("Complete: Challenge 1")
+                add_rule(challenge_1, lambda state: state.has_all(("Challenge 1", "Falcon 2"), world.player)
+                                                    or state.has_all(("Challenge 1", "CMP150"), world.player)
+                                                    or state.has_all(("Challenge 1", "Sniper Rifle"), world.player)
+                                                    or state.has_all(("Challenge 1", "DY357 Magnum"), world.player)
+                                                    or state.has_all(("Challenge 1", "Dragon"), world.player))
+
+                challenge_2 = world.get_location("Complete: Challenge 2")
+                add_rule(challenge_2, lambda state: state.has_all(("Challenge 2", "Combat Knife"), world.player)
+                                                    or state.has_all(("Challenge 2", "Falcon 2"), world.player)
+                                                    or state.has_all(("Challenge 2", "Cyclone"), world.player)
+                                                    or state.has_all(("Challenge 2", "Dragon"), world.player)
+                                                    or state.has_all(("Challenge 2", "Rocket Launcher"), world.player))
+
+                challenge_3 = world.get_location("Complete: Challenge 3")
+                add_rule(challenge_3, lambda state: state.has_all(("Challenge 3", "MagSec 4"), world.player)
+                                                    or state.has_all(("Challenge 3", "CMP150"), world.player)
+                                                    or state.has_all(("Challenge 3", "Timed Mine"), world.player)
+                                                    or state.has_all(("Challenge 3", "Dragon"), world.player)
+                                                    or state.has_all(("Challenge 3", "AR34"), world.player))
+
+                challenge_4 = world.get_location("Complete: Challenge 4")
+                add_rule(challenge_4, lambda state: state.has_all(("Challenge 4", "MagSec 4"), world.player)
+                                                    or state.has_all(("Challenge 4", "CMP150"), world.player)
+                                                    or state.has_all(("Challenge 4", "Dragon"), world.player)
+                                                    or state.has_all(("Challenge 4", "K7 Avenger"), world.player))
+
+                challenge_5 = world.get_location("Complete: Challenge 5")
+                add_rule(challenge_5, lambda state: state.has_all(("Challenge 5", "Cyclone"), world.player)
+                                                    or state.has_all(("Challenge 5", "Grenade"), world.player)
+                                                    or state.has_all(("Challenge 5", "AR34"), world.player)
+                                                    or state.has_all(("Challenge 5", "FarSight XR-20"), world.player))
+
+                challenge_6 = world.get_location("Complete: Challenge 6")
+                add_rule(challenge_6, lambda state: state.has_all(("Challenge 6", "Briefcase", "CMP150"), world.player)
+                                                    or state.has_all(("Challenge 6", "Briefcase", "DY357 Magnum"), world.player)
+                                                    or state.has_all(("Challenge 6", "Briefcase", "Shotgun"), world.player)
+                                                    or state.has_all(("Challenge 6", "Briefcase", "K7 Avenger"), world.player))
+
+                challenge_7 = world.get_location("Complete: Challenge 7")
+                add_rule(challenge_7, lambda state: state.has_all(("Challenge 7", "Falcon 2 (Silencer)"), world.player)
+                                                    or state.has_all(("Challenge 7", "MagSec 4"), world.player)
+                                                    or state.has_all(("Challenge 7", "Cyclone"), world.player)
+                                                    or state.has_all(("Challenge 7", "Grenade"), world.player))
+
+                challenge_8 = world.get_location("Complete: Challenge 8")
+                add_rule(challenge_8, lambda state: state.has_all(("Challenge 8", "Briefcase", "MagSec 4"), world.player)
+                                                    or state.has_all(("Challenge 8", "Briefcase", "K7 Avenger"), world.player)
+                                                    or state.has_all(("Challenge 8", "Briefcase", "Shotgun"), world.player)
+                                                    or state.has_all(("Challenge 8", "Briefcase", "SuperDragon"), world.player))
+
+                challenge_9 = world.get_location("Complete: Challenge 9")
+                add_rule(challenge_9, lambda state: state.has_all(("Challenge 9", "Falcon 2"), world.player)
+                                                    or state.has_all(("Challenge 9", "DY357 Magnum"), world.player)
+                                                    or state.has_all(("Challenge 9", "Timed Mine"), world.player)
+                                                    or state.has_all(("Challenge 9", "Laptop Gun"), world.player)
+                                                    or state.has_all(("Challenge 9", "FarSight XR-20"), world.player))
+
+                challenge_10 = world.get_location("Complete: Challenge 10")
+                add_rule(challenge_10, lambda state: state.has_all(("Challenge 10", "Data Uplink", "CMP150"), world.player)
+                                                     or state.has_all(("Challenge 10", "Data Uplink", "Cyclone"), world.player)
+                                                     or state.has_all(("Challenge 10", "Data Uplink", "Remote Mine"), world.player)
+                                                     or state.has_all(("Challenge 10", "Data Uplink", "AR34"), world.player))
+
+                challenge_11 = world.get_location("Complete: Challenge 11")
+                add_rule(challenge_11, lambda state: state.has_all(("Challenge 11", "MagSec 4"), world.player)
+                                                     or state.has_all(("Challenge 11", "Tranquilizer"), world.player)
+                                                     or state.has_all(("Challenge 11", "Shotgun"), world.player)
+                                                     or state.has_all(("Challenge 11", "K7 Avenger"), world.player))
+
+                challenge_12 = world.get_location("Complete: Challenge 12")
+                add_rule(challenge_12, lambda state: state.has_all(("Challenge 12", "Falcon 2 (Scope)"), world.player)
+                                                     or state.has_all(("Challenge 12", "Sniper Rifle"), world.player)
+                                                     or state.has_all(("Challenge 12", "Shotgun"), world.player)
+                                                     or state.has_all(("Challenge 12", "SuperDragon"), world.player))
+
+                challenge_13 = world.get_location("Complete: Challenge 13")
+                add_rule(challenge_13, lambda state: state.has_all(("Challenge 13", "Falcon 2 (Silencer)"), world.player)
+                                                     or state.has_all(("Challenge 13", "Tranquilizer"), world.player)
+                                                     or state.has_all(("Challenge 13", "Laptop Gun"), world.player)
+                                                     or state.has_all(("Challenge 13", "Grenade"), world.player)
+                                                     or state.has_all(("Challenge 13", "Reaper"), world.player))
+
+                challenge_14 = world.get_location("Complete: Challenge 14")
+                add_rule(challenge_14, lambda state: state.has_all(("Challenge 14", "Briefcase", "Cyclone"), world.player)
+                                                     or state.has_all(("Challenge 14", "Briefcase", "SuperDragon"), world.player)
+                                                     or state.has_all(("Challenge 14", "Briefcase", "K7 Avenger"), world.player)
+                                                     or state.has_all(("Challenge 14", "Briefcase", "FarSight XR-20"), world.player))
+
+                challenge_15 = world.get_location("Complete: Challenge 15")
+                add_rule(challenge_15, lambda state: state.has_all(("Challenge 15", "Briefcase", "MagSec 4"), world.player)
+                                                     or state.has_all(("Challenge 15", "Briefcase", "Dragon"), world.player)
+                                                     or state.has_all(("Challenge 15", "Briefcase", "Shotgun"), world.player)
+                                                     or state.has_all(("Challenge 15", "Briefcase", "Devastator"), world.player))
+
+                challenge_16 = world.get_location("Complete: Challenge 16")
+                add_rule(challenge_16, lambda state: state.has_all(("Challenge 16", "Falcon 2"), world.player)
+                                                     or state.has_all(("Challenge 16", "K7 Avenger"), world.player)
+                                                     or state.has_all(("Challenge 16", "SuperDragon"), world.player)
+                                                     or state.has_all(("Challenge 16", "Proximity Mine"), world.player))
+
+                challenge_17 = world.get_location("Complete: Challenge 17")
+                add_rule(challenge_17, lambda state: state.has_all(("Challenge 17", "DY357 Magnum"), world.player)
+                                                     or state.has_all(("Challenge 17", "AR34"), world.player)
+                                                     or state.has_all(("Challenge 17", "Reaper"), world.player)
+                                                     or state.has_all(("Challenge 17", "Slayer"), world.player))
+
+                challenge_18 = world.get_location("Complete: Challenge 18")
+                add_rule(challenge_18, lambda state: state.has_all(("Challenge 18", "Falcon 2"), world.player)
+                                                     or state.has_all(("Challenge 18", "Phoenix"), world.player)
+                                                     or state.has_all(("Challenge 18", "Tranquilizer"), world.player)
+                                                     or state.has_all(("Challenge 18", "Laptop Gun"), world.player))
+
+                challenge_19 = world.get_location("Complete: Challenge 19")
+                add_rule(challenge_19, lambda state: state.has_all(("Challenge 19", "CMP150"), world.player)
+                                                     or state.has_all(("Challenge 19", "Shotgun"), world.player)
+                                                     or state.has_all(("Challenge 19", "Rocket Launcher"), world.player)
+                                                     or state.has_all(("Challenge 19", "FarSight XR-20"), world.player))
+
+                challenge_20 = world.get_location("Complete: Challenge 20")
+                add_rule(challenge_20, lambda state: state.has_all(("Challenge 20", "Mauler"), world.player)
+                                                     or state.has_all(("Challenge 20", "Falcon 2"), world.player)
+                                                     or state.has_all(("Challenge 20", "MagSec 4"), world.player)
+                                                     or state.has_all(("Challenge 20", "DY357 Magnum"), world.player))
+
+                challenge_21 = world.get_location("Complete: Challenge 21")
+                add_rule(challenge_21, lambda state: state.has_all(("Challenge 21", "Data Uplink", "Mauler"), world.player)
+                                                     or state.has_all(("Challenge 21", "Data Uplink", "Reaper"), world.player)
+                                                     or state.has_all(("Challenge 21", "Data Uplink", "Shotgun"), world.player)
+                                                     or state.has_all(("Challenge 21", "Data Uplink", "Callisto NTG"), world.player))
+
+                challenge_22 = world.get_location("Complete: Challenge 22")
+                add_rule(challenge_22, lambda state: state.has_all(("Challenge 22", "Briefcase", "Falcon 2"), world.player)
+                                                     or state.has_all(("Challenge 22", "Briefcase", "Sniper Rifle"), world.player)
+                                                     or state.has_all(("Challenge 22", "Briefcase", "Crossbow"), world.player)
+                                                     or state.has_all(("Challenge 22", "Briefcase", "K7 Avenger"), world.player))
+
+                challenge_23 = world.get_location("Complete: Challenge 23")
+                add_rule(challenge_23, lambda state: state.has_all(("Challenge 23", "MagSec 4"), world.player)
+                                                     or state.has_all(("Challenge 23", "Grenade"), world.player)
+                                                     or state.has_all(("Challenge 23", "Laptop Gun"), world.player)
+                                                     or state.has_all(("Challenge 23", "RC-P120"), world.player))
+
+                challenge_24 = world.get_location("Complete: Challenge 24")
+                add_rule(challenge_24, lambda state: state.has_all(("Challenge 24", "Briefcase", "CMP150"), world.player)
+                                                     or state.has_all(("Challenge 24", "Briefcase", "Tranquilizer"), world.player)
+                                                     or state.has_all(("Challenge 24", "Briefcase", "Devastator"), world.player)
+                                                     or state.has_all(("Challenge 24", "Briefcase", "SuperDragon"), world.player)
+                                                     or state.has_all(("Challenge 24", "Briefcase", "DY357-LX"), world.player))
+
+                challenge_25 = world.get_location("Complete: Challenge 25")
+                add_rule(challenge_25, lambda state: state.has_all(("Challenge 25", "Mauler"), world.player)
+                                                     or state.has_all(("Challenge 25", "N-Bomb"), world.player)
+                                                     or state.has_all(("Challenge 25", "K7 Avenger"), world.player)
+                                                     or state.has_all(("Challenge 25", "FarSight XR-20"), world.player))
+
+                challenge_26 = world.get_location("Complete: Challenge 26")
+                add_rule(challenge_26, lambda state: state.has_all(("Challenge 26", "Falcon 2"), world.player)
+                                                     or state.has_all(("Challenge 26", "Mauler"), world.player)
+                                                     or state.has_all(("Challenge 26", "Cyclone"), world.player)
+                                                     or state.has_all(("Challenge 26", "Laptop Gun"), world.player)
+                                                     or state.has_all(("Challenge 26", "Reaper"), world.player))
+
+                challenge_27 = world.get_location("Complete: Challenge 27")
+                add_rule(challenge_27, lambda state: state.has_all(("Challenge 27", "Data Uplink", "Falcon 2"), world.player)
+                                                     or state.has_all(("Challenge 27", "Data Uplink", "MagSec 4"), world.player)
+                                                     or state.has_all(("Challenge 27", "Data Uplink", "CMP150"), world.player)
+                                                     or state.has_all(("Challenge 27", "Data Uplink", "Rocket Launcher"), world.player))
+
+                challenge_28 = world.get_location("Complete: Challenge 28")
+                add_rule(challenge_28, lambda state: state.has_all(("Challenge 28", "Briefcase", "Falcon 2"), world.player)
+                                                     or state.has_all(("Challenge 28", "Briefcase", "Falcon 2 (Silencer)"), world.player)
+                                                     or state.has_all(("Challenge 28", "Briefcase", "DY357 Magnum"), world.player)
+                                                     or state.has_all(("Challenge 28", "Briefcase", "AR34"), world.player)
+                                                     or state.has_all(("Challenge 28", "Briefcase", "Shotgun"), world.player))
+
+                challenge_29 = world.get_location("Complete: Challenge 29")
+                add_rule(challenge_29, lambda state: state.has_all(("Challenge 29", "Falcon 2"), world.player)
+                                                     or state.has_all(("Challenge 29", "Cyclone"), world.player)
+                                                     or state.has_all(("Challenge 29", "DY357 Magnum"), world.player)
+                                                     or state.has_all(("Challenge 29", "CMP150"), world.player)
+                                                     or state.has_all(("Challenge 29", "Dragon"), world.player))
 
             challenge_30 = world.get_location("Complete: Challenge 30")
-            add_rule(challenge_30, lambda state: state.has_all(("Challenge 30", "Mauler", "MagSec 4", "Falcon 2", "Falcon 2 (Scope)", "DY357 Magnum"), world.player))
+                add_rule(challenge_30, lambda state: state.has_all(("Challenge 30", "Falcon 2"), world.player)
+                                                     or state.has_all(("Challenge 30", "Falcon 2 (Scope)"), world.player)
+                                                     or state.has_all(("Challenge 30", "MagSec 4"), world.player)
+                                                     or state.has_all(("Challenge 30", "Mauler"), world.player)
+                                                     or state.has_all(("Challenge 30", "DY357 Magnum"), world.player))
 
 
         if world.options.weapon_training:
@@ -11487,6 +11767,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(cheat_rcp45, lambda state: state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
 
         if world.options.challenges:
+            if world.options.challenge_logic.value == ChallengeLogic.option_strict:
             challenge_1 = world.get_location("Complete: Challenge 1")
             add_rule(challenge_1, lambda state: state.has("Challenge 1", world.player)
                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
@@ -11496,24 +11777,142 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Rocket Launcher"]))
 
             challenge_3 = world.get_location("Complete: Challenge 3")
-            add_rule(challenge_3, lambda state: (state.has_all(("Challenge 3", "Timed Mine"), world.player))
-                                                or (state.has("Challenge 3", world.player)
-                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
+                add_rule(challenge_3, lambda state: state.has("Challenge 3", world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
 
             challenge_4 = world.get_location("Complete: Challenge 4")
-            add_rule(challenge_4, lambda state: (state.has_all(("Challenge 4", "K7 Avenger"), world.player))
-                                                or (state.has("Challenge 4", world.player)
-                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])))
+                add_rule(challenge_4, lambda state: state.has_all(("Challenge 4", "Shield"), world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
 
             challenge_5 = world.get_location("Complete: Challenge 5")
-            add_rule(challenge_5, lambda state: (state.has_all(("Challenge 5", "FarSight XR-20"), world.player))
-                                                or (state.has("Challenge 5", world.player)
-                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"])))
+                add_rule(challenge_5, lambda state: state.has_all(("Challenge 5", "Shield"), world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
 
             challenge_6 = world.get_location("Complete: Challenge 6")
-            add_rule(challenge_6, lambda state: (state.has_all(("Challenge 6", "Briefcase", "K7 Avenger"), world.player))
-                                                or (state.has_all(("Challenge 6", "Briefcase"), world.player)
-                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])))
+                add_rule(challenge_6, lambda state: state.has_all(("Challenge 6", "Briefcase", "Shield"), world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
+
+                challenge_7 = world.get_location("Complete: Challenge 7")
+                add_rule(challenge_7, lambda state: state.has_all(("Challenge 7", "Shield"), world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Grenade"]))
+
+                challenge_8 = world.get_location("Complete: Challenge 8")
+                add_rule(challenge_8, lambda state: state.has_all(("Challenge 8", "Briefcase", "Shield"), world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["SuperDragon"]))
+
+                challenge_9 = world.get_location("Complete: Challenge 9")
+                add_rule(challenge_9, lambda state: state.has("Challenge 9", world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
+
+                challenge_10 = world.get_location("Complete: Challenge 10")
+                add_rule(challenge_10, lambda state: state.has_all(("Challenge 10", "Data Uplink", "Shield"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"]))
+
+                challenge_11 = world.get_location("Complete: Challenge 11")
+                add_rule(challenge_11, lambda state: state.has_all(("Challenge 11", "Shield"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
+
+                challenge_12 = world.get_location("Complete: Challenge 12")
+                add_rule(challenge_12, lambda state: state.has_all(("Challenge 12", "Shield"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["SuperDragon"]))
+
+                challenge_13 = world.get_location("Complete: Challenge 13")
+                add_rule(challenge_13, lambda state: state.has("Challenge 13", world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Grenade"]))
+
+                challenge_14 = world.get_location("Complete: Challenge 14")
+                add_rule(challenge_14, lambda state: state.has_all(("Challenge 14", "Briefcase", "Cloaking Device"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
+
+                challenge_15 = world.get_location("Complete: Challenge 15")
+                add_rule(challenge_15, lambda state: state.has_all(("Challenge 15", "Briefcase", "Shield"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
+
+                challenge_16 = world.get_location("Complete: Challenge 16")
+                add_rule(challenge_16, lambda state: state.has_all(("Challenge 16", "Shield"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["SuperDragon"]))
+
+                challenge_17 = world.get_location("Complete: Challenge 17")
+                add_rule(challenge_17, lambda state: state.has_all(("Challenge 17", "Shield"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Slayer"]))
+
+                challenge_18 = world.get_location("Complete: Challenge 18")
+                add_rule(challenge_18, lambda state: state.has_all(("Challenge 18", "Shield", "Cloaking Device"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Phoenix"]))
+
+                challenge_19 = world.get_location("Complete: Challenge 19")
+                add_rule(challenge_19, lambda state: state.has_all(("Challenge 19", "Shield", "Combat Boost"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
+
+                challenge_20 = world.get_location("Complete: Challenge 20")
+                add_rule(challenge_20, lambda state: state.has_all(("Challenge 20", "Shield"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]))
+
+                challenge_21 = world.get_location("Complete: Challenge 21")
+                add_rule(challenge_21, lambda state: state.has_all(("Challenge 21", "Data Uplink", "Cloaking Device"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]))
+
+                challenge_22 = world.get_location("Complete: Challenge 22")
+                add_rule(challenge_22, lambda state: state.has_all(("Challenge 22", "Briefcase", "Shield"), world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
+
+                challenge_23 = world.get_location("Complete: Challenge 23")
+                add_rule(challenge_23, lambda state: state.has_all(("Challenge 23", "Shield", "Combat Boost"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"]))
+
+                challenge_24 = world.get_location("Complete: Challenge 24")
+                add_rule(challenge_24, lambda state: state.has_all(("Challenge 24", "Briefcase"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["DY357-LX"]))
+
+                challenge_25 = world.get_location("Complete: Challenge 25")
+                add_rule(challenge_25, lambda state: state.has_all(("Challenge 25", "Cloaking Device"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
+
+                challenge_26 = world.get_location("Complete: Challenge 26")
+                add_rule(challenge_26, lambda state: state.has("Challenge 26", world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]))
+
+                challenge_27 = world.get_location("Complete: Challenge 27")
+                add_rule(challenge_27, lambda state: state.has_all(("Challenge 27", "Data Uplink", "Shield"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Rocket Launcher"]))
+
+                challenge_28 = world.get_location("Complete: Challenge 28")
+                add_rule(challenge_28, lambda state: state.has_all(("Challenge 28", "Briefcase"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["AR34"]))
+
+                challenge_29 = world.get_location("Complete: Challenge 29")
+                add_rule(challenge_29, lambda state: state.has("Challenge 29", world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Cyclone"]))
+
+                challenge_30 = world.get_location("Complete: Challenge 30")
+                add_rule(challenge_30, lambda state: state.has("Challenge 30", world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]))
+
+
+            elif world.options.challenge_logic.value == ChallengeLogic.option_normal:
+                challenge_1 = world.get_location("Complete: Challenge 1")
+                add_rule(challenge_1, lambda state: state.has("Challenge 1", world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
+
+                challenge_2 = world.get_location("Complete: Challenge 2")
+                add_rule(challenge_2, lambda state: state.has("Challenge 2", world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Rocket Launcher"]))
+
+                challenge_3 = world.get_location("Complete: Challenge 3")
+                add_rule(challenge_3, lambda state: state.has("Challenge 3", world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+
+                challenge_4 = world.get_location("Complete: Challenge 4")
+                add_rule(challenge_4, lambda state: state.has_all(("Challenge 4", "Shield"), world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
+
+                challenge_5 = world.get_location("Complete: Challenge 5")
+                add_rule(challenge_5, lambda state: state.has("Challenge 5", world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
+
+                challenge_6 = world.get_location("Complete: Challenge 6")
+                add_rule(challenge_6, lambda state: state.has_all(("Challenge 6", "Briefcase"), world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
 
             challenge_7 = world.get_location("Complete: Challenge 7")
             add_rule(challenge_7, lambda state: state.has("Challenge 7", world.player)
@@ -11524,14 +11923,12 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["SuperDragon"]))
 
             challenge_9 = world.get_location("Complete: Challenge 9")
-            add_rule(challenge_9, lambda state: (state.has_all(("Challenge 9", "FarSight XR-20"), world.player))
-                                                or (state.has("Challenge 9", world.player)
-                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"])))
+                add_rule(challenge_9, lambda state: state.has("Challenge 9", world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
 
             challenge_10 = world.get_location("Complete: Challenge 10")
-            add_rule(challenge_10, lambda state: (state.has_all(("Challenge 10", "Data Uplink", "Remote Mine"), world.player))
-                                                 or (state.has_all(("Challenge 10", "Data Uplink"), world.player)
-                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])))
+                add_rule(challenge_10, lambda state: state.has_all(("Challenge 10", "Data Uplink"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"]))
 
             challenge_11 = world.get_location("Complete: Challenge 11")
             add_rule(challenge_11, lambda state: state.has("Challenge 11", world.player)
@@ -11543,36 +11940,34 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
 
             challenge_13 = world.get_location("Complete: Challenge 13")
             add_rule(challenge_13, lambda state: state.has("Challenge 13", world.player)
-                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Grenade"]))
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]))
 
             challenge_14 = world.get_location("Complete: Challenge 14")
-            add_rule(challenge_14, lambda state: (state.has_all(("Challenge 14", "Briefcase", "Cloaking Device", "FarSight XR-20"), world.player))
-                                                 or (state.has_all(("Challenge 14", "Briefcase", "Cloaking Device"), world.player)
-                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"])))
+                add_rule(challenge_14, lambda state: state.has_all(("Challenge 14", "Briefcase", "Cloaking Device"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
 
             challenge_15 = world.get_location("Complete: Challenge 15")
             add_rule(challenge_15, lambda state: state.has_all(("Challenge 15", "Briefcase"), world.player)
                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
 
             challenge_16 = world.get_location("Complete: Challenge 16")
-            add_rule(challenge_16, lambda state: state.has("Challenge 16", world.player)
+                add_rule(challenge_16, lambda state: state.has_all(("Challenge 16", "Shield"), world.player)
                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["SuperDragon"]))
 
             challenge_17 = world.get_location("Complete: Challenge 17")
-            add_rule(challenge_17, lambda state: state.has("Challenge 17", world.player)
+                add_rule(challenge_17, lambda state: state.has_all(("Challenge 17", "Shield"), world.player)
                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Slayer"]))
 
             challenge_18 = world.get_location("Complete: Challenge 18")
-            add_rule(challenge_18, lambda state: state.has_all(("Challenge 18", "Cloaking Device"), world.player)
-                                                 and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Laptop Gun"]))
+                add_rule(challenge_18, lambda state: state.has_all(("Challenge 18", "Shield", "Cloaking Device"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Phoenix"]))
 
             challenge_19 = world.get_location("Complete: Challenge 19")
-            add_rule(challenge_19, lambda state: (state.has_all(("Challenge 19", "FarSight XR-20"), world.player))
-                                                 or (state.has("Challenge 19", world.player)
-                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"])))
+                add_rule(challenge_19, lambda state: state.has_all(("Challenge 19", "Shield", "Combat Boost"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
 
             challenge_20 = world.get_location("Complete: Challenge 20")
-            add_rule(challenge_20, lambda state: state.has("Challenge 20", world.player)
+                add_rule(challenge_20, lambda state: state.has_all(("Challenge 20", "Shield"), world.player)
                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]))
 
             challenge_21 = world.get_location("Complete: Challenge 21")
@@ -11580,11 +11975,11 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]))
 
             challenge_22 = world.get_location("Complete: Challenge 22")
-            add_rule(challenge_22, lambda state: state.has_all(("Challenge 22", "Briefcase"), world.player)
+                add_rule(challenge_22, lambda state: state.has_all(("Challenge 22", "Briefcase", "Shield"), world.player)
                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
 
             challenge_23 = world.get_location("Complete: Challenge 23")
-            add_rule(challenge_23, lambda state: state.has("Challenge 23", world.player)
+                add_rule(challenge_23, lambda state: state.has_all(("Challenge 23", "Shield", "Combat Boost"), world.player)
                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"]))
 
             challenge_24 = world.get_location("Complete: Challenge 24")
@@ -11592,15 +11987,15 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["DY357-LX"]))
 
             challenge_25 = world.get_location("Complete: Challenge 25")
-            add_rule(challenge_25, lambda state: (state.has_all(("Challenge 25", "Cloaking Device"), world.player)
-                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"])))
+                add_rule(challenge_25, lambda state: state.has_all(("Challenge 25", "Cloaking Device"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
 
             challenge_26 = world.get_location("Complete: Challenge 26")
             add_rule(challenge_26, lambda state: state.has("Challenge 26", world.player)
                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]))
 
             challenge_27 = world.get_location("Complete: Challenge 27")
-            add_rule(challenge_27, lambda state: state.has_all(("Challenge 27", "Data Uplink"), world.player)
+                add_rule(challenge_27, lambda state: state.has_all(("Challenge 27", "Data Uplink", "Shield"), world.player)
                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Rocket Launcher"]))
 
             challenge_28 = world.get_location("Complete: Challenge 28")
@@ -11615,105 +12010,129 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(challenge_30, lambda state: state.has("Challenge 30", world.player)
                                                  and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]))
             
-            if world.options.allow_progressive_weapon_in_challenges and world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon:
-                add_rule(challenge_1, lambda state: state.has("Challenge 1", world.player)
-                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"]))
 
+            elif world.options.challenge_logic.value == ChallengeLogic.option_hard:
+                challenge_1 = world.get_location("Complete: Challenge 1")
+                add_rule(challenge_1, lambda state: state.has("Challenge 1", world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"]))
+
+                challenge_2 = world.get_location("Complete: Challenge 2")
                 add_rule(challenge_2, lambda state: state.has("Challenge 2", world.player)
                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"]))
 
-                add_rule(challenge_3, lambda state: (state.has_all(("Challenge 3", "Timed Mine"), world.player))
-                                                    or (state.has("Challenge 3", world.player)
-                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"])))
+                challenge_3 = world.get_location("Complete: Challenge 3")
+                add_rule(challenge_3, lambda state: state.has("Challenge 3", world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"]))
 
-                add_rule(challenge_4, lambda state: (state.has_all(("Challenge 4", "K7 Avenger"), world.player))
-                                                    or (state.has("Challenge 4", world.player)
-                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"])))
+                challenge_4 = world.get_location("Complete: Challenge 4")
+                add_rule(challenge_4, lambda state: state.has("Challenge 4", world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"]))
 
-                add_rule(challenge_5, lambda state: (state.has_all(("Challenge 5", "FarSight XR-20"), world.player))
-                                                    or (state.has("Challenge 5", world.player)
-                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"])))
+                challenge_5 = world.get_location("Complete: Challenge 5")
+                add_rule(challenge_5, lambda state: state.has("Challenge 5", world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["AR34"]))
 
-                add_rule(challenge_6, lambda state: (state.has_all(("Challenge 6", "Briefcase", "K7 Avenger"), world.player))
-                                                    or (state.has_all(("Challenge 6", "Briefcase"), world.player)
-                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"])))
+                challenge_6 = world.get_location("Complete: Challenge 6")
+                add_rule(challenge_6, lambda state: state.has_all(("Challenge 6", "Briefcase"), world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["DY357 Magnum"]))
 
+                challenge_7 = world.get_location("Complete: Challenge 7")
                 add_rule(challenge_7, lambda state: state.has("Challenge 7", world.player)
-                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]))
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2 (Silencer)"]))
 
+                challenge_8 = world.get_location("Complete: Challenge 8")
                 add_rule(challenge_8, lambda state: state.has_all(("Challenge 8", "Briefcase"), world.player)
-                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]))
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"]))
 
-                add_rule(challenge_9, lambda state: (state.has_all(("Challenge 9", "FarSight XR-20"), world.player))
-                                                    or (state.has("Challenge 9", world.player)
-                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"])))
+                challenge_9 = world.get_location("Complete: Challenge 9")
+                add_rule(challenge_9, lambda state: state.has("Challenge 9", world.player)
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
-                add_rule(challenge_10, lambda state: (state.has_all(("Challenge 10", "Data Uplink", "Remote Mine"), world.player))
-                                                     or (state.has_all(("Challenge 10", "Data Uplink"), world.player)
-                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"])))
+                challenge_10 = world.get_location("Complete: Challenge 10")
+                add_rule(challenge_10, lambda state: state.has_all(("Challenge 10", "Data Uplink"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["CMP150"]))
 
+                challenge_11 = world.get_location("Complete: Challenge 11")
                 add_rule(challenge_11, lambda state: state.has("Challenge 11", world.player)
                                                      and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]))
 
+                challenge_12 = world.get_location("Complete: Challenge 12")
                 add_rule(challenge_12, lambda state: state.has("Challenge 12", world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]))
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"]))
 
+                challenge_13 = world.get_location("Complete: Challenge 13")
                 add_rule(challenge_13, lambda state: state.has("Challenge 13", world.player)
                                                      and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]))
 
-                add_rule(challenge_14, lambda state: (state.has_all(("Challenge 14", "Briefcase", "Cloaking Device", "FarSight XR-20"), world.player))
-                                                     or (state.has_all(("Challenge 14", "Briefcase", "Cloaking Device"), world.player)
-                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"])))
+                challenge_14 = world.get_location("Complete: Challenge 14")
+                add_rule(challenge_14, lambda state: state.has_all(("Challenge 14", "Briefcase"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Cyclone"]))
 
+                challenge_15 = world.get_location("Complete: Challenge 15")
                 add_rule(challenge_15, lambda state: state.has_all(("Challenge 15", "Briefcase"), world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]))
-
-                add_rule(challenge_16, lambda state: state.has("Challenge 16", world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["DY357 Magnum"]))
-
-                add_rule(challenge_17, lambda state: state.has("Challenge 17", world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KF7 Special"]))
-
-                add_rule(challenge_18, lambda state: state.has_all(("Challenge 18", "Cloaking Device"), world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KF7 Special"]))
-
-                add_rule(challenge_19, lambda state: (state.has_all(("Challenge 19", "FarSight XR-20"), world.player))
-                                                     or (state.has("Challenge 19", world.player)
-                                                        and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KF7 Special"])))
-
-                add_rule(challenge_20, lambda state: state.has("Challenge 20", world.player)
                                                      and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"]))
 
-                add_rule(challenge_21, lambda state: state.has_all(("Challenge 21", "Data Uplink", "Cloaking Device"), world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KF7 Special"]))
+                challenge_16 = world.get_location("Complete: Challenge 16")
+                add_rule(challenge_16, lambda state: state.has("Challenge 16", world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
+                challenge_17 = world.get_location("Complete: Challenge 17")
+                add_rule(challenge_17, lambda state: state.has("Challenge 17", world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["DY357 Magnum"]))
+
+                challenge_18 = world.get_location("Complete: Challenge 18")
+                add_rule(challenge_18, lambda state: state.has("Challenge 18", world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]))
+
+                challenge_19 = world.get_location("Complete: Challenge 19")
+                add_rule(challenge_19, lambda state: state.has("Challenge 19", world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
+
+                challenge_20 = world.get_location("Complete: Challenge 20")
+                add_rule(challenge_20, lambda state: state.has("Challenge 20", world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
+
+                challenge_21 = world.get_location("Complete: Challenge 21")
+                add_rule(challenge_21, lambda state: state.has_all(("Challenge 21", "Data Uplink"), world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
+
+                challenge_22 = world.get_location("Complete: Challenge 22")
                 add_rule(challenge_22, lambda state: state.has_all(("Challenge 22", "Briefcase"), world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KF7 Special"]))
+                                                    and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Crossbow"]))
 
+                challenge_23 = world.get_location("Complete: Challenge 23")
                 add_rule(challenge_23, lambda state: state.has("Challenge 23", world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KF7 Special"]))
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"]))
 
+                challenge_24 = world.get_location("Complete: Challenge 24")
                 add_rule(challenge_24, lambda state: state.has_all(("Challenge 24", "Briefcase"), world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KF7 Special"]))
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]))
 
-                add_rule(challenge_25, lambda state: state.has_all(("Challenge 25", "Cloaking Device"), world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["KF7 Special"]))
+                challenge_25 = world.get_location("Complete: Challenge 25")
+                add_rule(challenge_25, lambda state: state.has("Challenge 25", world.player)
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["N-Bomb"]))
 
+                challenge_26 = world.get_location("Complete: Challenge 26")
                 add_rule(challenge_26, lambda state: state.has("Challenge 26", world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Laptop Gun"]))
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
+                challenge_27 = world.get_location("Complete: Challenge 27")
                 add_rule(challenge_27, lambda state: state.has_all(("Challenge 27", "Data Uplink"), world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Laptop Gun"]))
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
+                challenge_28 = world.get_location("Complete: Challenge 28")
                 add_rule(challenge_28, lambda state: state.has_all(("Challenge 28", "Briefcase"), world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Laptop Gun"]))
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
+                challenge_29 = world.get_location("Complete: Challenge 29")
                 add_rule(challenge_29, lambda state: state.has("Challenge 29", world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Laptop Gun"]))
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
+                challenge_30 = world.get_location("Complete: Challenge 30")
                 add_rule(challenge_30, lambda state: state.has("Challenge 30", world.player)
-                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Laptop Gun"]))
-        
+                                                     and state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
+
+            
         if world.options.weapon_training:
             falcon2_bronze = world.get_location("Firing Range: Falcon 2 - Bronze")
             add_rule(falcon2_bronze, lambda state: state.has("Progressive Weapon", world.player, PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
@@ -12077,3 +12496,6 @@ def set_completion_condition(world: PerfectDarkWorld) -> None:
         if world.options.perfect_agent:
             required_mission_stars += world.options.required_perfect_agent_mission_stars.value
         world.multiworld.completion_condition[world.player] = lambda state: state.has("Mission Star", world.player, required_mission_stars)
+
+    elif world.options.goal.value == Goal.option_collect_challenge_stars:
+        world.multiworld.completion_condition[world.player] = lambda state: state.has("Challenge Star", world.player, world.options.required_challenge_stars.value)

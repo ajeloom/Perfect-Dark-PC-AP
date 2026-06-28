@@ -14,6 +14,7 @@ class Goal(Choice):
 
     option_complete_skedar_ruins = 0
     option_collect_mission_stars = 1
+    option_collect_challenge_stars = 2
 
     default = option_complete_skedar_ruins
 
@@ -192,9 +193,55 @@ class Challenges(Toggle):
     Adds all 30 combat simulator challenges as checks.
     Each challenge is an item you need to find in order to play it.
     Only recommend enabling this if you can handle the harder challenges.
+    If goal is set to collect challenge stars, then make sure this option is enabled.
     """
 
     display_name = "Challenges"
+
+
+class RequiredChallengeStars(Range):
+    """
+    Sets the required amount of challenge stars to beat the game.
+    This option only matters if goal is set to collect challenge stars.
+    """
+
+    display_name = "Required Challenge Stars"
+
+    range_start = 1
+    range_end = 30
+    default = 15
+
+
+class ChallengeLogic(Choice):
+    """
+    Choose how hard the logic will be for the challenges. 
+
+    No Progressive Weapons
+    - Strict: The logic expects you to have every weapon in the weapon set.
+    - Normal: The logic expects you to have some weapons in the weapon set.
+    - Hard: The logic expects you to have one of the weapons in the weapon set.
+
+    Progressive Weapons
+    - Strict: The logic expects you to have the highest progressive weapon in the weapon set.
+    - Normal: The logic is more balanced.
+    - Hard: The logic expects you to have the lowest progressive weapon in the weapon set.
+    """
+
+    display_name = "Challenge Logic"
+
+    option_strict = 0
+    option_normal = 1
+    option_hard = 2
+
+    default = option_normal
+
+
+class ShorterChallenges(Toggle):
+    """
+    Shortens each challenge's time limit and score limit.
+    """
+
+    display_name = "Shorter Challenges"
 
 
 class StartWithAllChallenges(Toggle):
@@ -272,6 +319,9 @@ class PerfectDarkOptions(PerGameCommonOptions):
     start_with_weapon: StartWithWeapon
     master_key: MasterKey
     challenges: Challenges
+    challenge_logic: ChallengeLogic
+    required_challenge_stars: RequiredChallengeStars
+    shorter_challenges: ShorterChallenges
     start_with_all_challenges: StartWithAllChallenges
     weapon_training: WeaponTraining
     device_training: DeviceTraining
@@ -298,6 +348,9 @@ option_groups = [
             StartWithWeapon,
             MasterKey,
             Challenges,
+            ChallengeLogic,
+            RequiredChallengeStars,
+            ShorterChallenges,
             StartWithAllChallenges,
             WeaponTraining,
             DeviceTraining,
@@ -324,6 +377,9 @@ option_presets = {
         "start_with_weapon": True,
         "master_key": False,
         "challenges": False,
+        "challenge_logic": ChallengeLogic.option_normal,
+        "required_challenge_stars": 15,
+        "shorter_challenges": False,
         "start_with_all_challenges": False,
         "weapon_training": False,
         "device_training": False,
@@ -346,6 +402,9 @@ option_presets = {
         "start_with_weapon": True,
         "master_key": False,
         "challenges": True,
+        "challenge_logic": ChallengeLogic.option_hard,
+        "required_challenge_stars": 30,
+        "shorter_challenges": False,
         "start_with_all_challenges": False,
         "weapon_training": True,
         "device_training": True,

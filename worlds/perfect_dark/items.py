@@ -7,7 +7,7 @@ from BaseClasses import Item, ItemClassification
 if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
-from .options import Goal, MissionLogic, WeaponProgression
+from .options import Goal, MissionLogic, WeaponProgression, ChallengeLogic
 
 ITEM_NAME_TO_ID = {
     # "NONE": 1,
@@ -247,7 +247,8 @@ ITEM_NAME_TO_ID = {
     "Cheese": 235,
     "Trap": 236,
     "Mission Star": 237,
-    "Victory": 238,
+    "Challenge Star": 238,
+    "Victory": 239,
 }
 
 
@@ -287,7 +288,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Timed Mine": ItemClassification.progression,
     "Proximity Mine": ItemClassification.progression,
     "Remote Mine": ItemClassification.progression,
-    "Combat Boost": ItemClassification.filler,
+    "Combat Boost": ItemClassification.useful,
 	# "PP9i": ItemClassification.filler,
 	# "CC13": ItemClassification.filler,
 	# "KL01313": ItemClassification.filler,
@@ -489,6 +490,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Cheese": ItemClassification.filler,
     "Trap": ItemClassification.trap,
     "Mission Star": ItemClassification.progression | ItemClassification.useful,
+    "Challenge Star": ItemClassification.progression | ItemClassification.useful,
     "Victory": ItemClassification.progression | ItemClassification.useful,
 }
 
@@ -506,11 +508,21 @@ def get_random_filler_item_name(world: PerfectDarkWorld) -> str:
 def create_item_with_correct_classification(world: PerfectDarkWorld, name: str) -> PerfectDarkItem:
     classification = DEFAULT_ITEM_CLASSIFICATIONS[name]
 
+    if (world.options.challenge_logic.value == ChallengeLogic.option_strict
+            and world.options.challenges
+            and (name == "Combat Boost" or name == "Shield")):
+        classification = ItemClassification.progression | ItemClassification.useful
+
+    if (world.options.challenge_logic.value == ChallengeLogic.option_normal
+            and world.options.challenges
+            and name == "Shield"):
+        classification = ItemClassification.progression | ItemClassification.useful
+
     if ((world.options.mission_logic.value == MissionLogic.option_veteran 
             or world.options.mission_logic.value == MissionLogic.option_hard)
             and world.options.weapon_progression.value == WeaponProgression.option_vanilla):
         if name == "Air Force One Left Room Key Card" or name == "Air Force One Right Room Key Card":
-            classification = ItemClassification.progression
+            classification = ItemClassification.progression | ItemClassification.useful
 
     return PerfectDarkItem(name, classification, ITEM_NAME_TO_ID[name], world.player)
 
@@ -898,6 +910,12 @@ def create_all_items(world:PerfectDarkWorld) -> None:
 
         for location in mission_locations:
             world.get_location(location).place_locked_item(world.create_item("Mission Star"))
+
+    elif world.options.goal == Goal.option_collect_challenge_stars:
+        if world.options.challenges:
+            for x in range(1, 31):
+                challenge_location = f"Complete: Challenge {x}"
+                world.get_location(challenge_location).place_locked_item(world.create_item("Challenge Star"))
 
 
     # Start with a random mission

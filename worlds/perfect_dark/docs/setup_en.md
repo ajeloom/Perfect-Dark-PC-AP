@@ -3,8 +3,8 @@
 ## Required Software
 
 - [Archipelago 0.6.7](https://github.com/ArchipelagoMW/Archipelago/releases/latest)
-- [Perfect Dark apworld](https://github.com/ajeloom/Archipelago/releases)
-- [Perfect Dark AP Client](https://github.com/ajeloom/Archipelago/releases)
+- [Latest Perfect Dark apworld](https://github.com/ajeloom/Archipelago/releases)
+- [Latest Perfect Dark AP Client](https://github.com/ajeloom/Archipelago/releases)
 - A Perfect Dark (NTSC 1.1) rom file. The Archipelago community cannot provide these.
 
 ## Recommended Software

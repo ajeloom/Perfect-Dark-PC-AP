@@ -51,6 +51,8 @@ class PerfectDarkWorld(World):
                 "weapon_progression": self.options.weapon_progression.value,
                 "allow_progressive_weapon_in_challenges": self.options.allow_progressive_weapon_in_challenges.value,
                 "challenges": self.options.challenges.value,
+                "required_challenge_stars": self.options.required_challenge_stars.value,
+                "shorter_challenges": self.options.shorter_challenges.value,
                 "weapon_training": self.options.weapon_training.value,
                 "device_training": self.options.device_training.value,
                 "holotraining": self.options.holotraining.value,
