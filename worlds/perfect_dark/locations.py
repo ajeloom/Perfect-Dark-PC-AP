@@ -9,6 +9,8 @@ from . import items
 if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
+from .options import Goal, SkedarRuinsRequirements
+
 LOCATION_NAME_TO_ID = {
     "dD Defection - Agent Objective 1": 1,
     "dD Investigation - Agent Objective 1": 4,
@@ -486,6 +488,7 @@ LOCATION_NAME_TO_ID = {
     "Cheat Unlock: Get gold medals for Timed Mine, Proximity Mine, and Remote Mine": 495,
     "Cheat Unlock: Get gold medals for FarSight XR-20, Crossbow, Combat Knife, and Grenade": 496,
     "Cheat Unlock: Get gold medals for Tranquilizer, Reaper, and Devastator": 497,
+    "Collect All Mission Stars": 498,
 }
 
 class PerfectDarkLocation(Location):
@@ -1194,42 +1197,30 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         )
         duel.add_locations(duel_locations, PerfectDarkLocation)
 
-    if world.options.challenges:
-        challenges_locations = get_location_names_with_ids(
+
+    if ((world.options.goal.value == Goal.option_complete_skedar_ruins
+            and world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_mission_stars)
+            or world.options.goal.value == Goal.option_collect_mission_stars):
+        mission_stars = get_location_names_with_ids(
             [
-                "Complete: Challenge 1",
-                "Complete: Challenge 2",
-                "Complete: Challenge 3",
-                "Complete: Challenge 4",
-                "Complete: Challenge 5",
-                "Complete: Challenge 6",
-                "Complete: Challenge 7",
-                "Complete: Challenge 8",
-                "Complete: Challenge 9",
-                "Complete: Challenge 10",
-                "Complete: Challenge 11",
-                "Complete: Challenge 12",
-                "Complete: Challenge 13",
-                "Complete: Challenge 14",
-                "Complete: Challenge 15",
-                "Complete: Challenge 16",
-                "Complete: Challenge 17",
-                "Complete: Challenge 18",
-                "Complete: Challenge 19",
-                "Complete: Challenge 20",
-                "Complete: Challenge 21",
-                "Complete: Challenge 22",
-                "Complete: Challenge 23",
-                "Complete: Challenge 24",
-                "Complete: Challenge 25",
-                "Complete: Challenge 26",
-                "Complete: Challenge 27",
-                "Complete: Challenge 28",
-                "Complete: Challenge 29",
-                "Complete: Challenge 30"
+                "Collect All Mission Stars"
             ]
         )
+        carrington_institute.add_locations(mission_stars, PerfectDarkLocation)
+
+
+    if world.options.challenges:
+        challenges = []
+        
+        for x in range(1, 31):
+            challenge_name = f"Challenge {x}"
+            if (world.options.allowed_challenges.__contains__(challenge_name)):
+                challenge_location = f"Complete: Challenge {x}"
+                challenges.append(challenge_location)
+
+        challenges_locations = get_location_names_with_ids(challenges)
         carrington_institute.add_locations(challenges_locations, PerfectDarkLocation)
+
 
     if world.options.weapon_training:
         training_locations = get_location_names_with_ids(

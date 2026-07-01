@@ -1,13 +1,13 @@
 from dataclasses import dataclass
 
-from Options import Choice, OptionGroup, PerGameCommonOptions, Range, Toggle
+from Options import Choice, OptionGroup, PerGameCommonOptions, Range, Toggle, OptionSet
 
 class Goal(Choice):
     """
     Sets the goal in order to beat the game. 
 
-    - Complete Skedar Ruins: Only requires you completing Skedar Ruins on any difficulty.
-    - Collect Mission Stars: Requires you to collect mission stars by completing missions.
+    - Complete Skedar Ruins: Finish the game with Skedar Ruins.
+    - Complete # of Missions: Complete a set number of missions.
     """
 
     display_name = "Goal"
@@ -17,6 +17,23 @@ class Goal(Choice):
     option_collect_challenge_stars = 2
 
     default = option_complete_skedar_ruins
+
+
+class SkedarRuinsRequirements(Choice):
+    """
+    Sets the requirements to unlock Skedar Ruins.
+    This option only matters if goal is set to Complete Skedar Ruins.
+
+    - Item: You can get Skedar Ruins as an item which could make the run shorter.
+    - Collect Mission Stars: Unlocks after you collect enough mission stars.
+    """
+
+    display_name = "Skedar Ruins Requirements"
+
+    option_item = 0
+    option_collect_mission_stars = 1
+
+    default = option_collect_mission_stars
 
 
 class MissionLogic(Choice):
@@ -53,9 +70,11 @@ class IncludeAgent(Toggle):
 class RequiredAgentMissionStars(Range):
     """
     Sets the required amount of Agent mission stars to beat the game.
-    This option only matters if goal is set to collect mission stars.
+    This option only matters if you have to collect mission stars and Agent is enabled.
     If you are playing more than one difficulty, then you just have 
     to reach the total amount of mission stars for the goal.
+
+    The max is 20 if the goal is set to Complete Skedar Ruins.
     """
 
     display_name = "Required Agent Mission Stars"
@@ -77,9 +96,11 @@ class IncludeSpecialAgent(Toggle):
 class RequiredSpecialAgentMissionStars(Range):
     """
     Sets the required amount of Special Agent mission stars to beat the game.
-    This option only matters if goal is set to collect mission stars.
+    This option only matters if you have to collect mission stars and Special Agent is enabled.
     If you are playing more than one difficulty, then you just have 
     to reach the total amount of mission stars for the goal.
+
+    The max is 20 if the goal is set to Complete Skedar Ruins.
     """
 
     display_name = "Required Special Agent Mission Stars"
@@ -102,9 +123,11 @@ class IncludePerfectAgent(Toggle):
 class RequiredPerfectAgentMissionStars(Range):
     """
     Sets the required amount of Perfect Agent mission stars to beat the game.
-    This option only matters if goal is set to collect mission stars.
+    This option only matters if you have to collect mission stars and Perfect Agent is enabled.
     If you are playing more than one difficulty, then you just have 
     to reach the total amount of mission stars for the goal.
+
+    The max is 20 if the goal is set to Complete Skedar Ruins.
     """
 
     display_name = "Required Perfect Agent Mission Stars"
@@ -127,20 +150,20 @@ class WeaponProgression(Choice):
     Choose how weapon progression will work in your game.
 
     - Vanilla:
-        You have to find each weapon in order to use and pick them up.
-        You can only use weapons that normally appear in the missions/challenges.
+        Every weapon in the game is its own item in the itempool.
+        You start a mission with the weapons that you normally would once you unlock them.
+        You can only pick up unlocked weapons and use them.
     
     - Progressive Weapon:
         You will progress through weapons from weakest to strongest. 
-        Allowing you to use weapons in missions/challenges they don't appear in. 
-        Any previous progressive weapons will be in your inventory. Weapons required  
-        for mission objectives are in the itempool so you can do some locations earlier.
+        Every weapon you progress through will be in your inventory at the start of a mission.
+        Some weapons required for mission objectives are in the itempool so that some locations can be done earlier.
     
     - Progressive Weapon (One Gun):
-        You progress through the weapons in the same order, but you are stuck 
-        with the current progressive weapon until you find another one. 
-        You are given infinite ammo and, on certain missions, a laser to prevent softlocks. 
-        In missions, only weapons required for some objectives can be picked up. 
+        You progress through the weapons in the same order, but you will only have
+        the current progressive weapon in your inventory at the start of a mission. 
+        You are given infinite ammo and a laser on some missions to prevent softlocks. 
+        In missions, other weapons cannot be picked up except for the ones required for some objectives. 
         In challenges, you are allowed to pick up other weapons. 
         Only recommended for people who are looking for a challenging run.
     """
@@ -157,7 +180,8 @@ class WeaponProgression(Choice):
 class ProgressiveWeaponsInChallenges(Toggle):
     """
     Allows you to use progressive weapons in challenges.
-    This option only works if challenges are enabled.
+    This option only works if challenges are enabled 
+    weapon progression is not set to vanilla.
 
     - False: You will have to pick up weapons in the challenge 
              that you have reached progressively.
@@ -190,7 +214,7 @@ class MasterKey(Toggle):
 
 class Challenges(Toggle):
     """
-    Adds all 30 combat simulator challenges as checks.
+    Adds the combat simulator challenges as checks.
     Each challenge is an item you need to find in order to play it.
     Only recommend enabling this if you can handle the harder challenges.
     If goal is set to collect challenge stars, then make sure this option is enabled.
@@ -199,13 +223,46 @@ class Challenges(Toggle):
     display_name = "Challenges"
 
 
-class RequiredChallengeStars(Range):
+class AllowedChallenges(OptionSet):
     """
-    Sets the required amount of challenge stars to beat the game.
-    This option only matters if goal is set to collect challenge stars.
+    Sets which challenges you have to do.
     """
+    display_name = "Allowed Challenges"
+    valid_keys = [
+        "Challenge 1",
+        "Challenge 2",
+        "Challenge 3",
+        "Challenge 4",
+        "Challenge 5",
+        "Challenge 6",
+        "Challenge 7",
+        "Challenge 8",
+        "Challenge 9",
+        "Challenge 10",
+        "Challenge 11",
+        "Challenge 12",
+        "Challenge 13",
+        "Challenge 14",
+        "Challenge 15",
+        "Challenge 16",
+        "Challenge 17",
+        "Challenge 18",
+        "Challenge 19",
+        "Challenge 20",
+        "Challenge 21",
+        "Challenge 22",
+        "Challenge 23",
+        "Challenge 24",
+        "Challenge 25",
+        "Challenge 26",
+        "Challenge 27",
+        "Challenge 28",
+        "Challenge 29",
+        "Challenge 30",
+    ]
+    default = valid_keys.copy()
 
-    display_name = "Required Challenge Stars"
+
 
     range_start = 1
     range_end = 30
@@ -246,7 +303,7 @@ class ShorterChallenges(Toggle):
 
 class StartWithAllChallenges(Toggle):
     """
-    Start with all 30 combat simulator challenges in your inventory. 
+    Start with all combat simulator challenges in your inventory.
     This option will only work if challenges are enabled. 
     Recommend enabling this if there are not enough locations in your multiworld.
     """
@@ -306,6 +363,7 @@ class DeathLink(Toggle):
 @dataclass
 class PerfectDarkOptions(PerGameCommonOptions):
     goal: Goal
+    skedar_ruins_requirements : SkedarRuinsRequirements
     mission_logic: MissionLogic
     agent: IncludeAgent
     required_agent_mission_stars: RequiredAgentMissionStars
@@ -320,7 +378,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     master_key: MasterKey
     challenges: Challenges
     challenge_logic: ChallengeLogic
-    required_challenge_stars: RequiredChallengeStars
+    allowed_challenges: AllowedChallenges
     shorter_challenges: ShorterChallenges
     start_with_all_challenges: StartWithAllChallenges
     weapon_training: WeaponTraining
@@ -335,6 +393,7 @@ option_groups = [
         "Gameplay Options",
         [
             Goal,
+            SkedarRuinsRequirements,
             MissionLogic,
             IncludeAgent,
             RequiredAgentMissionStars,
@@ -364,6 +423,7 @@ option_groups = [
 option_presets = {
     "default": {
         "goal": Goal.option_complete_skedar_ruins,
+        "skedar_ruins_requirements": SkedarRuinsRequirements.option_item,
         "mission_logic": MissionLogic.option_normal,
         "agent": False,
         "required_agent_mission_stars": 7,
@@ -388,7 +448,8 @@ option_presets = {
         "deathlink": False,
     },
     "hard": {
-        "goal": Goal.option_collect_mission_stars,
+        "goal": Goal.option_complete_skedar_ruins,
+        "skedar_ruins_requirements": SkedarRuinsRequirements.option_collect_mission_stars,
         "mission_logic": MissionLogic.option_hard,
         "agent": False,
         "required_agent_mission_stars": 7,

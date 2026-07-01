@@ -7,7 +7,7 @@ from BaseClasses import Item, ItemClassification
 if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
-from .options import Goal, MissionLogic, WeaponProgression, ChallengeLogic
+from .options import Goal, SkedarRuinsRequirements, MissionLogic, WeaponProgression, ChallengeLogic
 
 ITEM_NAME_TO_ID = {
     # "NONE": 1,
@@ -248,7 +248,8 @@ ITEM_NAME_TO_ID = {
     "Trap": 236,
     "Mission Star": 237,
     "Challenge Star": 238,
-    "Victory": 239,
+    "Skedar Ruins": 239,
+    "Victory": 240,
 }
 
 
@@ -491,6 +492,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Trap": ItemClassification.trap,
     "Mission Star": ItemClassification.progression | ItemClassification.useful,
     "Challenge Star": ItemClassification.progression | ItemClassification.useful,
+    "Skedar Ruins": ItemClassification.progression | ItemClassification.useful,
     "Victory": ItemClassification.progression | ItemClassification.useful,
 }
 
@@ -645,11 +647,14 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         itempool.append(world.create_item("Deep Sea - Agent"))
         itempool.append(world.create_item("CI Defense - Agent"))
         itempool.append(world.create_item("Attack Ship - Agent"))
-        itempool.append(world.create_item("Skedar Ruins - Agent"))
+        # itempool.append(world.create_item("Skedar Ruins - Agent"))
         itempool.append(world.create_item("Mr. Blonde's Revenge - Agent"))
         itempool.append(world.create_item("Maian SOS - Agent"))
         itempool.append(world.create_item("WAR! - Agent"))
         itempool.append(world.create_item("The Duel - Agent"))
+
+        if (is_skedar_ruins_in_itempool(world)):
+            itempool.append(world.create_item("Skedar Ruins - Agent"))
 
 
     # Items in both Special and Perfect Agent
@@ -677,11 +682,15 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         itempool.append(world.create_item("Deep Sea - Special Agent"))
         itempool.append(world.create_item("CI Defense - Special Agent"))
         itempool.append(world.create_item("Attack Ship - Special Agent"))
-        itempool.append(world.create_item("Skedar Ruins - Special Agent"))
+        # itempool.append(world.create_item("Skedar Ruins - Special Agent"))
         itempool.append(world.create_item("Mr. Blonde's Revenge - Special Agent"))
         itempool.append(world.create_item("Maian SOS - Special Agent"))
         itempool.append(world.create_item("WAR! - Special Agent"))
         itempool.append(world.create_item("The Duel - Special Agent"))
+
+        if (is_skedar_ruins_in_itempool(world)):
+            itempool.append(world.create_item("Skedar Ruins - Special Agent"))
+
 
     # Items only in Perfect Agent
     if world.options.perfect_agent:
@@ -705,11 +714,14 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         itempool.append(world.create_item("Deep Sea - Perfect Agent"))
         itempool.append(world.create_item("CI Defense - Perfect Agent"))
         itempool.append(world.create_item("Attack Ship - Perfect Agent"))
-        itempool.append(world.create_item("Skedar Ruins - Perfect Agent"))
+        # itempool.append(world.create_item("Skedar Ruins - Perfect Agent"))
         itempool.append(world.create_item("Mr. Blonde's Revenge - Perfect Agent"))
         itempool.append(world.create_item("Maian SOS - Perfect Agent"))
         itempool.append(world.create_item("WAR! - Perfect Agent"))
         itempool.append(world.create_item("The Duel - Perfect Agent"))
+
+        if (is_skedar_ruins_in_itempool(world)):
+            itempool.append(world.create_item("Skedar Ruins - Perfect Agent"))
 
 
     # Weapons
@@ -764,36 +776,11 @@ def create_all_items(world:PerfectDarkWorld) -> None:
     # Challenges
     if world.options.challenges:
         itempool.append(world.create_item("Briefcase"))
-        itempool.append(world.create_item("Challenge 1"))
-        itempool.append(world.create_item("Challenge 2"))
-        itempool.append(world.create_item("Challenge 3"))
-        itempool.append(world.create_item("Challenge 4"))
-        itempool.append(world.create_item("Challenge 5"))
-        itempool.append(world.create_item("Challenge 6"))
-        itempool.append(world.create_item("Challenge 7"))
-        itempool.append(world.create_item("Challenge 8"))
-        itempool.append(world.create_item("Challenge 9"))
-        itempool.append(world.create_item("Challenge 10"))
-        itempool.append(world.create_item("Challenge 11"))
-        itempool.append(world.create_item("Challenge 12"))
-        itempool.append(world.create_item("Challenge 13"))
-        itempool.append(world.create_item("Challenge 14"))
-        itempool.append(world.create_item("Challenge 15"))
-        itempool.append(world.create_item("Challenge 16"))
-        itempool.append(world.create_item("Challenge 17"))
-        itempool.append(world.create_item("Challenge 18"))
-        itempool.append(world.create_item("Challenge 19"))
-        itempool.append(world.create_item("Challenge 20"))
-        itempool.append(world.create_item("Challenge 21"))
-        itempool.append(world.create_item("Challenge 22"))
-        itempool.append(world.create_item("Challenge 23"))
-        itempool.append(world.create_item("Challenge 24"))
-        itempool.append(world.create_item("Challenge 25"))
-        itempool.append(world.create_item("Challenge 26"))
-        itempool.append(world.create_item("Challenge 27"))
-        itempool.append(world.create_item("Challenge 28"))
-        itempool.append(world.create_item("Challenge 29"))
-        itempool.append(world.create_item("Challenge 30"))
+
+        for x in range(1, 31):
+            challenge_name = f"Challenge {x}"
+            if (world.options.allowed_challenges.__contains__(challenge_name)):
+                itempool.append(world.create_item(challenge_name))
     
         if world.options.start_with_all_challenges:
             remove_starting_item_from_pool(world, "Challenge 1", itempool)
@@ -836,6 +823,81 @@ def create_all_items(world:PerfectDarkWorld) -> None:
             world.get_location("Complete: Skedar Ruins - Special Agent").place_locked_item(world.create_item("Victory"))
         if world.options.perfect_agent:
             world.get_location("Complete: Skedar Ruins - Perfect Agent").place_locked_item(world.create_item("Victory"))
+
+        if world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_mission_stars:
+            mission_locations = []
+
+            if world.options.agent:
+                mission_locations.append("Complete: dD Defection - Agent")
+                mission_locations.append("Complete: dD Investigation - Agent")
+                mission_locations.append("Complete: dD Extraction - Agent")
+                mission_locations.append("Complete: Carrington Villa - Agent")
+                mission_locations.append("Complete: Chicago - Agent")
+                mission_locations.append("Complete: G5 Building - Agent")
+                mission_locations.append("Complete: A51 Infiltration - Agent")
+                mission_locations.append("Complete: A51 Rescue - Agent")
+                mission_locations.append("Complete: A51 Escape - Agent")
+                mission_locations.append("Complete: Air Base - Agent")
+                mission_locations.append("Complete: Air Force One - Agent")
+                mission_locations.append("Complete: Crash Site - Agent")
+                mission_locations.append("Complete: Pelagic II - Agent")
+                mission_locations.append("Complete: Deep Sea - Agent")
+                mission_locations.append("Complete: CI Defense - Agent")
+                mission_locations.append("Complete: Attack Ship - Agent")
+                mission_locations.append("Complete: Mr. Blonde's Revenge - Agent")
+                mission_locations.append("Complete: Maian SOS - Agent")
+                mission_locations.append("Complete: WAR! - Agent")
+                mission_locations.append("Complete: The Duel - Agent")
+
+            if world.options.special_agent:
+                mission_locations.append("Complete: dD Defection - Special Agent")
+                mission_locations.append("Complete: dD Investigation - Special Agent")
+                mission_locations.append("Complete: dD Extraction - Special Agent")
+                mission_locations.append("Complete: Carrington Villa - Special Agent")
+                mission_locations.append("Complete: Chicago - Special Agent")
+                mission_locations.append("Complete: G5 Building - Special Agent")
+                mission_locations.append("Complete: A51 Infiltration - Special Agent")
+                mission_locations.append("Complete: A51 Rescue - Special Agent")
+                mission_locations.append("Complete: A51 Escape - Special Agent")
+                mission_locations.append("Complete: Air Base - Special Agent")
+                mission_locations.append("Complete: Air Force One - Special Agent")
+                mission_locations.append("Complete: Crash Site - Special Agent")
+                mission_locations.append("Complete: Pelagic II - Special Agent")
+                mission_locations.append("Complete: Deep Sea - Special Agent")
+                mission_locations.append("Complete: CI Defense - Special Agent")
+                mission_locations.append("Complete: Attack Ship - Special Agent")
+                mission_locations.append("Complete: Mr. Blonde's Revenge - Special Agent")
+                mission_locations.append("Complete: Maian SOS - Special Agent")
+                mission_locations.append("Complete: WAR! - Special Agent")
+                mission_locations.append("Complete: The Duel - Special Agent")
+
+            if world.options.perfect_agent:
+                mission_locations.append("Complete: dD Defection - Perfect Agent")
+                mission_locations.append("Complete: dD Investigation - Perfect Agent")
+                mission_locations.append("Complete: dD Extraction - Perfect Agent")
+                mission_locations.append("Complete: Carrington Villa - Perfect Agent")
+                mission_locations.append("Complete: Chicago - Perfect Agent")
+                mission_locations.append("Complete: G5 Building - Perfect Agent")
+                mission_locations.append("Complete: A51 Infiltration - Perfect Agent")
+                mission_locations.append("Complete: A51 Rescue - Perfect Agent")
+                mission_locations.append("Complete: A51 Escape - Perfect Agent")
+                mission_locations.append("Complete: Air Base - Perfect Agent")
+                mission_locations.append("Complete: Air Force One - Perfect Agent")
+                mission_locations.append("Complete: Crash Site - Perfect Agent")
+                mission_locations.append("Complete: Pelagic II - Perfect Agent")
+                mission_locations.append("Complete: Deep Sea - Perfect Agent")
+                mission_locations.append("Complete: CI Defense - Perfect Agent")
+                mission_locations.append("Complete: Attack Ship - Perfect Agent")
+                mission_locations.append("Complete: Mr. Blonde's Revenge - Perfect Agent")
+                mission_locations.append("Complete: Maian SOS - Perfect Agent")
+                mission_locations.append("Complete: WAR! - Perfect Agent")
+                mission_locations.append("Complete: The Duel - Perfect Agent")
+
+            for location in mission_locations:
+                world.get_location(location).place_locked_item(world.create_item("Mission Star"))
+
+            world.get_location("Collect All Mission Stars").place_locked_item(world.create_item("Skedar Ruins"))
+
     elif world.options.goal == Goal.option_collect_mission_stars:
         mission_locations = []
 
@@ -911,6 +973,8 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         for location in mission_locations:
             world.get_location(location).place_locked_item(world.create_item("Mission Star"))
 
+        world.get_location("Collect All Mission Stars").place_locked_item(world.create_item("Victory"))
+
     elif world.options.goal == Goal.option_collect_challenge_stars:
         if world.options.challenges:
             for x in range(1, 31):
@@ -939,7 +1003,6 @@ def create_all_items(world:PerfectDarkWorld) -> None:
             missions.append("Deep Sea - Agent")
             missions.append("CI Defense - Agent")
             missions.append("Attack Ship - Agent")
-            missions.append("Skedar Ruins - Agent")
             missions.append("Mr. Blonde's Revenge - Agent")
             missions.append("Maian SOS - Agent")
             missions.append("WAR! - Agent")
@@ -962,7 +1025,6 @@ def create_all_items(world:PerfectDarkWorld) -> None:
             missions.append("Deep Sea - Special Agent")
             missions.append("CI Defense - Special Agent")
             missions.append("Attack Ship - Special Agent")
-            missions.append("Skedar Ruins - Special Agent")
             missions.append("Mr. Blonde's Revenge - Special Agent")
             missions.append("Maian SOS - Special Agent")
             missions.append("WAR! - Special Agent")
@@ -985,13 +1047,12 @@ def create_all_items(world:PerfectDarkWorld) -> None:
             missions.append("Deep Sea - Perfect Agent")
             missions.append("CI Defense - Perfect Agent")
             missions.append("Attack Ship - Perfect Agent")
-            missions.append("Skedar Ruins - Perfect Agent")
             missions.append("Mr. Blonde's Revenge - Perfect Agent")
             missions.append("Maian SOS - Perfect Agent")
             missions.append("WAR! - Perfect Agent")
             missions.append("The Duel - Perfect Agent")
 
-        if world.options.goal == Goal.option_collect_mission_stars:
+        if (is_skedar_ruins_in_itempool(world)):
             if world.options.agent:
                 missions.append("Skedar Ruins - Agent")
             if world.options.special_agent:
@@ -1028,3 +1089,11 @@ def remove_starting_item_from_pool(world:PerfectDarkWorld, item:str, itempool:li
     world.push_precollected(world.create_item(item))
     itempool.remove(world.create_item(item))
         
+
+def is_skedar_ruins_in_itempool(world: PerfectDarkWorld) -> bool:
+    if ((world.options.goal.value == Goal.option_complete_skedar_ruins
+            and world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_item)
+            or world.options.goal.value == Goal.option_collect_mission_stars):
+        return True
+    else:
+        return False
