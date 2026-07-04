@@ -8325,9 +8325,9 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
             # Air Force One
             cheat_air_force_one_complete = world.get_location("Cheat Unlock: Complete Air Force One")
-            world.set_rule(cheat_air_force_one_complete, HasAll("Air Force One - Agent", "Laptop Gun", "Timed Mine")
-                                                         | HasAll("Air Force One - Agent", "Cyclone", "Timed Mine")
-                                                         | HasAll("Air Force One - Agent", "K7 Avenger", "Timed Mine")
+            world.set_rule(cheat_air_force_one_complete, HasAll("Air Force One - Agent", "Suitcase", "Laptop Gun", "Timed Mine")
+                                                         | HasAll("Air Force One - Agent", "Suitcase", "Cyclone", "Timed Mine")
+                                                         | HasAll("Air Force One - Agent", "Suitcase", "K7 Avenger", "Timed Mine")
                                                          | (HasAll("Air Force One - Special Agent", "Suitcase", "Laptop Gun", "Timed Mine") & HAS_AFO_LIFT_KEY)
                                                          | (HasAll("Air Force One - Special Agent", "Suitcase", "Cyclone", "Timed Mine") & HAS_AFO_LIFT_KEY)
                                                          | (HasAll("Air Force One - Special Agent", "Suitcase", "K7 Avenger", "Timed Mine") & HAS_AFO_LIFT_KEY)
