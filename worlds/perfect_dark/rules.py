@@ -313,8 +313,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                           | (HasAll("Air Force One - Agent", "Suitcase", "Cyclone", "K7 Avenger") & HAS_AFO_EXTRA_KEYS))
 
                 air_force_one_agent_obj_3 = world.get_location("Air Force One - Agent Objective 3")
-                world.set_rule(air_force_one_agent_obj_3, HasAll("Air Force One - Agent", "Laptop Gun", "Timed Mine")
-                                                          | (HasAll("Air Force One - Agent", "Cyclone", "Timed Mine") & HAS_AFO_EXTRA_KEYS))
+                world.set_rule(air_force_one_agent_obj_3, HasAll("Air Force One - Agent", "Suitcase", "Laptop Gun", "Timed Mine")
+                                                          | (HasAll("Air Force One - Agent", "Suitcase", "Cyclone", "Timed Mine") & HAS_AFO_EXTRA_KEYS))
 
                 air_force_one_agent_complete = world.get_location("Complete: Air Force One - Agent")
                 world.set_rule(air_force_one_agent_complete, HasAll("Air Force One - Agent", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine")
@@ -3774,8 +3774,8 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                       | (HasAll("Air Force One - Agent", "Suitcase", "Cyclone", "K7 Avenger") & HAS_AFO_EXTRA_KEYS))
 
             air_force_one_agent_obj_3 = world.get_location("Air Force One - Agent Objective 3")
-            world.set_rule(air_force_one_agent_obj_3, HasAll("Air Force One - Agent", "Laptop Gun", "Timed Mine")
-                                                      | (HasAll("Air Force One - Agent", "Cyclone", "Timed Mine") & HAS_AFO_EXTRA_KEYS))
+            world.set_rule(air_force_one_agent_obj_3, HasAll("Air Force One - Agent", "Suitcase", "Laptop Gun", "Timed Mine")
+                                                      | (HasAll("Air Force One - Agent", "Suitcase", "Cyclone", "Timed Mine") & HAS_AFO_EXTRA_KEYS))
 
             air_force_one_agent_complete = world.get_location("Complete: Air Force One - Agent")
             world.set_rule(air_force_one_agent_complete, HasAll("Air Force One - Agent", "Suitcase", "Laptop Gun", "K7 Avenger", "Timed Mine")
