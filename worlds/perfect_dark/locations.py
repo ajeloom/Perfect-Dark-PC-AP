@@ -10,6 +10,7 @@ if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
 from .options import Goal, SkedarRuinsRequirements
+from .items import has_challenges
 
 LOCATION_NAME_TO_ID = {
     "dD Defection - Agent Objective 1": 1,
@@ -488,7 +489,7 @@ LOCATION_NAME_TO_ID = {
     "Cheat Unlock: Get gold medals for Timed Mine, Proximity Mine, and Remote Mine": 495,
     "Cheat Unlock: Get gold medals for FarSight XR-20, Crossbow, Combat Knife, and Grenade": 496,
     "Cheat Unlock: Get gold medals for Tranquilizer, Reaper, and Devastator": 497,
-    "Collect All Mission Stars": 498,
+    "Collect All Stars": 498,
 }
 
 class PerfectDarkLocation(Location):
@@ -1199,22 +1200,22 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
 
     if ((world.options.goal.value == Goal.option_complete_skedar_ruins
-            and world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_mission_stars)
-            or world.options.goal.value == Goal.option_collect_mission_stars):
+            and world.options.skedar_ruins_requirements.value >= SkedarRuinsRequirements.option_collect_mission_stars)
+            or world.options.goal.value >= Goal.option_complete_missions):
         mission_stars = get_location_names_with_ids(
             [
-                "Collect All Mission Stars"
+                "Collect All Stars"
             ]
         )
         carrington_institute.add_locations(mission_stars, PerfectDarkLocation)
 
 
-    if world.options.challenges:
+    if has_challenges(world):
         challenges = []
         
         for x in range(1, 31):
             challenge_name = f"Challenge {x}"
-            if (world.options.allowed_challenges.__contains__(challenge_name)):
+            if (world.options.excluded_challenges.__contains__(challenge_name) == False):
                 challenge_location = f"Complete: Challenge {x}"
                 challenges.append(challenge_location)
 

@@ -47,6 +47,7 @@ class PerfectDarkWorld(World):
         slot_data = {
             "options": {
                 "goal": self.options.goal.value,
+                "skedar_ruins_requirements": self.options.skedar_ruins_requirements.value,
                 "required_mission_stars": required_mission_stars,
                 "weapon_progression": self.options.weapon_progression.value,
                 "allow_progressive_weapon_in_challenges": self.options.allow_progressive_weapon_in_challenges.value,

@@ -4,17 +4,20 @@ from Options import Choice, OptionGroup, PerGameCommonOptions, Range, Toggle, Op
 
 class Goal(Choice):
     """
-    Sets the goal in order to beat the game. 
+    Sets the goal in order to beat the game.
 
     - Complete Skedar Ruins: Finish the game with Skedar Ruins.
-    - Complete # of Missions: Complete a set number of missions.
+    - Complete Missions: Complete a set number of missions.
+    - Complete Challenges: Complete a set number of challenges.
+    - Complete Both: Complete a set number of missions and challenges.
     """
 
     display_name = "Goal"
 
     option_complete_skedar_ruins = 0
-    option_collect_mission_stars = 1
-    option_collect_challenge_stars = 2
+    option_complete_missions = 1
+    option_complete_challenges = 2
+    option_complete_both = 3
 
     default = option_complete_skedar_ruins
 
@@ -26,13 +29,16 @@ class SkedarRuinsRequirements(Choice):
 
     - Item: You can get Skedar Ruins as an item which could make the run shorter.
     - Collect Mission Stars: Unlocks after you collect enough mission stars.
+    - Collect Challenge Stars: Unlocks after you collect enough challenge stars.
+    - Collect Both Stars: Unlocks after you collect enough mission and challenge stars.
     """
 
     display_name = "Skedar Ruins Requirements"
 
     option_item = 0
     option_collect_mission_stars = 1
-
+    option_collect_challenge_stars = 2
+    option_collect_both_stars = 3
     default = option_collect_mission_stars
 
 
@@ -170,7 +176,7 @@ class WeaponProgression(Choice):
         the current progressive weapon in your inventory at the start of a mission. 
         You are given infinite ammo and a laser on some missions to prevent softlocks. 
         In missions, other weapons cannot be picked up except for the ones required for some objectives. 
-        In challenges, you are allowed to pick up other weapons. 
+        In challenges, you are allowed to pick up other weapons.
         Only recommended for people who are looking for a challenging run.
 
     - Progressive Types:
@@ -231,18 +237,36 @@ class Challenges(Toggle):
     Adds the combat simulator challenges as checks.
     Each challenge is an item you need to find in order to play it.
     Only recommend enabling this if you can handle the harder challenges.
-    If goal is set to collect challenge stars, then make sure this option is enabled.
+    If challenge stars are part of the goal, then this option is automatically enabled.
     """
 
     display_name = "Challenges"
 
 
-class AllowedChallenges(OptionSet):
+class RequiredChallengeStars(Range):
     """
-    Sets which challenges you have to do.
+    Sets the required amount of challenge stars to beat the game.
+    This option only matters if you are required to collect challenge stars for the goal.
+
+    If you exclude any challenges and set the required amount of challenge stars to more
+    than you can do, then it will automatically set the number to the most you can do.
     """
-    display_name = "Allowed Challenges"
-    valid_keys = [
+
+    display_name = "Required Challenge Stars"
+
+    range_start = 1
+    range_end = 30
+    default = 15
+
+
+class ExcludedChallenges(OptionSet):
+    """
+    Sets which challenges will not have a check. 
+    Valid challenges are Challenge 1 through Challenge 30.
+    Ex: ['Challenge 1', 'Challenge 5', 'Challenge 26']
+    """
+    display_name = "Excluded Challenges"
+    valid_keys = frozenset({
         "Challenge 1",
         "Challenge 2",
         "Challenge 3",
@@ -272,15 +296,9 @@ class AllowedChallenges(OptionSet):
         "Challenge 27",
         "Challenge 28",
         "Challenge 29",
-        "Challenge 30",
-    ]
-    default = valid_keys.copy()
-
-
-
-    range_start = 1
-    range_end = 30
-    default = 15
+        "Challenge 30"
+    })
+    default = frozenset({})
 
 
 class ChallengeLogic(Choice):
@@ -314,11 +332,13 @@ class ShorterChallenges(Toggle):
 
     display_name = "Shorter Challenges"
 
+    default = True
+
 
 class StartWithAllChallenges(Toggle):
     """
     Start with all combat simulator challenges in your inventory.
-    This option will only work if challenges are enabled. 
+    This option will only work if challenges are enabled.
     Recommend enabling this if there are not enough locations in your multiworld.
     """
 
@@ -391,8 +411,9 @@ class PerfectDarkOptions(PerGameCommonOptions):
     start_with_weapon: StartWithWeapon
     master_key: MasterKey
     challenges: Challenges
+    required_challenge_stars: RequiredChallengeStars
     challenge_logic: ChallengeLogic
-    allowed_challenges: AllowedChallenges
+    excluded_challenges: ExcludedChallenges
     shorter_challenges: ShorterChallenges
     start_with_all_challenges: StartWithAllChallenges
     weapon_training: WeaponTraining
@@ -421,8 +442,9 @@ option_groups = [
             StartWithWeapon,
             MasterKey,
             Challenges,
-            ChallengeLogic,
             RequiredChallengeStars,
+            ChallengeLogic,
+            ExcludedChallenges,
             ShorterChallenges,
             StartWithAllChallenges,
             WeaponTraining,
@@ -451,8 +473,8 @@ option_presets = {
         "start_with_weapon": True,
         "master_key": False,
         "challenges": False,
-        "challenge_logic": ChallengeLogic.option_normal,
         "required_challenge_stars": 15,
+        "challenge_logic": ChallengeLogic.option_normal,
         "shorter_challenges": False,
         "start_with_all_challenges": False,
         "weapon_training": False,
@@ -477,8 +499,8 @@ option_presets = {
         "start_with_weapon": True,
         "master_key": False,
         "challenges": True,
-        "challenge_logic": ChallengeLogic.option_hard,
         "required_challenge_stars": 30,
+        "challenge_logic": ChallengeLogic.option_hard,
         "shorter_challenges": False,
         "start_with_all_challenges": False,
         "weapon_training": True,

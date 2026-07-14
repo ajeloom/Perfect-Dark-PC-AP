@@ -9,6 +9,7 @@ if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
 from .options import Goal, SkedarRuinsRequirements, MissionLogic, WeaponProgression, ChallengeLogic
+from .items import has_challenges
 
 HAS_DD_KEYS = Has("De Vries' Necklace") | Has("dataDyne Master Key")
 HAS_G5_KEYS = HasAll("G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card") | Has("G5 Building Master Key")
@@ -206,11 +207,28 @@ def set_all_rules(world: PerfectDarkWorld) -> None:
  
     if ((world.options.goal.value == Goal.option_complete_skedar_ruins
             and world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_mission_stars)
-            or world.options.goal.value == Goal.option_collect_mission_stars):
+            or world.options.goal.value == Goal.option_complete_missions):
         required_mission_stars = get_mission_stars(world)
 
-        mission_stars = world.get_location("Collect All Mission Stars")
-        world.set_rule(mission_stars, Has("Mission Star", count=required_mission_stars))
+        collect_stars = world.get_location("Collect All Stars")
+        world.set_rule(collect_stars, Has("Mission Star", count=required_mission_stars))
+    
+    elif ((world.options.goal.value == Goal.option_complete_skedar_ruins
+            and world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_challenge_stars)
+            or world.options.goal.value == Goal.option_complete_challenges):
+        required_challenge_stars = get_challenge_stars(world)
+
+        collect_stars = world.get_location("Collect All Stars")
+        world.set_rule(collect_stars, Has("Challenge Star", count=required_challenge_stars))
+
+    elif ((world.options.goal.value == Goal.option_complete_skedar_ruins
+            and world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_both_stars)
+            or world.options.goal.value == Goal.option_complete_both):
+        required_mission_stars = get_mission_stars(world)
+        required_challenge_stars = get_challenge_stars(world)
+
+        collect_stars = world.get_location("Collect All Stars")
+        world.set_rule(collect_stars, Has("Mission Star", count=required_mission_stars) & Has("Challenge Star", count=required_challenge_stars))
 
     set_all_extra_location_rules(world)
     set_completion_condition(world)
@@ -15130,7 +15148,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
 
 
-def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:                      
+def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
     if (world.options.weapon_progression.value == WeaponProgression.option_normal
             or world.options.weapon_progression.value == WeaponProgression.option_all_guns):
         if world.options.unlock_cheats & world.options.weapon_training:
@@ -15158,7 +15176,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
             cheat_rcp45 = world.get_location("Cheat Unlock: Get gold medals for Tranquilizer, Reaper, and Devastator")
             world.set_rule(cheat_rcp45, HasAll("Tranquilizer", "Reaper", "Devastator"))
 
-        if world.options.challenges:
+        if has_challenges(world):
             if world.options.challenge_logic.value == ChallengeLogic.option_strict:
                 challenge_rules = {
                     "Challenge 1": HasAll("Challenge 1", "Falcon 2", "CMP150", "Sniper Rifle", "DY357 Magnum", "Dragon"),
@@ -15591,7 +15609,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
             cheat_rcp45 = world.get_location("Cheat Unlock: Get gold medals for Tranquilizer, Reaper, & Devastator")
             world.set_rule(cheat_rcp45, Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
 
-        if world.options.challenges:
+        if has_challenges(world):
             if world.options.challenge_logic.value == ChallengeLogic.option_strict:
                 challenge_rules = {
                     "Challenge 1": Has("Challenge 1") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]),
@@ -16026,7 +16044,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
             world.set_rule(cheat_rcp45, Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"])
                                         & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]))
 
-        if world.options.challenges:
+        if has_challenges(world):
             if world.options.challenge_logic.value == ChallengeLogic.option_strict:
                 challenge_rules = {
                     "Challenge 1": Has("Challenge 1") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
@@ -16364,11 +16382,114 @@ def set_completion_condition(world: PerfectDarkWorld) -> None:
                                               & HAS_ANY_WEAPON_TYPE
                                               & Has("Mission Star", count=required_mission_stars))
 
+        elif world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_challenge_stars:
+            required_challenge_stars = get_challenge_stars(world)
+            world.set_completion_rule(Has("Challenge Star", count=required_challenge_stars))
+
+            if world.options.weapon_progression.value == WeaponProgression.option_normal:
+                world.set_completion_rule(HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "R-Tracker", "Target Amplifier", "IR Scanner")
+                                          & Has("Challenge Star", count=required_challenge_stars))
+
+            elif world.options.weapon_progression.value == WeaponProgression.option_all_guns:
+                if world.options.special_agent or world.options.perfect_agent:
+                    world.set_completion_rule(HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") 
+                                              & HasAny(*EXPLOSIVE_LIST) 
+                                              & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2)
+                                              & Has("Challenge Star", count=required_challenge_stars))
+                else:
+                    # Agent
+                    world.set_completion_rule(HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & HasAny(*EXPLOSIVE_LIST) 
+                                              & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2)
+                                              & Has("Challenge Star", count=required_challenge_stars))
+
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon:
+                world.set_completion_rule((HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])) 
+                                          | (HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                          & Has("Challenge Star", count=required_challenge_stars))
+
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
+                world.set_completion_rule(HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
+                                          & Has("Challenge Star", count=required_challenge_stars))
+
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+                if world.options.special_agent or world.options.perfect_agent:
+                    world.set_completion_rule(HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) 
+                                              & HAS_ANY_WEAPON_TYPE
+                                              & Has("Challenge Star", count=required_challenge_stars))
+                else:
+                    # Agent
+                    world.set_completion_rule(HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) 
+                                              & HAS_ANY_WEAPON_TYPE
+                                              & Has("Challenge Star", count=required_challenge_stars))
+                    
+        elif world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_both_stars:
+            required_mission_stars = get_mission_stars(world)
+            required_challenge_stars = get_challenge_stars(world)
+            world.set_completion_rule(Has("Mission Star", count=required_mission_stars) & Has("Challenge Star", count=required_challenge_stars))
+
+            if world.options.weapon_progression.value == WeaponProgression.option_normal:
+                world.set_completion_rule(HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "R-Tracker", "Target Amplifier", "IR Scanner")
+                                          & Has("Mission Star", count=required_mission_stars)
+                                          & Has("Challenge Star", count=required_challenge_stars))
+
+            elif world.options.weapon_progression.value == WeaponProgression.option_all_guns:
+                if world.options.special_agent or world.options.perfect_agent:
+                    world.set_completion_rule(HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") 
+                                              & HasAny(*EXPLOSIVE_LIST) 
+                                              & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2)
+                                              & Has("Mission Star", count=required_mission_stars)
+                                              & Has("Challenge Star", count=required_challenge_stars))
+                else:
+                    # Agent
+                    world.set_completion_rule(HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & HasAny(*EXPLOSIVE_LIST) 
+                                              & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2)
+                                              & Has("Mission Star", count=required_mission_stars)
+                                              & Has("Challenge Star", count=required_challenge_stars))
+
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon:
+                world.set_completion_rule((HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])) 
+                                          | (HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                          & Has("Mission Star", count=required_mission_stars)
+                                          & Has("Challenge Star", count=required_challenge_stars))
+
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
+                world.set_completion_rule(HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
+                                          & Has("Mission Star", count=required_mission_stars)
+                                          & Has("Challenge Star", count=required_challenge_stars))
+
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+                if world.options.special_agent or world.options.perfect_agent:
+                    world.set_completion_rule(HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) 
+                                              & HAS_ANY_WEAPON_TYPE
+                                              & Has("Mission Star", count=required_mission_stars)
+                                              & Has("Challenge Star", count=required_challenge_stars))
+                else:
+                    # Agent
+                    world.set_completion_rule(HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) 
+                                              & HAS_ANY_WEAPON_TYPE
+                                              & Has("Mission Star", count=required_mission_stars)
+                                              & Has("Challenge Star", count=required_challenge_stars))
+
+    elif world.options.goal.value == Goal.option_complete_missions:
         required_mission_stars = get_mission_stars(world)
         world.set_completion_rule(Has("Mission Star", count=required_mission_stars))
 
-    # elif world.options.goal.value == Goal.option_collect_challenge_stars:
-    #     world.set_completion_rule(Has("Challenge Star", count=world.options.required_challenge_stars.value))
+    elif world.options.goal.value == Goal.option_complete_challenges:
+        required_challenge_stars = get_challenge_stars(world)
+        world.set_completion_rule(Has("Challenge Star", count=required_challenge_stars))
+
+    elif world.options.goal.value == Goal.option_complete_both:
+        required_mission_stars = get_mission_stars(world)
+        required_challenge_stars = get_challenge_stars(world)
+        world.set_completion_rule(Has("Mission Star", count=required_mission_stars) & Has("Challenge Star", count=required_challenge_stars))
 
 
 def get_mission_stars(world: PerfectDarkWorld) -> int:
@@ -16396,6 +16517,18 @@ def get_mission_stars(world: PerfectDarkWorld) -> int:
     return required_mission_stars
 
 
+def get_challenge_stars(world: PerfectDarkWorld) -> int:
+    required_challenge_stars = 0
+    number_of_challenges = 30 - len(world.options.excluded_challenges.value)
+
+    if (world.options.required_challenge_stars.value > number_of_challenges):
+        required_challenge_stars = number_of_challenges
+    else:
+        required_challenge_stars = world.options.required_challenge_stars.value
+
+    return required_challenge_stars
+
+
 def add_rule(world: PerfectDarkWorld, rules: dict) -> None:
     for location, rule in rules.items():
         location_name = world.get_location(location)
@@ -16405,7 +16538,7 @@ def add_rule(world: PerfectDarkWorld, rules: dict) -> None:
 
 def add_challenge_rules(world: PerfectDarkWorld, challenge_rules: dict) -> None:
     for challenge, rule in challenge_rules.items():
-        if challenge in world.options.allowed_challenges:
+        if challenge not in world.options.excluded_challenges:
             challenge_location = world.get_location(f"Complete: {challenge}")
             world.set_rule(challenge_location, rule)
 
