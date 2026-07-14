@@ -172,6 +172,12 @@ class WeaponProgression(Choice):
         In missions, other weapons cannot be picked up except for the ones required for some objectives. 
         In challenges, you are allowed to pick up other weapons. 
         Only recommended for people who are looking for a challenging run.
+
+    - Progressive Types:
+        This splits the progressive weapon into five types
+        which are Pistols, SMGs, Rifles, Explosives, and Other.
+        Your inventory will only be filled with the current
+        progressive weapon for each type at the start of a mission.
     """
 
     display_name = "Weapon Progression"
@@ -180,6 +186,7 @@ class WeaponProgression(Choice):
     option_all_guns = 1
     option_progressive_weapon = 2
     option_progressive_one_gun = 3
+    option_progressive_types = 4
 
     default = option_normal
 

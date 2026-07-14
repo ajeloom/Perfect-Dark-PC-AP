@@ -250,6 +250,11 @@ ITEM_NAME_TO_ID = {
     "Challenge Star": 238,
     "Skedar Ruins": 239,
     "Victory": 240,
+    "Progressive Pistol": 241,
+    "Progressive SMG": 242,
+    "Progressive Rifle": 243,
+    "Progressive Explosive": 244,
+    "Progressive Other Weapon": 245,
 }
 
 
@@ -494,6 +499,11 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Challenge Star": ItemClassification.progression | ItemClassification.useful,
     "Skedar Ruins": ItemClassification.progression | ItemClassification.useful,
     "Victory": ItemClassification.progression | ItemClassification.useful,
+    "Progressive Pistol": ItemClassification.progression | ItemClassification.useful,
+    "Progressive SMG": ItemClassification.progression | ItemClassification.useful,
+    "Progressive Rifle": ItemClassification.progression | ItemClassification.useful,
+    "Progressive Explosive": ItemClassification.progression | ItemClassification.useful,
+    "Progressive Other Weapon": ItemClassification.progression | ItemClassification.useful,
 }
 
 
@@ -784,6 +794,17 @@ def create_all_items(world:PerfectDarkWorld) -> None:
 
         for x in range(42):
             itempool.append(world.create_item("Progressive Weapon"))
+    elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+        for x in range(10):
+            itempool.append(world.create_item("Progressive Pistol"))
+        for x in range(9):
+            itempool.append(world.create_item("Progressive SMG"))
+        for x in range(6):
+            itempool.append(world.create_item("Progressive Rifle"))
+        for x in range(8):
+            itempool.append(world.create_item("Progressive Explosive"))
+        for x in range(9):
+            itempool.append(world.create_item("Progressive Other Weapon"))
 
 
     # Challenges

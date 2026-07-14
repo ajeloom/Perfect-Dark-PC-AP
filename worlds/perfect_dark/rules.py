@@ -133,6 +133,66 @@ PROGRESSIVE_WEAPON_NAME_TO_ID = {
     "FarSight XR-20": 42,
 }
 
+PROGRESSIVE_PISTOL_NAME_TO_ID = {
+    "CC13": 1,
+    "Falcon 2": 2,
+    "Falcon 2 (Silencer)": 3,
+    "Falcon 2 (Scope)": 4,
+    "PP9i": 5,
+    "MagSec 4": 6,
+    "DY357 Magnum": 7,
+    "Mauler": 8,
+    "Phoenix": 9,
+    "DY357-LX": 10,
+}
+
+PROGRESSIVE_SMG_NAME_TO_ID = {
+    "KL01313": 1,
+    "DMC": 2,
+    "ZZT (9mm)": 3,
+    "CMP150": 4,
+    "Cyclone": 5,
+    "Laptop Gun": 6,
+    "Callisto NTG": 7,
+    "RC-P45": 8,
+    "RC-P120": 9,
+}
+
+PROGRESSIVE_RIFLE_NAME_TO_ID = {
+    "KF7 Special": 1,
+    "Dragon": 2,
+    "AR34": 3,
+    "K7 Avenger": 4,
+    "AR53": 5,
+    "SuperDragon": 6,
+}
+
+PROGRESSIVE_EXPLOSIVE_NAME_TO_ID = {
+    "Timed Mine": 1,
+    "Proximity Mine": 2,
+    "Grenade": 3,
+    "Slayer": 4,
+    "Remote Mine": 5,
+    "N-Bomb": 6,
+    "Rocket Launcher": 7,
+    "Devastator": 8,
+}
+
+PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID = {
+    "Combat Knife": 1,
+    "Psychosis Gun": 2,
+    "Tranquilizer": 3,
+    "Laser": 4,
+    "Crossbow": 5,
+    "Sniper Rifle": 6,
+    "Shotgun": 7,
+    "Reaper": 8,
+    "FarSight XR-20": 9,
+}
+
+weapon_types = ("Progressive Pistol", "Progressive SMG", "Progressive Rifle", "Progressive Explosive")
+HAS_ANY_WEAPON_TYPE = (Has("Progressive Other Weapon", count=4) & HasFromList(*weapon_types, count=1)) | (HasFromList(*weapon_types, count=2))
+
 def set_all_rules(world: PerfectDarkWorld) -> None:
     set_all_entrance_rules(world)
 
@@ -4837,6 +4897,1169 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                     world.set_rule(cheat_skedar_ruins_timed_complete, HAS_SKEDAR_RUINS_PF_AGENT & HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner")
                                                                       & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
 
+    elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+        if world.options.mission_logic.value == MissionLogic.option_normal:
+            agent_rules = {
+                # Stage 1 - Defection
+                "dD Defection - Agent Objective 1": Has("dD Defection - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Defection - Agent": Has("dD Defection - Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 2 - Investigation
+                "dD Investigation - Agent Objective 1": HasAll("dD Investigation - Agent", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Agent Objective 2": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Investigation - Agent": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 3 - Extraction
+                "dD Extraction - Agent Objective 1": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Agent Objective 2": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Agent Objective 3": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Extraction - Agent": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 4 - Carrington Villa
+                "Carrington Villa - Agent Objective 1": Has("Carrington Villa - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Agent Objective 2": Has("Carrington Villa - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Agent Objective 3": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Carrington Villa - Agent": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 5 - Chicago
+                "Chicago - Agent Objective 1": HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Agent Objective 2": HasAll("Chicago - Agent", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Agent Objective 3": HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Chicago - Agent": HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 6 - G5 Building
+                "G5 Building - Agent Objective 1": HasAll("G5 Building - Agent", "CamSpy") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Agent Objective 2": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Agent Objective 3": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: G5 Building - Agent": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 7 - A51 Infiltration
+                "A51 Infiltration - Agent Objective 1": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Agent Objective 2": HasAll("A51 Infiltration - Agent") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Agent Objective 3": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Infiltration - Agent": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 8 - A51 Rescue
+                "A51 Rescue - Agent Objective 1": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Agent Objective 2": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Agent Objective 3": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Rescue - Agent": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 9 - A51 Escape
+                "A51 Escape - Agent Objective 1": Has("A51 Escape - Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Agent Objective 2": Has("A51 Escape - Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Agent Objective 3": HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Escape - Agent": HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 10 - Air Base
+                "Air Base - Agent Objective 1": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise"),
+                "Air Base - Agent Objective 2": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise"),
+                "Air Base - Agent Objective 3": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Air Base - Agent": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 11 - Air Force One
+                "Air Force One - Agent Objective 1": HasAll("Air Force One - Agent", "Suitcase"),
+                "Air Force One - Agent Objective 2": HasAll("Air Force One - Agent", "Suitcase") & HAS_ANY_WEAPON_TYPE,
+                "Air Force One - Agent Objective 3": HasAll("Air Force One - Agent", "Suitcase") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Air Force One - Agent": HasAll("Air Force One - Agent", "Suitcase") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 12 - Crash Site
+                "Crash Site - Agent Objective 1": Has("Crash Site - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Agent Objective 2": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Agent Objective 3": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Crash Site - Agent": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 13 - Pelagic II
+                "Pelagic II - Agent Objective 1": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Agent Objective 2": Has("Pelagic II - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Agent Objective 3": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Pelagic II - Agent": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 14 - Deep Sea
+                "Deep Sea - Agent Objective 1": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Agent Objective 2": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Agent Objective 3": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Deep Sea - Agent": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 15 - Carrington Institute Defense
+                "CI Defense - Agent Objective 1": Has("CI Defense - Agent") & HAS_ANY_WEAPON_TYPE,
+                "CI Defense - Agent Objective 2": Has("CI Defense - Agent") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+                "CI Defense - Agent Objective 3": HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: CI Defense - Agent": HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 16 - Attack Ship
+                "Attack Ship - Agent Objective 1": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Agent Objective 2": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Agent Objective 3": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Attack Ship - Agent": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 17 - Skedar Ruins
+                "Skedar Ruins - Agent Objective 1": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier") & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Agent Objective 2": HAS_SKEDAR_RUINS_AGENT & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT & Has("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 18 - Mr. Blonde's Revenge
+                "Mr. Blonde's Revenge - Agent Objective 1": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Mr. Blonde's Revenge - Agent": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 19 - Maian SOS
+                "Maian SOS - Agent Objective 1": Has("Maian SOS - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Maian SOS - Agent": Has("Maian SOS - Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 20 - WAR!
+                "WAR! - Agent Objective 1": Has("WAR! - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: WAR! - Agent": Has("WAR! - Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 21 - The Duel
+                "The Duel - Agent Objective 1": Has("The Duel - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: The Duel - Agent": Has("The Duel - Agent") & HAS_ANY_WEAPON_TYPE,
+            }
+
+            special_agent_rules = {
+                # Stage 1 - Defection
+                "dD Defection - Special Agent Objective 1": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Special Agent Objective 2": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Special Agent Objective 3": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Special Agent Objective 4": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Defection - Special Agent": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 2 - Investigation
+                "dD Investigation - Special Agent Objective 1": HasAll("dD Investigation - Special Agent", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Special Agent Objective 2": Has("dD Investigation - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Special Agent Objective 3": Has("dD Investigation - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Special Agent Objective 4": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Investigation - Special Agent": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 3 - Extraction
+                "dD Extraction - Special Agent Objective 1": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Special Agent Objective 2": HasAll("dD Extraction - Special Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Special Agent Objective 3": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Special Agent Objective 4": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Extraction - Special Agent": HasAll("dD Extraction - Special Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 4 - Carrington Villa
+                "Carrington Villa - Special Agent Objective 1": Has("Carrington Villa - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Special Agent Objective 2": Has("Carrington Villa - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Special Agent Objective 3": Has("Carrington Villa - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Special Agent Objective 4": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Carrington Villa - Special Agent": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 5 - Chicago
+                "Chicago - Special Agent Objective 1": HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Special Agent Objective 2": Has("Chicago - Special Agent") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Special Agent Objective 3": HasAll("Chicago - Special Agent", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Special Agent Objective 4": HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Chicago - Special Agent": HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 6 - G5 Building
+                "G5 Building - Special Agent Objective 1": Has("G5 Building - Special Agent") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Special Agent Objective 2": HasAll("G5 Building - Special Agent", "CamSpy") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Special Agent Objective 3": HasAll("G5 Building - Special Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Special Agent Objective 4": Has("G5 Building - Special Agent") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: G5 Building - Special Agent": HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 7 - A51 Infiltration
+                "A51 Infiltration - Special Agent Objective 1": HasAll("A51 Infiltration - Special Agent", "Explosives") & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Special Agent Objective 2": HasAll("A51 Infiltration - Special Agent", "Comms Rider") & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Special Agent Objective 3": HasAll("A51 Infiltration - Special Agent") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Special Agent Objective 4": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Infiltration - Special Agent": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 8 - A51 Rescue
+                "A51 Rescue - Special Agent Objective 1": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Special Agent Objective 2": HasAll("A51 Rescue - Special Agent", "Lab Clothes") & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Special Agent Objective 3": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Special Agent Objective 4": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Rescue - Special Agent": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 9 - A51 Escape
+                "A51 Escape - Special Agent Objective 1": Has("A51 Escape - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Special Agent Objective 2": Has("A51 Escape - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Special Agent Objective 3": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Special Agent Objective 4": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Escape - Special Agent": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 10 - Air Base
+                "Air Base - Special Agent Objective 1": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"),
+                "Air Base - Special Agent Objective 2": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"),
+                "Air Base - Special Agent Objective 3": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"),
+                "Air Base - Special Agent Objective 4": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                "Complete: Air Base - Special Agent": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+
+                # Stage 11 - Air Force One
+                "Air Force One - Special Agent Objective 1": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Special Agent Objective 2": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Special Agent Objective 3": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HAS_ANY_WEAPON_TYPE,
+                "Air Force One - Special Agent Objective 4": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Air Force One - Special Agent": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 12 - Crash Site
+                "Crash Site - Special Agent Objective 1": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Special Agent Objective 2": Has("Crash Site - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Special Agent Objective 3": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Special Agent Objective 4": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Crash Site - Special Agent": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 13 - Pelagic II
+                "Pelagic II - Special Agent Objective 1": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Special Agent Objective 2": Has("Pelagic II - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Special Agent Objective 3": Has("Pelagic II - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Special Agent Objective 4": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Pelagic II - Special Agent": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 14 - Deep Sea
+                "Deep Sea - Special Agent Objective 1": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Special Agent Objective 2": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Special Agent Objective 3": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Special Agent Objective 4": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Deep Sea - Special Agent": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 15 - Carrington Institute Defense
+                "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+                "CI Defense - Special Agent Objective 2": Has("CI Defense - Special Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+                "CI Defense - Special Agent Objective 3": Has("CI Defense - Special Agent") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+                "CI Defense - Special Agent Objective 4": HasAll("CI Defense - Special Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+                "Complete: CI Defense - Special Agent": HasAll("CI Defense - Special Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+
+                # Stage 16 - Attack Ship
+                "Attack Ship - Special Agent Objective 1": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Special Agent Objective 2": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Special Agent Objective 3": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Special Agent Objective 4": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Attack Ship - Special Agent": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 17 - Skedar Ruins
+                "Skedar Ruins - Special Agent Objective 1": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier") & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Special Agent Objective 2": HAS_SKEDAR_RUINS_SP_AGENT & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 18 - Mr. Blonde's Revenge
+                "Mr. Blonde's Revenge - Special Agent Objective 1": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+                "Mr. Blonde's Revenge - Special Agent Objective 2": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Mr. Blonde's Revenge - Special Agent": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 19 - Maian SOS
+                "Maian SOS - Special Agent Objective 1": Has("Maian SOS - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Maian SOS - Special Agent Objective 2": Has("Maian SOS - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Maian SOS - Special Agent": Has("Maian SOS - Special Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 20 - WAR!
+                "WAR! - Special Agent Objective 1": Has("WAR! - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "WAR! - Special Agent Objective 2": Has("WAR! - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: WAR! - Special Agent": Has("WAR! - Special Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 21 - The Duel
+                "The Duel - Special Agent Objective 1": Has("The Duel - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "The Duel - Special Agent Objective 2": Has("The Duel - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: The Duel - Special Agent": Has("The Duel - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            }
+
+            perfect_agent_rules = {
+                # Stage 1 - Defection
+                "dD Defection - Perfect Agent Objective 1": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Perfect Agent Objective 2": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Perfect Agent Objective 3": HasAll("dD Defection - Perfect Agent", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Perfect Agent Objective 4": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Perfect Agent Objective 5": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Defection - Perfect Agent": HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 2 - Investigation
+                "dD Investigation - Perfect Agent Objective 1": HasAll("dD Investigation - Perfect Agent", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Perfect Agent Objective 2": Has("dD Investigation - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Perfect Agent Objective 3": Has("dD Investigation - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Perfect Agent Objective 4": HasAll("dD Investigation - Perfect Agent", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Perfect Agent Objective 5": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Investigation - Perfect Agent": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 3 - Extraction
+                "dD Extraction - Perfect Agent Objective 1": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Perfect Agent Objective 2": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Perfect Agent Objective 3": HasAll("dD Extraction - Perfect Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Perfect Agent Objective 4": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Perfect Agent Objective 5": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Extraction - Perfect Agent": HasAll("dD Extraction - Perfect Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 4 - Carrington Villa
+                "Carrington Villa - Perfect Agent Objective 1": Has("Carrington Villa - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Perfect Agent Objective 2": Has("Carrington Villa - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Perfect Agent Objective 3": Has("Carrington Villa - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Perfect Agent Objective 4": Has("Carrington Villa - Perfect Agent"),
+                "Carrington Villa - Perfect Agent Objective 5": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Carrington Villa - Perfect Agent": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 5 - Chicago
+                "Chicago - Perfect Agent Objective 1": HasAll("Chicago - Perfect Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Perfect Agent Objective 2": HasAll("Chicago - Perfect Agent", "Tracer Bug") & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Perfect Agent Objective 3": Has("Chicago - Perfect Agent") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Perfect Agent Objective 4": HasAll("Chicago - Perfect Agent", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Perfect Agent Objective 5": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Chicago - Perfect Agent": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 6 - G5 Building
+                "G5 Building - Perfect Agent Objective 1": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Perfect Agent Objective 2": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Perfect Agent Objective 3": HasAll("G5 Building - Perfect Agent", "CamSpy") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Perfect Agent Objective 4": HasAll("G5 Building - Perfect Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Perfect Agent Objective 5": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: G5 Building - Perfect Agent": HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 7 - A51 Infiltration
+                "A51 Infiltration - Perfect Agent Objective 1": HasAll("A51 Infiltration - Perfect Agent", "Explosives") & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Perfect Agent Objective 2": HasAll("A51 Infiltration - Perfect Agent", "Comms Rider") & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Perfect Agent Objective 3": Has("A51 Infiltration - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Perfect Agent Objective 4": Has("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Perfect Agent Objective 5": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Infiltration - Perfect Agent": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 8 - A51 Rescue
+                "A51 Rescue - Perfect Agent Objective 1": HasAll("A51 Rescue - Perfect Agent", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Perfect Agent Objective 2": HasAll("A51 Rescue - Perfect Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Perfect Agent Objective 3": HasAll("A51 Rescue - Perfect Agent", "Lab Clothes") & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Perfect Agent Objective 4": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Perfect Agent Objective 5": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Rescue - Perfect Agent": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 9 - A51 Escape
+                "A51 Escape - Perfect Agent Objective 1": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Perfect Agent Objective 2": Has("A51 Escape - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Perfect Agent Objective 3": Has("A51 Escape - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Perfect Agent Objective 4": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Perfect Agent Objective 5": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Escape - Perfect Agent": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 10 - Air Base
+                "Air Base - Perfect Agent Objective 1": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise"),
+                "Air Base - Perfect Agent Objective 2": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase"),
+                "Air Base - Perfect Agent Objective 3": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise"),
+                "Air Base - Perfect Agent Objective 4": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                "Air Base - Perfect Agent Objective 5": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                "Complete: Air Base - Perfect Agent": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+
+                # Stage 11 - Air Force One
+                "Air Force One - Perfect Agent Objective 1": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Perfect Agent Objective 2": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Perfect Agent Objective 3": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HAS_ANY_WEAPON_TYPE,
+                "Air Force One - Perfect Agent Objective 4": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Air Force One - Perfect Agent Objective 5": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Air Force One - Perfect Agent": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 12 - Crash Site
+                "Crash Site - Perfect Agent Objective 1": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Perfect Agent Objective 2": Has("Crash Site - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Perfect Agent Objective 3": Has("Crash Site - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Perfect Agent Objective 4": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Perfect Agent Objective 5": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Crash Site - Perfect Agent": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 13 - Pelagic II
+                "Pelagic II - Perfect Agent Objective 1": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Perfect Agent Objective 2": HasAll("Pelagic II - Perfect Agent", "Research Tape") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Perfect Agent Objective 3": Has("Pelagic II - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Perfect Agent Objective 4": Has("Pelagic II - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Perfect Agent Objective 5": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Pelagic II - Perfect Agent": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 14 - Deep Sea
+                "Deep Sea - Perfect Agent Objective 1": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Perfect Agent Objective 2": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Perfect Agent Objective 3": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Perfect Agent Objective 4": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Perfect Agent Objective 5": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Deep Sea - Perfect Agent": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 15 - Carrington Institute Defense
+                "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+                "CI Defense - Perfect Agent Objective 2": Has("CI Defense - Perfect Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+                "CI Defense - Perfect Agent Objective 3": Has("CI Defense - Perfect Agent") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+                "CI Defense - Perfect Agent Objective 4": Has("CI Defense - Perfect Agent") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]) & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]),
+                "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]) & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]),
+                "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]) & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]),
+
+                # Stage 16 - Attack Ship
+                "Attack Ship - Perfect Agent Objective 1": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Perfect Agent Objective 2": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Perfect Agent Objective 3": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Perfect Agent Objective 4": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Perfect Agent Objective 5": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Attack Ship - Perfect Agent": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 17 - Skedar Ruins
+                "Skedar Ruins - Perfect Agent Objective 1": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier") & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Perfect Agent Objective 2": HAS_SKEDAR_RUINS_PF_AGENT & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 18 - Mr. Blonde's Revenge
+                "Mr. Blonde's Revenge - Perfect Agent Objective 1": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+                "Mr. Blonde's Revenge - Perfect Agent Objective 2": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+                "Mr. Blonde's Revenge - Perfect Agent Objective 3": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Mr. Blonde's Revenge - Perfect Agent": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 19 - Maian SOS
+                "Maian SOS - Perfect Agent Objective 1": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Maian SOS - Perfect Agent Objective 2": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Maian SOS - Perfect Agent Objective 3": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Maian SOS - Perfect Agent": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 20 - WAR!
+                "WAR! - Perfect Agent Objective 1": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "WAR! - Perfect Agent Objective 2": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "WAR! - Perfect Agent Objective 3": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: WAR! - Perfect Agent": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 21 - The Duel
+                "The Duel - Perfect Agent Objective 1": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "The Duel - Perfect Agent Objective 2": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "The Duel - Perfect Agent Objective 3": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: The Duel - Perfect Agent": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            }
+
+            cheat_rules = {
+                # Stage 1 - Defection
+                "Cheat Unlock: Complete dD Defection": (Has("dD Defection - Agent") & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 2 - Investigation
+                "Cheat Unlock: Complete dD Investigation": (HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE)
+                                                           | (HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE)
+                                                           | (HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 3 - Extraction
+                "Cheat Unlock: Complete dD Extraction": (HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("dD Extraction - Special Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("dD Extraction - Perfect Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 4 - Carrington Villa
+                "Cheat Unlock: Complete Carrington Villa": (HasAll("Carrington Villa - Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE)
+                                                           | (HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE)
+                                                           | (HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 5 - Chicago
+                "Cheat Unlock: Complete Chicago": (HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                  | (HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                  | (HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 6 - G5 Building
+                "Cheat Unlock: Complete G5 Building": (HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                      | (HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                      | (HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 7 - A51 Infiltration
+                "Cheat Unlock: Complete A51 Infiltration": (HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                           | (HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                           | (HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 8 - Rescue
+                "Cheat Unlock: Complete A51 Rescue": (HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                     | (HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                     | (HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 9 - Escape
+                "Cheat Unlock: Complete A51 Escape": (HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE)
+                                                     | (HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE)
+                                                     | (HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 10 - Air Base
+                "Cheat Unlock: Complete Air Base": (HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise") & HAS_ANY_WEAPON_TYPE)
+                                                   | (HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]))
+                                                   | (HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+
+                # Stage 11 - Air Force One
+                "Cheat Unlock: Complete Air Force One": (HasAll("Air Force One - Agent", "Suitcase") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 12 - Crash Site
+                "Cheat Unlock: Complete Crash Site": (HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                     | (HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                     | (HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 13 - Pelagic II
+                "Cheat Unlock: Complete Pelagic II": (HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                     | (HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                     | (HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 14 - Deep Sea
+                "Cheat Unlock: Complete Deep Sea": (HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                   | (HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                   | (HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 15 - CI Defense
+                "Cheat Unlock: Complete CI Defense": (HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE)
+                                                     | (HasAll("CI Defense - Special Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]))
+                                                     | (HasAll("CI Defense - Perfect Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"])) & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]),
+
+                # Stage 16 - Attack Ship
+                "Cheat Unlock: Complete Attack Ship": (Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE)
+                                                      | (Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE)
+                                                      | (Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 17 - Skedar Ruins
+                "Cheat Unlock: Complete Skedar Ruins": (HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                       | (HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)
+                                                       | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE),
+            }
+
+            cheat_agent_rules = {
+                # Extraction
+                "Cheat Unlock: Complete dD Extraction (Agent) in under 2:03": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+
+                # G5 Building
+                "Cheat Unlock: Complete G5 Building (Agent) in under 1:40": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Escape
+                "Cheat Unlock: Complete A51 Escape (Agent) in under 3:50": HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+                # Crash Site
+                "Cheat Unlock: Complete Crash Site (Agent) in under 2:50": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # CI Defense
+                "Cheat Unlock: Complete CI Defense (Agent) in under 1:45": HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+            }
+
+            cheat_sp_agent_rules = {
+                # Defection
+                "Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Villa
+                "Cheat Unlock: Complete Carrington Villa (Special Agent) in under 2:30": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+                # Infiltration
+                "Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Air Base
+                "Cheat Unlock: Complete Air Base (Special Agent) in under 3:11": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+
+                # Pelagic II
+                "Cheat Unlock: Complete Pelagic II (Special Agent) in under 7:07": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Attack Ship
+                "Cheat Unlock: Complete Attack Ship (Special Agent) in under 5:17": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            }
+
+            cheat_pf_agent_rules = {
+                # Investigation
+                "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Chicago
+                "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Rescue
+                "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Air Force One
+                "Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Deep Sea
+                "Cheat Unlock: Complete Deep Sea (Perfect Agent) in under 7:27": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Skedar Ruins
+                "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            }
+
+            if world.options.agent:
+                add_rule(world, agent_rules)
+            if world.options.special_agent:
+                add_rule(world, special_agent_rules)
+            if world.options.perfect_agent:
+                add_rule(world, perfect_agent_rules)
+            if world.options.unlock_cheats:
+                add_rule(world, cheat_rules)
+
+                if world.options.agent:
+                    add_rule(world, cheat_agent_rules)
+                if world.options.special_agent:
+                    add_rule(world, cheat_sp_agent_rules)
+                if world.options.perfect_agent:
+                    add_rule(world, cheat_pf_agent_rules)
+
+        elif world.options.mission_logic.value == MissionLogic.option_veteran:
+            agent_rules = {
+                # Stage 1 - Defection
+                "dD Defection - Agent Objective 1": Has("dD Defection - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Defection - Agent": Has("dD Defection - Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 2 - Investigation
+                "dD Investigation - Agent Objective 1": HasAll("dD Investigation - Agent", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Agent Objective 2": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Investigation - Agent": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 3 - Extraction
+                "dD Extraction - Agent Objective 1": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Agent Objective 2": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Agent Objective 3": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Extraction - Agent": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 4 - Carrington Villa
+                "Carrington Villa - Agent Objective 1": Has("Carrington Villa - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Agent Objective 2": Has("Carrington Villa - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Agent Objective 3": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Carrington Villa - Agent": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 5 - Chicago
+                "Chicago - Agent Objective 1": HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Agent Objective 2": Has("Chicago - Agent") & HasAny("Data Uplink", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Agent Objective 3": HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Chicago - Agent": HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 6 - G5 Building
+                "G5 Building - Agent Objective 1": HasAll("G5 Building - Agent", "CamSpy") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Agent Objective 2": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Agent Objective 3": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: G5 Building - Agent": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 7 - A51 Infiltration
+                "A51 Infiltration - Agent Objective 1": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Agent Objective 2": HasAll("A51 Infiltration - Agent") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Agent Objective 3": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Infiltration - Agent": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 8 - A51 Rescue
+                "A51 Rescue - Agent Objective 1": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Agent Objective 2": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Agent Objective 3": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Rescue - Agent": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 9 - A51 Escape
+                "A51 Escape - Agent Objective 1": Has("A51 Escape - Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Agent Objective 2": Has("A51 Escape - Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Agent Objective 3": HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Escape - Agent": HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 10 - Air Base
+                "Air Base - Agent Objective 1": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise"),
+                "Air Base - Agent Objective 2": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise"),
+                "Air Base - Agent Objective 3": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Air Base - Agent": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 11 - Air Force One
+                "Air Force One - Agent Objective 1": HasAll("Air Force One - Agent", "Suitcase"),
+                "Air Force One - Agent Objective 2": HasAll("Air Force One - Agent", "Suitcase") & HAS_ANY_WEAPON_TYPE,
+                "Air Force One - Agent Objective 3": HasAll("Air Force One - Agent", "Suitcase") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Air Force One - Agent": HasAll("Air Force One - Agent", "Suitcase") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 12 - Crash Site
+                "Crash Site - Agent Objective 1": Has("Crash Site - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Agent Objective 2": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Agent Objective 3": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Crash Site - Agent": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 13 - Pelagic II
+                "Pelagic II - Agent Objective 1": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Agent Objective 2": Has("Pelagic II - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Agent Objective 3": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Pelagic II - Agent": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 14 - Deep Sea
+                "Deep Sea - Agent Objective 1": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Agent Objective 2": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Agent Objective 3": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Deep Sea - Agent": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 15 - Carrington Institute Defense
+                "CI Defense - Agent Objective 1": Has("CI Defense - Agent") & HAS_ANY_WEAPON_TYPE,
+                "CI Defense - Agent Objective 2": Has("CI Defense - Agent") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+                "CI Defense - Agent Objective 3": HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: CI Defense - Agent": HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 16 - Attack Ship
+                "Attack Ship - Agent Objective 1": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Agent Objective 2": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Agent Objective 3": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Attack Ship - Agent": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 17 - Skedar Ruins
+                "Skedar Ruins - Agent Objective 1": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier") & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Agent Objective 2": HAS_SKEDAR_RUINS_AGENT & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT & Has("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 18 - Mr. Blonde's Revenge
+                "Mr. Blonde's Revenge - Agent Objective 1": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Mr. Blonde's Revenge - Agent": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 19 - Maian SOS
+                "Maian SOS - Agent Objective 1": Has("Maian SOS - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Maian SOS - Agent": Has("Maian SOS - Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 20 - WAR!
+                "WAR! - Agent Objective 1": Has("WAR! - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: WAR! - Agent": Has("WAR! - Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 21 - The Duel
+                "The Duel - Agent Objective 1": Has("The Duel - Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: The Duel - Agent": Has("The Duel - Agent") & HAS_ANY_WEAPON_TYPE,
+            }
+
+            special_agent_rules = {
+                # Stage 1 - Defection
+                "dD Defection - Special Agent Objective 1": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Special Agent Objective 2": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Special Agent Objective 3": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Special Agent Objective 4": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Defection - Special Agent": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 2 - Investigation
+                "dD Investigation - Special Agent Objective 1": HasAll("dD Investigation - Special Agent", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Special Agent Objective 2": Has("dD Investigation - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Special Agent Objective 3": Has("dD Investigation - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Special Agent Objective 4": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Investigation - Special Agent": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 3 - Extraction
+                "dD Extraction - Special Agent Objective 1": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Special Agent Objective 2": HasAll("dD Extraction - Special Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Special Agent Objective 3": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Special Agent Objective 4": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Extraction - Special Agent": HasAll("dD Extraction - Special Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 4 - Carrington Villa
+                "Carrington Villa - Special Agent Objective 1": Has("Carrington Villa - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Special Agent Objective 2": Has("Carrington Villa - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Special Agent Objective 3": Has("Carrington Villa - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Special Agent Objective 4": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Carrington Villa - Special Agent": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 5 - Chicago
+                "Chicago - Special Agent Objective 1": HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Special Agent Objective 2": Has("Chicago - Special Agent") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Special Agent Objective 3": Has("Chicago - Special Agent") & HasAny("Data Uplink", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Special Agent Objective 4": HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Chicago - Special Agent": HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 6 - G5 Building
+                "G5 Building - Special Agent Objective 1": Has("G5 Building - Special Agent") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Special Agent Objective 2": HasAll("G5 Building - Special Agent", "CamSpy") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Special Agent Objective 3": HasAll("G5 Building - Special Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Special Agent Objective 4": Has("G5 Building - Special Agent") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: G5 Building - Special Agent": HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 7 - A51 Infiltration
+                "A51 Infiltration - Special Agent Objective 1": HasAll("A51 Infiltration - Special Agent", "Explosives") & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Special Agent Objective 2": HasAll("A51 Infiltration - Special Agent", "Comms Rider") & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Special Agent Objective 3": HasAll("A51 Infiltration - Special Agent") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Special Agent Objective 4": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Infiltration - Special Agent": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 8 - A51 Rescue
+                "A51 Rescue - Special Agent Objective 1": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Special Agent Objective 2": HasAll("A51 Rescue - Special Agent", "Lab Clothes") & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Special Agent Objective 3": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Special Agent Objective 4": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Rescue - Special Agent": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 9 - A51 Escape
+                "A51 Escape - Special Agent Objective 1": Has("A51 Escape - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Special Agent Objective 2": Has("A51 Escape - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Special Agent Objective 3": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Special Agent Objective 4": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Escape - Special Agent": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 10 - Air Base
+                "Air Base - Special Agent Objective 1": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"),
+                "Air Base - Special Agent Objective 2": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"),
+                "Air Base - Special Agent Objective 3": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"),
+                "Air Base - Special Agent Objective 4": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                "Complete: Air Base - Special Agent": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+
+                # Stage 11 - Air Force One
+                "Air Force One - Special Agent Objective 1": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Special Agent Objective 2": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Special Agent Objective 3": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HAS_ANY_WEAPON_TYPE,
+                "Air Force One - Special Agent Objective 4": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Air Force One - Special Agent": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 12 - Crash Site
+                "Crash Site - Special Agent Objective 1": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Special Agent Objective 2": Has("Crash Site - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Special Agent Objective 3": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Special Agent Objective 4": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Crash Site - Special Agent": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 13 - Pelagic II
+                "Pelagic II - Special Agent Objective 1": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Special Agent Objective 2": Has("Pelagic II - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Special Agent Objective 3": Has("Pelagic II - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Special Agent Objective 4": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Pelagic II - Special Agent": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 14 - Deep Sea
+                "Deep Sea - Special Agent Objective 1": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Special Agent Objective 2": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Special Agent Objective 3": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Special Agent Objective 4": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Deep Sea - Special Agent": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 15 - Carrington Institute Defense
+                "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+                "CI Defense - Special Agent Objective 2": Has("CI Defense - Special Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+                "CI Defense - Special Agent Objective 3": Has("CI Defense - Special Agent") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+                "CI Defense - Special Agent Objective 4": HasAll("CI Defense - Special Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+                "Complete: CI Defense - Special Agent": HasAll("CI Defense - Special Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+
+                # Stage 16 - Attack Ship
+                "Attack Ship - Special Agent Objective 1": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Special Agent Objective 2": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Special Agent Objective 3": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Special Agent Objective 4": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Attack Ship - Special Agent": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 17 - Skedar Ruins
+                "Skedar Ruins - Special Agent Objective 1": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier") & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Special Agent Objective 2": HAS_SKEDAR_RUINS_SP_AGENT & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 18 - Mr. Blonde's Revenge
+                "Mr. Blonde's Revenge - Special Agent Objective 1": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+                "Mr. Blonde's Revenge - Special Agent Objective 2": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Mr. Blonde's Revenge - Special Agent": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 19 - Maian SOS
+                "Maian SOS - Special Agent Objective 1": Has("Maian SOS - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Maian SOS - Special Agent Objective 2": Has("Maian SOS - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Maian SOS - Special Agent": Has("Maian SOS - Special Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 20 - WAR!
+                "WAR! - Special Agent Objective 1": Has("WAR! - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "WAR! - Special Agent Objective 2": Has("WAR! - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: WAR! - Special Agent": Has("WAR! - Special Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 21 - The Duel
+                "The Duel - Special Agent Objective 1": Has("The Duel - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "The Duel - Special Agent Objective 2": Has("The Duel - Special Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: The Duel - Special Agent": Has("The Duel - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            }
+
+            perfect_agent_rules = {
+                # Stage 1 - Defection
+                "dD Defection - Perfect Agent Objective 1": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Perfect Agent Objective 2": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Perfect Agent Objective 3": HasAll("dD Defection - Perfect Agent", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Perfect Agent Objective 4": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+                "dD Defection - Perfect Agent Objective 5": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Defection - Perfect Agent": HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 2 - Investigation
+                "dD Investigation - Perfect Agent Objective 1": HasAll("dD Investigation - Perfect Agent", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Perfect Agent Objective 2": Has("dD Investigation - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Perfect Agent Objective 3": Has("dD Investigation - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Perfect Agent Objective 4": HasAll("dD Investigation - Perfect Agent", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+                "dD Investigation - Perfect Agent Objective 5": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Investigation - Perfect Agent": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 3 - Extraction
+                "dD Extraction - Perfect Agent Objective 1": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Perfect Agent Objective 2": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Perfect Agent Objective 3": HasAll("dD Extraction - Perfect Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Perfect Agent Objective 4": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "dD Extraction - Perfect Agent Objective 5": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+                "Complete: dD Extraction - Perfect Agent": HasAll("dD Extraction - Perfect Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 4 - Carrington Villa
+                "Carrington Villa - Perfect Agent Objective 1": Has("Carrington Villa - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Perfect Agent Objective 2": Has("Carrington Villa - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Perfect Agent Objective 3": Has("Carrington Villa - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Carrington Villa - Perfect Agent Objective 4": Has("Carrington Villa - Perfect Agent"),
+                "Carrington Villa - Perfect Agent Objective 5": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Carrington Villa - Perfect Agent": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 5 - Chicago
+                "Chicago - Perfect Agent Objective 1": HasAll("Chicago - Perfect Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Perfect Agent Objective 2": HasAll("Chicago - Perfect Agent", "Tracer Bug") & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Perfect Agent Objective 3": Has("Chicago - Perfect Agent") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Perfect Agent Objective 4": Has("Chicago - Perfect Agent") & HasAny("Data Uplink", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+                "Chicago - Perfect Agent Objective 5": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Chicago - Perfect Agent": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 6 - G5 Building
+                "G5 Building - Perfect Agent Objective 1": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Perfect Agent Objective 2": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Perfect Agent Objective 3": HasAll("G5 Building - Perfect Agent", "CamSpy") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Perfect Agent Objective 4": HasAll("G5 Building - Perfect Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+                "G5 Building - Perfect Agent Objective 5": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: G5 Building - Perfect Agent": HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 7 - A51 Infiltration
+                "A51 Infiltration - Perfect Agent Objective 1": HasAll("A51 Infiltration - Perfect Agent", "Explosives") & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Perfect Agent Objective 2": HasAll("A51 Infiltration - Perfect Agent", "Comms Rider") & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Perfect Agent Objective 3": Has("A51 Infiltration - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Perfect Agent Objective 4": Has("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "A51 Infiltration - Perfect Agent Objective 5": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Infiltration - Perfect Agent": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 8 - A51 Rescue
+                "A51 Rescue - Perfect Agent Objective 1": HasAll("A51 Rescue - Perfect Agent", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Perfect Agent Objective 2": HasAll("A51 Rescue - Perfect Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Perfect Agent Objective 3": HasAll("A51 Rescue - Perfect Agent", "Lab Clothes") & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Perfect Agent Objective 4": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HAS_ANY_WEAPON_TYPE,
+                "A51 Rescue - Perfect Agent Objective 5": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Rescue - Perfect Agent": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 9 - A51 Escape
+                "A51 Escape - Perfect Agent Objective 1": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Perfect Agent Objective 2": Has("A51 Escape - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Perfect Agent Objective 3": Has("A51 Escape - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Perfect Agent Objective 4": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+                "A51 Escape - Perfect Agent Objective 5": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+                "Complete: A51 Escape - Perfect Agent": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 10 - Air Base
+                "Air Base - Perfect Agent Objective 1": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise"),
+                "Air Base - Perfect Agent Objective 2": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase"),
+                "Air Base - Perfect Agent Objective 3": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise"),
+                "Air Base - Perfect Agent Objective 4": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                "Air Base - Perfect Agent Objective 5": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                "Complete: Air Base - Perfect Agent": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+
+                # Stage 11 - Air Force One
+                "Air Force One - Perfect Agent Objective 1": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Perfect Agent Objective 2": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Perfect Agent Objective 3": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HAS_ANY_WEAPON_TYPE,
+                "Air Force One - Perfect Agent Objective 4": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Air Force One - Perfect Agent Objective 5": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Air Force One - Perfect Agent": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 12 - Crash Site
+                "Crash Site - Perfect Agent Objective 1": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Perfect Agent Objective 2": Has("Crash Site - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Perfect Agent Objective 3": Has("Crash Site - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Perfect Agent Objective 4": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Crash Site - Perfect Agent Objective 5": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Crash Site - Perfect Agent": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 13 - Pelagic II
+                "Pelagic II - Perfect Agent Objective 1": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Perfect Agent Objective 2": HasAll("Pelagic II - Perfect Agent", "Research Tape") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Perfect Agent Objective 3": Has("Pelagic II - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Perfect Agent Objective 4": Has("Pelagic II - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Pelagic II - Perfect Agent Objective 5": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Pelagic II - Perfect Agent": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 14 - Deep Sea
+                "Deep Sea - Perfect Agent Objective 1": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Perfect Agent Objective 2": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Perfect Agent Objective 3": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Perfect Agent Objective 4": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+                "Deep Sea - Perfect Agent Objective 5": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Deep Sea - Perfect Agent": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 15 - Carrington Institute Defense
+                "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+                "CI Defense - Perfect Agent Objective 2": Has("CI Defense - Perfect Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+                "CI Defense - Perfect Agent Objective 3": Has("CI Defense - Perfect Agent") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+                "CI Defense - Perfect Agent Objective 4": Has("CI Defense - Perfect Agent") & (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"])) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+                "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+                "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+
+                # Stage 16 - Attack Ship
+                "Attack Ship - Perfect Agent Objective 1": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Perfect Agent Objective 2": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Perfect Agent Objective 3": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Perfect Agent Objective 4": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Attack Ship - Perfect Agent Objective 5": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Attack Ship - Perfect Agent": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 17 - Skedar Ruins
+                "Skedar Ruins - Perfect Agent Objective 1": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier") & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Perfect Agent Objective 2": HAS_SKEDAR_RUINS_PF_AGENT & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+                "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 18 - Mr. Blonde's Revenge
+                "Mr. Blonde's Revenge - Perfect Agent Objective 1": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+                "Mr. Blonde's Revenge - Perfect Agent Objective 2": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+                "Mr. Blonde's Revenge - Perfect Agent Objective 3": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Mr. Blonde's Revenge - Perfect Agent": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 19 - Maian SOS
+                "Maian SOS - Perfect Agent Objective 1": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Maian SOS - Perfect Agent Objective 2": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Maian SOS - Perfect Agent Objective 3": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: Maian SOS - Perfect Agent": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 20 - WAR!
+                "WAR! - Perfect Agent Objective 1": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "WAR! - Perfect Agent Objective 2": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "WAR! - Perfect Agent Objective 3": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: WAR! - Perfect Agent": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+
+                # Stage 21 - The Duel
+                "The Duel - Perfect Agent Objective 1": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "The Duel - Perfect Agent Objective 2": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "The Duel - Perfect Agent Objective 3": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+                "Complete: The Duel - Perfect Agent": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            }
+
+            cheat_rules = {
+                # Stage 1 - Defection
+                "Cheat Unlock: Complete dD Defection": (Has("dD Defection - Agent") & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 2 - Investigation
+                "Cheat Unlock: Complete dD Investigation": (HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 3 - Extraction
+                "Cheat Unlock: Complete dD Extraction": (HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("dD Extraction - Special Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("dD Extraction - Perfect Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 4 - Carrington Villa
+                "Cheat Unlock: Complete Carrington Villa": (HasAll("Carrington Villa - Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 5 - Chicago
+                "Cheat Unlock: Complete Chicago": (HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                | (HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                | (HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 6 - G5 Building
+                "Cheat Unlock: Complete G5 Building": (HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 7 - A51 Infiltration
+                "Cheat Unlock: Complete A51 Infiltration": (HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 8 - Rescue
+                "Cheat Unlock: Complete A51 Rescue": (HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 9 - Escape
+                "Cheat Unlock: Complete A51 Escape": (HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 10 - Air Base
+                "Cheat Unlock: Complete Air Base": (HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise") & HAS_ANY_WEAPON_TYPE)
+                                                | (HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]))
+                                                | (HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+
+                # Stage 11 - Air Force One
+                "Cheat Unlock: Complete Air Force One": (HasAll("Air Force One - Agent", "Suitcase") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                        | (HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 12 - Crash Site
+                "Cheat Unlock: Complete Crash Site": (HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 13 - Pelagic II
+                "Cheat Unlock: Complete Pelagic II": (HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 14 - Deep Sea
+                "Cheat Unlock: Complete Deep Sea": (HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                | (HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                | (HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 15 - CI Defense
+                "Cheat Unlock: Complete CI Defense": (HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("CI Defense - Special Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]))
+                                                    | (HasAll("CI Defense - Perfect Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"])),
+
+                # Stage 16 - Attack Ship
+                "Cheat Unlock: Complete Attack Ship": (Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE)
+                                                    | (Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE)
+                                                    | (Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE),
+
+                # Stage 17 - Skedar Ruins
+                "Cheat Unlock: Complete Skedar Ruins": (HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                    | (HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)
+                                                    | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE),
+            }
+
+            cheat_agent_rules = {
+                # Extraction
+                "Cheat Unlock: Complete dD Extraction (Agent) in under 2:03": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+
+                # G5 Building
+                "Cheat Unlock: Complete G5 Building (Agent) in under 1:40": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Escape
+                "Cheat Unlock: Complete A51 Escape (Agent) in under 3:50": HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+                # Crash Site
+                "Cheat Unlock: Complete Crash Site (Agent) in under 2:50": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # CI Defense
+                "Cheat Unlock: Complete CI Defense (Agent) in under 1:45": HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+            }
+
+            cheat_sp_agent_rules = {
+                # Defection
+                "Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Villa
+                "Cheat Unlock: Complete Carrington Villa (Special Agent) in under 2:30": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+                # Infiltration
+                "Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Air Base
+                "Cheat Unlock: Complete Air Base (Special Agent) in under 3:11": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+
+                # Pelagic II
+                "Cheat Unlock: Complete Pelagic II (Special Agent) in under 7:07": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+
+                # Attack Ship
+                "Cheat Unlock: Complete Attack Ship (Special Agent) in under 5:17": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            }
+
+            cheat_pf_agent_rules = {
+                # Investigation
+                "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Chicago
+                "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Rescue
+                "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+                # Air Force One
+                "Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Deep Sea
+                "Cheat Unlock: Complete Deep Sea (Perfect Agent) in under 7:27": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+
+                # Skedar Ruins
+                "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            }
+
+            if world.options.agent:
+                add_rule(world, agent_rules)
+            if world.options.special_agent:
+                add_rule(world, special_agent_rules)
+            if world.options.perfect_agent:
+                add_rule(world, perfect_agent_rules)
+            if world.options.unlock_cheats:
+                add_rule(world, cheat_rules)
+
+                if world.options.agent:
+                    add_rule(world, cheat_agent_rules)
+                if world.options.special_agent:
+                    add_rule(world, cheat_sp_agent_rules)
+                if world.options.perfect_agent:
+                    add_rule(world, cheat_pf_agent_rules)
+
 
 def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
     if world.options.weapon_progression.value == WeaponProgression.option_normal:
@@ -8666,6 +9889,587 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                     cheat_skedar_ruins_timed_complete = world.get_location("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31")
                     world.set_rule(cheat_skedar_ruins_timed_complete, HAS_SKEDAR_RUINS_PF_AGENT & HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner")
                                                                       & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
+
+    elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+        agent_rules = {
+            # Stage 1 - Defection
+            "dD Defection - Agent Objective 1": Has("dD Defection - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Defection - Agent": Has("dD Defection - Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 2 - Investigation
+            "dD Investigation - Agent Objective 1": HasAll("dD Investigation - Agent", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+            "dD Investigation - Agent Objective 2": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Investigation - Agent": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 3 - Extraction
+            "dD Extraction - Agent Objective 1": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Agent Objective 2": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Agent Objective 3": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Extraction - Agent": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 4 - Carrington Villa
+            "Carrington Villa - Agent Objective 1": Has("Carrington Villa - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Agent Objective 2": Has("Carrington Villa - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Agent Objective 3": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Carrington Villa - Agent": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 5 - Chicago
+            "Chicago - Agent Objective 1": HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Agent Objective 2": Has("Chicago - Agent") & HasAny("Data Uplink", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Agent Objective 3": HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Chicago - Agent": HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 6 - G5 Building
+            "G5 Building - Agent Objective 1": HasAll("G5 Building - Agent", "CamSpy") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Agent Objective 2": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Agent Objective 3": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: G5 Building - Agent": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 7 - A51 Infiltration
+            "A51 Infiltration - Agent Objective 1": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Agent Objective 2": HasAll("A51 Infiltration - Agent") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Agent Objective 3": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Infiltration - Agent": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 8 - A51 Rescue
+            "A51 Rescue - Agent Objective 1": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Agent Objective 2": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Agent Objective 3": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Rescue - Agent": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 9 - A51 Escape
+            "A51 Escape - Agent Objective 1": Has("A51 Escape - Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Agent Objective 2": Has("A51 Escape - Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Agent Objective 3": HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Escape - Agent": HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 10 - Air Base
+            "Air Base - Agent Objective 1": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise"),
+            "Air Base - Agent Objective 2": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise"),
+            "Air Base - Agent Objective 3": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Air Base - Agent": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 11 - Air Force One
+            "Air Force One - Agent Objective 1": HasAll("Air Force One - Agent", "Suitcase"),
+            "Air Force One - Agent Objective 2": HasAll("Air Force One - Agent", "Suitcase") & HAS_ANY_WEAPON_TYPE,
+            "Air Force One - Agent Objective 3": HasAll("Air Force One - Agent", "Suitcase") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Air Force One - Agent": HasAll("Air Force One - Agent", "Suitcase") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 12 - Crash Site
+            "Crash Site - Agent Objective 1": Has("Crash Site - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Crash Site - Agent Objective 2": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Crash Site - Agent Objective 3": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Crash Site - Agent": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 13 - Pelagic II
+            "Pelagic II - Agent Objective 1": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Agent Objective 2": Has("Pelagic II - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Agent Objective 3": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Pelagic II - Agent": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 14 - Deep Sea
+            "Deep Sea - Agent Objective 1": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Agent Objective 2": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Agent Objective 3": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Deep Sea - Agent": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 15 - Carrington Institute Defense
+            "CI Defense - Agent Objective 1": Has("CI Defense - Agent") & HAS_ANY_WEAPON_TYPE,
+            "CI Defense - Agent Objective 2": Has("CI Defense - Agent") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+            "CI Defense - Agent Objective 3": HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: CI Defense - Agent": HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 16 - Attack Ship
+            "Attack Ship - Agent Objective 1": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Agent Objective 2": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Agent Objective 3": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Attack Ship - Agent": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 17 - Skedar Ruins
+            "Skedar Ruins - Agent Objective 1": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier") & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Agent Objective 2": HAS_SKEDAR_RUINS_AGENT & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT & Has("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 18 - Mr. Blonde's Revenge
+            "Mr. Blonde's Revenge - Agent Objective 1": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Mr. Blonde's Revenge - Agent": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 19 - Maian SOS
+            "Maian SOS - Agent Objective 1": Has("Maian SOS - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Maian SOS - Agent": Has("Maian SOS - Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 20 - WAR!
+            "WAR! - Agent Objective 1": Has("WAR! - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: WAR! - Agent": Has("WAR! - Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 21 - The Duel
+            "The Duel - Agent Objective 1": Has("The Duel - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: The Duel - Agent": Has("The Duel - Agent") & HAS_ANY_WEAPON_TYPE,
+        }
+
+        special_agent_rules = {
+            # Stage 1 - Defection
+            "dD Defection - Special Agent Objective 1": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+            "dD Defection - Special Agent Objective 2": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+            "dD Defection - Special Agent Objective 3": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+            "dD Defection - Special Agent Objective 4": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Defection - Special Agent": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 2 - Investigation
+            "dD Investigation - Special Agent Objective 1": HasAll("dD Investigation - Special Agent", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+            "dD Investigation - Special Agent Objective 2": Has("dD Investigation - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "dD Investigation - Special Agent Objective 3": Has("dD Investigation - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "dD Investigation - Special Agent Objective 4": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Investigation - Special Agent": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 3 - Extraction
+            "dD Extraction - Special Agent Objective 1": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Special Agent Objective 2": HasAll("dD Extraction - Special Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Special Agent Objective 3": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Special Agent Objective 4": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Extraction - Special Agent": HasAll("dD Extraction - Special Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 4 - Carrington Villa
+            "Carrington Villa - Special Agent Objective 1": Has("Carrington Villa - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Special Agent Objective 2": Has("Carrington Villa - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Special Agent Objective 3": Has("Carrington Villa - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Special Agent Objective 4": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Carrington Villa - Special Agent": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 5 - Chicago
+            "Chicago - Special Agent Objective 1": HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Special Agent Objective 2": Has("Chicago - Special Agent") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Special Agent Objective 3": Has("Chicago - Special Agent") & HasAny("Data Uplink", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Special Agent Objective 4": HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Chicago - Special Agent": HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 6 - G5 Building
+            "G5 Building - Special Agent Objective 1": Has("G5 Building - Special Agent") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Special Agent Objective 2": HasAll("G5 Building - Special Agent", "CamSpy") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Special Agent Objective 3": HasAll("G5 Building - Special Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Special Agent Objective 4": Has("G5 Building - Special Agent") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: G5 Building - Special Agent": HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 7 - A51 Infiltration
+            "A51 Infiltration - Special Agent Objective 1": HasAll("A51 Infiltration - Special Agent", "Explosives") & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Special Agent Objective 2": HasAll("A51 Infiltration - Special Agent", "Comms Rider") & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Special Agent Objective 3": HasAll("A51 Infiltration - Special Agent") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Special Agent Objective 4": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Infiltration - Special Agent": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 8 - A51 Rescue
+            "A51 Rescue - Special Agent Objective 1": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Special Agent Objective 2": HasAll("A51 Rescue - Special Agent", "Lab Clothes") & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Special Agent Objective 3": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Special Agent Objective 4": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Rescue - Special Agent": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 9 - A51 Escape
+            "A51 Escape - Special Agent Objective 1": Has("A51 Escape - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Special Agent Objective 2": Has("A51 Escape - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Special Agent Objective 3": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Special Agent Objective 4": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Escape - Special Agent": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 10 - Air Base
+            "Air Base - Special Agent Objective 1": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"),
+            "Air Base - Special Agent Objective 2": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"),
+            "Air Base - Special Agent Objective 3": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"),
+            "Air Base - Special Agent Objective 4": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+            "Complete: Air Base - Special Agent": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+
+            # Stage 11 - Air Force One
+            "Air Force One - Special Agent Objective 1": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Special Agent Objective 2": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Special Agent Objective 3": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HAS_ANY_WEAPON_TYPE,
+            "Air Force One - Special Agent Objective 4": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Air Force One - Special Agent": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 12 - Crash Site
+            "Crash Site - Special Agent Objective 1": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Crash Site - Special Agent Objective 2": Has("Crash Site - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Crash Site - Special Agent Objective 3": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Crash Site - Special Agent Objective 4": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Crash Site - Special Agent": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 13 - Pelagic II
+            "Pelagic II - Special Agent Objective 1": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Special Agent Objective 2": Has("Pelagic II - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Special Agent Objective 3": Has("Pelagic II - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Special Agent Objective 4": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Pelagic II - Special Agent": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 14 - Deep Sea
+            "Deep Sea - Special Agent Objective 1": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Special Agent Objective 2": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Special Agent Objective 3": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Special Agent Objective 4": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Deep Sea - Special Agent": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 15 - Carrington Institute Defense
+            "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+            "CI Defense - Special Agent Objective 2": Has("CI Defense - Special Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+            "CI Defense - Special Agent Objective 3": Has("CI Defense - Special Agent") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+            "CI Defense - Special Agent Objective 4": HasAll("CI Defense - Special Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+            "Complete: CI Defense - Special Agent": HasAll("CI Defense - Special Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+
+            # Stage 16 - Attack Ship
+            "Attack Ship - Special Agent Objective 1": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Special Agent Objective 2": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Special Agent Objective 3": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Special Agent Objective 4": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Attack Ship - Special Agent": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 17 - Skedar Ruins
+            "Skedar Ruins - Special Agent Objective 1": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier") & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Special Agent Objective 2": HAS_SKEDAR_RUINS_SP_AGENT & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 18 - Mr. Blonde's Revenge
+            "Mr. Blonde's Revenge - Special Agent Objective 1": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+            "Mr. Blonde's Revenge - Special Agent Objective 2": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Mr. Blonde's Revenge - Special Agent": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 19 - Maian SOS
+            "Maian SOS - Special Agent Objective 1": Has("Maian SOS - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Maian SOS - Special Agent Objective 2": Has("Maian SOS - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Maian SOS - Special Agent": Has("Maian SOS - Special Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 20 - WAR!
+            "WAR! - Special Agent Objective 1": Has("WAR! - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "WAR! - Special Agent Objective 2": Has("WAR! - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: WAR! - Special Agent": Has("WAR! - Special Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 21 - The Duel
+            "The Duel - Special Agent Objective 1": Has("The Duel - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "The Duel - Special Agent Objective 2": Has("The Duel - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: The Duel - Special Agent": Has("The Duel - Special Agent") & HAS_ANY_WEAPON_TYPE,
+        }
+
+        perfect_agent_rules = {
+            # Stage 1 - Defection
+            "dD Defection - Perfect Agent Objective 1": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+            "dD Defection - Perfect Agent Objective 2": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+            "dD Defection - Perfect Agent Objective 3": HasAll("dD Defection - Perfect Agent", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+            "dD Defection - Perfect Agent Objective 4": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+            "dD Defection - Perfect Agent Objective 5": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Defection - Perfect Agent": HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 2 - Investigation
+            "dD Investigation - Perfect Agent Objective 1": HasAll("dD Investigation - Perfect Agent", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+            "dD Investigation - Perfect Agent Objective 2": Has("dD Investigation - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "dD Investigation - Perfect Agent Objective 3": Has("dD Investigation - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "dD Investigation - Perfect Agent Objective 4": HasAll("dD Investigation - Perfect Agent", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+            "dD Investigation - Perfect Agent Objective 5": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Investigation - Perfect Agent": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 3 - Extraction
+            "dD Extraction - Perfect Agent Objective 1": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Perfect Agent Objective 2": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Perfect Agent Objective 3": HasAll("dD Extraction - Perfect Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Perfect Agent Objective 4": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Perfect Agent Objective 5": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Extraction - Perfect Agent": HasAll("dD Extraction - Perfect Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 4 - Carrington Villa
+            "Carrington Villa - Perfect Agent Objective 1": Has("Carrington Villa - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Perfect Agent Objective 2": Has("Carrington Villa - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Perfect Agent Objective 3": Has("Carrington Villa - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Perfect Agent Objective 4": Has("Carrington Villa - Perfect Agent"),
+            "Carrington Villa - Perfect Agent Objective 5": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Carrington Villa - Perfect Agent": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 5 - Chicago
+            "Chicago - Perfect Agent Objective 1": HasAll("Chicago - Perfect Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Perfect Agent Objective 2": HasAll("Chicago - Perfect Agent", "Tracer Bug") & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Perfect Agent Objective 3": Has("Chicago - Perfect Agent") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Perfect Agent Objective 4": Has("Chicago - Perfect Agent") & HasAny("Data Uplink", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Perfect Agent Objective 5": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Chicago - Perfect Agent": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 6 - G5 Building
+            "G5 Building - Perfect Agent Objective 1": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Perfect Agent Objective 2": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Perfect Agent Objective 3": HasAll("G5 Building - Perfect Agent", "CamSpy") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Perfect Agent Objective 4": HasAll("G5 Building - Perfect Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Perfect Agent Objective 5": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: G5 Building - Perfect Agent": HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 7 - A51 Infiltration
+            "A51 Infiltration - Perfect Agent Objective 1": HasAll("A51 Infiltration - Perfect Agent", "Explosives") & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Perfect Agent Objective 2": HasAll("A51 Infiltration - Perfect Agent", "Comms Rider") & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Perfect Agent Objective 3": Has("A51 Infiltration - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Perfect Agent Objective 4": Has("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Perfect Agent Objective 5": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Infiltration - Perfect Agent": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 8 - A51 Rescue
+            "A51 Rescue - Perfect Agent Objective 1": HasAll("A51 Rescue - Perfect Agent", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Perfect Agent Objective 2": HasAll("A51 Rescue - Perfect Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Perfect Agent Objective 3": HasAll("A51 Rescue - Perfect Agent", "Lab Clothes") & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Perfect Agent Objective 4": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Perfect Agent Objective 5": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Rescue - Perfect Agent": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 9 - A51 Escape
+            "A51 Escape - Perfect Agent Objective 1": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Perfect Agent Objective 2": Has("A51 Escape - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Perfect Agent Objective 3": Has("A51 Escape - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Perfect Agent Objective 4": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Perfect Agent Objective 5": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Escape - Perfect Agent": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 10 - Air Base
+            "Air Base - Perfect Agent Objective 1": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise"),
+            "Air Base - Perfect Agent Objective 2": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase"),
+            "Air Base - Perfect Agent Objective 3": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise"),
+            "Air Base - Perfect Agent Objective 4": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+            "Air Base - Perfect Agent Objective 5": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+            "Complete: Air Base - Perfect Agent": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+
+            # Stage 11 - Air Force One
+            "Air Force One - Perfect Agent Objective 1": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Perfect Agent Objective 2": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Perfect Agent Objective 3": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HAS_ANY_WEAPON_TYPE,
+            "Air Force One - Perfect Agent Objective 4": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Air Force One - Perfect Agent Objective 5": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Air Force One - Perfect Agent": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 12 - Crash Site
+            "Crash Site - Perfect Agent Objective 1": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Crash Site - Perfect Agent Objective 2": Has("Crash Site - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Crash Site - Perfect Agent Objective 3": Has("Crash Site - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Crash Site - Perfect Agent Objective 4": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Crash Site - Perfect Agent Objective 5": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Crash Site - Perfect Agent": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 13 - Pelagic II
+            "Pelagic II - Perfect Agent Objective 1": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Perfect Agent Objective 2": HasAll("Pelagic II - Perfect Agent", "Research Tape") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Perfect Agent Objective 3": Has("Pelagic II - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Perfect Agent Objective 4": Has("Pelagic II - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Perfect Agent Objective 5": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Pelagic II - Perfect Agent": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 14 - Deep Sea
+            "Deep Sea - Perfect Agent Objective 1": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Perfect Agent Objective 2": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Perfect Agent Objective 3": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Perfect Agent Objective 4": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Perfect Agent Objective 5": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Deep Sea - Perfect Agent": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 15 - Carrington Institute Defense
+            "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+            "CI Defense - Perfect Agent Objective 2": Has("CI Defense - Perfect Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+            "CI Defense - Perfect Agent Objective 3": Has("CI Defense - Perfect Agent") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+            "CI Defense - Perfect Agent Objective 4": Has("CI Defense - Perfect Agent") & (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"])) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+            "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+            "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+
+            # Stage 16 - Attack Ship
+            "Attack Ship - Perfect Agent Objective 1": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Perfect Agent Objective 2": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Perfect Agent Objective 3": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Perfect Agent Objective 4": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Perfect Agent Objective 5": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Attack Ship - Perfect Agent": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 17 - Skedar Ruins
+            "Skedar Ruins - Perfect Agent Objective 1": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier") & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Perfect Agent Objective 2": HAS_SKEDAR_RUINS_PF_AGENT & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 18 - Mr. Blonde's Revenge
+            "Mr. Blonde's Revenge - Perfect Agent Objective 1": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+            "Mr. Blonde's Revenge - Perfect Agent Objective 2": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+            "Mr. Blonde's Revenge - Perfect Agent Objective 3": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Mr. Blonde's Revenge - Perfect Agent": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 19 - Maian SOS
+            "Maian SOS - Perfect Agent Objective 1": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Maian SOS - Perfect Agent Objective 2": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Maian SOS - Perfect Agent Objective 3": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Maian SOS - Perfect Agent": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 20 - WAR!
+            "WAR! - Perfect Agent Objective 1": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "WAR! - Perfect Agent Objective 2": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "WAR! - Perfect Agent Objective 3": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: WAR! - Perfect Agent": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 21 - The Duel
+            "The Duel - Perfect Agent Objective 1": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "The Duel - Perfect Agent Objective 2": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "The Duel - Perfect Agent Objective 3": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: The Duel - Perfect Agent": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+        }
+
+        cheat_rules = {
+            # Stage 1 - Defection
+            "Cheat Unlock: Complete dD Defection": (Has("dD Defection - Agent") & HAS_ANY_WEAPON_TYPE)
+                                                   | (HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                   | (HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 2 - Investigation
+            "Cheat Unlock: Complete dD Investigation": (HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 3 - Extraction
+            "Cheat Unlock: Complete dD Extraction": (HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("dD Extraction - Special Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("dD Extraction - Perfect Agent", "Night Vision") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 4 - Carrington Villa
+            "Cheat Unlock: Complete Carrington Villa": (HasAll("Carrington Villa - Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 5 - Chicago
+            "Cheat Unlock: Complete Chicago": (HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                              | (HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                              | (HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 6 - G5 Building
+            "Cheat Unlock: Complete G5 Building": (HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                  | (HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                  | (HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 7 - A51 Infiltration
+            "Cheat Unlock: Complete A51 Infiltration": (HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 8 - Rescue
+            "Cheat Unlock: Complete A51 Rescue": (HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 9 - Escape
+            "Cheat Unlock: Complete A51 Escape": (HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 10 - Air Base
+            "Cheat Unlock: Complete Air Base": (HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise") & HAS_ANY_WEAPON_TYPE)
+                                               | (HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]))
+                                               | (HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+
+            # Stage 11 - Air Force One
+            "Cheat Unlock: Complete Air Force One": (HasAll("Air Force One - Agent", "Suitcase") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 12 - Crash Site
+            "Cheat Unlock: Complete Crash Site": (HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 13 - Pelagic II
+            "Cheat Unlock: Complete Pelagic II": (HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 14 - Deep Sea
+            "Cheat Unlock: Complete Deep Sea": (HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE)
+                                               | (HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE)
+                                               | (HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 15 - CI Defense
+            "Cheat Unlock: Complete CI Defense": (HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("CI Defense - Special Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]))
+                                                 | (HasAll("CI Defense - Perfect Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"])),
+
+            # Stage 16 - Attack Ship
+            "Cheat Unlock: Complete Attack Ship": (Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE)
+                                                  | (Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE)
+                                                  | (Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 17 - Skedar Ruins
+            "Cheat Unlock: Complete Skedar Ruins": (HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                   | (HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)
+                                                   | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE),
+        }
+
+        cheat_agent_rules = {
+            # Extraction
+            "Cheat Unlock: Complete dD Extraction (Agent) in under 2:03": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+
+            # G5 Building
+            "Cheat Unlock: Complete G5 Building (Agent) in under 1:40": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Escape
+            "Cheat Unlock: Complete A51 Escape (Agent) in under 3:50": HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+            # Crash Site
+            "Cheat Unlock: Complete Crash Site (Agent) in under 2:50": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # CI Defense
+            "Cheat Unlock: Complete CI Defense (Agent) in under 1:45": HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+        }
+
+        cheat_sp_agent_rules = {
+            # Defection
+            "Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Villa
+            "Cheat Unlock: Complete Carrington Villa (Special Agent) in under 2:30": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+            # Infiltration
+            "Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Air Base
+            "Cheat Unlock: Complete Air Base (Special Agent) in under 3:11": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+
+            # Pelagic II
+            "Cheat Unlock: Complete Pelagic II (Special Agent) in under 7:07": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Attack Ship
+            "Cheat Unlock: Complete Attack Ship (Special Agent) in under 5:17": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+        }
+
+        cheat_pf_agent_rules = {
+            # Investigation
+            "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Chicago
+            "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Rescue
+            "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Air Force One
+            "Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Deep Sea
+            "Cheat Unlock: Complete Deep Sea (Perfect Agent) in under 7:27": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Skedar Ruins
+            "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+        }
+
+        if world.options.agent:
+            add_rule(world, agent_rules)
+        if world.options.special_agent:
+            add_rule(world, special_agent_rules)
+        if world.options.perfect_agent:
+            add_rule(world, perfect_agent_rules)
+        if world.options.unlock_cheats:
+            add_rule(world, cheat_rules)
+
+            if world.options.agent:
+                add_rule(world, cheat_agent_rules)
+            if world.options.special_agent:
+                add_rule(world, cheat_sp_agent_rules)
+            if world.options.perfect_agent:
+                add_rule(world, cheat_pf_agent_rules)
 
 
 def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
@@ -12743,6 +14547,588 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                     world.set_rule(cheat_skedar_ruins_timed_complete, HAS_SKEDAR_RUINS_PF_AGENT & HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner")
                                                                       & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
 
+    elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+        agent_rules = {
+            # Stage 1 - Defection
+            "dD Defection - Agent Objective 1": Has("dD Defection - Agent"),
+            "Complete: dD Defection - Agent": Has("dD Defection - Agent"),
+
+            # Stage 2 - Investigation
+            "dD Investigation - Agent Objective 1": HasAll("dD Investigation - Agent", "CamSpy"),
+            "dD Investigation - Agent Objective 2": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Investigation - Agent": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 3 - Extraction
+            "dD Extraction - Agent Objective 1": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Agent Objective 2": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Agent Objective 3": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Extraction - Agent": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 4 - Carrington Villa
+            "Carrington Villa - Agent Objective 1": Has("Carrington Villa - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Agent Objective 2": Has("Carrington Villa - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Agent Objective 3": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Carrington Villa - Agent": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 5 - Chicago
+            "Chicago - Agent Objective 1": HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]),
+            "Chicago - Agent Objective 2": Has("Chicago - Agent") & HasAny("Data Uplink", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Agent Objective 3": HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Chicago - Agent": HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 6 - G5 Building
+            "G5 Building - Agent Objective 1": HasAll("G5 Building - Agent", "CamSpy") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Agent Objective 2": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Agent Objective 3": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: G5 Building - Agent": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 7 - A51 Infiltration
+            "A51 Infiltration - Agent Objective 1": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Agent Objective 2": HasAll("A51 Infiltration - Agent") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Agent Objective 3": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Infiltration - Agent": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 8 - A51 Rescue
+            "A51 Rescue - Agent Objective 1": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Agent Objective 2": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Agent Objective 3": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Rescue - Agent": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 9 - A51 Escape
+            "A51 Escape - Agent Objective 1": Has("A51 Escape - Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Agent Objective 2": Has("A51 Escape - Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Agent Objective 3": HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Escape - Agent": HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 10 - Air Base
+            "Air Base - Agent Objective 1": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise"),
+            "Air Base - Agent Objective 2": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise"),
+            "Air Base - Agent Objective 3": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Air Base - Agent": HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 11 - Air Force One
+            "Air Force One - Agent Objective 1": HasAll("Air Force One - Agent", "Suitcase"),
+            "Air Force One - Agent Objective 2": HasAll("Air Force One - Agent", "Suitcase") & HAS_ANY_WEAPON_TYPE,
+            "Air Force One - Agent Objective 3": HasAll("Air Force One - Agent", "Suitcase") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Air Force One - Agent": HasAll("Air Force One - Agent", "Suitcase") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 12 - Crash Site
+            "Crash Site - Agent Objective 1": Has("Crash Site - Agent"),
+            "Crash Site - Agent Objective 2": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Crash Site - Agent Objective 3": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Crash Site - Agent": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 13 - Pelagic II
+            "Pelagic II - Agent Objective 1": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Agent Objective 2": Has("Pelagic II - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Agent Objective 3": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Pelagic II - Agent": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 14 - Deep Sea
+            "Deep Sea - Agent Objective 1": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Agent Objective 2": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Agent Objective 3": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Deep Sea - Agent": HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 15 - Carrington Institute Defense
+            "CI Defense - Agent Objective 1": Has("CI Defense - Agent") & HAS_ANY_WEAPON_TYPE,
+            "CI Defense - Agent Objective 2": Has("CI Defense - Agent") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+            "CI Defense - Agent Objective 3": HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: CI Defense - Agent": HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 16 - Attack Ship
+            "Attack Ship - Agent Objective 1": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Agent Objective 2": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Agent Objective 3": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Attack Ship - Agent": Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 17 - Skedar Ruins
+            "Skedar Ruins - Agent Objective 1": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier") & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Agent Objective 2": HAS_SKEDAR_RUINS_AGENT & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT & Has("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 18 - Mr. Blonde's Revenge
+            "Mr. Blonde's Revenge - Agent Objective 1": Has("Mr. Blonde's Revenge - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Mr. Blonde's Revenge - Agent": Has("Mr. Blonde's Revenge - Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 19 - Maian SOS
+            "Maian SOS - Agent Objective 1": Has("Maian SOS - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Maian SOS - Agent": Has("Maian SOS - Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 20 - WAR!
+            "WAR! - Agent Objective 1": Has("WAR! - Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: WAR! - Agent": Has("WAR! - Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 21 - The Duel
+            "The Duel - Agent Objective 1": Has("The Duel - Agent"),
+            "Complete: The Duel - Agent": Has("The Duel - Agent"),
+        }
+
+        special_agent_rules = {
+            # Stage 1 - Defection
+            "dD Defection - Special Agent Objective 1": HasAll("dD Defection - Special Agent", "ECM Mine"),
+            "dD Defection - Special Agent Objective 2": Has("dD Defection - Special Agent") & HAS_DD_KEYS,
+            "dD Defection - Special Agent Objective 3": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+            "dD Defection - Special Agent Objective 4": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Defection - Special Agent": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 2 - Investigation
+            "dD Investigation - Special Agent Objective 1": HasAll("dD Investigation - Special Agent", "CamSpy"),
+            "dD Investigation - Special Agent Objective 2": Has("dD Investigation - Special Agent"),
+            "dD Investigation - Special Agent Objective 3": Has("dD Investigation - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "dD Investigation - Special Agent Objective 4": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Investigation - Special Agent": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 3 - Extraction
+            "dD Extraction - Special Agent Objective 1": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Special Agent Objective 2": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Special Agent Objective 3": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Special Agent Objective 4": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Extraction - Special Agent": HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 4 - Carrington Villa
+            "Carrington Villa - Special Agent Objective 1": Has("Carrington Villa - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Special Agent Objective 2": Has("Carrington Villa - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Special Agent Objective 3": Has("Carrington Villa - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Special Agent Objective 4": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Carrington Villa - Special Agent": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 5 - Chicago
+            "Chicago - Special Agent Objective 1": HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]),
+            "Chicago - Special Agent Objective 2": Has("Chicago - Special Agent") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Special Agent Objective 3": Has("Chicago - Special Agent") & HasAny("Data Uplink", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Special Agent Objective 4": HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Chicago - Special Agent": HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 6 - G5 Building
+            "G5 Building - Special Agent Objective 1": Has("G5 Building - Special Agent") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Special Agent Objective 2": HasAll("G5 Building - Special Agent", "CamSpy") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Special Agent Objective 3": HasAll("G5 Building - Special Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Special Agent Objective 4": Has("G5 Building - Special Agent") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: G5 Building - Special Agent": HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 7 - A51 Infiltration
+            "A51 Infiltration - Special Agent Objective 1": HasAll("A51 Infiltration - Special Agent", "Explosives") & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Special Agent Objective 2": HasAll("A51 Infiltration - Special Agent", "Comms Rider") & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Special Agent Objective 3": HasAll("A51 Infiltration - Special Agent") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Special Agent Objective 4": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Infiltration - Special Agent": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 8 - A51 Rescue
+            "A51 Rescue - Special Agent Objective 1": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Special Agent Objective 2": HasAll("A51 Rescue - Special Agent", "Lab Clothes") & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Special Agent Objective 3": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Special Agent Objective 4": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Rescue - Special Agent": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 9 - A51 Escape
+            "A51 Escape - Special Agent Objective 1": Has("A51 Escape - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Special Agent Objective 2": Has("A51 Escape - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Special Agent Objective 3": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Special Agent Objective 4": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Escape - Special Agent": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 10 - Air Base
+            "Air Base - Special Agent Objective 1": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"),
+            "Air Base - Special Agent Objective 2": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase"),
+            "Air Base - Special Agent Objective 3": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"),
+            "Air Base - Special Agent Objective 4": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+            "Complete: Air Base - Special Agent": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+
+            # Stage 11 - Air Force One
+            "Air Force One - Special Agent Objective 1": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Special Agent Objective 2": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Special Agent Objective 3": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HAS_ANY_WEAPON_TYPE,
+            "Air Force One - Special Agent Objective 4": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Air Force One - Special Agent": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 12 - Crash Site
+            "Crash Site - Special Agent Objective 1": HasAll("Crash Site - Special Agent", "President Scanner"),
+            "Crash Site - Special Agent Objective 2": Has("Crash Site - Special Agent"),
+            "Crash Site - Special Agent Objective 3": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Crash Site - Special Agent Objective 4": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Crash Site - Special Agent": HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 13 - Pelagic II
+            "Pelagic II - Special Agent Objective 1": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Special Agent Objective 2": Has("Pelagic II - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Special Agent Objective 3": Has("Pelagic II - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Special Agent Objective 4": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Pelagic II - Special Agent": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 14 - Deep Sea
+            "Deep Sea - Special Agent Objective 1": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Special Agent Objective 2": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Special Agent Objective 3": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Special Agent Objective 4": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Deep Sea - Special Agent": HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 15 - Carrington Institute Defense
+            "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent"),
+            "CI Defense - Special Agent Objective 2": Has("CI Defense - Special Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+            "CI Defense - Special Agent Objective 3": Has("CI Defense - Special Agent") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+            "CI Defense - Special Agent Objective 4": HasAll("CI Defense - Special Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+            "Complete: CI Defense - Special Agent": HasAll("CI Defense - Special Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]),
+
+            # Stage 16 - Attack Ship
+            "Attack Ship - Special Agent Objective 1": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Special Agent Objective 2": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Special Agent Objective 3": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Special Agent Objective 4": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Attack Ship - Special Agent": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 17 - Skedar Ruins
+            "Skedar Ruins - Special Agent Objective 1": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier") & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Special Agent Objective 2": HAS_SKEDAR_RUINS_SP_AGENT & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 18 - Mr. Blonde's Revenge
+            "Mr. Blonde's Revenge - Special Agent Objective 1": HasAll("Mr. Blonde's Revenge - Special Agent", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+            "Mr. Blonde's Revenge - Special Agent Objective 2": Has("Mr. Blonde's Revenge - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Mr. Blonde's Revenge - Special Agent": HasAll("Mr. Blonde's Revenge - Special Agent", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 19 - Maian SOS
+            "Maian SOS - Special Agent Objective 1": Has("Maian SOS - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Maian SOS - Special Agent Objective 2": Has("Maian SOS - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Maian SOS - Special Agent": Has("Maian SOS - Special Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 20 - WAR!
+            "WAR! - Special Agent Objective 1": Has("WAR! - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "WAR! - Special Agent Objective 2": Has("WAR! - Special Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: WAR! - Special Agent": Has("WAR! - Special Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 21 - The Duel
+            "The Duel - Special Agent Objective 1": Has("The Duel - Special Agent"),
+            "The Duel - Special Agent Objective 2": Has("The Duel - Special Agent"),
+            "Complete: The Duel - Special Agent": Has("The Duel - Special Agent"),
+        }
+
+        perfect_agent_rules = {
+            # Stage 1 - Defection
+            "dD Defection - Perfect Agent Objective 1": HasAll("dD Defection - Perfect Agent", "ECM Mine"),
+            "dD Defection - Perfect Agent Objective 2": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS,
+            "dD Defection - Perfect Agent Objective 3": HasAll("dD Defection - Perfect Agent", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+            "dD Defection - Perfect Agent Objective 4": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HAS_ANY_WEAPON_TYPE,
+            "dD Defection - Perfect Agent Objective 5": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Defection - Perfect Agent": HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 2 - Investigation
+            "dD Investigation - Perfect Agent Objective 1": HasAll("dD Investigation - Perfect Agent", "CamSpy"),
+            "dD Investigation - Perfect Agent Objective 2": Has("dD Investigation - Perfect Agent"),
+            "dD Investigation - Perfect Agent Objective 3": Has("dD Investigation - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "dD Investigation - Perfect Agent Objective 4": HasAll("dD Investigation - Perfect Agent", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+            "dD Investigation - Perfect Agent Objective 5": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Investigation - Perfect Agent": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 3 - Extraction
+            "dD Extraction - Perfect Agent Objective 1": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Perfect Agent Objective 2": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Perfect Agent Objective 3": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Perfect Agent Objective 4": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "dD Extraction - Perfect Agent Objective 5": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+            "Complete: dD Extraction - Perfect Agent": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 4 - Carrington Villa
+            "Carrington Villa - Perfect Agent Objective 1": Has("Carrington Villa - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Perfect Agent Objective 2": Has("Carrington Villa - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Perfect Agent Objective 3": Has("Carrington Villa - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Carrington Villa - Perfect Agent Objective 4": Has("Carrington Villa - Perfect Agent"),
+            "Carrington Villa - Perfect Agent Objective 5": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Carrington Villa - Perfect Agent": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 5 - Chicago
+            "Chicago - Perfect Agent Objective 1": HasAll("Chicago - Perfect Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]),
+            "Chicago - Perfect Agent Objective 2": HasAll("Chicago - Perfect Agent", "Tracer Bug"),
+            "Chicago - Perfect Agent Objective 3": Has("Chicago - Perfect Agent") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Perfect Agent Objective 4": Has("Chicago - Perfect Agent") & HasAny("Data Uplink", "CamSpy") & HAS_ANY_WEAPON_TYPE,
+            "Chicago - Perfect Agent Objective 5": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Chicago - Perfect Agent": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 6 - G5 Building
+            "G5 Building - Perfect Agent Objective 1": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Perfect Agent Objective 2": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Perfect Agent Objective 3": HasAll("G5 Building - Perfect Agent", "CamSpy") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Perfect Agent Objective 4": HasAll("G5 Building - Perfect Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+            "G5 Building - Perfect Agent Objective 5": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: G5 Building - Perfect Agent": HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 7 - A51 Infiltration
+            "A51 Infiltration - Perfect Agent Objective 1": HasAll("A51 Infiltration - Perfect Agent", "Explosives") & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Perfect Agent Objective 2": HasAll("A51 Infiltration - Perfect Agent", "Comms Rider") & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Perfect Agent Objective 3": Has("A51 Infiltration - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Perfect Agent Objective 4": Has("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "A51 Infiltration - Perfect Agent Objective 5": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Infiltration - Perfect Agent": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 8 - A51 Rescue
+            "A51 Rescue - Perfect Agent Objective 1": HasAll("A51 Rescue - Perfect Agent", "Data Uplink") & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Perfect Agent Objective 2": HasAll("A51 Rescue - Perfect Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Perfect Agent Objective 3": HasAll("A51 Rescue - Perfect Agent", "Lab Clothes") & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Perfect Agent Objective 4": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HAS_ANY_WEAPON_TYPE,
+            "A51 Rescue - Perfect Agent Objective 5": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Rescue - Perfect Agent": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 9 - A51 Escape
+            "A51 Escape - Perfect Agent Objective 1": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Perfect Agent Objective 2": Has("A51 Escape - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Perfect Agent Objective 3": Has("A51 Escape - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Perfect Agent Objective 4": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+            "A51 Escape - Perfect Agent Objective 5": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+            "Complete: A51 Escape - Perfect Agent": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 10 - Air Base
+            "Air Base - Perfect Agent Objective 1": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise"),
+            "Air Base - Perfect Agent Objective 2": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase"),
+            "Air Base - Perfect Agent Objective 3": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise"),
+            "Air Base - Perfect Agent Objective 4": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+            "Air Base - Perfect Agent Objective 5": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+            "Complete: Air Base - Perfect Agent": HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+
+            # Stage 11 - Air Force One
+            "Air Force One - Perfect Agent Objective 1": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Perfect Agent Objective 2": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Perfect Agent Objective 3": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HAS_ANY_WEAPON_TYPE,
+            "Air Force One - Perfect Agent Objective 4": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Air Force One - Perfect Agent Objective 5": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Air Force One - Perfect Agent": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 12 - Crash Site
+            "Crash Site - Perfect Agent Objective 1": HasAll("Crash Site - Perfect Agent", "President Scanner"),
+            "Crash Site - Perfect Agent Objective 2": Has("Crash Site - Perfect Agent"),
+            "Crash Site - Perfect Agent Objective 3": Has("Crash Site - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Crash Site - Perfect Agent Objective 4": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Crash Site - Perfect Agent Objective 5": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Crash Site - Perfect Agent": HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 13 - Pelagic II
+            "Pelagic II - Perfect Agent Objective 1": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Perfect Agent Objective 2": HasAll("Pelagic II - Perfect Agent", "Research Tape") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Perfect Agent Objective 3": Has("Pelagic II - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Perfect Agent Objective 4": Has("Pelagic II - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Pelagic II - Perfect Agent Objective 5": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Pelagic II - Perfect Agent": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 14 - Deep Sea
+            "Deep Sea - Perfect Agent Objective 1": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Perfect Agent Objective 2": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Perfect Agent Objective 3": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Perfect Agent Objective 4": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+            "Deep Sea - Perfect Agent Objective 5": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Deep Sea - Perfect Agent": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 15 - Carrington Institute Defense
+            "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent"),
+            "CI Defense - Perfect Agent Objective 2": Has("CI Defense - Perfect Agent") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+            "CI Defense - Perfect Agent Objective 3": Has("CI Defense - Perfect Agent") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+            "CI Defense - Perfect Agent Objective 4": Has("CI Defense - Perfect Agent") & (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"])) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+            "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+            "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+
+            # Stage 16 - Attack Ship
+            "Attack Ship - Perfect Agent Objective 1": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Perfect Agent Objective 2": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Perfect Agent Objective 3": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Perfect Agent Objective 4": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Attack Ship - Perfect Agent Objective 5": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Attack Ship - Perfect Agent": Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 17 - Skedar Ruins
+            "Skedar Ruins - Perfect Agent Objective 1": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier") & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Perfect Agent Objective 2": HAS_SKEDAR_RUINS_PF_AGENT & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+            "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 18 - Mr. Blonde's Revenge
+            "Mr. Blonde's Revenge - Perfect Agent Objective 1": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+            "Mr. Blonde's Revenge - Perfect Agent Objective 2": Has("Mr. Blonde's Revenge - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Mr. Blonde's Revenge - Perfect Agent Objective 3": Has("Mr. Blonde's Revenge - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Mr. Blonde's Revenge - Perfect Agent": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Skedar Bomb") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 19 - Maian SOS
+            "Maian SOS - Perfect Agent Objective 1": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Maian SOS - Perfect Agent Objective 2": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Maian SOS - Perfect Agent Objective 3": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: Maian SOS - Perfect Agent": Has("Maian SOS - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 20 - WAR!
+            "WAR! - Perfect Agent Objective 1": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "WAR! - Perfect Agent Objective 2": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "WAR! - Perfect Agent Objective 3": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: WAR! - Perfect Agent": Has("WAR! - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+
+            # Stage 21 - The Duel
+            "The Duel - Perfect Agent Objective 1": Has("The Duel - Perfect Agent"),
+            "The Duel - Perfect Agent Objective 2": Has("The Duel - Perfect Agent"),
+            "The Duel - Perfect Agent Objective 3": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+            "Complete: The Duel - Perfect Agent": Has("The Duel - Perfect Agent") & HAS_ANY_WEAPON_TYPE,
+        }
+
+        cheat_rules = {
+            # Stage 1 - Defection
+            "Cheat Unlock: Complete dD Defection": (Has("dD Defection - Agent"))
+                                                   | (HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                   | (HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 2 - Investigation
+            "Cheat Unlock: Complete dD Investigation": (HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 3 - Extraction
+            "Cheat Unlock: Complete dD Extraction": (HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("dD Extraction - Special Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("dD Extraction - Perfect Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 4 - Carrington Villa
+            "Cheat Unlock: Complete Carrington Villa": (HasAll("Carrington Villa - Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 5 - Chicago
+            "Cheat Unlock: Complete Chicago": (HasAll("Chicago - Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                              | (HasAll("Chicago - Special Agent", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                              | (HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 6 - G5 Building
+            "Cheat Unlock: Complete G5 Building": (HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                  | (HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                  | (HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 7 - A51 Infiltration
+            "Cheat Unlock: Complete A51 Infiltration": (HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                       | (HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 8 - Rescue
+            "Cheat Unlock: Complete A51 Rescue": (HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 9 - Escape
+            "Cheat Unlock: Complete A51 Escape": (HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("A51 Escape - Special Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 10 - Air Base
+            "Cheat Unlock: Complete Air Base": (HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise") & HAS_ANY_WEAPON_TYPE)
+                                               | (HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]))
+                                               | (HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise", "Suitcase", "Flight Plans") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+
+            # Stage 11 - Air Force One
+            "Cheat Unlock: Complete Air Force One": (HasAll("Air Force One - Agent", "Suitcase") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                    | (HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 12 - Crash Site
+            "Cheat Unlock: Complete Crash Site": (HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("Crash Site - Special Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("Crash Site - Perfect Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 13 - Pelagic II
+            "Cheat Unlock: Complete Pelagic II": (HasAll("Pelagic II - Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 14 - Deep Sea
+            "Cheat Unlock: Complete Deep Sea": (HasAll("Deep Sea - Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE)
+                                               | (HasAll("Deep Sea - Special Agent", "IR Scanner") & HAS_ANY_WEAPON_TYPE)
+                                               | (HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 15 - CI Defense
+            "Cheat Unlock: Complete CI Defense": (HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE)
+                                                 | (HasAll("CI Defense - Special Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]))
+                                                 | (HasAll("CI Defense - Perfect Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"])),
+
+            # Stage 16 - Attack Ship
+            "Cheat Unlock: Complete Attack Ship": (Has("Attack Ship - Agent") & HAS_ANY_WEAPON_TYPE)
+                                                  | (Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE)
+                                                  | (Has("Attack Ship - Perfect Agent") & HAS_ANY_WEAPON_TYPE),
+
+            # Stage 17 - Skedar Ruins
+            "Cheat Unlock: Complete Skedar Ruins": (HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)
+                                                   | (HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)
+                                                   | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE),
+        }
+
+        cheat_agent_rules = {
+            # Extraction
+            "Cheat Unlock: Complete dD Extraction (Agent) in under 2:03": HasAll("dD Extraction - Agent", "Night Vision") & HAS_ANY_WEAPON_TYPE,
+
+            # G5 Building
+            "Cheat Unlock: Complete G5 Building (Agent) in under 1:40": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Escape
+            "Cheat Unlock: Complete A51 Escape (Agent) in under 3:50": HasAll("A51 Escape - Agent", "Alien Medpack") & HAS_ANY_WEAPON_TYPE,
+
+            # Crash Site
+            "Cheat Unlock: Complete Crash Site (Agent) in under 2:50": HasAll("Crash Site - Agent", "President Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # CI Defense
+            "Cheat Unlock: Complete CI Defense (Agent) in under 1:45": HasAll("CI Defense - Agent", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE,
+        }
+
+        cheat_sp_agent_rules = {
+            # Defection
+            "Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Villa
+            "Cheat Unlock: Complete Carrington Villa (Special Agent) in under 2:30": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HAS_ANY_WEAPON_TYPE,
+
+            # Infiltration
+            "Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Air Base
+            "Cheat Unlock: Complete Air Base (Special Agent) in under 3:11": HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+
+            # Pelagic II
+            "Cheat Unlock: Complete Pelagic II (Special Agent) in under 7:07": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HAS_ANY_WEAPON_TYPE,
+
+            # Attack Ship
+            "Cheat Unlock: Complete Attack Ship (Special Agent) in under 5:17": Has("Attack Ship - Special Agent") & HAS_ANY_WEAPON_TYPE,
+        }
+
+        cheat_pf_agent_rules = {
+            # Investigation
+            "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Night Vision", "Data Uplink", "Shield Tech Item") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Chicago
+            "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Rescue
+            "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HAS_ANY_WEAPON_TYPE,
+
+            # Air Force One
+            "Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Deep Sea
+            "Cheat Unlock: Complete Deep Sea (Perfect Agent) in under 7:27": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE,
+
+            # Skedar Ruins
+            "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE,
+        }
+
+        if world.options.agent:
+            add_rule(world, agent_rules)
+        if world.options.special_agent:
+            add_rule(world, special_agent_rules)
+        if world.options.perfect_agent:
+            add_rule(world, perfect_agent_rules)
+        if world.options.unlock_cheats:
+            add_rule(world, cheat_rules)
+
+            if world.options.agent:
+                add_rule(world, cheat_agent_rules)
+            if world.options.special_agent:
+                add_rule(world, cheat_sp_agent_rules)
+            if world.options.perfect_agent:
+                add_rule(world, cheat_pf_agent_rules)
+
+
 
 def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:                      
     if (world.options.weapon_progression.value == WeaponProgression.option_normal
@@ -13610,6 +15996,255 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
             dt_data_uplink = world.get_location("Holotraining 7: Live Combat 2")
             world.set_rule(dt_data_uplink, Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
+    elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+        if world.options.unlock_cheats & world.options.weapon_training:
+            cheat_pp9i = world.get_location("Cheat Unlock: Get gold medals for Falcon 2, Falcon 2 (Silencer), and Falcon 2 (Scope)")
+            world.set_rule(cheat_pp9i, Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Scope)"]))
+
+            cheat_cc13 = world.get_location("Cheat Unlock: Get gold medals for MagSec 4, Mauler, Phoenix, DY357 Magnum, and DY357-LX")
+            world.set_rule(cheat_cc13, Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"]))
+
+            cheat_kl01313 = world.get_location("Cheat Unlock: Get gold medals for CMP150, Cyclone, Callisto NTG, and RC-P120")
+            world.set_rule(cheat_kl01313, Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]))
+
+            cheat_kf7 = world.get_location("Cheat Unlock: Get gold medals for Laptop Gun, Dragon, K7 Avenger, AR34, and SuperDragon")
+            world.set_rule(cheat_kf7, Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"])
+                                      & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]))
+
+            cheat_zzt = world.get_location("Cheat Unlock: Get gold medals for Shotgun, Sniper Rifle, Rocket Launcher, and Slayer")
+            world.set_rule(cheat_zzt, Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"])
+                                      & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]))
+
+            cheat_dmc = world.get_location("Cheat Unlock: Get gold medals for Timed Mine, Proximity Mine, and Remote Mine")
+            world.set_rule(cheat_dmc, Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]))
+
+            cheat_ar53 = world.get_location("Cheat Unlock: Get gold medals for FarSight XR-20, Crossbow, Combat Knife, and Grenade")
+            world.set_rule(cheat_ar53, Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"])
+                                       & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]))
+
+            cheat_rcp45 = world.get_location("Cheat Unlock: Get gold medals for Tranquilizer, Reaper, and Devastator")
+            world.set_rule(cheat_rcp45, Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"])
+                                        & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]))
+
+        if world.options.challenges:
+            if world.options.challenge_logic.value == ChallengeLogic.option_strict:
+                challenge_rules = {
+                    "Challenge 1": Has("Challenge 1") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+                    "Challenge 2": Has("Challenge 2") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]),
+                    "Challenge 3": Has("Challenge 3") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]),
+                    "Challenge 4": HasAll("Challenge 4", "Shield") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                    "Challenge 5": HasAll("Challenge 5", "Shield") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]),
+                    "Challenge 6": HasAll("Challenge 6", "Briefcase", "Shield") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                    "Challenge 7": HasAll("Challenge 7", "Shield") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]),
+                    "Challenge 8": HasAll("Challenge 8", "Briefcase", "Shield") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]),
+                    "Challenge 9": Has("Challenge 9") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]),
+                    "Challenge 10": HasAll("Challenge 10", "Data Uplink", "Shield") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]),
+                    "Challenge 11": HasAll("Challenge 11", "Shield") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                    "Challenge 12": HasAll("Challenge 12", "Shield") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]),
+                    "Challenge 13": Has("Challenge 13") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]),
+                    "Challenge 14": HasAll("Challenge 14", "Briefcase", "Cloaking Device") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]),
+                    "Challenge 15": HasAll("Challenge 15", "Briefcase", "Shield") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]),
+                    "Challenge 16": HasAll("Challenge 16", "Shield") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]),
+                    "Challenge 17": HasAll("Challenge 17", "Shield") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"]),
+                    "Challenge 18": HasAll("Challenge 18", "Shield", "Cloaking Device") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Phoenix"]),
+                    "Challenge 19": HasAll("Challenge 19", "Shield", "Combat Boost") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]),
+                    "Challenge 20": HasAll("Challenge 20", "Shield") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]),
+                    "Challenge 21": HasAll("Challenge 21", "Data Uplink", "Cloaking Device") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]),
+                    "Challenge 22": HasAll("Challenge 22", "Briefcase", "Shield") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                    "Challenge 23": HasAll("Challenge 23", "Shield", "Combat Boost") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]),
+                    "Challenge 24": HasAll("Challenge 24", "Briefcase") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"]),
+                    "Challenge 25": HasAll("Challenge 25", "Cloaking Device") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]),
+                    "Challenge 26": Has("Challenge 26") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]),
+                    "Challenge 27": HasAll("Challenge 27", "Data Uplink", "Shield") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]),
+                    "Challenge 28": HasAll("Challenge 28", "Briefcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]),
+                    "Challenge 29": Has("Challenge 29") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]),
+                    "Challenge 30": Has("Challenge 30") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]),
+                }
+
+                add_challenge_rules(world, challenge_rules)
+
+
+            elif world.options.challenge_logic.value == ChallengeLogic.option_normal:
+                challenge_rules = {
+                    "Challenge 1": Has("Challenge 1") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+                    "Challenge 2": Has("Challenge 2") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]),
+                    "Challenge 3": Has("Challenge 3") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]),
+                    "Challenge 4": HasAll("Challenge 4", "Shield") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                    "Challenge 5": Has("Challenge 5") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]),
+                    "Challenge 6": HasAll("Challenge 6", "Briefcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                    "Challenge 7": Has("Challenge 7") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]),
+                    "Challenge 8": HasAll("Challenge 8", "Briefcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]),
+                    "Challenge 9": Has("Challenge 9") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]),
+                    "Challenge 10": HasAll("Challenge 10", "Data Uplink") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]),
+                    "Challenge 11": Has("Challenge 11") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]),
+                    "Challenge 12": Has("Challenge 12") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]),
+                    "Challenge 13": Has("Challenge 13") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]),
+                    "Challenge 14": HasAll("Challenge 14", "Briefcase", "Cloaking Device") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]),
+                    "Challenge 15": HasAll("Challenge 15", "Briefcase") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]),
+                    "Challenge 16": HasAll("Challenge 16", "Shield") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]),
+                    "Challenge 17": HasAll("Challenge 17", "Shield") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"]),
+                    "Challenge 18": HasAll("Challenge 18", "Shield", "Cloaking Device") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Phoenix"]),
+                    "Challenge 19": HasAll("Challenge 19", "Shield", "Combat Boost") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]),
+                    "Challenge 20": HasAll("Challenge 20", "Shield") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]),
+                    "Challenge 21": HasAll("Challenge 21", "Data Uplink", "Cloaking Device") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]),
+                    "Challenge 22": HasAll("Challenge 22", "Briefcase", "Shield") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                    "Challenge 23": HasAll("Challenge 23", "Shield", "Combat Boost") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]),
+                    "Challenge 24": HasAll("Challenge 24", "Briefcase") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"]),
+                    "Challenge 25": HasAll("Challenge 25", "Cloaking Device") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]),
+                    "Challenge 26": Has("Challenge 26") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]),
+                    "Challenge 27": HasAll("Challenge 27", "Data Uplink", "Shield") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]),
+                    "Challenge 28": HasAll("Challenge 28", "Briefcase") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]),
+                    "Challenge 29": Has("Challenge 29") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]),
+                    "Challenge 30": Has("Challenge 30") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]),
+                }
+
+                add_challenge_rules(world, challenge_rules)
+            
+
+            elif world.options.challenge_logic.value == ChallengeLogic.option_hard:
+                challenge_rules = {
+                    "Challenge 1": Has("Challenge 1") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]),
+                    "Challenge 2": Has("Challenge 2") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Combat Knife"]),
+                    "Challenge 3": Has("Challenge 3") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]),
+                    "Challenge 4": Has("Challenge 4") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]),
+                    "Challenge 5": Has("Challenge 5") & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]),
+                    "Challenge 6": HasAll("Challenge 6", "Briefcase") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]),
+                    "Challenge 7": Has("Challenge 7") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Silencer)"]),
+                    "Challenge 8": HasAll("Challenge 8", "Briefcase") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]),
+                    "Challenge 9": Has("Challenge 9") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]),
+                    "Challenge 10": HasAll("Challenge 10", "Data Uplink") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]),
+                    "Challenge 11": Has("Challenge 11") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]),
+                    "Challenge 12": Has("Challenge 12") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]),
+                    "Challenge 13": Has("Challenge 13") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]),
+                    "Challenge 14": HasAll("Challenge 14", "Briefcase") & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]),
+                    "Challenge 15": HasAll("Challenge 15", "Briefcase") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]),
+                    "Challenge 16": Has("Challenge 16") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]),
+                    "Challenge 17": Has("Challenge 17") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]),
+                    "Challenge 18": Has("Challenge 18") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]),
+                    "Challenge 19": Has("Challenge 19") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]),
+                    "Challenge 20": Has("Challenge 20") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]),
+                    "Challenge 21": HasAll("Challenge 21", "Data Uplink") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]),
+                    "Challenge 22": HasAll("Challenge 22", "Briefcase") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Crossbow"]),
+                    "Challenge 23": Has("Challenge 23") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]),
+                    "Challenge 24": HasAll("Challenge 24", "Briefcase") & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]),
+                    "Challenge 25": Has("Challenge 25") & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["N-Bomb"]),
+                    "Challenge 26": Has("Challenge 26") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]),
+                    "Challenge 27": HasAll("Challenge 27", "Data Uplink") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]),
+                    "Challenge 28": HasAll("Challenge 28", "Briefcase") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]),
+                    "Challenge 29": Has("Challenge 29") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]),
+                    "Challenge 30": Has("Challenge 30") & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]),
+                }
+
+                add_challenge_rules(world, challenge_rules)
+
+            
+        if world.options.weapon_training:
+            weapon_training_rules = {
+                "Firing Range: Falcon 2 - Bronze": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]),
+                "Firing Range: Falcon 2 - Silver": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]),
+                "Firing Range: Falcon 2 - Gold": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]),
+                "Firing Range: Falcon 2 (Silencer) - Bronze": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Silencer)"]),
+                "Firing Range: Falcon 2 (Silencer) - Silver": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Silencer)"]),
+                "Firing Range: Falcon 2 (Silencer) - Gold": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Silencer)"]),
+                "Firing Range: Falcon 2 (Scope) - Bronze": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Scope)"]),
+                "Firing Range: Falcon 2 (Scope) - Silver": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Scope)"]),
+                "Firing Range: Falcon 2 (Scope) - Gold": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Scope)"]),
+                "Firing Range: MagSec 4 - Bronze": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]),
+                "Firing Range: MagSec 4 - Silver": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]),
+                "Firing Range: MagSec 4 - Gold": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]),
+                "Firing Range: Mauler - Bronze": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]),
+                "Firing Range: Mauler - Silver": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]),
+                "Firing Range: Mauler - Gold": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]),
+                "Firing Range: Phoenix - Bronze": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Phoenix"]),
+                "Firing Range: Phoenix - Silver": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Phoenix"]),
+                "Firing Range: Phoenix - Gold": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Phoenix"]),
+                "Firing Range: DY357 Magnum - Bronze": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]),
+                "Firing Range: DY357 Magnum - Silver": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]),
+                "Firing Range: DY357 Magnum - Gold": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]),
+                "Firing Range: DY357-LX - Bronze": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"]),
+                "Firing Range: DY357-LX - Silver": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"]),
+                "Firing Range: DY357-LX - Gold": Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"]),
+                "Firing Range: CMP150 - Bronze": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]),
+                "Firing Range: CMP150 - Silver": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]),
+                "Firing Range: CMP150 - Gold": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]),
+                "Firing Range: Cyclone - Bronze": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]),
+                "Firing Range: Cyclone - Silver": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]),
+                "Firing Range: Cyclone - Gold": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]),
+                "Firing Range: Callisto NTG - Bronze": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Callisto NTG"]),
+                "Firing Range: Callisto NTG - Silver": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Callisto NTG"]),
+                "Firing Range: Callisto NTG - Gold": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Callisto NTG"]),
+                "Firing Range: RC-P120 - Bronze": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]),
+                "Firing Range: RC-P120 - Silver": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]),
+                "Firing Range: RC-P120 - Gold": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]),
+                "Firing Range: Laptop Gun - Bronze": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]),
+                "Firing Range: Laptop Gun - Silver": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]),
+                "Firing Range: Laptop Gun - Gold": Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]),
+                "Firing Range: Dragon - Bronze": Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+                "Firing Range: Dragon - Silver": Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+                "Firing Range: Dragon - Gold": Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]),
+                "Firing Range: K7 Avenger - Bronze": Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                "Firing Range: K7 Avenger - Silver": Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                "Firing Range: K7 Avenger - Gold": Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]),
+                "Firing Range: AR34 - Bronze": Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]),
+                "Firing Range: AR34 - Silver": Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]),
+                "Firing Range: AR34 - Gold": Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]),
+                "Firing Range: SuperDragon - Bronze": Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]),
+                "Firing Range: SuperDragon - Silver": Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]),
+                "Firing Range: SuperDragon - Gold": Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]),
+                "Firing Range: Shotgun - Bronze": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]),
+                "Firing Range: Shotgun - Silver": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]),
+                "Firing Range: Shotgun - Gold": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]),
+                "Firing Range: Reaper - Bronze": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]),
+                "Firing Range: Reaper - Silver": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]),
+                "Firing Range: Reaper - Gold": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]),
+                "Firing Range: Sniper Rifle - Bronze": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]),
+                "Firing Range: Sniper Rifle - Silver": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]),
+                "Firing Range: Sniper Rifle - Gold": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]),
+                "Firing Range: FarSight XR-20 - Bronze": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]),
+                "Firing Range: FarSight XR-20 - Silver": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]),
+                "Firing Range: FarSight XR-20 - Gold": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]),
+                "Firing Range: Devastator - Bronze": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]),
+                "Firing Range: Devastator - Silver": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]),
+                "Firing Range: Devastator - Gold": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]),
+                "Firing Range: Rocket Launcher - Bronze": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]),
+                "Firing Range: Rocket Launcher - Silver": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]),
+                "Firing Range: Rocket Launcher - Gold": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]),
+                "Firing Range: Slayer - Bronze": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"]),
+                "Firing Range: Slayer - Silver": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"]),
+                "Firing Range: Slayer - Gold": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"]),
+                "Firing Range: Combat Knife - Bronze": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Combat Knife"]),
+                "Firing Range: Combat Knife - Silver": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Combat Knife"]),
+                "Firing Range: Combat Knife - Gold": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Combat Knife"]),
+                "Firing Range: Crossbow - Bronze": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Crossbow"]),
+                "Firing Range: Crossbow - Silver": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Crossbow"]),
+                "Firing Range: Crossbow - Gold": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Crossbow"]),
+                "Firing Range: Tranquilizer - Bronze": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]),
+                "Firing Range: Tranquilizer - Silver": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]),
+                "Firing Range: Tranquilizer - Gold": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]),
+                "Firing Range: Laser - Bronze": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]),
+                "Firing Range: Laser - Silver": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]),
+                "Firing Range: Laser - Gold": Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]),
+                "Firing Range: Grenade - Bronze": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]),
+                "Firing Range: Grenade - Silver": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]),
+                "Firing Range: Grenade - Gold": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]),
+                "Firing Range: Timed Mine - Bronze": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]),
+                "Firing Range: Timed Mine - Silver": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]),
+                "Firing Range: Timed Mine - Gold": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]),
+                "Firing Range: Proximity Mine - Bronze": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Proximity Mine"]),
+                "Firing Range: Proximity Mine - Silver": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Proximity Mine"]),
+                "Firing Range: Proximity Mine - Gold": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Proximity Mine"]),
+                "Firing Range: Remote Mine - Bronze": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]),
+                "Firing Range: Remote Mine - Silver": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]),
+                "Firing Range: Remote Mine - Gold": Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]),
+            }
+
+            add_rule(world, weapon_training_rules)
+
+        if world.options.holotraining:
+            dt_data_uplink = world.get_location("Holotraining 7: Live Combat 2")
+            world.set_rule(dt_data_uplink, Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]))
+
+
     if world.options.device_training:
         dt_data_uplink = world.get_location("Device Training: Data Uplink")
         world.set_rule(dt_data_uplink, Has("Data Uplink"))
@@ -13672,6 +16307,19 @@ def set_completion_condition(world: PerfectDarkWorld) -> None:
             elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 world.set_completion_rule(has_skedar_ruins & HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
 
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+                if world.options.special_agent or world.options.perfect_agent:
+                    world.set_completion_rule(has_skedar_ruins 
+                                              & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) 
+                                              & HAS_ANY_WEAPON_TYPE)
+                else:
+                    # Agent
+                    world.set_completion_rule(HAS_SKEDAR_RUINS_AGENT 
+                                              & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) 
+                                              & HAS_ANY_WEAPON_TYPE)
+
         elif world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_mission_stars:
             required_mission_stars = get_mission_stars(world)
             world.set_completion_rule(Has("Mission Star", count=required_mission_stars))
@@ -13703,7 +16351,19 @@ def set_completion_condition(world: PerfectDarkWorld) -> None:
                 world.set_completion_rule(HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                           & Has("Mission Star", count=required_mission_stars))
 
-    elif world.options.goal.value == Goal.option_collect_mission_stars:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+                if world.options.special_agent or world.options.perfect_agent:
+                    world.set_completion_rule(HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) 
+                                              & HAS_ANY_WEAPON_TYPE
+                                              & Has("Mission Star", count=required_mission_stars))
+                else:
+                    # Agent
+                    world.set_completion_rule(HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) 
+                                              & HAS_ANY_WEAPON_TYPE
+                                              & Has("Mission Star", count=required_mission_stars))
+
         required_mission_stars = get_mission_stars(world)
         world.set_completion_rule(Has("Mission Star", count=required_mission_stars))
 
