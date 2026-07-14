@@ -197,7 +197,7 @@ def set_all_rules(world: PerfectDarkWorld) -> None:
     set_all_entrance_rules(world)
 
     if (world.options.mission_logic.value == MissionLogic.option_normal 
-            | world.options.mission_logic.value == MissionLogic.option_veteran):
+            or world.options.mission_logic.value == MissionLogic.option_veteran):
         set_all_location_rules(world)
     elif world.options.mission_logic.value == MissionLogic.option_hard:
         set_all_hard_location_rules(world)
@@ -4088,7 +4088,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                          & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_obj_4 = world.get_location("A51 Infiltration - Perfect Agent Objective 4")
-            world.set_rule(infiltration_prf_agent_obj_4, HasAll("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS
+            world.set_rule(infiltration_prf_agent_obj_4, Has("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS
                                                          & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_obj_5 = world.get_location("A51 Infiltration - Perfect Agent Objective 5")
@@ -9109,7 +9109,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                          & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_obj_4 = world.get_location("A51 Infiltration - Perfect Agent Objective 4")
-            world.set_rule(infiltration_prf_agent_obj_4, HasAll("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS
+            world.set_rule(infiltration_prf_agent_obj_4, Has("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS
                                                          & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_obj_5 = world.get_location("A51 Infiltration - Perfect Agent Objective 5")
@@ -13772,7 +13772,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                          & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_obj_4 = world.get_location("A51 Infiltration - Perfect Agent Objective 4")
-            world.set_rule(infiltration_prf_agent_obj_4, HasAll("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS
+            world.set_rule(infiltration_prf_agent_obj_4, Has("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS
                                                          & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
             infiltration_prf_agent_obj_5 = world.get_location("A51 Infiltration - Perfect Agent Objective 5")
