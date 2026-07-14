@@ -447,7 +447,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
 	"Challenge 29": ItemClassification.progression | ItemClassification.useful,
 	"Challenge 30": ItemClassification.progression | ItemClassification.useful,
     "Progressive Weapon": ItemClassification.progression,
-    "Cheat: DK Mode": ItemClassification.filler,
+    "Cheat: DK Mode": ItemClassification.useful,
     "Cheat: Small Jo": ItemClassification.filler,
     "Cheat: Small Characters": ItemClassification.filler,
     "Cheat: Team Heads Only": ItemClassification.filler,
@@ -1010,8 +1010,17 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         if world.options.weapon_progression.value == WeaponProgression.option_normal:
             itemID = world.random.randint(3, 35)
             remove_starting_item_from_pool(world, list(ITEM_NAME_TO_ID.keys())[list(ITEM_NAME_TO_ID.values()).index(itemID)], itempool)
-        elif world.options.weapon_progression.value > WeaponProgression.option_normal:
+        elif world.options.weapon_progression.value == WeaponProgression.option_all_guns:
+            itemID = world.random.randint(3, 44)
+            while itemID == 36:
+                itemID = world.random.randint(3, 44)
+            remove_starting_item_from_pool(world, list(ITEM_NAME_TO_ID.keys())[list(ITEM_NAME_TO_ID.values()).index(itemID)], itempool)
+        elif (world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon
+                or world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun):
             remove_starting_item_from_pool(world, "Progressive Weapon", itempool)
+        elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+            itemID = world.random.randint(241, 245)
+            remove_starting_item_from_pool(world, list(ITEM_NAME_TO_ID.keys())[list(ITEM_NAME_TO_ID.values()).index(itemID)], itempool)
 
 
     # Fill with filler items if there is not enough items to locations

@@ -39,6 +39,7 @@ class SkedarRuinsRequirements(Choice):
     option_collect_mission_stars = 1
     option_collect_challenge_stars = 2
     option_collect_both_stars = 3
+    
     default = option_collect_mission_stars
 
 
@@ -201,7 +202,7 @@ class ProgressiveWeaponsInChallenges(Toggle):
     """
     Allows you to use progressive weapons in challenges.
     This option only works if challenges are enabled 
-    weapon progression is not set to vanilla.
+    weapon progression is not set to normal.
 
     - False: You will have to pick up weapons in the challenge 
              that you have reached progressively.
@@ -215,8 +216,10 @@ class ProgressiveWeaponsInChallenges(Toggle):
 class StartWithWeapon(Toggle):
     """
     Start with a weapon in your inventory.
-    If weapon progression is vanilla, then you will 
-    start with a random weapon in your inventory.
+
+    - Normal & All Guns: You will start with a random weapon.
+    - Progressive Weapon & Progressive One Gun: You will start with the first progressive weapon.
+    - Progressive Types: You will start with a random weapon type.
     """
 
     display_name = "Start With a Weapon"
@@ -305,15 +308,9 @@ class ChallengeLogic(Choice):
     """
     Choose how hard the logic will be for the challenges. 
 
-    No Progressive Weapons
     - Strict: The logic expects you to have every weapon in the weapon set.
     - Normal: The logic expects you to have some weapons in the weapon set.
     - Hard: The logic expects you to have one of the weapons in the weapon set.
-
-    Progressive Weapons
-    - Strict: The logic expects you to have the highest progressive weapon in the weapon set.
-    - Normal: The logic is more balanced.
-    - Hard: The logic expects you to have the lowest progressive weapon in the weapon set.
     """
 
     display_name = "Challenge Logic"
@@ -348,6 +345,7 @@ class StartWithAllChallenges(Toggle):
 class WeaponTraining(Toggle):
     """
     Adds the 96 firing range medals as checks.
+    Recommend enabling this if you are doing a solo world.
     """
 
     display_name = "Weapon Training"
@@ -364,9 +362,13 @@ class DeviceTraining(Toggle):
 class Holotraining(Toggle):
     """
     Adds the 7 holotraining as checks.
+    Recommend enabling this so you have checks 
+    at the start that don't require any items.
     """
 
     display_name = "Holotraining"
+
+    default = True
 
 
 class UnlockCheats(Toggle):
