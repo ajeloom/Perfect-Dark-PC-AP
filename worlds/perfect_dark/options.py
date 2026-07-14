@@ -149,17 +149,23 @@ class WeaponProgression(Choice):
     """
     Choose how weapon progression will work in your game.
 
-    - Vanilla:
-        Every weapon in the game is its own item in the itempool.
+    - Normal:
+        Every weapon, except for the classic weapons, is its own item in the itempool.
         You start a mission with the weapons that you normally would once you unlock them.
         You can only pick up unlocked weapons and use them.
+        Pick this for the most vanilla experience.
+
+    - All Guns:
+        Every weapon in the game is its own item in the itempool.
+        Every weapon you unlocked will be in your inventory at the start of a mission.
+        This allows you to use weapons in missions they normally don't appear in.
     
     - Progressive Weapon:
         You will progress through weapons from weakest to strongest. 
         Every weapon you progress through will be in your inventory at the start of a mission.
         Some weapons required for mission objectives are in the itempool so that some locations can be done earlier.
     
-    - Progressive Weapon (One Gun):
+    - Progressive One Gun:
         You progress through the weapons in the same order, but you will only have
         the current progressive weapon in your inventory at the start of a mission. 
         You are given infinite ammo and a laser on some missions to prevent softlocks. 
@@ -170,11 +176,12 @@ class WeaponProgression(Choice):
 
     display_name = "Weapon Progression"
 
-    option_vanilla = 0
-    option_progressive_weapon = 1
-    option_progressive_weapon_one_gun = 2
+    option_normal = 0
+    option_all_guns = 1
+    option_progressive_weapon = 2
+    option_progressive_one_gun = 3
 
-    default = option_vanilla
+    default = option_normal
 
 
 class ProgressiveWeaponsInChallenges(Toggle):
@@ -432,7 +439,7 @@ option_presets = {
         "perfect_agent": True,
         "required_perfect_agent_mission_stars": 7,
         "start_with_mission": True,
-        "weapon_progression": WeaponProgression.option_vanilla,
+        "weapon_progression": WeaponProgression.option_normal,
         "allow_progressive_weapon_in_challenges": False,
         "start_with_weapon": True,
         "master_key": False,

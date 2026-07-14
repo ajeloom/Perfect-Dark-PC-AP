@@ -3,7 +3,7 @@ from __future__ import annotations
 from typing import TYPE_CHECKING
 
 from BaseClasses import CollectionState
-from rule_builder.rules import Has, HasAll, HasAny
+from rule_builder.rules import Has, HasAll, HasAny, HasFromList
 
 if TYPE_CHECKING:
     from .world import PerfectDarkWorld
@@ -23,6 +23,71 @@ HAS_SKEDAR_RUINS_AGENT = Has("Skedar Ruins - Agent") | Has("Skedar Ruins")
 HAS_SKEDAR_RUINS_SP_AGENT = Has("Skedar Ruins - Special Agent") | Has("Skedar Ruins")
 HAS_SKEDAR_RUINS_PF_AGENT = Has("Skedar Ruins - Perfect Agent") | Has("Skedar Ruins")
 
+# All Guns Weapon Progression
+WEAPON_NAME_LIST = (
+    # "Combat Knife",
+    # "Psychosis Gun",
+    # "Tranquilizer",
+    "KL01313",
+    "CC13",
+    "Laser",
+    "Crossbow",
+    "Sniper Rifle",
+    "Falcon 2",
+    "Falcon 2 (Silencer)",
+    "Falcon 2 (Scope)",
+    "PP9i",
+    "MagSec 4",
+    "DY357 Magnum",
+    "Shotgun",
+    "KF7 Special",
+    "DMC",
+    "ZZT (9mm)",
+    "CMP150",
+    "Dragon",
+    "Reaper",
+    "AR34",
+    "Cyclone",
+    "Laptop Gun",
+    # "Timed Mine",
+    # "Proximity Mine",
+    # "Grenade",
+    # "Slayer",
+    # "Remote Mine",
+    # "N-Bomb",
+    "K7 Avenger",
+    "Callisto NTG",
+    "AR53",
+    # "Rocket Launcher",
+    # "Devastator",
+    "SuperDragon",
+    "Mauler",
+    "Phoenix",
+    "RC-P45",
+    "RC-P120",
+    "DY357-LX",
+    "FarSight XR-20")
+
+HAS_ANY_RIFLE = HasAny(
+    "KF7 Special",
+    "Dragon",
+    "AR34",
+    "K7 Avenger",
+    "AR53",
+    "SuperDragon")
+
+EXPLOSIVE_LIST = (
+    "Timed Mine",
+    "Proximity Mine",
+    "Grenade",
+    "Slayer",
+    "Remote Mine",
+    "Rocket Launcher",
+    "Devastator",
+    "SuperDragon",
+    "Phoenix")
+
+# Progressive Weapon
 PROGRESSIVE_WEAPON_NAME_TO_ID = {
     "Combat Knife": 1,
     "Psychosis Gun": 2,
@@ -138,7 +203,7 @@ def set_all_entrance_rules(world: PerfectDarkWorld) -> None:
 
 
 def set_all_location_rules(world: PerfectDarkWorld) -> None:
-    if world.options.weapon_progression.value == WeaponProgression.option_vanilla:
+    if world.options.weapon_progression.value == WeaponProgression.option_normal:
         if world.options.agent:
             # Stage 1 - Defection
             defection_agent_obj_1 = world.get_location("dD Defection - Agent Objective 1")
@@ -1621,7 +1686,1172 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                 world.set_rule(cheat_skedar_ruins_timed_complete, HAS_SKEDAR_RUINS_PF_AGENT & HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "R-Tracker", "Target Amplifier", "IR Scanner"))
 
 
-    elif world.options.weapon_progression.value > WeaponProgression.option_vanilla:
+    elif world.options.weapon_progression.value == WeaponProgression.option_all_guns:
+        if world.options.mission_logic.value == MissionLogic.option_normal:
+            agent_rules = {
+                # Stage 1 - Defection
+                "dD Defection - Agent Objective 1": Has("dD Defection - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: dD Defection - Agent": Has("dD Defection - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+                # Stage 2 - Investigation
+                "dD Investigation - Agent Objective 1": HasAll("dD Investigation - Agent", "CamSpy") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Investigation - Agent Objective 2": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Investigation - Agent": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 3 - Extraction
+                "dD Extraction - Agent Objective 1": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Extraction - Agent Objective 2": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Extraction - Agent Objective 3": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Extraction - Agent": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 4 - Carrington Villa
+                "Carrington Villa - Agent Objective 1": Has("Carrington Villa - Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)"),
+                "Carrington Villa - Agent Objective 2": HasAll("Carrington Villa - Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+                "Carrington Villa - Agent Objective 3": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+                "Complete: Carrington Villa - Agent": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+
+                # Stage 5 - Chicago (Normal)
+                "Chicago - Agent Objective 1": HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Agent Objective 2": HasAll("Chicago - Agent", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Agent Objective 3": HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+                "Complete: Chicago - Agent": HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+                # Stage 6 - G5 Building
+                "G5 Building - Agent Objective 1": HasAll("G5 Building - Agent", "CamSpy") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "G5 Building - Agent Objective 2": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "G5 Building - Agent Objective 3": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: G5 Building - Agent": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 7 - Infiltration
+                "A51 Infiltration - Agent Objective 1": HasAll("A51 Infiltration - Agent", "Explosives") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Agent Objective 2": Has("A51 Infiltration - Agent") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Agent Objective 3": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Infiltration - Agent": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 8 - Rescue
+                "A51 Rescue - Agent Objective 1": HasAll("A51 Rescue - Agent", "Lab Clothes") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Agent Objective 2": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Agent Objective 3": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Rescue - Agent": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 9 - Escape
+                "A51 Escape - Agent Objective 1": Has("A51 Escape - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Agent Objective 2": Has("A51 Escape - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Agent Objective 3": HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Escape - Agent": HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 10 - Air Base
+                "Air Base - Agent Objective 1": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Agent Objective 2": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Agent Objective 3": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasFromList(*exclude_weapons_from_list(["Crossbow"]), count=2),
+                "Complete: Air Base - Agent": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasFromList(*exclude_weapons_from_list(["Crossbow"]), count=2),
+
+                # Stage 11 - Air Force One
+                "Air Force One - Agent Objective 1": HasAll("Air Force One - Agent", "Suitcase"),
+                "Air Force One - Agent Objective 2": HasAll("Air Force One - Agent", "Suitcase") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2),
+                "Air Force One - Agent Objective 3": HasAll("Air Force One - Agent", "Suitcase", "Timed Mine") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1),
+                "Complete: Air Force One - Agent": HasAll("Air Force One - Agent", "Suitcase", "Timed Mine") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2),
+
+                # Stage 12 - Crash Site
+                "Crash Site - Agent Objective 1": Has("Crash Site - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Crash Site - Agent Objective 2": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Crash Site - Agent Objective 3": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Crash Site - Agent": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 13 - Pelagic II
+                "Pelagic II - Agent Objective 1": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Agent Objective 2": Has("Pelagic II - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Agent Objective 3": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Pelagic II - Agent": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 14 - Deep Sea
+                "Deep Sea - Agent Objective 1": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Deep Sea - Agent Objective 2": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Deep Sea - Agent Objective 3": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Deep Sea - Agent": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 15 - CI Defense
+                "CI Defense - Agent Objective 1": Has("CI Defense - Agent") & HAS_ANY_RIFLE,
+                "CI Defense - Agent Objective 2": HasAll("CI Defense - Agent", "RC-P120") & HAS_ANY_RIFLE,
+                "CI Defense - Agent Objective 3": HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+                "Complete: CI Defense - Agent": HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+
+                # Stage 16 - Attack Ship
+                "Attack Ship - Agent Objective 1": Has("Attack Ship - Agent") & HAS_ANY_RIFLE,
+                "Attack Ship - Agent Objective 2": Has("Attack Ship - Agent") & HAS_ANY_RIFLE,
+                "Attack Ship - Agent Objective 3": Has("Attack Ship - Agent") & HAS_ANY_RIFLE,
+                "Complete: Attack Ship - Agent": Has("Attack Ship - Agent") & HAS_ANY_RIFLE,
+
+                # Stage 17 - Skedar Ruins
+                "Skedar Ruins - Agent Objective 1": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Skedar Ruins - Agent Objective 2": HAS_SKEDAR_RUINS_AGENT & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT & Has("IR Scanner") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+
+                # Stage 18 - Mr. Blonde's Revenge
+                "Mr. Blonde's Revenge - Agent Objective 1": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: Mr. Blonde's Revenge - Agent": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+                # Stage 19 - Maian SOS
+                "Maian SOS - Agent Objective 1": HasAll("Maian SOS - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: Maian SOS - Agent": HasAll("Maian SOS - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 20 - WAR!
+                "WAR! - Agent Objective 1": Has("WAR! - Agent") & HAS_ANY_RIFLE,
+                "Complete: WAR! - Agent": Has("WAR! - Agent") & HAS_ANY_RIFLE,
+
+                # Stage 21 - The Duel
+                "The Duel - Agent Objective 1": HasAll("The Duel - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: The Duel - Agent": HasAll("The Duel - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            }
+
+            special_agent_rules = {
+                # Stage 1 - Defection
+                "dD Defection - Special Agent Objective 1": HasAll("dD Defection - Special Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Defection - Special Agent Objective 2": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Defection - Special Agent Objective 3": HasAll("dD Defection - Special Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Defection - Special Agent Objective 4": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Defection - Special Agent": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 2 - Investigation
+                "dD Investigation - Special Agent Objective 1": HasAll("dD Investigation - Special Agent", "CamSpy") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Investigation - Special Agent Objective 2": Has("dD Investigation - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Investigation - Special Agent Objective 3": Has("dD Investigation - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Investigation - Special Agent Objective 4": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Investigation - Special Agent": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 3 - Extraction
+                "dD Extraction - Special Agent Objective 1": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Extraction - Special Agent Objective 2": HasAll("dD Extraction - Special Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2),
+                "dD Extraction - Special Agent Objective 3": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Extraction - Special Agent Objective 4": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Extraction - Special Agent": HasAll("dD Extraction - Special Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 4 - Carrington Villa
+                "Carrington Villa - Special Agent Objective 1": Has("Carrington Villa - Special Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)"),
+                "Carrington Villa - Special Agent Objective 2": Has("Carrington Villa - Special Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)"),
+                "Carrington Villa - Special Agent Objective 3": Has("Carrington Villa - Special Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+                "Carrington Villa - Special Agent Objective 4": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+                "Complete: Carrington Villa - Special Agent": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+
+                # Stage 5 - Chicago
+                "Chicago - Special Agent Objective 1": HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Special Agent Objective 2": HasAll("Chicago - Special Agent", "Remote Mine") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Special Agent Objective 3": HasAll("Chicago - Special Agent", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Special Agent Objective 4": HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+                "Complete: Chicago - Special Agent": HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+                # Stage 6 - G5 Building
+                "G5 Building - Special Agent Objective 1": Has("G5 Building - Special Agent") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "G5 Building - Special Agent Objective 2": HasAll("G5 Building - Special Agent", "CamSpy") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "G5 Building - Special Agent Objective 3": HasAll("G5 Building - Special Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+                "G5 Building - Special Agent Objective 4": HasAll("G5 Building - Special Agent", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+                "Complete: G5 Building - Special Agent": HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+                # Stage 7 - A51 Infiltration
+                "A51 Infiltration - Special Agent Objective 1": HasAll("A51 Infiltration - Special Agent", "Explosives") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Special Agent Objective 2": HasAll("A51 Infiltration - Special Agent", "Comms Rider") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Special Agent Objective 3": Has("A51 Infiltration - Special Agent") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Special Agent Objective 4": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Infiltration - Special Agent": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 8 - A51 Rescue
+                "A51 Rescue - Special Agent Objective 1": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Special Agent Objective 2": HasAll("A51 Rescue - Special Agent", "Lab Clothes") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Special Agent Objective 3": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "A51 Rescue - Special Agent Objective 4": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: A51 Rescue - Special Agent": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 9 - A51 Escape
+                "A51 Escape - Special Agent Objective 1": Has("A51 Escape - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Special Agent Objective 2": Has("A51 Escape - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Special Agent Objective 3": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Special Agent Objective 4": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Escape - Special Agent": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 10 - Air Base
+                "Air Base - Special Agent Objective 1": HasAll("Air Base - Special Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Special Agent Objective 2": HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Special Agent Objective 3": HasAll("Air Base - Special Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Special Agent Objective 4": HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Complete: Air Base - Special Agent": HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+
+                # Stage 11 - Air Force One
+                "Air Force One - Special Agent Objective 1": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Special Agent Objective 2": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Special Agent Objective 3": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2),
+                "Air Force One - Special Agent Objective 4": HasAll("Air Force One - Special Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1),
+                "Complete: Air Force One - Special Agent": HasAll("Air Force One - Special Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2),
+
+                # Stage 12 - Crash Site
+                "Crash Site - Special Agent Objective 1": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Crash Site - Special Agent Objective 2": Has("Crash Site - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Crash Site - Special Agent Objective 3": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Crash Site - Special Agent Objective 4": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Crash Site - Special Agent": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 13 - Pelagic II
+                "Pelagic II - Special Agent Objective 1": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Special Agent Objective 2": Has("Pelagic II - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Special Agent Objective 3": Has("Pelagic II - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Special Agent Objective 4": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Pelagic II - Special Agent": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 14 - Deep Sea
+                "Deep Sea - Special Agent Objective 1": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Deep Sea - Special Agent Objective 2": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Deep Sea - Special Agent Objective 3": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Deep Sea - Special Agent Objective 4": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Deep Sea - Special Agent": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 15 - CI Defense
+                "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent") & HAS_ANY_RIFLE,
+                "CI Defense - Special Agent Objective 2": Has("CI Defense - Special Agent") & HAS_ANY_RIFLE,
+                "CI Defense - Special Agent Objective 3": HasAll("CI Defense - Special Agent", "RC-P120") & HAS_ANY_RIFLE,
+                "CI Defense - Special Agent Objective 4": HasAll("CI Defense - Special Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+                "Complete: CI Defense - Special Agent": HasAll("CI Defense - Special Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+
+                # Stage 16 - Attack Ship
+                "Attack Ship - Special Agent Objective 1": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+                "Attack Ship - Special Agent Objective 2": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+                "Attack Ship - Special Agent Objective 3": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+                "Attack Ship - Special Agent Objective 4": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+                "Complete: Attack Ship - Special Agent": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+
+                # Stage 17 - Skedar Ruins
+                "Skedar Ruins - Special Agent Objective 1": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Skedar Ruins - Special Agent Objective 2": HAS_SKEDAR_RUINS_SP_AGENT & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+
+                # Stage 18 - Mr. Blonde's Revenge
+                "Mr. Blonde's Revenge - Special Agent Objective 1": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Mr. Blonde's Revenge - Special Agent Objective 2": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: Mr. Blonde's Revenge - Special Agent": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+                # Stage 19 - Maian SOS
+                "Maian SOS - Special Agent Objective 1": Has("Maian SOS - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Maian SOS - Special Agent Objective 2": Has("Maian SOS - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: Maian SOS - Special Agent": Has("Maian SOS - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 20 - WAR!
+                "WAR! - Special Agent Objective 1": Has("WAR! - Special Agent") & HAS_ANY_RIFLE,
+                "WAR! - Special Agent Objective 2": Has("WAR! - Special Agent") & HAS_ANY_RIFLE,
+                "Complete: WAR! - Special Agent": Has("WAR! - Special Agent") & HAS_ANY_RIFLE,
+
+                # Stage 21 - The Duel
+                "The Duel - Special Agent Objective 1": Has("The Duel - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "The Duel - Special Agent Objective 2": Has("The Duel - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: The Duel - Special Agent": Has("The Duel - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            }
+
+            perfect_agent_rules = {
+                # Stage 1 - Defection
+                "dD Defection - Perfect Agent Objective 1": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Defection - Perfect Agent Objective 2": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Defection - Perfect Agent Objective 3": HasAll("dD Defection - Perfect Agent", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Defection - Perfect Agent Objective 4": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Defection - Perfect Agent Objective 5": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Defection - Perfect Agent": HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 2 - Investigation
+                "dD Investigation - Perfect Agent Objective 1": HasAll("dD Investigation - Perfect Agent", "CamSpy") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Investigation - Perfect Agent Objective 2": Has("dD Investigation - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Investigation - Perfect Agent Objective 3": Has("dD Investigation - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Investigation - Perfect Agent Objective 4": HasAll("dD Investigation - Perfect Agent", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Investigation - Perfect Agent Objective 5": HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Investigation - Perfect Agent": HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 3 - Extraction
+                "dD Extraction - Perfect Agent Objective 1": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Extraction - Perfect Agent Objective 2": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Extraction - Perfect Agent Objective 3": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2),
+                "dD Extraction - Perfect Agent Objective 4": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Extraction - Perfect Agent Objective 5": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Extraction - Perfect Agent": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2),
+
+                # Stage 4 - Carrington Villa
+                "Carrington Villa - Perfect Agent Objective 1": Has("Carrington Villa - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Carrington Villa - Perfect Agent Objective 2": Has("Carrington Villa - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Carrington Villa - Perfect Agent Objective 3": Has("Carrington Villa - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Carrington Villa - Perfect Agent Objective 4": Has("Carrington Villa - Perfect Agent"),
+                "Carrington Villa - Perfect Agent Objective 5": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: Carrington Villa - Perfect Agent": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 5 - Chicago
+                "Chicago - Perfect Agent Objective 1": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Perfect Agent Objective 2": HasAll("Chicago - Perfect Agent", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Perfect Agent Objective 3": HasAll("Chicago - Perfect Agent", "Remote Mine") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Perfect Agent Objective 4": HasAll("Chicago - Perfect Agent", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Perfect Agent Objective 5": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+                "Complete: Chicago - Perfect Agent": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+                # Stage 6 - G5 Building
+                "G5 Building - Perfect Agent Objective 1": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "G5 Building - Perfect Agent Objective 2": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "G5 Building - Perfect Agent Objective 3": HasAll("G5 Building - Perfect Agent", "CamSpy") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "G5 Building - Perfect Agent Objective 4": HasAll("G5 Building - Perfect Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "G5 Building - Perfect Agent Objective 5": HasAll("G5 Building - Perfect Agent", "Remote Mine") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: G5 Building - Perfect Agent": HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 7 - A51 Infiltration
+                "A51 Infiltration - Perfect Agent Objective 1": HasAll("A51 Infiltration - Perfect Agent", "Explosives") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Perfect Agent Objective 2": HasAll("A51 Infiltration - Perfect Agent", "Comms Rider") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Perfect Agent Objective 3": Has("A51 Infiltration - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Infiltration - Perfect Agent Objective 4": Has("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Perfect Agent Objective 5": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Infiltration - Perfect Agent": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 8 - A51 Rescue
+                "A51 Rescue - Perfect Agent Objective 1": HasAll("A51 Rescue - Perfect Agent", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Perfect Agent Objective 2": HasAll("A51 Rescue - Perfect Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Perfect Agent Objective 3": HasAll("A51 Rescue - Perfect Agent", "Lab Clothes") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Perfect Agent Objective 4": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "A51 Rescue - Perfect Agent Objective 5": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: A51 Rescue - Perfect Agent": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 9 - A51 Escape
+                "A51 Escape - Perfect Agent Objective 1": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Perfect Agent Objective 2": Has("A51 Escape - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Perfect Agent Objective 3": Has("A51 Escape - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Perfect Agent Objective 4": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Perfect Agent Objective 5": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Escape - Perfect Agent": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 10 - Air Base
+                "Air Base - Perfect Agent Objective 1": HasAll("Air Base - Perfect Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Perfect Agent Objective 2": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Perfect Agent Objective 3": HasAll("Air Base - Perfect Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Perfect Agent Objective 4": HasAll("Air Base - Perfect Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Perfect Agent Objective 5": HasAll("Air Base - Perfect Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Complete: Air Base - Perfect Agent": HasAll("Air Base - Perfect Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+
+                # Stage 11 - Air Force One
+                "Air Force One - Perfect Agent Objective 1": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Perfect Agent Objective 2": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Perfect Agent Objective 3": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Air Force One - Perfect Agent Objective 4": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Air Force One - Perfect Agent Objective 5": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: Air Force One - Perfect Agent": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 12 - Crash Site
+                "Crash Site - Perfect Agent Objective 1": HasAll("Crash Site - Perfect Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Crash Site - Perfect Agent Objective 2": Has("Crash Site - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Crash Site - Perfect Agent Objective 3": Has("Crash Site - Perfect Agent") & HasAny("Remote Mine", "Proximity Mine", "Timed Mine") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Crash Site - Perfect Agent Objective 4": HasAll("Crash Site - Perfect Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Crash Site - Perfect Agent Objective 5": HasAll("Crash Site - Perfect Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Crash Site - Perfect Agent": HasAll("Crash Site - Perfect Agent", "President Scanner") & HasAny("Remote Mine", "Proximity Mine", "Timed Mine") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 13 - Pelagic II
+                "Pelagic II - Perfect Agent Objective 1": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Perfect Agent Objective 2": HasAll("Pelagic II - Perfect Agent", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Perfect Agent Objective 3": Has("Pelagic II - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Perfect Agent Objective 4": Has("Pelagic II - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Perfect Agent Objective 5": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Pelagic II - Perfect Agent": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 14 - Deep Sea
+                "Deep Sea - Perfect Agent Objective 1": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Deep Sea - Perfect Agent Objective 2": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Deep Sea - Perfect Agent Objective 3": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Deep Sea - Perfect Agent Objective 4": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Deep Sea - Perfect Agent Objective 5": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: Deep Sea - Perfect Agent": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 15 - Carrington Institute Defense (Normal)
+                "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent") & HAS_ANY_RIFLE,
+                "CI Defense - Perfect Agent Objective 2": Has("CI Defense - Perfect Agent") & HAS_ANY_RIFLE,
+                "CI Defense - Perfect Agent Objective 3": HasAll("CI Defense - Perfect Agent", "RC-P120") & HAS_ANY_RIFLE,
+                "CI Defense - Perfect Agent Objective 4": HasAll("CI Defense - Perfect Agent", "RC-P120", "Laser") & HAS_ANY_RIFLE,
+                "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "RC-P120", "Laser", "Data Uplink") & HAS_ANY_RIFLE,
+                "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "RC-P120", "Laser", "Data Uplink") & HAS_ANY_RIFLE,
+
+                # Stage 16 - Attack Ship
+                "Attack Ship - Perfect Agent Objective 1": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Attack Ship - Perfect Agent Objective 2": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Attack Ship - Perfect Agent Objective 3": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Attack Ship - Perfect Agent Objective 4": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Attack Ship - Perfect Agent Objective 5": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Attack Ship - Perfect Agent": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 17 - Skedar Ruins
+                "Skedar Ruins - Perfect Agent Objective 1": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Skedar Ruins - Perfect Agent Objective 2": HAS_SKEDAR_RUINS_PF_AGENT & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+
+                # Stage 18 - Mr. Blonde's Revenge
+                "Mr. Blonde's Revenge - Perfect Agent Objective 1": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Mr. Blonde's Revenge - Perfect Agent Objective 2": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Mr. Blonde's Revenge - Perfect Agent Objective 3": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: Mr. Blonde's Revenge - Perfect Agent": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+                # Stage 19 - Maian SOS
+                "Maian SOS - Perfect Agent Objective 1": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Maian SOS - Perfect Agent Objective 2": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Maian SOS - Perfect Agent Objective 3": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: Maian SOS - Perfect Agent": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 20 - WAR!
+                "WAR! - Perfect Agent Objective 1": Has("WAR! - Perfect Agent") & HAS_ANY_RIFLE,
+                "WAR! - Perfect Agent Objective 2": Has("WAR! - Perfect Agent") & HAS_ANY_RIFLE,
+                "WAR! - Perfect Agent Objective 3": Has("WAR! - Perfect Agent") & HAS_ANY_RIFLE,
+                "Complete: WAR! - Perfect Agent": Has("WAR! - Perfect Agent") & HAS_ANY_RIFLE,
+
+                # Stage 21 - The Duel
+                "The Duel - Perfect Agent Objective 1": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "The Duel - Perfect Agent Objective 2": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "The Duel - Perfect Agent Objective 3": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: The Duel - Perfect Agent": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            }
+
+            cheat_rules = {
+                # Defection
+                "Cheat Unlock: Complete dD Defection": (Has("dD Defection - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                                       | (HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                       | (HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # Investigation
+                "Cheat Unlock: Complete dD Investigation": (HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                           | (HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                           | (HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # Extraction
+                "Cheat Unlock: Complete dD Extraction": (HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                        | (HasAll("dD Extraction - Special Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                        | (HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2)),
+
+                # Villa
+                "Cheat Unlock: Complete Carrington Villa": (HasAll("Carrington Villa - Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
+                                                           | (HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
+                                                           | (HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+                
+                # Chicago
+                "Cheat Unlock: Complete Chicago": (HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2))
+                                                  | (HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2))
+                                                  | (HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2)),
+
+                # G5 Building
+                "Cheat Unlock: Complete G5 Building": (HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                      | (HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2))
+                                                      | (HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # A51 Infiltration
+                "Cheat Unlock: Complete A51 Infiltration": (HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                           | (HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                           | (HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # A51 Rescue
+                "Cheat Unlock: Complete A51 Rescue": (HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                     | (HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                     | (HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3)),
+
+                # A51 Escape
+                "Cheat Unlock: Complete A51 Escape": (HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                     | (HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                     | (HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # Air Base
+                "Cheat Unlock: Complete Air Base": (HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasFromList(*exclude_weapons_from_list(["Crossbow"]), count=2))
+                                                   | (HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"))
+                                                   | (HasAll("Air Base - Perfect Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer")),
+
+                # Air Force One
+                "Cheat Unlock: Complete Air Force One": (HasAll("Air Force One - Agent", "Suitcase", "Timed Mine") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2))
+                                                        | (HasAll("Air Force One - Special Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2))
+                                                        | (HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # Air Force One
+                "Cheat Unlock: Complete Crash Site": (HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                     | (HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                     | (HasAll("Crash Site - Perfect Agent", "President Scanner") & HasAny("Remote Mine", "Proximity Mine", "Timed Mine") & HasFromList(*WEAPON_NAME_LIST, count=3)),
+
+                # Pelagic II
+                "Cheat Unlock: Complete Pelagic II": (HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                     | (HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                     | (HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=3)),
+
+                # Deep Sea
+                "Cheat Unlock: Complete Deep Sea": (HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                   | (HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                   | (HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # CI Defense
+                "Cheat Unlock: Complete CI Defense": (HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE)
+                                                     | (HasAll("CI Defense - Special Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE)
+                                                     | (HasAll("CI Defense - Perfect Agent", "RC-P120", "Laser", "Data Uplink") & HAS_ANY_RIFLE),
+
+                # Attack Ship
+                "Cheat Unlock: Complete Attack Ship": (Has("Attack Ship - Agent") & HAS_ANY_RIFLE)
+                                                      | (Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE)
+                                                      | (Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3)),
+
+                # Skedar Ruins
+                "Cheat Unlock: Complete Skedar Ruins": (HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                       | (HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                       | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2)),
+            }
+
+            cheat_agent_rules = {
+                # Extraction
+                "Cheat Unlock: Complete dD Extraction (Agent) in under 2:03": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # G5 Building
+                "Cheat Unlock: Complete G5 Building (Agent) in under 1:40": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Escape
+                "Cheat Unlock: Complete A51 Escape (Agent) in under 3:50": HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Crash Site
+                "Cheat Unlock: Complete Crash Site (Agent) in under 2:50": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # CI Defense
+                "Cheat Unlock: Complete CI Defense (Agent) in under 1:45": HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+            }
+
+            cheat_sp_agent_rules = {
+                # Defection
+                "Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Villa
+                "Cheat Unlock: Complete Carrington Villa (Special Agent) in under 2:30": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+
+                # Infiltration
+                "Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Air Base
+                "Cheat Unlock: Complete Air Base (Special Agent) in under 3:11": HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+
+                # Pelagic II
+                "Cheat Unlock: Complete Pelagic II (Special Agent) in under 7:07": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Attack Ship
+                "Cheat Unlock: Complete Attack Ship (Special Agent) in under 5:17": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+            }
+
+            cheat_pf_agent_rules = {
+                # Investigation
+                "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30": HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Chicago
+                "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+                # Rescue
+                "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Air Force One
+                "Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Deep Sea
+                "Cheat Unlock: Complete Deep Sea (Perfect Agent) in under 7:27": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Skedar Ruins
+                "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            }
+
+            if world.options.agent:
+                add_rule(world, agent_rules)
+            if world.options.special_agent:
+                add_rule(world, special_agent_rules)
+            if world.options.perfect_agent:
+                add_rule(world, perfect_agent_rules)
+            if world.options.unlock_cheats:
+                add_rule(world, cheat_rules)
+
+                if world.options.agent:
+                    add_rule(world, cheat_agent_rules)
+                if world.options.special_agent:
+                    add_rule(world, cheat_sp_agent_rules)
+                if world.options.perfect_agent:
+                    add_rule(world, cheat_pf_agent_rules)
+
+        elif world.options.mission_logic.value == MissionLogic.option_veteran:
+            agent_rules = {
+                # Stage 1 - Defection
+                "dD Defection - Agent Objective 1": Has("dD Defection - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: dD Defection - Agent": Has("dD Defection - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+                # Stage 2 - Investigation
+                "dD Investigation - Agent Objective 1": HasAll("dD Investigation - Agent", "CamSpy") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Investigation - Agent Objective 2": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Investigation - Agent": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 3 - Extraction
+                "dD Extraction - Agent Objective 1": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Extraction - Agent Objective 2": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Extraction - Agent Objective 3": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Extraction - Agent": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 4 - Carrington Villa
+                "Carrington Villa - Agent Objective 1": Has("Carrington Villa - Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)"),
+                "Carrington Villa - Agent Objective 2": HasAll("Carrington Villa - Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+                "Carrington Villa - Agent Objective 3": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+                "Complete: Carrington Villa - Agent": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+
+                # Stage 5 - Chicago (Veteran)
+                "Chicago - Agent Objective 1": HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Chicago - Agent Objective 2": Has("Chicago - Agent") & HasAny("Data Uplink", "CamSpy") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Agent Objective 3": HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+                "Complete: Chicago - Agent": HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+                # Stage 6 - G5 Building
+                "G5 Building - Agent Objective 1": HasAll("G5 Building - Agent", "CamSpy") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "G5 Building - Agent Objective 2": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "G5 Building - Agent Objective 3": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: G5 Building - Agent": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 7 - Infiltration
+                "A51 Infiltration - Agent Objective 1": HasAll("A51 Infiltration - Agent", "Explosives") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Agent Objective 2": Has("A51 Infiltration - Agent") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Agent Objective 3": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Infiltration - Agent": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 8 - Rescue
+                "A51 Rescue - Agent Objective 1": HasAll("A51 Rescue - Agent", "Lab Clothes") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Agent Objective 2": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Agent Objective 3": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Rescue - Agent": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 9 - Escape
+                "A51 Escape - Agent Objective 1": Has("A51 Escape - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Agent Objective 2": Has("A51 Escape - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Agent Objective 3": HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Escape - Agent": HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 10 - Air Base
+                "Air Base - Agent Objective 1": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Agent Objective 2": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Agent Objective 3": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasFromList(*exclude_weapons_from_list(["Crossbow"]), count=2),
+                "Complete: Air Base - Agent": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasFromList(*exclude_weapons_from_list(["Crossbow"]), count=2),
+
+                # Stage 11 - Air Force One
+                "Air Force One - Agent Objective 1": HasAll("Air Force One - Agent", "Suitcase"),
+                "Air Force One - Agent Objective 2": HasAll("Air Force One - Agent", "Suitcase") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2),
+                "Air Force One - Agent Objective 3": HasAll("Air Force One - Agent", "Suitcase", "Timed Mine") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1),
+                "Complete: Air Force One - Agent": HasAll("Air Force One - Agent", "Suitcase", "Timed Mine") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2),
+
+                # Stage 12 - Crash Site
+                "Crash Site - Agent Objective 1": Has("Crash Site - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Crash Site - Agent Objective 2": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Crash Site - Agent Objective 3": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Crash Site - Agent": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 13 - Pelagic II
+                "Pelagic II - Agent Objective 1": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Agent Objective 2": Has("Pelagic II - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Agent Objective 3": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Pelagic II - Agent": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 14 - Deep Sea
+                "Deep Sea - Agent Objective 1": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Deep Sea - Agent Objective 2": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Deep Sea - Agent Objective 3": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Deep Sea - Agent": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 15 - CI Defense
+                "CI Defense - Agent Objective 1": Has("CI Defense - Agent") & HAS_ANY_RIFLE,
+                "CI Defense - Agent Objective 2": HasAll("CI Defense - Agent", "RC-P120") & HAS_ANY_RIFLE,
+                "CI Defense - Agent Objective 3": HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+                "Complete: CI Defense - Agent": HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+
+                # Stage 16 - Attack Ship
+                "Attack Ship - Agent Objective 1": Has("Attack Ship - Agent") & HAS_ANY_RIFLE,
+                "Attack Ship - Agent Objective 2": Has("Attack Ship - Agent") & HAS_ANY_RIFLE,
+                "Attack Ship - Agent Objective 3": Has("Attack Ship - Agent") & HAS_ANY_RIFLE,
+                "Complete: Attack Ship - Agent": Has("Attack Ship - Agent") & HAS_ANY_RIFLE,
+
+                # Stage 17 - Skedar Ruins
+                "Skedar Ruins - Agent Objective 1": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Skedar Ruins - Agent Objective 2": HAS_SKEDAR_RUINS_AGENT & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT & Has("IR Scanner") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+
+                # Stage 18 - Mr. Blonde's Revenge
+                "Mr. Blonde's Revenge - Agent Objective 1": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: Mr. Blonde's Revenge - Agent": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+                # Stage 19 - Maian SOS
+                "Maian SOS - Agent Objective 1": HasAll("Maian SOS - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: Maian SOS - Agent": HasAll("Maian SOS - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 20 - WAR!
+                "WAR! - Agent Objective 1": Has("WAR! - Agent") & HAS_ANY_RIFLE,
+                "Complete: WAR! - Agent": Has("WAR! - Agent") & HAS_ANY_RIFLE,
+
+                # Stage 21 - The Duel
+                "The Duel - Agent Objective 1": HasAll("The Duel - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: The Duel - Agent": HasAll("The Duel - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            }
+
+            special_agent_rules = {
+                # Stage 1 - Defection
+                "dD Defection - Special Agent Objective 1": HasAll("dD Defection - Special Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Defection - Special Agent Objective 2": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Defection - Special Agent Objective 3": HasAll("dD Defection - Special Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Defection - Special Agent Objective 4": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Defection - Special Agent": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 2 - Investigation
+                "dD Investigation - Special Agent Objective 1": HasAll("dD Investigation - Special Agent", "CamSpy") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Investigation - Special Agent Objective 2": Has("dD Investigation - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Investigation - Special Agent Objective 3": Has("dD Investigation - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Investigation - Special Agent Objective 4": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Investigation - Special Agent": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 3 - Extraction
+                "dD Extraction - Special Agent Objective 1": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Extraction - Special Agent Objective 2": HasAll("dD Extraction - Special Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2),
+                "dD Extraction - Special Agent Objective 3": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Extraction - Special Agent Objective 4": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Extraction - Special Agent": HasAll("dD Extraction - Special Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 4 - Carrington Villa
+                "Carrington Villa - Special Agent Objective 1": Has("Carrington Villa - Special Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)"),
+                "Carrington Villa - Special Agent Objective 2": Has("Carrington Villa - Special Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)"),
+                "Carrington Villa - Special Agent Objective 3": Has("Carrington Villa - Special Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+                "Carrington Villa - Special Agent Objective 4": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+                "Complete: Carrington Villa - Special Agent": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+
+                # Stage 5 - Chicago (Veteran)
+                "Chicago - Special Agent Objective 1": HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Special Agent Objective 2": HasAll("Chicago - Special Agent", "Remote Mine") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Special Agent Objective 3": Has("Chicago - Special Agent") & HasAny("Data Uplink", "CamSpy") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Special Agent Objective 4": HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+                "Complete: Chicago - Special Agent": HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+                # Stage 6 - G5 Building
+                "G5 Building - Special Agent Objective 1": Has("G5 Building - Special Agent") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "G5 Building - Special Agent Objective 2": HasAll("G5 Building - Special Agent", "CamSpy") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "G5 Building - Special Agent Objective 3": HasAll("G5 Building - Special Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+                "G5 Building - Special Agent Objective 4": HasAll("G5 Building - Special Agent", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+                "Complete: G5 Building - Special Agent": HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+                # Stage 7 - A51 Infiltration
+                "A51 Infiltration - Special Agent Objective 1": HasAll("A51 Infiltration - Special Agent", "Explosives") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Special Agent Objective 2": HasAll("A51 Infiltration - Special Agent", "Comms Rider") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Special Agent Objective 3": Has("A51 Infiltration - Special Agent") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Special Agent Objective 4": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Infiltration - Special Agent": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 8 - A51 Rescue
+                "A51 Rescue - Special Agent Objective 1": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Special Agent Objective 2": HasAll("A51 Rescue - Special Agent", "Lab Clothes") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Special Agent Objective 3": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "A51 Rescue - Special Agent Objective 4": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: A51 Rescue - Special Agent": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 9 - A51 Escape
+                "A51 Escape - Special Agent Objective 1": Has("A51 Escape - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Special Agent Objective 2": Has("A51 Escape - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Special Agent Objective 3": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Special Agent Objective 4": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Escape - Special Agent": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 10 - Air Base
+                "Air Base - Special Agent Objective 1": HasAll("Air Base - Special Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Special Agent Objective 2": HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Special Agent Objective 3": HasAll("Air Base - Special Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Special Agent Objective 4": HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Complete: Air Base - Special Agent": HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+
+                # Stage 11 - Air Force One
+                "Air Force One - Special Agent Objective 1": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Special Agent Objective 2": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Special Agent Objective 3": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2),
+                "Air Force One - Special Agent Objective 4": HasAll("Air Force One - Special Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1),
+                "Complete: Air Force One - Special Agent": HasAll("Air Force One - Special Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2),
+
+                # Stage 12 - Crash Site
+                "Crash Site - Special Agent Objective 1": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Crash Site - Special Agent Objective 2": Has("Crash Site - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Crash Site - Special Agent Objective 3": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Crash Site - Special Agent Objective 4": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Crash Site - Special Agent": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 13 - Pelagic II
+                "Pelagic II - Special Agent Objective 1": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Special Agent Objective 2": Has("Pelagic II - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Special Agent Objective 3": Has("Pelagic II - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Special Agent Objective 4": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Pelagic II - Special Agent": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 14 - Deep Sea
+                "Deep Sea - Special Agent Objective 1": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Deep Sea - Special Agent Objective 2": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Deep Sea - Special Agent Objective 3": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Deep Sea - Special Agent Objective 4": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Deep Sea - Special Agent": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 15 - CI Defense
+                "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent") & HAS_ANY_RIFLE,
+                "CI Defense - Special Agent Objective 2": Has("CI Defense - Special Agent") & HAS_ANY_RIFLE,
+                "CI Defense - Special Agent Objective 3": HasAll("CI Defense - Special Agent", "RC-P120") & HAS_ANY_RIFLE,
+                "CI Defense - Special Agent Objective 4": HasAll("CI Defense - Special Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+                "Complete: CI Defense - Special Agent": HasAll("CI Defense - Special Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+
+                # Stage 16 - Attack Ship
+                "Attack Ship - Special Agent Objective 1": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+                "Attack Ship - Special Agent Objective 2": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+                "Attack Ship - Special Agent Objective 3": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+                "Attack Ship - Special Agent Objective 4": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+                "Complete: Attack Ship - Special Agent": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+
+                # Stage 17 - Skedar Ruins
+                "Skedar Ruins - Special Agent Objective 1": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Skedar Ruins - Special Agent Objective 2": HAS_SKEDAR_RUINS_SP_AGENT & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+
+                # Stage 18 - Mr. Blonde's Revenge
+                "Mr. Blonde's Revenge - Special Agent Objective 1": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Mr. Blonde's Revenge - Special Agent Objective 2": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: Mr. Blonde's Revenge - Special Agent": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+                # Stage 19 - Maian SOS
+                "Maian SOS - Special Agent Objective 1": Has("Maian SOS - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Maian SOS - Special Agent Objective 2": Has("Maian SOS - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: Maian SOS - Special Agent": Has("Maian SOS - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 20 - WAR!
+                "WAR! - Special Agent Objective 1": Has("WAR! - Special Agent") & HAS_ANY_RIFLE,
+                "WAR! - Special Agent Objective 2": Has("WAR! - Special Agent") & HAS_ANY_RIFLE,
+                "Complete: WAR! - Special Agent": Has("WAR! - Special Agent") & HAS_ANY_RIFLE,
+
+                # Stage 21 - The Duel
+                "The Duel - Special Agent Objective 1": Has("The Duel - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "The Duel - Special Agent Objective 2": Has("The Duel - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: The Duel - Special Agent": Has("The Duel - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            }
+
+            perfect_agent_rules = {
+                # Stage 1 - Defection
+                "dD Defection - Perfect Agent Objective 1": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Defection - Perfect Agent Objective 2": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Defection - Perfect Agent Objective 3": HasAll("dD Defection - Perfect Agent", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Defection - Perfect Agent Objective 4": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Defection - Perfect Agent Objective 5": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Defection - Perfect Agent": HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 2 - Investigation
+                "dD Investigation - Perfect Agent Objective 1": HasAll("dD Investigation - Perfect Agent", "CamSpy") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Investigation - Perfect Agent Objective 2": Has("dD Investigation - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Investigation - Perfect Agent Objective 3": Has("dD Investigation - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Investigation - Perfect Agent Objective 4": HasAll("dD Investigation - Perfect Agent", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Investigation - Perfect Agent Objective 5": HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Investigation - Perfect Agent": HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 3 - Extraction
+                "dD Extraction - Perfect Agent Objective 1": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "dD Extraction - Perfect Agent Objective 2": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Extraction - Perfect Agent Objective 3": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2),
+                "dD Extraction - Perfect Agent Objective 4": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "dD Extraction - Perfect Agent Objective 5": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: dD Extraction - Perfect Agent": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2),
+
+                # Stage 4 - Carrington Villa
+                "Carrington Villa - Perfect Agent Objective 1": Has("Carrington Villa - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Carrington Villa - Perfect Agent Objective 2": Has("Carrington Villa - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Carrington Villa - Perfect Agent Objective 3": Has("Carrington Villa - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Carrington Villa - Perfect Agent Objective 4": Has("Carrington Villa - Perfect Agent"),
+                "Carrington Villa - Perfect Agent Objective 5": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: Carrington Villa - Perfect Agent": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 5 - Chicago (Veteran)
+                "Chicago - Perfect Agent Objective 1": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Perfect Agent Objective 2": HasAll("Chicago - Perfect Agent", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Perfect Agent Objective 3": HasAll("Chicago - Perfect Agent", "Remote Mine") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Perfect Agent Objective 4": Has("Chicago - Perfect Agent") & HasAny("Data Uplink", "CamSpy") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+                "Chicago - Perfect Agent Objective 5": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+                "Complete: Chicago - Perfect Agent": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+                # Stage 6 - G5 Building
+                "G5 Building - Perfect Agent Objective 1": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "G5 Building - Perfect Agent Objective 2": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "G5 Building - Perfect Agent Objective 3": HasAll("G5 Building - Perfect Agent", "CamSpy") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "G5 Building - Perfect Agent Objective 4": HasAll("G5 Building - Perfect Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "G5 Building - Perfect Agent Objective 5": HasAll("G5 Building - Perfect Agent", "Remote Mine") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: G5 Building - Perfect Agent": HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 7 - A51 Infiltration
+                "A51 Infiltration - Perfect Agent Objective 1": HasAll("A51 Infiltration - Perfect Agent", "Explosives") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Perfect Agent Objective 2": HasAll("A51 Infiltration - Perfect Agent", "Comms Rider") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Perfect Agent Objective 3": Has("A51 Infiltration - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Infiltration - Perfect Agent Objective 4": Has("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "A51 Infiltration - Perfect Agent Objective 5": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Infiltration - Perfect Agent": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 8 - A51 Rescue
+                "A51 Rescue - Perfect Agent Objective 1": HasAll("A51 Rescue - Perfect Agent", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Perfect Agent Objective 2": HasAll("A51 Rescue - Perfect Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Perfect Agent Objective 3": HasAll("A51 Rescue - Perfect Agent", "Lab Clothes") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Rescue - Perfect Agent Objective 4": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "A51 Rescue - Perfect Agent Objective 5": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: A51 Rescue - Perfect Agent": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 9 - A51 Escape
+                "A51 Escape - Perfect Agent Objective 1": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Perfect Agent Objective 2": Has("A51 Escape - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Perfect Agent Objective 3": Has("A51 Escape - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Perfect Agent Objective 4": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "A51 Escape - Perfect Agent Objective 5": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: A51 Escape - Perfect Agent": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 10 - Air Base (Veteran)
+                "Air Base - Perfect Agent Objective 1": HasAll("Air Base - Perfect Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Perfect Agent Objective 2": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Perfect Agent Objective 3": HasAll("Air Base - Perfect Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Air Base - Perfect Agent Objective 4": HasAll("Air Base - Perfect Agent", "Dragon", "Stewardess Disguise", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasAny("Proximity Mine", "K7 Avenger"),
+                "Air Base - Perfect Agent Objective 5": HasAll("Air Base - Perfect Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+                "Complete: Air Base - Perfect Agent": HasAll("Air Base - Perfect Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+
+                # Stage 11 - Air Force One
+                "Air Force One - Perfect Agent Objective 1": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Perfect Agent Objective 2": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+                "Air Force One - Perfect Agent Objective 3": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Air Force One - Perfect Agent Objective 4": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Air Force One - Perfect Agent Objective 5": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: Air Force One - Perfect Agent": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 12 - Crash Site
+                "Crash Site - Perfect Agent Objective 1": HasAll("Crash Site - Perfect Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Crash Site - Perfect Agent Objective 2": Has("Crash Site - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Crash Site - Perfect Agent Objective 3": Has("Crash Site - Perfect Agent") & (HasAny(*EXPLOSIVE_LIST) | Has("DY357-LX")) & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Crash Site - Perfect Agent Objective 4": HasAll("Crash Site - Perfect Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Crash Site - Perfect Agent Objective 5": HasAll("Crash Site - Perfect Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Crash Site - Perfect Agent": HasAll("Crash Site - Perfect Agent", "President Scanner") & (HasAny(*EXPLOSIVE_LIST) | Has("DY357-LX")) & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 13 - Pelagic II
+                "Pelagic II - Perfect Agent Objective 1": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Perfect Agent Objective 2": HasAll("Pelagic II - Perfect Agent", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Perfect Agent Objective 3": Has("Pelagic II - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Perfect Agent Objective 4": Has("Pelagic II - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Pelagic II - Perfect Agent Objective 5": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Pelagic II - Perfect Agent": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 14 - Deep Sea
+                "Deep Sea - Perfect Agent Objective 1": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Deep Sea - Perfect Agent Objective 2": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Deep Sea - Perfect Agent Objective 3": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Deep Sea - Perfect Agent Objective 4": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Deep Sea - Perfect Agent Objective 5": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: Deep Sea - Perfect Agent": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 15 - Carrington Institute Defense
+                "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent") & HAS_ANY_RIFLE,
+                "CI Defense - Perfect Agent Objective 2": Has("CI Defense - Perfect Agent") & HAS_ANY_RIFLE,
+                "CI Defense - Perfect Agent Objective 3": HasAll("CI Defense - Perfect Agent", "RC-P120") & HAS_ANY_RIFLE,
+                "CI Defense - Perfect Agent Objective 4": HasAll("CI Defense - Perfect Agent", "RC-P120") & (HasAny(*EXPLOSIVE_LIST) | HasAny("Dragon", "Laser")) & HAS_ANY_RIFLE,
+                "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "RC-P120", "Data Uplink") & (HasAny(*EXPLOSIVE_LIST) | HasAny("Dragon", "Laser")) & HAS_ANY_RIFLE,
+                "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "RC-P120", "Data Uplink") & (HasAny(*EXPLOSIVE_LIST) | HasAny("Dragon", "Laser")) & HAS_ANY_RIFLE,
+
+                # Stage 16 - Attack Ship
+                "Attack Ship - Perfect Agent Objective 1": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Attack Ship - Perfect Agent Objective 2": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Attack Ship - Perfect Agent Objective 3": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Attack Ship - Perfect Agent Objective 4": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Attack Ship - Perfect Agent Objective 5": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3),
+                "Complete: Attack Ship - Perfect Agent": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Stage 17 - Skedar Ruins
+                "Skedar Ruins - Perfect Agent Objective 1": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Skedar Ruins - Perfect Agent Objective 2": HAS_SKEDAR_RUINS_PF_AGENT & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+                "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+
+                # Stage 18 - Mr. Blonde's Revenge
+                "Mr. Blonde's Revenge - Perfect Agent Objective 1": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Mr. Blonde's Revenge - Perfect Agent Objective 2": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Mr. Blonde's Revenge - Perfect Agent Objective 3": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: Mr. Blonde's Revenge - Perfect Agent": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+                # Stage 19 - Maian SOS
+                "Maian SOS - Perfect Agent Objective 1": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Maian SOS - Perfect Agent Objective 2": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Maian SOS - Perfect Agent Objective 3": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+                "Complete: Maian SOS - Perfect Agent": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Stage 20 - WAR!
+                "WAR! - Perfect Agent Objective 1": Has("WAR! - Perfect Agent") & HAS_ANY_RIFLE,
+                "WAR! - Perfect Agent Objective 2": Has("WAR! - Perfect Agent") & HAS_ANY_RIFLE,
+                "WAR! - Perfect Agent Objective 3": Has("WAR! - Perfect Agent") & HAS_ANY_RIFLE,
+                "Complete: WAR! - Perfect Agent": Has("WAR! - Perfect Agent") & HAS_ANY_RIFLE,
+
+                # Stage 21 - The Duel
+                "The Duel - Perfect Agent Objective 1": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "The Duel - Perfect Agent Objective 2": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "The Duel - Perfect Agent Objective 3": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+                "Complete: The Duel - Perfect Agent": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            }
+
+            cheat_rules = {
+                # Defection
+                "Cheat Unlock: Complete dD Defection": (Has("dD Defection - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                                       | (HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                       | (HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # Investigation
+                "Cheat Unlock: Complete dD Investigation": (HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                           | (HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                           | (HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # Extraction
+                "Cheat Unlock: Complete dD Extraction": (HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                        | (HasAll("dD Extraction - Special Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                        | (HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2)),
+
+                # Villa
+                "Cheat Unlock: Complete Carrington Villa": (HasAll("Carrington Villa - Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
+                                                           | (HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
+                                                           | (HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+                
+                # Chicago
+                "Cheat Unlock: Complete Chicago": (HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2))
+                                                  | (HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2))
+                                                  | (HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2)),
+
+                # G5 Building
+                "Cheat Unlock: Complete G5 Building": (HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                      | (HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2))
+                                                      | (HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # A51 Infiltration
+                "Cheat Unlock: Complete A51 Infiltration": (HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                           | (HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                           | (HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # A51 Rescue
+                "Cheat Unlock: Complete A51 Rescue": (HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                     | (HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                     | (HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3)),
+
+                # A51 Escape
+                "Cheat Unlock: Complete A51 Escape": (HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                     | (HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                     | (HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # Air Base
+                "Cheat Unlock: Complete Air Base": (HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasFromList(*exclude_weapons_from_list(["Crossbow"]), count=2))
+                                                   | (HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"))
+                                                   | (HasAll("Air Base - Perfect Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer")),
+
+                # Air Force One
+                "Cheat Unlock: Complete Air Force One": (HasAll("Air Force One - Agent", "Suitcase", "Timed Mine") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2))
+                                                        | (HasAll("Air Force One - Special Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2))
+                                                        | (HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # Crash Site
+                "Cheat Unlock: Complete Crash Site": (HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                     | (HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                     | (HasAll("Crash Site - Perfect Agent", "President Scanner") & (HasAny(*EXPLOSIVE_LIST) | Has("DY357-LX")) & HasFromList(*WEAPON_NAME_LIST, count=3)),
+
+                # Pelagic II
+                "Cheat Unlock: Complete Pelagic II": (HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                     | (HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                     | (HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=3)),
+
+                # Deep Sea
+                "Cheat Unlock: Complete Deep Sea": (HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                   | (HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                   | (HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+                # CI Defense
+                "Cheat Unlock: Complete CI Defense": (HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE)
+                                                     | (HasAll("CI Defense - Special Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE)
+                                                     | (HasAll("CI Defense - Perfect Agent", "RC-P120", "Data Uplink") & (HasAny(*EXPLOSIVE_LIST) | HasAny("Dragon", "Laser")) & HAS_ANY_RIFLE),
+
+                # Attack Ship
+                "Cheat Unlock: Complete Attack Ship": (Has("Attack Ship - Agent") & HAS_ANY_RIFLE)
+                                                      | (Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE)
+                                                      | (Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3)),
+
+                # Skedar Ruins
+                "Cheat Unlock: Complete Skedar Ruins": (HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                       | (HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                       | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2)),
+            }
+
+            cheat_agent_rules = {
+                # Extraction
+                "Cheat Unlock: Complete dD Extraction (Agent) in under 2:03": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # G5 Building
+                "Cheat Unlock: Complete G5 Building (Agent) in under 1:40": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Escape
+                "Cheat Unlock: Complete A51 Escape (Agent) in under 3:50": HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Crash Site
+                "Cheat Unlock: Complete Crash Site (Agent) in under 2:50": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # CI Defense
+                "Cheat Unlock: Complete CI Defense (Agent) in under 1:45": HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+            }
+
+            cheat_sp_agent_rules = {
+                # Defection
+                "Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Villa
+                "Cheat Unlock: Complete Carrington Villa (Special Agent) in under 2:30": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+
+                # Infiltration
+                "Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Air Base
+                "Cheat Unlock: Complete Air Base (Special Agent) in under 3:11": HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+
+                # Pelagic II
+                "Cheat Unlock: Complete Pelagic II (Special Agent) in under 7:07": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Attack Ship
+                "Cheat Unlock: Complete Attack Ship (Special Agent) in under 5:17": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+            }
+
+            cheat_pf_agent_rules = {
+                # Investigation
+                "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30": HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Chicago
+                "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+                # Rescue
+                "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+                # Air Force One
+                "Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Deep Sea
+                "Cheat Unlock: Complete Deep Sea (Perfect Agent) in under 7:27": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+                # Skedar Ruins
+                "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            }
+
+            if world.options.agent:
+                add_rule(world, agent_rules)
+            if world.options.special_agent:
+                add_rule(world, special_agent_rules)
+            if world.options.perfect_agent:
+                add_rule(world, perfect_agent_rules)
+            if world.options.unlock_cheats:
+                add_rule(world, cheat_rules)
+
+                if world.options.agent:
+                    add_rule(world, cheat_agent_rules)
+                if world.options.special_agent:
+                    add_rule(world, cheat_sp_agent_rules)
+                if world.options.perfect_agent:
+                    add_rule(world, cheat_pf_agent_rules)
+
+
+    elif (world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon
+            or world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun):
         if world.options.agent:
             # Stage 1 - Defection
             defection_agent_obj_1 = world.get_location("dD Defection - Agent Objective 1")
@@ -1825,7 +3055,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                 world.set_rule(air_base_agent_complete, HasAll("Air Base - Agent", "Stewardess Disguise")
                                                         & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 air_base_agent_obj_1 = world.get_location("Air Base - Agent Objective 1")
                 world.set_rule(air_base_agent_obj_1, HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise"))
 
@@ -1982,7 +3212,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                             | (HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                 & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 skedar_ruins_agent_obj_1 = world.get_location("Skedar Ruins - Agent Objective 1")
                 world.set_rule(skedar_ruins_agent_obj_1, HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier")
                                                          & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
@@ -2308,7 +3538,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                 world.set_rule(air_base_sp_agent_complete, HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase")
                                                            & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 air_base_sp_agent_obj_1 = world.get_location("Air Base - Special Agent Objective 1")
                 world.set_rule(air_base_sp_agent_obj_1, HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"))
 
@@ -2497,7 +3727,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                | (HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                     & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
             
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 skedar_ruins_sp_agent_obj_1 = world.get_location("Skedar Ruins - Special Agent Objective 1")
                 world.set_rule(skedar_ruins_sp_agent_obj_1, HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier")
                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
@@ -2891,7 +4121,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                 world.set_rule(air_base_prf_agent_complete, HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
             
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 air_base_prf_agent_obj_1 = world.get_location("Air Base - Perfect Agent Objective 1")
                 world.set_rule(air_base_prf_agent_obj_1, HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise"))
 
@@ -3160,7 +4390,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                 | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                     & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 skedar_ruins_prf_agent_obj_1 = world.get_location("Skedar Ruins - Perfect Agent Objective 1")
                 world.set_rule(skedar_ruins_prf_agent_obj_1, HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier")
                                                              & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
@@ -3371,7 +4601,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                         | (HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])))
     
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 cheat_air_base_complete = world.get_location("Cheat Unlock: Complete Air Base")
                 world.set_rule(cheat_air_base_complete, (HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise")
                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
@@ -3471,7 +4701,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                             | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                 & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 cheat_skedar_ruins_complete = world.get_location("Cheat Unlock: Complete Skedar Ruins")
                 world.set_rule(cheat_skedar_ruins_complete, (HAS_SKEDAR_RUINS_AGENT & HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner")
                                                                 & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
@@ -3538,7 +4768,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                     world.set_rule(cheat_air_base_timed_complete, HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase")
                                                                   & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
-                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                     cheat_air_base_timed_complete = world.get_location("Cheat Unlock: Complete Air Base (Special Agent) in under 3:11")
                     world.set_rule(cheat_air_base_timed_complete, HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase")
                                                                   & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
@@ -3602,14 +4832,14 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                       | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
-                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                     cheat_skedar_ruins_timed_complete = world.get_location("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31")
                     world.set_rule(cheat_skedar_ruins_timed_complete, HAS_SKEDAR_RUINS_PF_AGENT & HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner")
                                                                       & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
 
 
 def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
-    if world.options.weapon_progression.value == WeaponProgression.option_vanilla:
+    if world.options.weapon_progression.value == WeaponProgression.option_normal:
         if world.options.agent:
             # Stage 1 - Defection
             defection_agent_obj_1 = world.get_location("dD Defection - Agent Objective 1")
@@ -4983,7 +6213,590 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                 world.set_rule(cheat_skedar_ruins_timed_complete, HAS_SKEDAR_RUINS_PF_AGENT & HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "R-Tracker", "Target Amplifier", "IR Scanner"))
 
 
-    elif world.options.weapon_progression.value > WeaponProgression.option_vanilla:
+    elif world.options.weapon_progression.value == WeaponProgression.option_all_guns:
+        agent_rules = {
+            # Stage 1 - Defection
+            "dD Defection - Agent Objective 1": Has("dD Defection - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: dD Defection - Agent": Has("dD Defection - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 2 - Investigation
+            "dD Investigation - Agent Objective 1": HasAll("dD Investigation - Agent", "CamSpy") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Investigation - Agent Objective 2": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: dD Investigation - Agent": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 3 - Extraction
+            "dD Extraction - Agent Objective 1": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Extraction - Agent Objective 2": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Extraction - Agent Objective 3": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: dD Extraction - Agent": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 4 - Carrington Villa
+            "Carrington Villa - Agent Objective 1": Has("Carrington Villa - Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)"),
+            "Carrington Villa - Agent Objective 2": HasAll("Carrington Villa - Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+            "Carrington Villa - Agent Objective 3": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+            "Complete: Carrington Villa - Agent": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+
+            # Stage 5 - Chicago (Veteran)
+            "Chicago - Agent Objective 1": HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Chicago - Agent Objective 2": Has("Chicago - Agent") & HasAny("Data Uplink", "CamSpy") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Chicago - Agent Objective 3": HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+            "Complete: Chicago - Agent": HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+            # Stage 6 - G5 Building
+            "G5 Building - Agent Objective 1": HasAll("G5 Building - Agent", "CamSpy") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "G5 Building - Agent Objective 2": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "G5 Building - Agent Objective 3": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: G5 Building - Agent": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 7 - Infiltration
+            "A51 Infiltration - Agent Objective 1": HasAll("A51 Infiltration - Agent", "Explosives") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Agent Objective 2": Has("A51 Infiltration - Agent") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Agent Objective 3": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Infiltration - Agent": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 8 - Rescue
+            "A51 Rescue - Agent Objective 1": HasAll("A51 Rescue - Agent", "Lab Clothes") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Rescue - Agent Objective 2": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Rescue - Agent Objective 3": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Rescue - Agent": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 9 - Escape
+            "A51 Escape - Agent Objective 1": Has("A51 Escape - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Escape - Agent Objective 2": Has("A51 Escape - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Escape - Agent Objective 3": HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Escape - Agent": HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 10 - Air Base
+            "Air Base - Agent Objective 1": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Agent Objective 2": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Agent Objective 3": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasFromList(*exclude_weapons_from_list(["Crossbow"]), count=2),
+            "Complete: Air Base - Agent": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasFromList(*exclude_weapons_from_list(["Crossbow"]), count=2),
+
+            # Stage 11 - Air Force One
+            "Air Force One - Agent Objective 1": HasAll("Air Force One - Agent", "Suitcase"),
+            "Air Force One - Agent Objective 2": HasAll("Air Force One - Agent", "Suitcase") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2),
+            "Air Force One - Agent Objective 3": HasAll("Air Force One - Agent", "Suitcase", "Timed Mine") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1),
+            "Complete: Air Force One - Agent": HasAll("Air Force One - Agent", "Suitcase", "Timed Mine") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2),
+
+            # Stage 12 - Crash Site
+            "Crash Site - Agent Objective 1": Has("Crash Site - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Crash Site - Agent Objective 2": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Crash Site - Agent Objective 3": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Complete: Crash Site - Agent": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # Stage 13 - Pelagic II
+            "Pelagic II - Agent Objective 1": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Agent Objective 2": Has("Pelagic II - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Agent Objective 3": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Complete: Pelagic II - Agent": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # Stage 14 - Deep Sea
+            "Deep Sea - Agent Objective 1": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Deep Sea - Agent Objective 2": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Deep Sea - Agent Objective 3": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Complete: Deep Sea - Agent": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # Stage 15 - CI Defense
+            "CI Defense - Agent Objective 1": Has("CI Defense - Agent") & HAS_ANY_RIFLE,
+            "CI Defense - Agent Objective 2": HasAll("CI Defense - Agent", "RC-P120") & HAS_ANY_RIFLE,
+            "CI Defense - Agent Objective 3": HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+            "Complete: CI Defense - Agent": HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+
+            # Stage 16 - Attack Ship
+            "Attack Ship - Agent Objective 1": Has("Attack Ship - Agent") & HAS_ANY_RIFLE,
+            "Attack Ship - Agent Objective 2": Has("Attack Ship - Agent") & HAS_ANY_RIFLE,
+            "Attack Ship - Agent Objective 3": Has("Attack Ship - Agent") & HAS_ANY_RIFLE,
+            "Complete: Attack Ship - Agent": Has("Attack Ship - Agent") & HAS_ANY_RIFLE,
+
+            # Stage 17 - Skedar Ruins
+            "Skedar Ruins - Agent Objective 1": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Skedar Ruins - Agent Objective 2": HAS_SKEDAR_RUINS_AGENT & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT & Has("IR Scanner") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+
+            # Stage 18 - Mr. Blonde's Revenge
+            "Mr. Blonde's Revenge - Agent Objective 1": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: Mr. Blonde's Revenge - Agent": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 19 - Maian SOS
+            "Maian SOS - Agent Objective 1": HasAll("Maian SOS - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Maian SOS - Agent": HasAll("Maian SOS - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 20 - WAR!
+            "WAR! - Agent Objective 1": Has("WAR! - Agent") & HAS_ANY_RIFLE,
+            "Complete: WAR! - Agent": Has("WAR! - Agent") & HAS_ANY_RIFLE,
+
+            # Stage 21 - The Duel
+            "The Duel - Agent Objective 1": HasAll("The Duel - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: The Duel - Agent": HasAll("The Duel - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+        }
+
+        special_agent_rules = {
+            # Stage 1 - Defection
+            "dD Defection - Special Agent Objective 1": HasAll("dD Defection - Special Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Defection - Special Agent Objective 2": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Defection - Special Agent Objective 3": HasAll("dD Defection - Special Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Defection - Special Agent Objective 4": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: dD Defection - Special Agent": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 2 - Investigation
+            "dD Investigation - Special Agent Objective 1": HasAll("dD Investigation - Special Agent", "CamSpy") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Investigation - Special Agent Objective 2": Has("dD Investigation - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Investigation - Special Agent Objective 3": Has("dD Investigation - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Investigation - Special Agent Objective 4": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: dD Investigation - Special Agent": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 3 - Extraction
+            "dD Extraction - Special Agent Objective 1": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Extraction - Special Agent Objective 2": HasAll("dD Extraction - Special Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2),
+            "dD Extraction - Special Agent Objective 3": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Extraction - Special Agent Objective 4": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: dD Extraction - Special Agent": HasAll("dD Extraction - Special Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 4 - Carrington Villa
+            "Carrington Villa - Special Agent Objective 1": Has("Carrington Villa - Special Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)"),
+            "Carrington Villa - Special Agent Objective 2": Has("Carrington Villa - Special Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)"),
+            "Carrington Villa - Special Agent Objective 3": Has("Carrington Villa - Special Agent") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+            "Carrington Villa - Special Agent Objective 4": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+            "Complete: Carrington Villa - Special Agent": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+
+            # Stage 5 - Chicago (Veteran)
+            "Chicago - Special Agent Objective 1": HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Chicago - Special Agent Objective 2": HasAll("Chicago - Special Agent", "Remote Mine") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Chicago - Special Agent Objective 3": Has("Chicago - Special Agent") & HasAny("Data Uplink", "CamSpy") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Chicago - Special Agent Objective 4": HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+            "Complete: Chicago - Special Agent": HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+            # Stage 6 - G5 Building
+            "G5 Building - Special Agent Objective 1": Has("G5 Building - Special Agent") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "G5 Building - Special Agent Objective 2": HasAll("G5 Building - Special Agent", "CamSpy") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "G5 Building - Special Agent Objective 3": HasAll("G5 Building - Special Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+            "G5 Building - Special Agent Objective 4": HasAll("G5 Building - Special Agent", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+            "Complete: G5 Building - Special Agent": HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+            # Stage 7 - A51 Infiltration
+            "A51 Infiltration - Special Agent Objective 1": HasAll("A51 Infiltration - Special Agent", "Explosives") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Special Agent Objective 2": HasAll("A51 Infiltration - Special Agent", "Comms Rider") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Special Agent Objective 3": Has("A51 Infiltration - Special Agent") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Special Agent Objective 4": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Infiltration - Special Agent": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 8 - A51 Rescue
+            "A51 Rescue - Special Agent Objective 1": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Rescue - Special Agent Objective 2": HasAll("A51 Rescue - Special Agent", "Lab Clothes") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Rescue - Special Agent Objective 3": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "A51 Rescue - Special Agent Objective 4": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Complete: A51 Rescue - Special Agent": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # Stage 9 - A51 Escape
+            "A51 Escape - Special Agent Objective 1": Has("A51 Escape - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Escape - Special Agent Objective 2": Has("A51 Escape - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Escape - Special Agent Objective 3": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Escape - Special Agent Objective 4": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Escape - Special Agent": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 10 - Air Base
+            "Air Base - Special Agent Objective 1": HasAll("Air Base - Special Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Special Agent Objective 2": HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Special Agent Objective 3": HasAll("Air Base - Special Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Special Agent Objective 4": HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Complete: Air Base - Special Agent": HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+
+            # Stage 11 - Air Force One
+            "Air Force One - Special Agent Objective 1": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Special Agent Objective 2": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Special Agent Objective 3": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2),
+            "Air Force One - Special Agent Objective 4": HasAll("Air Force One - Special Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1),
+            "Complete: Air Force One - Special Agent": HasAll("Air Force One - Special Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2),
+
+            # Stage 12 - Crash Site
+            "Crash Site - Special Agent Objective 1": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Crash Site - Special Agent Objective 2": Has("Crash Site - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Crash Site - Special Agent Objective 3": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Crash Site - Special Agent Objective 4": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Complete: Crash Site - Special Agent": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # Stage 13 - Pelagic II
+            "Pelagic II - Special Agent Objective 1": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Special Agent Objective 2": Has("Pelagic II - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Special Agent Objective 3": Has("Pelagic II - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Special Agent Objective 4": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Complete: Pelagic II - Special Agent": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # Stage 14 - Deep Sea
+            "Deep Sea - Special Agent Objective 1": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Deep Sea - Special Agent Objective 2": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Deep Sea - Special Agent Objective 3": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Deep Sea - Special Agent Objective 4": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Complete: Deep Sea - Special Agent": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # Stage 15 - CI Defense
+            "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent") & HAS_ANY_RIFLE,
+            "CI Defense - Special Agent Objective 2": Has("CI Defense - Special Agent") & HAS_ANY_RIFLE,
+            "CI Defense - Special Agent Objective 3": HasAll("CI Defense - Special Agent", "RC-P120") & HAS_ANY_RIFLE,
+            "CI Defense - Special Agent Objective 4": HasAll("CI Defense - Special Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+            "Complete: CI Defense - Special Agent": HasAll("CI Defense - Special Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+
+            # Stage 16 - Attack Ship
+            "Attack Ship - Special Agent Objective 1": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+            "Attack Ship - Special Agent Objective 2": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+            "Attack Ship - Special Agent Objective 3": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+            "Attack Ship - Special Agent Objective 4": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+            "Complete: Attack Ship - Special Agent": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+
+            # Stage 17 - Skedar Ruins
+            "Skedar Ruins - Special Agent Objective 1": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Skedar Ruins - Special Agent Objective 2": HAS_SKEDAR_RUINS_SP_AGENT & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+
+            # Stage 18 - Mr. Blonde's Revenge
+            "Mr. Blonde's Revenge - Special Agent Objective 1": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Mr. Blonde's Revenge - Special Agent Objective 2": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: Mr. Blonde's Revenge - Special Agent": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 19 - Maian SOS
+            "Maian SOS - Special Agent Objective 1": Has("Maian SOS - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Maian SOS - Special Agent Objective 2": Has("Maian SOS - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Maian SOS - Special Agent": Has("Maian SOS - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 20 - WAR!
+            "WAR! - Special Agent Objective 1": Has("WAR! - Special Agent") & HAS_ANY_RIFLE,
+            "WAR! - Special Agent Objective 2": Has("WAR! - Special Agent") & HAS_ANY_RIFLE,
+            "Complete: WAR! - Special Agent": Has("WAR! - Special Agent") & HAS_ANY_RIFLE,
+
+            # Stage 21 - The Duel
+            "The Duel - Special Agent Objective 1": Has("The Duel - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "The Duel - Special Agent Objective 2": Has("The Duel - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: The Duel - Special Agent": Has("The Duel - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+        }
+
+        perfect_agent_rules = {
+            # Stage 1 - Defection
+            "dD Defection - Perfect Agent Objective 1": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Defection - Perfect Agent Objective 2": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Defection - Perfect Agent Objective 3": HasAll("dD Defection - Perfect Agent", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Defection - Perfect Agent Objective 4": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Defection - Perfect Agent Objective 5": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: dD Defection - Perfect Agent": HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 2 - Investigation
+            "dD Investigation - Perfect Agent Objective 1": HasAll("dD Investigation - Perfect Agent", "CamSpy") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Investigation - Perfect Agent Objective 2": Has("dD Investigation - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Investigation - Perfect Agent Objective 3": Has("dD Investigation - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Investigation - Perfect Agent Objective 4": HasAll("dD Investigation - Perfect Agent", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Investigation - Perfect Agent Objective 5": HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: dD Investigation - Perfect Agent": HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 3 - Extraction
+            "dD Extraction - Perfect Agent Objective 1": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Extraction - Perfect Agent Objective 2": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Extraction - Perfect Agent Objective 3": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2),
+            "dD Extraction - Perfect Agent Objective 4": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Extraction - Perfect Agent Objective 5": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: dD Extraction - Perfect Agent": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2),
+
+            # Stage 4 - Carrington Villa
+            "Carrington Villa - Perfect Agent Objective 1": Has("Carrington Villa - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Carrington Villa - Perfect Agent Objective 2": Has("Carrington Villa - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Carrington Villa - Perfect Agent Objective 3": Has("Carrington Villa - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Carrington Villa - Perfect Agent Objective 4": Has("Carrington Villa - Perfect Agent"),
+            "Carrington Villa - Perfect Agent Objective 5": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Carrington Villa - Perfect Agent": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 5 - Chicago (Veteran)
+            "Chicago - Perfect Agent Objective 1": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Chicago - Perfect Agent Objective 2": HasAll("Chicago - Perfect Agent", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Chicago - Perfect Agent Objective 3": HasAll("Chicago - Perfect Agent", "Remote Mine") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Chicago - Perfect Agent Objective 4": Has("Chicago - Perfect Agent") & HasAny("Data Uplink", "CamSpy") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Chicago - Perfect Agent Objective 5": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+            "Complete: Chicago - Perfect Agent": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+            # Stage 6 - G5 Building
+            "G5 Building - Perfect Agent Objective 1": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "G5 Building - Perfect Agent Objective 2": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "G5 Building - Perfect Agent Objective 3": HasAll("G5 Building - Perfect Agent", "CamSpy") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "G5 Building - Perfect Agent Objective 4": HasAll("G5 Building - Perfect Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "G5 Building - Perfect Agent Objective 5": HasAll("G5 Building - Perfect Agent", "Remote Mine") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: G5 Building - Perfect Agent": HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 7 - A51 Infiltration
+            "A51 Infiltration - Perfect Agent Objective 1": HasAll("A51 Infiltration - Perfect Agent", "Explosives") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Perfect Agent Objective 2": HasAll("A51 Infiltration - Perfect Agent", "Comms Rider") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Perfect Agent Objective 3": Has("A51 Infiltration - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Infiltration - Perfect Agent Objective 4": Has("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Perfect Agent Objective 5": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Infiltration - Perfect Agent": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 8 - A51 Rescue
+            "A51 Rescue - Perfect Agent Objective 1": HasAll("A51 Rescue - Perfect Agent", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Rescue - Perfect Agent Objective 2": HasAll("A51 Rescue - Perfect Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Rescue - Perfect Agent Objective 3": HasAll("A51 Rescue - Perfect Agent", "Lab Clothes") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Rescue - Perfect Agent Objective 4": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "A51 Rescue - Perfect Agent Objective 5": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Complete: A51 Rescue - Perfect Agent": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # Stage 9 - A51 Escape
+            "A51 Escape - Perfect Agent Objective 1": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Escape - Perfect Agent Objective 2": Has("A51 Escape - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Escape - Perfect Agent Objective 3": Has("A51 Escape - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Escape - Perfect Agent Objective 4": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Escape - Perfect Agent Objective 5": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Escape - Perfect Agent": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 10 - Air Base (Veteran)
+            "Air Base - Perfect Agent Objective 1": HasAll("Air Base - Perfect Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Perfect Agent Objective 2": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Perfect Agent Objective 3": HasAll("Air Base - Perfect Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Perfect Agent Objective 4": HasAll("Air Base - Perfect Agent", "Dragon", "Stewardess Disguise", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasAny("Proximity Mine", "K7 Avenger"),
+            "Air Base - Perfect Agent Objective 5": HasAll("Air Base - Perfect Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Complete: Air Base - Perfect Agent": HasAll("Air Base - Perfect Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+
+            # Stage 11 - Air Force One
+            "Air Force One - Perfect Agent Objective 1": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Perfect Agent Objective 2": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Perfect Agent Objective 3": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Air Force One - Perfect Agent Objective 4": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Air Force One - Perfect Agent Objective 5": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Air Force One - Perfect Agent": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 12 - Crash Site
+            "Crash Site - Perfect Agent Objective 1": HasAll("Crash Site - Perfect Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Crash Site - Perfect Agent Objective 2": Has("Crash Site - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Crash Site - Perfect Agent Objective 3": Has("Crash Site - Perfect Agent") & (HasAny(*EXPLOSIVE_LIST) | Has("DY357-LX")) & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Crash Site - Perfect Agent Objective 4": HasAll("Crash Site - Perfect Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Crash Site - Perfect Agent Objective 5": HasAll("Crash Site - Perfect Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Complete: Crash Site - Perfect Agent": HasAll("Crash Site - Perfect Agent", "President Scanner") & (HasAny(*EXPLOSIVE_LIST) | Has("DY357-LX")) & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # Stage 13 - Pelagic II
+            "Pelagic II - Perfect Agent Objective 1": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Perfect Agent Objective 2": HasAll("Pelagic II - Perfect Agent", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Perfect Agent Objective 3": Has("Pelagic II - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Perfect Agent Objective 4": Has("Pelagic II - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Perfect Agent Objective 5": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Complete: Pelagic II - Perfect Agent": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # Stage 14 - Deep Sea
+            "Deep Sea - Perfect Agent Objective 1": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Deep Sea - Perfect Agent Objective 2": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Deep Sea - Perfect Agent Objective 3": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Deep Sea - Perfect Agent Objective 4": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Deep Sea - Perfect Agent Objective 5": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Deep Sea - Perfect Agent": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 15 - Carrington Institute Defense
+            "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent") & HAS_ANY_RIFLE,
+            "CI Defense - Perfect Agent Objective 2": Has("CI Defense - Perfect Agent") & HAS_ANY_RIFLE,
+            "CI Defense - Perfect Agent Objective 3": HasAll("CI Defense - Perfect Agent", "RC-P120") & HAS_ANY_RIFLE,
+            "CI Defense - Perfect Agent Objective 4": HasAll("CI Defense - Perfect Agent", "RC-P120") & (HasAny(*EXPLOSIVE_LIST) | HasAny("Dragon", "Laser")) & HAS_ANY_RIFLE,
+            "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "RC-P120", "Data Uplink") & (HasAny(*EXPLOSIVE_LIST) | HasAny("Dragon", "Laser")) & HAS_ANY_RIFLE,
+            "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "RC-P120", "Data Uplink") & (HasAny(*EXPLOSIVE_LIST) | HasAny("Dragon", "Laser")) & HAS_ANY_RIFLE,
+
+            # Stage 16 - Attack Ship
+            "Attack Ship - Perfect Agent Objective 1": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Attack Ship - Perfect Agent Objective 2": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Attack Ship - Perfect Agent Objective 3": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Attack Ship - Perfect Agent Objective 4": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Attack Ship - Perfect Agent Objective 5": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3),
+            "Complete: Attack Ship - Perfect Agent": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # Stage 17 - Skedar Ruins
+            "Skedar Ruins - Perfect Agent Objective 1": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Skedar Ruins - Perfect Agent Objective 2": HAS_SKEDAR_RUINS_PF_AGENT & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+
+            # Stage 18 - Mr. Blonde's Revenge
+            "Mr. Blonde's Revenge - Perfect Agent Objective 1": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Mr. Blonde's Revenge - Perfect Agent Objective 2": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Mr. Blonde's Revenge - Perfect Agent Objective 3": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: Mr. Blonde's Revenge - Perfect Agent": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 19 - Maian SOS
+            "Maian SOS - Perfect Agent Objective 1": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Maian SOS - Perfect Agent Objective 2": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Maian SOS - Perfect Agent Objective 3": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Maian SOS - Perfect Agent": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 20 - WAR!
+            "WAR! - Perfect Agent Objective 1": Has("WAR! - Perfect Agent") & HAS_ANY_RIFLE,
+            "WAR! - Perfect Agent Objective 2": Has("WAR! - Perfect Agent") & HAS_ANY_RIFLE,
+            "WAR! - Perfect Agent Objective 3": Has("WAR! - Perfect Agent") & HAS_ANY_RIFLE,
+            "Complete: WAR! - Perfect Agent": Has("WAR! - Perfect Agent") & HAS_ANY_RIFLE,
+
+            # Stage 21 - The Duel
+            "The Duel - Perfect Agent Objective 1": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "The Duel - Perfect Agent Objective 2": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "The Duel - Perfect Agent Objective 3": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: The Duel - Perfect Agent": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+        }
+
+        cheat_rules = {
+            # Defection
+            "Cheat Unlock: Complete dD Defection": (Has("dD Defection - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                                    | (HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                    | (HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # Investigation
+            "Cheat Unlock: Complete dD Investigation": (HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                        | (HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                        | (HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # Extraction
+            "Cheat Unlock: Complete dD Extraction": (HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                    | (HasAll("dD Extraction - Special Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                    | (HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2)),
+
+            # Villa
+            "Cheat Unlock: Complete Carrington Villa": (HasAll("Carrington Villa - Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
+                                                        | (HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
+                                                        | (HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+            
+            # Chicago
+            "Cheat Unlock: Complete Chicago": (HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2))
+                                                | (HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2))
+                                                | (HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2)),
+
+            # G5 Building
+            "Cheat Unlock: Complete G5 Building": (HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                    | (HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2))
+                                                    | (HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # A51 Infiltration
+            "Cheat Unlock: Complete A51 Infiltration": (HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                        | (HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                        | (HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # A51 Rescue
+            "Cheat Unlock: Complete A51 Rescue": (HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                    | (HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                    | (HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3)),
+
+            # A51 Escape
+            "Cheat Unlock: Complete A51 Escape": (HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                    | (HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                    | (HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # Air Base
+            "Cheat Unlock: Complete Air Base": (HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasFromList(*exclude_weapons_from_list(["Crossbow"]), count=2))
+                                                | (HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"))
+                                                | (HasAll("Air Base - Perfect Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer")),
+
+            # Air Force One
+            "Cheat Unlock: Complete Air Force One": (HasAll("Air Force One - Agent", "Suitcase", "Timed Mine") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2))
+                                                    | (HasAll("Air Force One - Special Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=2))
+                                                    | (HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # Crash Site
+            "Cheat Unlock: Complete Crash Site": (HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                    | (HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                    | (HasAll("Crash Site - Perfect Agent", "President Scanner") & (HasAny(*EXPLOSIVE_LIST) | Has("DY357-LX")) & HasFromList(*WEAPON_NAME_LIST, count=3)),
+
+            # Pelagic II
+            "Cheat Unlock: Complete Pelagic II": (HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                    | (HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                    | (HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=3)),
+
+            # Deep Sea
+            "Cheat Unlock: Complete Deep Sea": (HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # CI Defense
+            "Cheat Unlock: Complete CI Defense": (HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE)
+                                                    | (HasAll("CI Defense - Special Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE)
+                                                    | (HasAll("CI Defense - Perfect Agent", "RC-P120", "Data Uplink") & (HasAny(*EXPLOSIVE_LIST) | HasAny("Dragon", "Laser")) & HAS_ANY_RIFLE),
+
+            # Attack Ship
+            "Cheat Unlock: Complete Attack Ship": (Has("Attack Ship - Agent") & HAS_ANY_RIFLE)
+                                                    | (Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE)
+                                                    | (Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=3)),
+
+            # Skedar Ruins
+            "Cheat Unlock: Complete Skedar Ruins": (HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                   | (HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                   | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2)),
+        }
+
+        cheat_agent_rules = {
+            # Extraction
+            "Cheat Unlock: Complete dD Extraction (Agent) in under 2:03": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # G5 Building
+            "Cheat Unlock: Complete G5 Building (Agent) in under 1:40": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Escape
+            "Cheat Unlock: Complete A51 Escape (Agent) in under 3:50": HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Crash Site
+            "Cheat Unlock: Complete Crash Site (Agent) in under 2:50": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # CI Defense
+            "Cheat Unlock: Complete CI Defense (Agent) in under 1:45": HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+        }
+
+        cheat_sp_agent_rules = {
+            # Defection
+            "Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Villa
+            "Cheat Unlock: Complete Carrington Villa (Special Agent) in under 2:30": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1),
+
+            # Infiltration
+            "Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Air Base
+            "Cheat Unlock: Complete Air Base (Special Agent) in under 3:11": HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+
+            # Pelagic II
+            "Cheat Unlock: Complete Pelagic II (Special Agent) in under 7:07": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # Attack Ship
+            "Cheat Unlock: Complete Attack Ship (Special Agent) in under 5:17": Has("Attack Ship - Special Agent") & HAS_ANY_RIFLE,
+        }
+
+        cheat_pf_agent_rules = {
+            # Investigation
+            "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30": HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Chicago
+            "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2),
+
+            # Rescue
+            "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=3),
+
+            # Air Force One
+            "Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Deep Sea
+            "Cheat Unlock: Complete Deep Sea (Perfect Agent) in under 7:27": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Skedar Ruins
+            "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+        }
+
+        if world.options.agent:
+            add_rule(world, agent_rules)
+        if world.options.special_agent:
+            add_rule(world, special_agent_rules)
+        if world.options.perfect_agent:
+            add_rule(world, perfect_agent_rules)
+        if world.options.unlock_cheats:
+            add_rule(world, cheat_rules)
+
+            if world.options.agent:
+                add_rule(world, cheat_agent_rules)
+            if world.options.special_agent:
+                add_rule(world, cheat_sp_agent_rules)
+            if world.options.perfect_agent:
+                add_rule(world, cheat_pf_agent_rules)
+
+
+    elif (world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon
+            or world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun):
         if world.options.agent:
             # Stage 1 - Defection
             defection_agent_obj_1 = world.get_location("dD Defection - Agent Objective 1")
@@ -5163,7 +6976,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                 world.set_rule(air_base_agent_complete, HasAll("Air Base - Agent", "Stewardess Disguise")
                                                         & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 air_base_agent_obj_1 = world.get_location("Air Base - Agent Objective 1")
                 world.set_rule(air_base_agent_obj_1, HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise"))
 
@@ -5320,7 +7133,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                             | (HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                 & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 skedar_ruins_agent_obj_1 = world.get_location("Skedar Ruins - Agent Objective 1")
                 world.set_rule(skedar_ruins_agent_obj_1, HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier")
                                                          & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
@@ -5616,7 +7429,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                 world.set_rule(air_base_sp_agent_complete, HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase")
                                                            & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 air_base_sp_agent_obj_1 = world.get_location("Air Base - Special Agent Objective 1")
                 world.set_rule(air_base_sp_agent_obj_1, HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"))
 
@@ -5805,7 +7618,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                                | (HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                     & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
             
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 skedar_ruins_sp_agent_obj_1 = world.get_location("Skedar Ruins - Special Agent Objective 1")
                 world.set_rule(skedar_ruins_sp_agent_obj_1, HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier")
                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
@@ -6166,7 +7979,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                 world.set_rule(air_base_prf_agent_complete, HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
             
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 air_base_prf_agent_obj_1 = world.get_location("Air Base - Perfect Agent Objective 1")
                 world.set_rule(air_base_prf_agent_obj_1, HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise"))
 
@@ -6405,7 +8218,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                                 | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                     & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 skedar_ruins_prf_agent_obj_1 = world.get_location("Skedar Ruins - Perfect Agent Objective 1")
                 world.set_rule(skedar_ruins_prf_agent_obj_1, HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier")
                                                              & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
@@ -6616,7 +8429,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                         | (HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])))
     
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 cheat_air_base_complete = world.get_location("Cheat Unlock: Complete Air Base")
                 world.set_rule(cheat_air_base_complete, (HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise")
                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
@@ -6716,7 +8529,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                             | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                 & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 cheat_skedar_ruins_complete = world.get_location("Cheat Unlock: Complete Skedar Ruins")
                 world.set_rule(cheat_skedar_ruins_complete, (HAS_SKEDAR_RUINS_AGENT & HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner")
                                                                 & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
@@ -6784,7 +8597,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                     world.set_rule(cheat_air_base_timed_complete, HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase")
                                                                   & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
-                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                     cheat_air_base_timed_complete = world.get_location("Cheat Unlock: Complete Air Base (Special Agent) in under 3:11")
                     world.set_rule(cheat_air_base_timed_complete, HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase")
                                                                   & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
@@ -6849,14 +8662,14 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                                       | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
-                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                     cheat_skedar_ruins_timed_complete = world.get_location("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31")
                     world.set_rule(cheat_skedar_ruins_timed_complete, HAS_SKEDAR_RUINS_PF_AGENT & HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner")
                                                                       & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
 
 
 def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
-    if world.options.weapon_progression.value == WeaponProgression.option_vanilla:
+    if world.options.weapon_progression.value == WeaponProgression.option_normal:
         if world.options.agent:
             # Stage 1 - Defection
             defection_agent_obj_1 = world.get_location("dD Defection - Agent Objective 1")
@@ -8512,7 +10325,590 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                 world.set_rule(cheat_skedar_ruins_timed_complete, HAS_SKEDAR_RUINS_PF_AGENT & HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "R-Tracker", "Target Amplifier", "IR Scanner"))
 
 
-    elif world.options.weapon_progression.value > WeaponProgression.option_vanilla:
+    elif world.options.weapon_progression.value == WeaponProgression.option_all_guns:
+        agent_rules = {
+            # Stage 1 - Defection
+            "dD Defection - Agent Objective 1": Has("dD Defection - Agent"),
+            "Complete: dD Defection - Agent": Has("dD Defection - Agent"),
+
+            # Stage 2 - Investigation
+            "dD Investigation - Agent Objective 1": HasAll("dD Investigation - Agent", "CamSpy"),
+            "dD Investigation - Agent Objective 2": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: dD Investigation - Agent": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 3 - Extraction
+            "dD Extraction - Agent Objective 1": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Extraction - Agent Objective 2": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Extraction - Agent Objective 3": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: dD Extraction - Agent": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 4 - Carrington Villa
+            "Carrington Villa - Agent Objective 1": Has("Carrington Villa - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Carrington Villa - Agent Objective 2": HasAll("Carrington Villa - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Carrington Villa - Agent Objective 3": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: Carrington Villa - Agent": HasAll("Carrington Villa - Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 5 - Chicago
+            "Chicago - Agent Objective 1": HasAll("Chicago - Agent", "Remote Mine", "Data Uplink"),
+            "Chicago - Agent Objective 2": Has("Chicago - Agent") & HasAny("Data Uplink", "CamSpy") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Chicago - Agent Objective 3": HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Complete: Chicago - Agent": HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+
+            # Stage 6 - G5 Building
+            "G5 Building - Agent Objective 1": HasAll("G5 Building - Agent", "CamSpy") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "G5 Building - Agent Objective 2": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "G5 Building - Agent Objective 3": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: G5 Building - Agent": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 7 - Infiltration
+            "A51 Infiltration - Agent Objective 1": HasAll("A51 Infiltration - Agent", "Explosives") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Agent Objective 2": Has("A51 Infiltration - Agent") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Agent Objective 3": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Infiltration - Agent": HasAll("A51 Infiltration - Agent", "Explosives") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 8 - Rescue
+            "A51 Rescue - Agent Objective 1": HasAll("A51 Rescue - Agent", "Lab Clothes") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Rescue - Agent Objective 2": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Rescue - Agent Objective 3": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Rescue - Agent": HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 9 - Escape
+            "A51 Escape - Agent Objective 1": Has("A51 Escape - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Escape - Agent Objective 2": Has("A51 Escape - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Escape - Agent Objective 3": HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Escape - Agent": HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 10 - Air Base
+            "Air Base - Agent Objective 1": HasAll("Air Base - Agent", "Stewardess Disguise"),
+            "Air Base - Agent Objective 2": HasAll("Air Base - Agent", "Stewardess Disguise"),
+            "Air Base - Agent Objective 3": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasFromList(*exclude_weapons_from_list(["Crossbow"]), count=2),
+            "Complete: Air Base - Agent": HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasFromList(*exclude_weapons_from_list(["Crossbow"]), count=2),
+
+            # Stage 11 - Air Force One
+            "Air Force One - Agent Objective 1": HasAll("Air Force One - Agent", "Suitcase"),
+            "Air Force One - Agent Objective 2": HasAll("Air Force One - Agent", "Suitcase") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1),
+            "Air Force One - Agent Objective 3": HasAll("Air Force One - Agent", "Suitcase", "Timed Mine") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1),
+            "Complete: Air Force One - Agent": HasAll("Air Force One - Agent", "Suitcase", "Timed Mine") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1),
+
+            # Stage 12 - Crash Site
+            "Crash Site - Agent Objective 1": Has("Crash Site - Agent"),
+            "Crash Site - Agent Objective 2": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Crash Site - Agent Objective 3": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Crash Site - Agent": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 13 - Pelagic II
+            "Pelagic II - Agent Objective 1": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Agent Objective 2": Has("Pelagic II - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Agent Objective 3": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Pelagic II - Agent": HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 14 - Deep Sea
+            "Deep Sea - Agent Objective 1": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Deep Sea - Agent Objective 2": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Deep Sea - Agent Objective 3": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Deep Sea - Agent": HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 15 - CI Defense
+            "CI Defense - Agent Objective 1": Has("CI Defense - Agent") & HAS_ANY_RIFLE,
+            "CI Defense - Agent Objective 2": HasAll("CI Defense - Agent", "RC-P120") & HAS_ANY_RIFLE,
+            "CI Defense - Agent Objective 3": HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+            "Complete: CI Defense - Agent": HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+
+            # Stage 16 - Attack Ship
+            "Attack Ship - Agent Objective 1": Has("Attack Ship - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Attack Ship - Agent Objective 2": Has("Attack Ship - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Attack Ship - Agent Objective 3": Has("Attack Ship - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Attack Ship - Agent": Has("Attack Ship - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 17 - Skedar Ruins
+            "Skedar Ruins - Agent Objective 1": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Skedar Ruins - Agent Objective 2": HAS_SKEDAR_RUINS_AGENT & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT & Has("IR Scanner") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+
+            # Stage 18 - Mr. Blonde's Revenge
+            "Mr. Blonde's Revenge - Agent Objective 1": Has("Mr. Blonde's Revenge - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: Mr. Blonde's Revenge - Agent": Has("Mr. Blonde's Revenge - Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 19 - Maian SOS
+            "Maian SOS - Agent Objective 1": Has("Maian SOS - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Maian SOS - Agent": Has("Maian SOS - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 20 - WAR!
+            "WAR! - Agent Objective 1": Has("WAR! - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: WAR! - Agent": Has("WAR! - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 21 - The Duel
+            "The Duel - Agent Objective 1": Has("The Duel - Agent"),
+            "Complete: The Duel - Agent": Has("The Duel - Agent"),
+        }
+
+        special_agent_rules = {
+            # Stage 1 - Defection
+            "dD Defection - Special Agent Objective 1": HasAll("dD Defection - Special Agent", "ECM Mine"),
+            "dD Defection - Special Agent Objective 2": Has("dD Defection - Special Agent") & HAS_DD_KEYS,
+            "dD Defection - Special Agent Objective 3": HasAll("dD Defection - Special Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Defection - Special Agent Objective 4": Has("dD Defection - Special Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: dD Defection - Special Agent": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 2 - Investigation
+            "dD Investigation - Special Agent Objective 1": HasAll("dD Investigation - Special Agent", "CamSpy"),
+            "dD Investigation - Special Agent Objective 2": Has("dD Investigation - Special Agent"),
+            "dD Investigation - Special Agent Objective 3": Has("dD Investigation - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Investigation - Special Agent Objective 4": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: dD Investigation - Special Agent": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 3 - Extraction
+            "dD Extraction - Special Agent Objective 1": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Extraction - Special Agent Objective 2": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Extraction - Special Agent Objective 3": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Extraction - Special Agent Objective 4": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: dD Extraction - Special Agent": HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 4 - Carrington Villa
+            "Carrington Villa - Special Agent Objective 1": Has("Carrington Villa - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Carrington Villa - Special Agent Objective 2": Has("Carrington Villa - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Carrington Villa - Special Agent Objective 3": Has("Carrington Villa - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Carrington Villa - Special Agent Objective 4": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: Carrington Villa - Special Agent": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 5 - Chicago
+            "Chicago - Special Agent Objective 1": HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink"),
+            "Chicago - Special Agent Objective 2": HasAll("Chicago - Special Agent", "Remote Mine") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Chicago - Special Agent Objective 3": Has("Chicago - Special Agent") & HasAny("Data Uplink", "CamSpy") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Chicago - Special Agent Objective 4": HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Complete: Chicago - Special Agent": HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+
+            # Stage 6 - G5 Building
+            "G5 Building - Special Agent Objective 1": Has("G5 Building - Special Agent") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "G5 Building - Special Agent Objective 2": HasAll("G5 Building - Special Agent", "CamSpy") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "G5 Building - Special Agent Objective 3": HasAll("G5 Building - Special Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "G5 Building - Special Agent Objective 4": HasAll("G5 Building - Special Agent", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Complete: G5 Building - Special Agent": HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+
+            # Stage 7 - A51 Infiltration
+            "A51 Infiltration - Special Agent Objective 1": HasAll("A51 Infiltration - Special Agent", "Explosives") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Special Agent Objective 2": HasAll("A51 Infiltration - Special Agent", "Comms Rider") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Special Agent Objective 3": Has("A51 Infiltration - Special Agent") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Special Agent Objective 4": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Infiltration - Special Agent": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 8 - A51 Rescue
+            "A51 Rescue - Special Agent Objective 1": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Rescue - Special Agent Objective 2": HasAll("A51 Rescue - Special Agent", "Lab Clothes") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Rescue - Special Agent Objective 3": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Rescue - Special Agent Objective 4": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Rescue - Special Agent": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 9 - A51 Escape
+            "A51 Escape - Special Agent Objective 1": Has("A51 Escape - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Escape - Special Agent Objective 2": Has("A51 Escape - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Escape - Special Agent Objective 3": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Escape - Special Agent Objective 4": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Escape - Special Agent": HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 10 - Air Base
+            "Air Base - Special Agent Objective 1": HasAll("Air Base - Special Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Special Agent Objective 2": HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Special Agent Objective 3": HasAll("Air Base - Special Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Special Agent Objective 4": HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Complete: Air Base - Special Agent": HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+
+            # Stage 11 - Air Force One
+            "Air Force One - Special Agent Objective 1": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Special Agent Objective 2": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Special Agent Objective 3": HasAll("Air Force One - Special Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1),
+            "Air Force One - Special Agent Objective 4": HasAll("Air Force One - Special Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1),
+            "Complete: Air Force One - Special Agent": HasAll("Air Force One - Special Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1),
+
+            # Stage 12 - Crash Site
+            "Crash Site - Special Agent Objective 1": HasAll("Crash Site - Special Agent", "President Scanner"),
+            "Crash Site - Special Agent Objective 2": Has("Crash Site - Special Agent"),
+            "Crash Site - Special Agent Objective 3": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Crash Site - Special Agent Objective 4": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Crash Site - Special Agent": HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 13 - Pelagic II
+            "Pelagic II - Special Agent Objective 1": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Special Agent Objective 2": Has("Pelagic II - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Special Agent Objective 3": Has("Pelagic II - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Special Agent Objective 4": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Pelagic II - Special Agent": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 14 - Deep Sea
+            "Deep Sea - Special Agent Objective 1": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Deep Sea - Special Agent Objective 2": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Deep Sea - Special Agent Objective 3": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Deep Sea - Special Agent Objective 4": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Deep Sea - Special Agent": HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 15 - CI Defense
+            "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent"),
+            "CI Defense - Special Agent Objective 2": Has("CI Defense - Special Agent") & HAS_ANY_RIFLE,
+            "CI Defense - Special Agent Objective 3": HasAll("CI Defense - Special Agent", "RC-P120") & HAS_ANY_RIFLE,
+            "CI Defense - Special Agent Objective 4": HasAll("CI Defense - Special Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+            "Complete: CI Defense - Special Agent": HasAll("CI Defense - Special Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+
+            # Stage 16 - Attack Ship
+            "Attack Ship - Special Agent Objective 1": Has("Attack Ship - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Attack Ship - Special Agent Objective 2": Has("Attack Ship - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Attack Ship - Special Agent Objective 3": Has("Attack Ship - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Attack Ship - Special Agent Objective 4": Has("Attack Ship - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Attack Ship - Special Agent": Has("Attack Ship - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 17 - Skedar Ruins
+            "Skedar Ruins - Special Agent Objective 1": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Skedar Ruins - Special Agent Objective 2": HAS_SKEDAR_RUINS_SP_AGENT & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+
+            # Stage 18 - Mr. Blonde's Revenge
+            "Mr. Blonde's Revenge - Special Agent Objective 1": HasAll("Mr. Blonde's Revenge - Special Agent", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Mr. Blonde's Revenge - Special Agent Objective 2": Has("Mr. Blonde's Revenge - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: Mr. Blonde's Revenge - Special Agent": HasAll("Mr. Blonde's Revenge - Special Agent", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 19 - Maian SOS
+            "Maian SOS - Special Agent Objective 1": Has("Maian SOS - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Maian SOS - Special Agent Objective 2": Has("Maian SOS - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Maian SOS - Special Agent": Has("Maian SOS - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 20 - WAR!
+            "WAR! - Special Agent Objective 1": Has("WAR! - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "WAR! - Special Agent Objective 2": Has("WAR! - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: WAR! - Special Agent": Has("WAR! - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 21 - The Duel
+            "The Duel - Special Agent Objective 1": Has("The Duel - Special Agent"),
+            "The Duel - Special Agent Objective 2": Has("The Duel - Special Agent"),
+            "Complete: The Duel - Special Agent": Has("The Duel - Special Agent"),
+        }
+
+        perfect_agent_rules = {
+            # Stage 1 - Defection
+            "dD Defection - Perfect Agent Objective 1": HasAll("dD Defection - Perfect Agent", "ECM Mine"),
+            "dD Defection - Perfect Agent Objective 2": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS,
+            "dD Defection - Perfect Agent Objective 3": HasAll("dD Defection - Perfect Agent", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Defection - Perfect Agent Objective 4": HasAll("dD Defection - Perfect Agent", "ECM Mine") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Defection - Perfect Agent Objective 5": Has("dD Defection - Perfect Agent") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: dD Defection - Perfect Agent": HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 2 - Investigation
+            "dD Investigation - Perfect Agent Objective 1": HasAll("dD Investigation - Perfect Agent", "CamSpy"),
+            "dD Investigation - Perfect Agent Objective 2": Has("dD Investigation - Perfect Agent"),
+            "dD Investigation - Perfect Agent Objective 3": Has("dD Investigation - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Investigation - Perfect Agent Objective 4": HasAll("dD Investigation - Perfect Agent", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Investigation - Perfect Agent Objective 5": HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: dD Investigation - Perfect Agent": HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 3 - Extraction
+            "dD Extraction - Perfect Agent Objective 1": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Extraction - Perfect Agent Objective 2": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "dD Extraction - Perfect Agent Objective 3": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Extraction - Perfect Agent Objective 4": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "dD Extraction - Perfect Agent Objective 5": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: dD Extraction - Perfect Agent": HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 4 - Carrington Villa
+            "Carrington Villa - Perfect Agent Objective 1": Has("Carrington Villa - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Carrington Villa - Perfect Agent Objective 2": Has("Carrington Villa - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Carrington Villa - Perfect Agent Objective 3": Has("Carrington Villa - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Carrington Villa - Perfect Agent Objective 4": Has("Carrington Villa - Perfect Agent"),
+            "Carrington Villa - Perfect Agent Objective 5": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Carrington Villa - Perfect Agent": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 5 - Chicago
+            "Chicago - Perfect Agent Objective 1": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink"),
+            "Chicago - Perfect Agent Objective 2": HasAll("Chicago - Perfect Agent", "Tracer Bug"),
+            "Chicago - Perfect Agent Objective 3": HasAll("Chicago - Perfect Agent", "Remote Mine") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Chicago - Perfect Agent Objective 4": Has("Chicago - Perfect Agent") & HasAny("Data Uplink", "CamSpy") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Chicago - Perfect Agent Objective 5": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Complete: Chicago - Perfect Agent": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+
+            # Stage 6 - G5 Building
+            "G5 Building - Perfect Agent Objective 1": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "G5 Building - Perfect Agent Objective 2": Has("G5 Building - Perfect Agent") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "G5 Building - Perfect Agent Objective 3": HasAll("G5 Building - Perfect Agent", "CamSpy") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "G5 Building - Perfect Agent Objective 4": HasAll("G5 Building - Perfect Agent", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "G5 Building - Perfect Agent Objective 5": HasAll("G5 Building - Perfect Agent", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+            "Complete: G5 Building - Perfect Agent": HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+
+            # Stage 7 - A51 Infiltration
+            "A51 Infiltration - Perfect Agent Objective 1": HasAll("A51 Infiltration - Perfect Agent", "Explosives") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Perfect Agent Objective 2": HasAll("A51 Infiltration - Perfect Agent", "Comms Rider") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Perfect Agent Objective 3": Has("A51 Infiltration - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Perfect Agent Objective 4": Has("A51 Infiltration - Perfect Agent") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Infiltration - Perfect Agent Objective 5": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Infiltration - Perfect Agent": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 8 - A51 Rescue
+            "A51 Rescue - Perfect Agent Objective 1": HasAll("A51 Rescue - Perfect Agent", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Rescue - Perfect Agent Objective 2": HasAll("A51 Rescue - Perfect Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Rescue - Perfect Agent Objective 3": HasAll("A51 Rescue - Perfect Agent", "Lab Clothes") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Rescue - Perfect Agent Objective 4": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_FIRST_KEY & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Rescue - Perfect Agent Objective 5": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Rescue - Perfect Agent": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 9 - A51 Escape
+            "A51 Escape - Perfect Agent Objective 1": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Escape - Perfect Agent Objective 2": Has("A51 Escape - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "A51 Escape - Perfect Agent Objective 3": Has("A51 Escape - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Escape - Perfect Agent Objective 4": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "A51 Escape - Perfect Agent Objective 5": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: A51 Escape - Perfect Agent": HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 10 - Air Base
+            "Air Base - Perfect Agent Objective 1": HasAll("Air Base - Perfect Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Perfect Agent Objective 2": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Perfect Agent Objective 3": HasAll("Air Base - Perfect Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Air Base - Perfect Agent Objective 4": HasAll("Air Base - Perfect Agent", "Dragon", "Stewardess Disguise", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasAny("Proximity Mine", "K7 Avenger"),
+            "Air Base - Perfect Agent Objective 5": HasAll("Air Base - Perfect Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+            "Complete: Air Base - Perfect Agent": HasAll("Air Base - Perfect Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+
+            # Stage 11 - Air Force One
+            "Air Force One - Perfect Agent Objective 1": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Perfect Agent Objective 2": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY,
+            "Air Force One - Perfect Agent Objective 3": HasAll("Air Force One - Perfect Agent", "Suitcase") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Air Force One - Perfect Agent Objective 4": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Air Force One - Perfect Agent Objective 5": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: Air Force One - Perfect Agent": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 12 - Crash Site
+            "Crash Site - Perfect Agent Objective 1": HasAll("Crash Site - Perfect Agent", "President Scanner"),
+            "Crash Site - Perfect Agent Objective 2": Has("Crash Site - Perfect Agent"),
+            "Crash Site - Perfect Agent Objective 3": Has("Crash Site - Perfect Agent") & (HasAny(*EXPLOSIVE_LIST) | Has("DY357-LX")) & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Crash Site - Perfect Agent Objective 4": HasAll("Crash Site - Perfect Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Crash Site - Perfect Agent Objective 5": HasAll("Crash Site - Perfect Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Crash Site - Perfect Agent": HasAll("Crash Site - Perfect Agent", "President Scanner") & (HasAny(*EXPLOSIVE_LIST) | Has("DY357-LX")) & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 13 - Pelagic II
+            "Pelagic II - Perfect Agent Objective 1": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Perfect Agent Objective 2": HasAll("Pelagic II - Perfect Agent", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Perfect Agent Objective 3": Has("Pelagic II - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Perfect Agent Objective 4": Has("Pelagic II - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Pelagic II - Perfect Agent Objective 5": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Pelagic II - Perfect Agent": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 14 - Deep Sea
+            "Deep Sea - Perfect Agent Objective 1": HasAll("Deep Sea - Perfect Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Deep Sea - Perfect Agent Objective 2": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Deep Sea - Perfect Agent Objective 3": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Deep Sea - Perfect Agent Objective 4": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Deep Sea - Perfect Agent Objective 5": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: Deep Sea - Perfect Agent": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 15 - Carrington Institute Defense
+            "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent"),
+            "CI Defense - Perfect Agent Objective 2": Has("CI Defense - Perfect Agent") & HAS_ANY_RIFLE,
+            "CI Defense - Perfect Agent Objective 3": HasAll("CI Defense - Perfect Agent", "RC-P120") & HAS_ANY_RIFLE,
+            "CI Defense - Perfect Agent Objective 4": HasAll("CI Defense - Perfect Agent", "RC-P120") & (HasAny(*EXPLOSIVE_LIST) | HasAny("Dragon", "Laser")) & HAS_ANY_RIFLE,
+            "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "RC-P120", "Data Uplink") & (HasAny(*EXPLOSIVE_LIST) | HasAny("Dragon", "Laser")) & HAS_ANY_RIFLE,
+            "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "RC-P120", "Data Uplink") & (HasAny(*EXPLOSIVE_LIST) | HasAny("Dragon", "Laser")) & HAS_ANY_RIFLE,
+
+            # Stage 16 - Attack Ship
+            "Attack Ship - Perfect Agent Objective 1": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Attack Ship - Perfect Agent Objective 2": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Attack Ship - Perfect Agent Objective 3": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Attack Ship - Perfect Agent Objective 4": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Attack Ship - Perfect Agent Objective 5": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: Attack Ship - Perfect Agent": Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 17 - Skedar Ruins
+            "Skedar Ruins - Perfect Agent Objective 1": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Skedar Ruins - Perfect Agent Objective 2": HAS_SKEDAR_RUINS_PF_AGENT & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT & Has("IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+            "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+
+            # Stage 18 - Mr. Blonde's Revenge
+            "Mr. Blonde's Revenge - Perfect Agent Objective 1": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Skedar Bomb") & (HasFromList(*WEAPON_NAME_LIST, count=1) | Has("Cloaking Device")),
+            "Mr. Blonde's Revenge - Perfect Agent Objective 2": Has("Mr. Blonde's Revenge - Perfect Agent") & (HasFromList(*WEAPON_NAME_LIST, count=1) | HasAll("CamSpy", "Cloaking Device")),
+            "Mr. Blonde's Revenge - Perfect Agent Objective 3": Has("Mr. Blonde's Revenge - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: Mr. Blonde's Revenge - Perfect Agent": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Skedar Bomb") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Stage 19 - Maian SOS
+            "Maian SOS - Perfect Agent Objective 1": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Maian SOS - Perfect Agent Objective 2": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Maian SOS - Perfect Agent Objective 3": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: Maian SOS - Perfect Agent": Has("Maian SOS - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 20 - WAR!
+            "WAR! - Perfect Agent Objective 1": Has("WAR! - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "WAR! - Perfect Agent Objective 2": Has("WAR! - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "WAR! - Perfect Agent Objective 3": Has("WAR! - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+            "Complete: WAR! - Perfect Agent": Has("WAR! - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Stage 21 - The Duel
+            "The Duel - Perfect Agent Objective 1": Has("The Duel - Perfect Agent"),
+            "The Duel - Perfect Agent Objective 2": Has("The Duel - Perfect Agent"),
+            "The Duel - Perfect Agent Objective 3": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+            "Complete: The Duel - Perfect Agent": Has("The Duel - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1),
+        }
+
+        cheat_rules = {
+            # Defection
+            "Cheat Unlock: Complete dD Defection": (Has("dD Defection - Agent"))
+                                                    | (HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                                    | (HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1)),
+
+            # Investigation
+            "Cheat Unlock: Complete dD Investigation": (HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                                        | (HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink") & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                                        | (HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=1)),
+
+            # Extraction
+            "Cheat Unlock: Complete dD Extraction": (HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                    | (HasAll("dD Extraction - Special Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                    | (HasAll("dD Extraction - Perfect Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # Villa
+            "Cheat Unlock: Complete Carrington Villa": (HasAll("Carrington Villa - Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                                       | (HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                                       | (HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # Chicago
+            "Cheat Unlock: Complete Chicago": (HasAll("Chicago - Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1))
+                                              | (HasAll("Chicago - Special Agent", "Remote Mine", "Data Uplink") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1))
+                                              | (HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1)),
+
+            # G5 Building
+            "Cheat Unlock: Complete G5 Building": (HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                                  | (HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1))
+                                                  | (HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk", "Remote Mine") & HAS_G5_KEYS & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1)),
+
+            # A51 Infiltration
+            "Cheat Unlock: Complete A51 Infiltration": (HasAll("A51 Infiltration - Agent", "Explosives") & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                                       | (HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                       | (HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # A51 Rescue
+            "Cheat Unlock: Complete A51 Rescue": (HasAll("A51 Rescue - Agent", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                 | (HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                 | (HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # A51 Escape
+            "Cheat Unlock: Complete A51 Escape": (HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                 | (HasAll("A51 Escape - Special Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                 | (HasAll("A51 Escape - Perfect Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # Air Base
+            "Cheat Unlock: Complete Air Base": (HasAll("Air Base - Agent", "Stewardess Disguise") & HasAny("Crossbow", "CamSpy", "Tranquilizer") & HasFromList(*exclude_weapons_from_list(["Crossbow"]), count=2))
+                                               | (HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"))
+                                               | (HasAll("Air Base - Perfect Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase", "Flight Plans") & HasAny("Crossbow", "CamSpy", "Tranquilizer")),
+
+            # Air Force One
+            "Cheat Unlock: Complete Air Force One": (HasAll("Air Force One - Agent", "Suitcase", "Timed Mine") & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1))
+                                                    | (HasAll("Air Force One - Special Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*exclude_weapons_from_list(["Timed Mine"]), count=1))
+                                                    | (HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=1)),
+
+            # Crash Site
+            "Cheat Unlock: Complete Crash Site": (HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                 | (HasAll("Crash Site - Special Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                 | (HasAll("Crash Site - Perfect Agent", "President Scanner") & (HasAny(*EXPLOSIVE_LIST) | Has("DY357-LX")) & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # Pelagic II
+            "Cheat Unlock: Complete Pelagic II": (HasAll("Pelagic II - Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                 | (HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                 | (HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape") & HasFromList(*WEAPON_NAME_LIST, count=2)),
+
+            # Deep Sea
+            "Cheat Unlock: Complete Deep Sea": (HasAll("Deep Sea - Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                               | (HasAll("Deep Sea - Special Agent", "IR Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                               | (HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=1)),
+
+            # CI Defense
+            "Cheat Unlock: Complete CI Defense": (HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE)
+                                                 | (HasAll("CI Defense - Special Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE)
+                                                 | (HasAll("CI Defense - Perfect Agent", "RC-P120", "Data Uplink") & (HasAny(*EXPLOSIVE_LIST) | HasAny("Dragon", "Laser")) & HAS_ANY_RIFLE),
+
+            # Attack Ship
+            "Cheat Unlock: Complete Attack Ship": (Has("Attack Ship - Agent") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                  | (Has("Attack Ship - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2))
+                                                  | (Has("Attack Ship - Perfect Agent") & HasFromList(*WEAPON_NAME_LIST, count=1)),
+
+            # Skedar Ruins
+            "Cheat Unlock: Complete Skedar Ruins": (HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                   | (HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                   | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2)),
+        }
+
+        cheat_agent_rules = {
+            # Extraction
+            "Cheat Unlock: Complete dD Extraction (Agent) in under 2:03": HasAll("dD Extraction - Agent", "Night Vision") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # G5 Building
+            "Cheat Unlock: Complete G5 Building (Agent) in under 1:40": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk") & HAS_G5_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Escape
+            "Cheat Unlock: Complete A51 Escape (Agent) in under 3:50": HasAll("A51 Escape - Agent", "Alien Medpack") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Crash Site
+            "Cheat Unlock: Complete Crash Site (Agent) in under 2:50": HasAll("Crash Site - Agent", "President Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # CI Defense
+            "Cheat Unlock: Complete CI Defense (Agent) in under 1:45": HasAll("CI Defense - Agent", "RC-P120", "Data Uplink") & HAS_ANY_RIFLE,
+        }
+
+        cheat_sp_agent_rules = {
+            # Defection
+            "Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30": HasAll("dD Defection - Special Agent", "ECM Mine") & HAS_DD_KEYS & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Villa
+            "Cheat Unlock: Complete Carrington Villa (Special Agent) in under 2:30": HasAll("Carrington Villa - Special Agent", "Cellar Key Card") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Infiltration
+            "Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider") & HAS_A51_INFIL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Air Base
+            "Cheat Unlock: Complete Air Base (Special Agent) in under 3:11": HasAll("Air Base - Special Agent", "Dragon", "K7 Avenger", "Stewardess Disguise", "Suitcase") & HasAny("Crossbow", "CamSpy", "Tranquilizer"),
+
+            # Pelagic II
+            "Cheat Unlock: Complete Pelagic II (Special Agent) in under 7:07": HasAll("Pelagic II - Special Agent", "X-Ray Scanner") & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Attack Ship
+            "Cheat Unlock: Complete Attack Ship (Special Agent) in under 5:17": Has("Attack Ship - Special Agent") & HasFromList(*WEAPON_NAME_LIST, count=2),
+        }
+
+        cheat_pf_agent_rules = {
+            # Investigation
+            "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30": HasAll("dD Investigation - Perfect Agent", "CamSpy", "K7 Avenger", "Night Vision", "Data Uplink", "Shield Tech Item") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Chicago
+            "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": HasAll("Chicago - Perfect Agent", "Remote Mine", "Data Uplink", "Tracer Bug") & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=1),
+
+            # Rescue
+            "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes") & HAS_A51_RESCUE_ALL_KEYS & HasFromList(*WEAPON_NAME_LIST, count=2),
+
+            # Air Force One
+            "Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55": HasAll("Air Force One - Perfect Agent", "Suitcase", "Timed Mine") & HAS_AFO_LIFT_KEY & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Deep Sea
+            "Cheat Unlock: Complete Deep Sea (Perfect Agent) in under 7:27": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "FarSight XR-20", "Backup Disk") & HasFromList(*WEAPON_NAME_LIST, count=1),
+
+            # Skedar Ruins
+            "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31": HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2),
+        }
+
+        if world.options.agent:
+            add_rule(world, agent_rules)
+        if world.options.special_agent:
+            add_rule(world, special_agent_rules)
+        if world.options.perfect_agent:
+            add_rule(world, perfect_agent_rules)
+        if world.options.unlock_cheats:
+            add_rule(world, cheat_rules)
+
+            if world.options.agent:
+                add_rule(world, cheat_agent_rules)
+            if world.options.special_agent:
+                add_rule(world, cheat_sp_agent_rules)
+            if world.options.perfect_agent:
+                add_rule(world, cheat_pf_agent_rules)
+
+
+    elif (world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon
+            or world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun):
         if world.options.agent:
             # Stage 1 - Defection
             defection_agent_obj_1 = world.get_location("dD Defection - Agent Objective 1")
@@ -8686,7 +11082,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                 world.set_rule(air_base_agent_complete, HasAll("Air Base - Agent", "Stewardess Disguise")
                                                         & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 air_base_agent_obj_1 = world.get_location("Air Base - Agent Objective 1")
                 world.set_rule(air_base_agent_obj_1, HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise"))
 
@@ -8842,7 +11238,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                             | (HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                 & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 skedar_ruins_agent_obj_1 = world.get_location("Skedar Ruins - Agent Objective 1")
                 world.set_rule(skedar_ruins_agent_obj_1, HAS_SKEDAR_RUINS_AGENT & HasAll("R-Tracker", "Target Amplifier")
                                                          & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
@@ -9129,7 +11525,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                 world.set_rule(air_base_sp_agent_complete, HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase")
                                                            & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 air_base_sp_agent_obj_1 = world.get_location("Air Base - Special Agent Objective 1")
                 world.set_rule(air_base_sp_agent_obj_1, HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise"))
 
@@ -9315,7 +11711,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                                | (HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                     & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
             
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 skedar_ruins_sp_agent_obj_1 = world.get_location("Skedar Ruins - Special Agent Objective 1")
                 world.set_rule(skedar_ruins_sp_agent_obj_1, HAS_SKEDAR_RUINS_SP_AGENT & HasAll("R-Tracker", "Target Amplifier")
                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
@@ -9665,7 +12061,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                 world.set_rule(air_base_prf_agent_complete, HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
             
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 air_base_prf_agent_obj_1 = world.get_location("Air Base - Perfect Agent Objective 1")
                 world.set_rule(air_base_prf_agent_obj_1, HasAll("Air Base - Perfect Agent", "CamSpy", "Stewardess Disguise"))
 
@@ -9901,7 +12297,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                                 | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                     & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 skedar_ruins_prf_agent_obj_1 = world.get_location("Skedar Ruins - Perfect Agent Objective 1")
                 world.set_rule(skedar_ruins_prf_agent_obj_1, HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier")
                                                              & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
@@ -10109,7 +12505,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                         | (HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])))
     
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 cheat_air_base_complete = world.get_location("Cheat Unlock: Complete Air Base")
                 world.set_rule(cheat_air_base_complete, (HasAll("Air Base - Agent", "CamSpy", "Stewardess Disguise")
                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
@@ -10209,7 +12605,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                             | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                 & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 cheat_skedar_ruins_complete = world.get_location("Cheat Unlock: Complete Skedar Ruins")
                 world.set_rule(cheat_skedar_ruins_complete, (HAS_SKEDAR_RUINS_AGENT & HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner")
                                                                 & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
@@ -10277,7 +12673,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                     world.set_rule(cheat_air_base_timed_complete, HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase")
                                                                   & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
 
-                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                     cheat_air_base_timed_complete = world.get_location("Cheat Unlock: Complete Air Base (Special Agent) in under 3:11")
                     world.set_rule(cheat_air_base_timed_complete, HasAll("Air Base - Special Agent", "CamSpy", "Stewardess Disguise", "Suitcase")
                                                                   & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]))
@@ -10342,14 +12738,15 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                                       | (HAS_SKEDAR_RUINS_PF_AGENT & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                                             & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])))
 
-                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                     cheat_skedar_ruins_timed_complete = world.get_location("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31")
                     world.set_rule(cheat_skedar_ruins_timed_complete, HAS_SKEDAR_RUINS_PF_AGENT & HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner")
                                                                       & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
 
 
 def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:                      
-    if world.options.weapon_progression.value == WeaponProgression.option_vanilla:
+    if (world.options.weapon_progression.value == WeaponProgression.option_normal
+            or world.options.weapon_progression.value == WeaponProgression.option_all_guns):
         if world.options.unlock_cheats & world.options.weapon_training:
             cheat_pp9i = world.get_location("Cheat Unlock: Get gold medals for Falcon 2, Falcon 2 (Silencer), and Falcon 2 (Scope)")
             world.set_rule(cheat_pp9i, HasAll("Falcon 2", "Falcon 2 (Silencer)", "Falcon 2 (Scope)"))
@@ -10781,7 +13178,8 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
             dt_data_uplink = world.get_location("Holotraining 7: Live Combat 2")
             world.set_rule(dt_data_uplink, Has("Falcon 2"))
 
-    elif world.options.weapon_progression.value > WeaponProgression.option_vanilla:
+    elif (world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon
+            or world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun):
         if world.options.unlock_cheats & world.options.weapon_training:
             cheat_pp9i = world.get_location("Cheat Unlock: Get gold medals for Falcon 2, Falcon 2 (Silencer), & Falcon 2 (Scope)")
             world.set_rule(cheat_pp9i, Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2 (Scope)"]))
@@ -11249,31 +13647,59 @@ def set_completion_condition(world: PerfectDarkWorld) -> None:
         has_skedar_ruins = Has("Skedar Ruins - Agent") | Has("Skedar Ruins - Special Agent") | Has("Skedar Ruins - Perfect Agent")
 
         if world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_item:
-            if world.options.weapon_progression.value == WeaponProgression.option_vanilla:
+            if world.options.weapon_progression.value == WeaponProgression.option_normal:
                 world.set_completion_rule(has_skedar_ruins & HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "R-Tracker", "Target Amplifier", "IR Scanner"))
+
+            elif world.options.weapon_progression.value == WeaponProgression.option_all_guns:
+                if world.options.special_agent or world.options.perfect_agent:
+                    world.set_completion_rule(has_skedar_ruins 
+                                              & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") 
+                                              & HasAny(*EXPLOSIVE_LIST) 
+                                              & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                else:
+                    # Agent
+                    world.set_completion_rule(HAS_SKEDAR_RUINS_AGENT
+                                              & HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & HasAny(*EXPLOSIVE_LIST) 
+                                              & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
 
             elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon:
                 world.set_completion_rule(has_skedar_ruins 
                                           & ((HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])) 
                                           | (HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 world.set_completion_rule(has_skedar_ruins & HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
 
         elif world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_mission_stars:
             required_mission_stars = get_mission_stars(world)
             world.set_completion_rule(Has("Mission Star", count=required_mission_stars))
 
-            if world.options.weapon_progression.value == WeaponProgression.option_vanilla:
+            if world.options.weapon_progression.value == WeaponProgression.option_normal:
                 world.set_completion_rule(HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "R-Tracker", "Target Amplifier", "IR Scanner")
                                           & Has("Mission Star", count=required_mission_stars))
+
+            elif world.options.weapon_progression.value == WeaponProgression.option_all_guns:
+                if world.options.special_agent or world.options.perfect_agent:
+                    world.set_completion_rule(HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler") 
+                                              & HasAny(*EXPLOSIVE_LIST) 
+                                              & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2)
+                                              & Has("Mission Star", count=required_mission_stars))
+                else:
+                    # Agent
+                    world.set_completion_rule(HasAll("R-Tracker", "Target Amplifier", "IR Scanner") 
+                                              & HasAny(*EXPLOSIVE_LIST) 
+                                              & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2)
+                                              & Has("Mission Star", count=required_mission_stars))
 
             elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon:
                 world.set_completion_rule((HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])) 
                                           | (HasAll("R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
                                           & Has("Mission Star", count=required_mission_stars))
 
-            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon_one_gun:
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun:
                 world.set_completion_rule(HasAll("Devastator", "R-Tracker", "Target Amplifier", "IR Scanner") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                           & Has("Mission Star", count=required_mission_stars))
 
@@ -11310,8 +13736,25 @@ def get_mission_stars(world: PerfectDarkWorld) -> int:
     return required_mission_stars
 
 
+def add_rule(world: PerfectDarkWorld, rules: dict) -> None:
+    for location, rule in rules.items():
+        location_name = world.get_location(location)
+        # print(location_name)
+        world.set_rule(location_name, rule)
+
+
 def add_challenge_rules(world: PerfectDarkWorld, challenge_rules: dict) -> None:
     for challenge, rule in challenge_rules.items():
         if challenge in world.options.allowed_challenges:
             challenge_location = world.get_location(f"Complete: {challenge}")
             world.set_rule(challenge_location, rule)
+
+
+def exclude_weapons_from_list(excluded_weapons: list[str]) -> list[str]:
+    new_list = []
+
+    for weapon in WEAPON_NAME_LIST:
+        if weapon not in excluded_weapons:
+            new_list.append(weapon)
+
+    return new_list

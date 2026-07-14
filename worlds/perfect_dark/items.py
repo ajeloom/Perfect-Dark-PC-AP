@@ -46,14 +46,14 @@ ITEM_NAME_TO_ID = {
     "Proximity Mine": 34,
     "Remote Mine": 35,
     "Combat Boost": 36,
-	# "PP9i": 37,
-	# "CC13": 38,
-	# "KL01313": 39,
-	# "KF7 Special": 40,
-	# "ZZT (9mm)": 41,
-	# "DMC": 42,
-	# "AR53": 43,
-	# "RC-P45": 44,
+	"PP9i": 37,
+	"CC13": 38,
+	"KL01313": 39,
+	"KF7 Special": 40,
+	"ZZT (9mm)": 41,
+	"DMC": 42,
+	"AR53": 43,
+	"RC-P45": 44,
     "Psychosis Gun": 45,
 	"Night Vision": 46,
 	"CamSpy": 47,
@@ -290,14 +290,14 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Proximity Mine": ItemClassification.progression,
     "Remote Mine": ItemClassification.progression,
     "Combat Boost": ItemClassification.useful,
-	# "PP9i": ItemClassification.filler,
-	# "CC13": ItemClassification.filler,
-	# "KL01313": ItemClassification.filler,
-	# "KF7 Special": ItemClassification.filler,
-	# "ZZT (9mm)": ItemClassification.filler,
-	# "DMC": ItemClassification.filler,
-	# "AR53": ItemClassification.filler,
-	# "RC-P45": ItemClassification.filler,
+	"PP9i": ItemClassification.progression,
+	"CC13": ItemClassification.progression,
+	"KL01313": ItemClassification.progression,
+	"KF7 Special": ItemClassification.progression,
+	"ZZT (9mm)": ItemClassification.progression,
+	"DMC": ItemClassification.progression,
+	"AR53": ItemClassification.progression,
+	"RC-P45": ItemClassification.progression,
     "Psychosis Gun": ItemClassification.filler,
 	"Night Vision": ItemClassification.progression | ItemClassification.useful,
 	"CamSpy": ItemClassification.progression | ItemClassification.useful,
@@ -522,7 +522,7 @@ def create_item_with_correct_classification(world: PerfectDarkWorld, name: str) 
 
     if ((world.options.mission_logic.value == MissionLogic.option_veteran 
             or world.options.mission_logic.value == MissionLogic.option_hard)
-            and world.options.weapon_progression.value == WeaponProgression.option_vanilla):
+            and world.options.weapon_progression.value == WeaponProgression.option_normal):
         if name == "Air Force One Left Room Key Card" or name == "Air Force One Right Room Key Card":
             classification = ItemClassification.progression | ItemClassification.useful
 
@@ -725,7 +725,8 @@ def create_all_items(world:PerfectDarkWorld) -> None:
 
 
     # Weapons
-    if world.options.weapon_progression.value == WeaponProgression.option_vanilla:
+    if (world.options.weapon_progression.value == WeaponProgression.option_normal
+            or world.options.weapon_progression.value == WeaponProgression.option_all_guns):
         itempool.append(world.create_item("Falcon 2"))
         itempool.append(world.create_item("Falcon 2 (Silencer)"))
         itempool.append(world.create_item("Falcon 2 (Scope)"))
@@ -760,7 +761,19 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         itempool.append(world.create_item("Proximity Mine"))
         itempool.append(world.create_item("Remote Mine"))
         itempool.append(world.create_item("Psychosis Gun"))
-    elif world.options.weapon_progression.value > WeaponProgression.option_vanilla:
+
+        if world.options.weapon_progression.value == WeaponProgression.option_all_guns:
+            itempool.append(world.create_item("PP9i"))
+            itempool.append(world.create_item("CC13"))
+            itempool.append(world.create_item("KL01313"))
+            itempool.append(world.create_item("KF7 Special"))
+            itempool.append(world.create_item("ZZT (9mm)"))
+            itempool.append(world.create_item("DMC"))
+            itempool.append(world.create_item("AR53"))
+            itempool.append(world.create_item("RC-P45"))
+
+    elif (world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon
+            or world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun):
         itempool.append(world.create_item("RC-P120"))
         itempool.append(world.create_item("Devastator"))
         itempool.append(world.create_item("Timed Mine"))
@@ -1066,10 +1079,10 @@ def create_all_items(world:PerfectDarkWorld) -> None:
 
     # Start with a random weapon
     if world.options.start_with_weapon:
-        if world.options.weapon_progression.value == WeaponProgression.option_vanilla:
+        if world.options.weapon_progression.value == WeaponProgression.option_normal:
             itemID = world.random.randint(3, 35)
             remove_starting_item_from_pool(world, list(ITEM_NAME_TO_ID.keys())[list(ITEM_NAME_TO_ID.values()).index(itemID)], itempool)
-        elif world.options.weapon_progression.value > WeaponProgression.option_vanilla:
+        elif world.options.weapon_progression.value > WeaponProgression.option_normal:
             remove_starting_item_from_pool(world, "Progressive Weapon", itempool)
 
 
