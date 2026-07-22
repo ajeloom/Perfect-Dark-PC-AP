@@ -1528,21 +1528,21 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                         | (Has("K7 Avenger") & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | ((Has("K7 Avenger") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
-                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
+                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
 
         "dD Investigation - Perfect Agent Objective 5": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Data Uplink", "Night Vision", "Shield Tech Item")
                                                         & (HasAll("Falcon 2", "CMP150", "K7 Avenger")
                                                         | (Has("K7 Avenger") & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | ((Has("K7 Avenger") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
-                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
+                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: dD Investigation - Perfect Agent": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Data Uplink", "Night Vision", "Shield Tech Item")
                                                         & (HasAll("Falcon 2", "CMP150", "K7 Avenger")
                                                         | (Has("K7 Avenger") & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | ((Has("K7 Avenger") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
-                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
+                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
 
 
         # Stage 3 - Extraction
@@ -3640,21 +3640,21 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                         | (Has("K7 Avenger") & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | ((Has("K7 Avenger") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
-                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
+                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
 
         "dD Investigation - Perfect Agent Objective 5": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Data Uplink", "Night Vision", "Shield Tech Item")
                                                         & (HasAll("Falcon 2", "CMP150", "K7 Avenger")
                                                         | (Has("K7 Avenger") & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | ((Has("K7 Avenger") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
-                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
+                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: dD Investigation - Perfect Agent": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Data Uplink", "Night Vision", "Shield Tech Item")
                                                         & (HasAll("Falcon 2", "CMP150", "K7 Avenger")
                                                         | (Has("K7 Avenger") & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | ((Has("K7 Avenger") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
-                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
+                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
 
 
         # Stage 3 - Extraction
@@ -5753,21 +5753,21 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                         | (Has("K7 Avenger") & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | ((Has("K7 Avenger") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
-                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
+                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
 
         "dD Investigation - Perfect Agent Objective 5": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Data Uplink", "Night Vision", "Shield Tech Item")
                                                         & (HasAll("Falcon 2", "CMP150", "K7 Avenger")
                                                         | (Has("K7 Avenger") & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | ((Has("K7 Avenger") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
-                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
+                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: dD Investigation - Perfect Agent": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Data Uplink", "Night Vision", "Shield Tech Item")
                                                         & (HasAll("Falcon 2", "CMP150", "K7 Avenger")
                                                         | (Has("K7 Avenger") & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | ((Has("K7 Avenger") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
-                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
+                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
 
 
         # Stage 3 - Extraction
@@ -7783,21 +7783,21 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                         | (Has("K7 Avenger") & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | ((Has("K7 Avenger") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
-                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
+                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
 
         "dD Investigation - Perfect Agent Objective 5": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Data Uplink", "Night Vision", "Shield Tech Item")
                                                         & (HasAny("Falcon 2", "CMP150") & Has("K7 Avenger")
                                                         | (Has("K7 Avenger") & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | ((Has("K7 Avenger") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
-                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
+                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: dD Investigation - Perfect Agent": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Data Uplink", "Night Vision", "Shield Tech Item")
                                                         & (HasAny("Falcon 2", "CMP150") & Has("K7 Avenger")
                                                         | (Has("K7 Avenger") & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | ((Has("K7 Avenger") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]))
-                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
+                                                        | (Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]) & HAS_ANY_WEAPON_TYPE)),
 
 
         # Stage 3 - Extraction
