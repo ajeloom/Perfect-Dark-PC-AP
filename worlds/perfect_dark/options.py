@@ -78,8 +78,8 @@ class RequiredAgentMissionStars(Range):
     """
     Sets the required amount of Agent mission stars to beat the game.
     This option only matters if you have to collect mission stars and Agent is enabled.
-    If you are playing more than one difficulty, then you just have 
-    to reach the total amount of mission stars for the goal.
+    If you are playing more than one difficulty, then the number of mission stars 
+    you must collect for the goal is combined from each enabled difficulty.
 
     The max is 20 if the goal is set to Complete Skedar Ruins.
     """
@@ -104,8 +104,8 @@ class RequiredSpecialAgentMissionStars(Range):
     """
     Sets the required amount of Special Agent mission stars to beat the game.
     This option only matters if you have to collect mission stars and Special Agent is enabled.
-    If you are playing more than one difficulty, then you just have 
-    to reach the total amount of mission stars for the goal.
+    If you are playing more than one difficulty, then the number of mission stars 
+    you must collect for the goal is combined from each enabled difficulty.
 
     The max is 20 if the goal is set to Complete Skedar Ruins.
     """
@@ -131,8 +131,8 @@ class RequiredPerfectAgentMissionStars(Range):
     """
     Sets the required amount of Perfect Agent mission stars to beat the game.
     This option only matters if you have to collect mission stars and Perfect Agent is enabled.
-    If you are playing more than one difficulty, then you just have 
-    to reach the total amount of mission stars for the goal.
+    If you are playing more than one difficulty, then the number of mission stars 
+    you must collect for the goal is combined from each enabled difficulty.
 
     The max is 20 if the goal is set to Complete Skedar Ruins.
     """
@@ -181,8 +181,8 @@ class WeaponProgression(Choice):
         Only recommended for people who are looking for a challenging run.
 
     - Progressive Types:
-        This splits the progressive weapon into five types
-        which are Pistols, SMGs, Rifles, Explosives, and Other.
+        This splits the progressive weapon into five types:
+        Pistols, SMGs, Rifles, Explosives, and Other.
         Your inventory will only be filled with the current
         progressive weapon for each type at the start of a mission.
     """
@@ -204,9 +204,9 @@ class ProgressiveWeaponsInChallenges(Toggle):
     This option only works if challenges are enabled 
     weapon progression is not set to normal.
 
-    - False: You will have to pick up weapons in the challenge 
-             that you have reached progressively.
-             
+    - False: You will not start with any weapons in your inventory
+             and must pick up weapons that you have unlocked.
+
     - True: Your progressive weapons will be in your inventory.
     """
 
@@ -217,8 +217,8 @@ class StartWithWeapon(Toggle):
     """
     Start with a weapon in your inventory.
 
-    - Normal & All Guns: You will start with a random weapon.
-    - Progressive Weapon & Progressive One Gun: You will start with the first progressive weapon.
+    - Normal and All Guns: You will start with a random weapon.
+    - Progressive Weapon and One Gun: You will start with the first progressive weapon.
     - Progressive Types: You will start with a random weapon type.
     """
 
@@ -251,8 +251,8 @@ class RequiredChallengeStars(Range):
     Sets the required amount of challenge stars to beat the game.
     This option only matters if you are required to collect challenge stars for the goal.
 
-    If you exclude any challenges and set the required amount of challenge stars to more
-    than you can do, then it will automatically set the number to the most you can do.
+    If you exclude any challenges and set the required amount of challenge stars to a number
+    greater than you can earn, then it automatically sets this to the maximum you can earn.
     """
 
     display_name = "Required Challenge Stars"
@@ -264,7 +264,7 @@ class RequiredChallengeStars(Range):
 
 class ExcludedChallenges(OptionSet):
     """
-    Sets which challenges will not have a check. 
+    Sets which challenges will not appear in the run. 
     Valid challenges are Challenge 1 through Challenge 30.
     Ex: ['Challenge 1', 'Challenge 5', 'Challenge 26']
     """
@@ -308,7 +308,7 @@ class ChallengeLogic(Choice):
     """
     Choose how hard the logic will be for the challenges. 
 
-    - Strict: The logic expects you to have every weapon in the weapon set.
+    - Strict: The logic expects you to have every weapon and device in the weapon set.
     - Normal: The logic expects you to have some weapons in the weapon set.
     - Hard: The logic expects you to have one of the weapons in the weapon set.
     """
@@ -362,8 +362,7 @@ class DeviceTraining(Toggle):
 class Holotraining(Toggle):
     """
     Adds the 7 holotraining as checks.
-    Recommend enabling this so you have checks 
-    at the start that don't require any items.
+    Recommend enabling this so you have checks at the start.
     """
 
     display_name = "Holotraining"
@@ -388,7 +387,7 @@ class UnlockCheats(Toggle):
 
 class DeathLink(Toggle):
     """
-    Enables death link in your game.
+    Enables death link in your game, making you die at the same time as other players.
     You can send and receive death links during single player missions.
     You can receive death links in combat simulator but can't send it.
     """
