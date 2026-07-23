@@ -149,7 +149,7 @@ class StartWithMission(Toggle):
     Start with a random mission in your inventory.
     """
 
-    display_name = "Start With a Mission"
+    display_name = "Start with a Mission"
 
 
 class WeaponProgression(Choice):
@@ -222,7 +222,7 @@ class StartWithWeapon(Toggle):
     - Progressive Types: You will start with a random weapon type.
     """
 
-    display_name = "Start With a Weapon"
+    display_name = "Start with a Weapon"
 
 
 class MasterKey(Toggle):
@@ -339,7 +339,7 @@ class StartWithAllChallenges(Toggle):
     Recommend enabling this if there are not enough locations in your multiworld.
     """
 
-    display_name = "Start With All Challenges"
+    display_name = "Start with All Challenges"
 
 
 class WeaponTraining(Toggle):
