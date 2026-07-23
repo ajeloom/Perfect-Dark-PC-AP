@@ -1043,7 +1043,7 @@ def remove_starting_item_from_pool(world:PerfectDarkWorld, item:str, itempool:li
 def is_skedar_ruins_in_itempool(world: PerfectDarkWorld) -> bool:
     if ((world.options.goal.value == Goal.option_complete_skedar_ruins
             and world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_item)
-            or world.options.goal.value == Goal.option_complete_missions):
+            or world.options.goal.value >= Goal.option_complete_missions):
         return True
     else:
         return False
