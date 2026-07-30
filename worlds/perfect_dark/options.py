@@ -69,6 +69,8 @@ class MissionLogic(Choice):
 class IncludeAgent(Toggle):
     """
     Determines whether Agent sends location checks.
+    You must have one of the difficulties enabled if you have 
+    to do missions for the goal or Skedar Ruins requirements.
     """
 
     display_name = "Include Agent"
@@ -94,6 +96,8 @@ class RequiredAgentMissionStars(Range):
 class IncludeSpecialAgent(Toggle):
     """
     Determines whether Special Agent sends location checks.
+    You must have one of the difficulties enabled if you have 
+    to do missions for the goal or Skedar Ruins requirements.
     """
 
     display_name = "Include Special Agent"
@@ -120,8 +124,13 @@ class RequiredSpecialAgentMissionStars(Range):
 class IncludePerfectAgent(Toggle):
     """
     Determines whether Perfect Agent sends location checks.
+    You must have one of the difficulties enabled if you have 
+    to do missions for the goal or Skedar Ruins requirements.
+
     If Perfect Agent is too difficult, you can use Perfect Dark mode
     to lower enemies' health, damage, and accuracy to make it easier.
+    Note: Lowering enemy health will also lower your ally's health. 
+          Keep this in mind when playing missions with allies you need to keep alive.
     """
 
     display_name = "Include Perfect Agent"
@@ -185,6 +194,7 @@ class WeaponProgression(Choice):
         Pistols, SMGs, Rifles, Explosives, and Other.
         Your inventory will only be filled with the current
         progressive weapon for each type at the start of a mission.
+        You cannot pick up weapons except for the ones required in certain missions.
     """
 
     display_name = "Weapon Progression"
