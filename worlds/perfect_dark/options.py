@@ -374,15 +374,21 @@ class UnlockCheats(Toggle):
     """
     Adds the unlockable cheats as checks.
     Some checks require certain difficulties or weapon training.
-
-    - False: Meeting the requirements to unlock a cheat won't send a check.
-             You can unlock the cheat the normal way or wait for it to be sent to you.
-
-    - True: Meeting the requirements to unlock a cheat will send a check.
-            You can't unlock cheats the normal way, so you have to wait for it be sent to you.
     """
 
     display_name = "Unlock Cheats"
+
+
+class IncludeCheatsInItemPool(Toggle):
+    """
+    Adds the cheats to the item pool.
+    You can still unlock cheats the normal way with either option.
+    
+    - False: Cheats will not be sent to you.
+    - True: Cheats will be sent to you. Useful if you want to make getting the cheats easier.
+    """
+
+    display_name = "Include Cheats in Item Pool"
 
 
 class DeathLink(Toggle):
@@ -421,6 +427,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     device_training: DeviceTraining
     holotraining: Holotraining
     unlock_cheats: UnlockCheats
+    include_cheats_in_item_pool: IncludeCheatsInItemPool
     deathlink: DeathLink
 
 
@@ -452,6 +459,7 @@ option_groups = [
             DeviceTraining,
             Holotraining,
             UnlockCheats,
+            IncludeCheatsInItemPool,
             DeathLink
         ],
     ),
@@ -482,6 +490,7 @@ option_presets = {
         "device_training": False,
         "holotraining": False,
         "unlock_cheats": False,
+        "include_cheats_in_item_pool": True,
         "deathlink": False,
     },
     "hard": {
@@ -508,6 +517,7 @@ option_presets = {
         "device_training": True,
         "holotraining": True,
         "unlock_cheats": True,
+        "include_cheats_in_item_pool": False,
         "deathlink": True,
     },
 }

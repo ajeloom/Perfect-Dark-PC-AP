@@ -561,49 +561,52 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         world.create_item("Backup Disk"),
         world.create_item("Cellar Key Card"),
         world.create_item("Suitcase"),
-        world.create_item("Cheat: DK Mode"),
-        world.create_item("Cheat: Small Jo"),
-        world.create_item("Cheat: Small Characters"),
-        world.create_item("Cheat: Team Heads Only"),
-        world.create_item("Cheat: Play as Elvis"),
-        world.create_item("Cheat: Slo-mo Single Player"),
-        world.create_item("Cheat: Invincible"),
-        world.create_item("Cheat: Cloaking Device"),
-        world.create_item("Cheat: Marquis of Queensbury Rules"),
-        world.create_item("Cheat: Jo Shield"),
-        world.create_item("Cheat: Super Shield"),
-        world.create_item("Cheat: Enemy Shields"),
-        world.create_item("Cheat: Enemy Rockets"),
-        world.create_item("Cheat: Perfect Darkness"),
-        world.create_item("Cheat: Rocket Launcher"),
-        world.create_item("Cheat: Sniper Rifle"),
-        world.create_item("Cheat: SuperDragon"),
-        world.create_item("Cheat: Laptop Gun"),
-        world.create_item("Cheat: Phoenix"),
-        world.create_item("Cheat: Psychosis Gun"),
-        world.create_item("Cheat: Trent's Magnum"),
-        world.create_item("Cheat: FarSight"),
-        world.create_item("Cheat: PP9i"),
-        world.create_item("Cheat: CC13"),
-        world.create_item("Cheat: KL01313"),
-        world.create_item("Cheat: KF7 Special"),
-        world.create_item("Cheat: ZZT (9mm)"),
-        world.create_item("Cheat: DMC"),
-        world.create_item("Cheat: AR53"),
-        world.create_item("Cheat: RC-P45"),
-        world.create_item("Cheat: Classic Sight"),
-        world.create_item("Cheat: Unlimited Ammo - Laptop Sentry Gun"),
-        world.create_item("Cheat: Hurricane Fists"),
-        world.create_item("Cheat: Unlimited Ammo"),
-        world.create_item("Cheat: Unlimited Ammo, No Reloads"),
-        world.create_item("Cheat: X-Ray Scanner"),
-        world.create_item("Cheat: R-Tracker/Weapon Cache Locations"),
-        world.create_item("Cheat: All Guns in Solo"),
-        world.create_item("Cheat: Pugilist"),
-        world.create_item("Cheat: Hotshot"),
-        world.create_item("Cheat: Hit and Run"),
-        world.create_item("Cheat: Alien"),
     ]
+
+    # Cheats
+    if world.options.include_cheats_in_item_pool:
+        itempool.append(world.create_item("Cheat: DK Mode"))
+        itempool.append(world.create_item("Cheat: Small Jo"))
+        itempool.append(world.create_item("Cheat: Small Characters"))
+        itempool.append(world.create_item("Cheat: Team Heads Only"))
+        itempool.append(world.create_item("Cheat: Play as Elvis"))
+        itempool.append(world.create_item("Cheat: Slo-mo Single Player"))
+        itempool.append(world.create_item("Cheat: Invincible"))
+        itempool.append(world.create_item("Cheat: Cloaking Device"))
+        itempool.append(world.create_item("Cheat: Marquis of Queensbury Rules"))
+        itempool.append(world.create_item("Cheat: Jo Shield"))
+        itempool.append(world.create_item("Cheat: Super Shield"))
+        itempool.append(world.create_item("Cheat: Enemy Shields"))
+        itempool.append(world.create_item("Cheat: Enemy Rockets"))
+        itempool.append(world.create_item("Cheat: Perfect Darkness"))
+        itempool.append(world.create_item("Cheat: Rocket Launcher"))
+        itempool.append(world.create_item("Cheat: Sniper Rifle"))
+        itempool.append(world.create_item("Cheat: SuperDragon"))
+        itempool.append(world.create_item("Cheat: Laptop Gun"))
+        itempool.append(world.create_item("Cheat: Phoenix"))
+        itempool.append(world.create_item("Cheat: Psychosis Gun"))
+        itempool.append(world.create_item("Cheat: Trent's Magnum"))
+        itempool.append(world.create_item("Cheat: FarSight"))
+        itempool.append(world.create_item("Cheat: PP9i"))
+        itempool.append(world.create_item("Cheat: CC13"))
+        itempool.append(world.create_item("Cheat: KL01313"))
+        itempool.append(world.create_item("Cheat: KF7 Special"))
+        itempool.append(world.create_item("Cheat: ZZT (9mm)"))
+        itempool.append(world.create_item("Cheat: DMC"))
+        itempool.append(world.create_item("Cheat: AR53"))
+        itempool.append(world.create_item("Cheat: RC-P45"))
+        itempool.append(world.create_item("Cheat: Classic Sight"))
+        itempool.append(world.create_item("Cheat: Unlimited Ammo - Laptop Sentry Gun"))
+        itempool.append(world.create_item("Cheat: Hurricane Fists"))
+        itempool.append(world.create_item("Cheat: Unlimited Ammo"))
+        itempool.append(world.create_item("Cheat: Unlimited Ammo, No Reloads"))
+        itempool.append(world.create_item("Cheat: X-Ray Scanner"))
+        itempool.append(world.create_item("Cheat: R-Tracker/Weapon Cache Locations"))
+        itempool.append(world.create_item("Cheat: All Guns in Solo"))
+        itempool.append(world.create_item("Cheat: Pugilist"))
+        itempool.append(world.create_item("Cheat: Hotshot"))
+        itempool.append(world.create_item("Cheat: Hit and Run"))
+        itempool.append(world.create_item("Cheat: Alien"))
 
     # Key Cards
     if world.options.master_key:
