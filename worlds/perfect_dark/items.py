@@ -540,28 +540,63 @@ def create_item_with_correct_classification(world: PerfectDarkWorld, name: str) 
 
 
 def create_all_items(world:PerfectDarkWorld) -> None:
+    itempool: list[Item] = []
+    
     # Create items found in any difficulty
-    itempool: list[Item] = [
-        world.create_item("Combat Boost"),
-        world.create_item("Night Vision"),
-        world.create_item("CamSpy"),
-        world.create_item("X-Ray Scanner"),
-        world.create_item("IR Scanner"),
-        world.create_item("Cloaking Device"),
-        world.create_item("Horizon Scanner"),
-        world.create_item("Data Uplink"),
-        world.create_item("R-Tracker"),
-        world.create_item("President Scanner"),
-        world.create_item("Door Decoder"),
-        world.create_item("Alien Medpack"),
-        world.create_item("Explosives"),
-        world.create_item("Target Amplifier"),
-        world.create_item("Lab Clothes"),
-        world.create_item("Stewardess Disguise"),
-        world.create_item("Backup Disk"),
-        world.create_item("Cellar Key Card"),
-        world.create_item("Suitcase"),
-    ]
+    if world.options.agent \
+            or world.options.special_agent \
+            or world.options.perfect_agent:
+        itempool.append(world.create_item("Combat Boost"))
+        itempool.append(world.create_item("Night Vision"))
+        itempool.append(world.create_item("CamSpy"))
+        itempool.append(world.create_item("X-Ray Scanner"))
+        itempool.append(world.create_item("IR Scanner"))
+        itempool.append(world.create_item("Cloaking Device"))
+        itempool.append(world.create_item("Horizon Scanner"))
+        itempool.append(world.create_item("Data Uplink"))
+        itempool.append(world.create_item("R-Tracker"))
+        itempool.append(world.create_item("President Scanner"))
+        itempool.append(world.create_item("Door Decoder"))
+        itempool.append(world.create_item("Alien Medpack"))
+        itempool.append(world.create_item("Explosives"))
+        itempool.append(world.create_item("Target Amplifier"))
+        itempool.append(world.create_item("Lab Clothes"))
+        itempool.append(world.create_item("Stewardess Disguise"))
+        itempool.append(world.create_item("Backup Disk"))
+        itempool.append(world.create_item("Cellar Key Card"))
+        itempool.append(world.create_item("Suitcase"))
+
+    # Create ECM Mine
+    if world.options.special_agent \
+            or world.options.perfect_agent \
+            or world.options.device_training:
+        itempool.append(world.create_item("ECM Mine"))
+
+    # Device Training only items
+    if world.options.device_training \
+            and not world.options.agent \
+            and not world.options.special_agent \
+            and not world.options.perfect_agent:
+        itempool.append(world.create_item("Data Uplink"))
+        itempool.append(world.create_item("CamSpy"))
+        itempool.append(world.create_item("Night Vision"))
+        itempool.append(world.create_item("Door Decoder"))
+        itempool.append(world.create_item("R-Tracker"))
+        itempool.append(world.create_item("IR Scanner"))
+        itempool.append(world.create_item("X-Ray Scanner"))
+        itempool.append(world.create_item("Stewardess Disguise"))
+        itempool.append(world.create_item("Cloaking Device"))
+
+    # Create items needed for Skedar Ruins
+    if world.options.goal.value == Goal.option_complete_skedar_ruins:
+        if not world.options.device_training:
+            itempool.append(world.create_item("IR Scanner"))
+            itempool.append(world.create_item("R-Tracker"))
+
+        if not world.options.agent \
+                and not world.options.special_agent \
+                and not world.options.perfect_agent:
+            itempool.append(world.create_item("Target Amplifier"))
 
     # Cheats
     if world.options.include_cheats_in_item_pool:
@@ -671,7 +706,6 @@ def create_all_items(world:PerfectDarkWorld) -> None:
 
     # Items in both Special and Perfect Agent
     if world.options.special_agent or world.options.perfect_agent:
-        itempool.append(world.create_item("ECM Mine"))
         itempool.append(world.create_item("Skedar Bomb"))
         itempool.append(world.create_item("Comms Rider"))
 
