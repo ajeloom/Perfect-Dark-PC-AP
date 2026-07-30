@@ -29,11 +29,11 @@ class PerfectDarkWorld(World):
                 self.options.skedar_ruins_requirements.value = passthrough["options"]["skedar_ruins_requirements"]
                 self.options.mission_logic.value = passthrough["options"]["mission_logic"]
                 self.options.agent.value = passthrough["options"]["agent"]
-                self.options.required_agent_mission_stars.value = ["options"]["agent_mission_stars"]
+                self.options.required_agent_mission_stars.value = passthrough["options"]["required_agent_mission_stars"]
                 self.options.special_agent.value = passthrough["options"]["special_agent"]
-                self.options.required_special_agent_mission_stars.value = ["options"]["special_agent_mission_stars"]
+                self.options.required_special_agent_mission_stars.value = passthrough["options"]["required_special_agent_mission_stars"]
                 self.options.perfect_agent.value = passthrough["options"]["perfect_agent"]
-                self.options.required_perfect_agent_mission_stars.value = ["options"]["perfect_agent_mission_stars"]
+                self.options.required_perfect_agent_mission_stars.value = passthrough["options"]["required_perfect_agent_mission_stars"]
                 self.options.weapon_progression.value = passthrough["options"]["weapon_progression"]
                 self.options.challenges.value = passthrough["options"]["challenges"]
                 self.options.required_challenge_stars.value = passthrough["options"]["required_challenge_stars"]
@@ -66,13 +66,14 @@ class PerfectDarkWorld(World):
                 "skedar_ruins_requirements": self.options.skedar_ruins_requirements.value,
                 "mission_logic": self.options.mission_logic.value,
                 "agent": self.options.agent.value,
-                "agent_mission_stars": self.options.required_agent_mission_stars.value,
+                "required_agent_mission_stars": self.options.required_agent_mission_stars.value,
                 "special_agent": self.options.special_agent.value,
-                "special_agent_mission_stars": self.options.required_special_agent_mission_stars.value,
+                "required_special_agent_mission_stars": self.options.required_special_agent_mission_stars.value,
                 "perfect_agent": self.options.perfect_agent.value,
-                "perfect_agent_mission_stars": self.options.required_perfect_agent_mission_stars.value,
+                "required_perfect_agent_mission_stars": self.options.required_perfect_agent_mission_stars.value,
                 "weapon_progression": self.options.weapon_progression.value,
                 "allow_progressive_weapon_in_challenges": self.options.allow_progressive_weapon_in_challenges.value,
+                "master_key": self.options.master_key.value,
                 "challenges": self.options.challenges.value,
                 "required_challenge_stars": self.options.required_challenge_stars.value,
                 "challenge_logic": self.options.challenge_logic.value,
