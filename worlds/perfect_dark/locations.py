@@ -1397,7 +1397,8 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         )
         carrington_institute.add_locations(holotraining_locations, PerfectDarkLocation)
 
-    if world.options.unlock_cheats:
+    if world.options.unlock_cheats \
+            and (world.options.agent or world.options.special_agent or world.options.perfect_agent):
         cheat_locations = get_location_names_with_ids(
             [
                 "Cheat Unlock: Complete dD Defection"
@@ -1639,17 +1640,17 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             )
             skedar_ruins.add_locations(cheat_locations, PerfectDarkLocation)
 
-        if world.options.weapon_training:
-            cheat_locations = get_location_names_with_ids(
-                [
-                    "Cheat Unlock: Get gold medals for Falcon 2, Falcon 2 (Silencer), and Falcon 2 (Scope)",
-                    "Cheat Unlock: Get gold medals for MagSec 4, Mauler, Phoenix, DY357 Magnum, and DY357-LX",
-                    "Cheat Unlock: Get gold medals for CMP150, Cyclone, Callisto NTG, and RC-P120",
-                    "Cheat Unlock: Get gold medals for Laptop Gun, Dragon, K7 Avenger, AR34, and SuperDragon",
-                    "Cheat Unlock: Get gold medals for Shotgun, Sniper Rifle, Rocket Launcher, and Slayer",
-                    "Cheat Unlock: Get gold medals for Timed Mine, Proximity Mine, and Remote Mine",
-                    "Cheat Unlock: Get gold medals for FarSight XR-20, Crossbow, Combat Knife, and Grenade",
-                    "Cheat Unlock: Get gold medals for Tranquilizer, Reaper, and Devastator",
-                ]
-            )            
-            carrington_institute.add_locations(cheat_locations, PerfectDarkLocation)
+    if world.options.unlock_cheats and world.options.weapon_training:
+        cheat_locations = get_location_names_with_ids(
+            [
+                "Cheat Unlock: Get gold medals for Falcon 2, Falcon 2 (Silencer), and Falcon 2 (Scope)",
+                "Cheat Unlock: Get gold medals for MagSec 4, Mauler, Phoenix, DY357 Magnum, and DY357-LX",
+                "Cheat Unlock: Get gold medals for CMP150, Cyclone, Callisto NTG, and RC-P120",
+                "Cheat Unlock: Get gold medals for Laptop Gun, Dragon, K7 Avenger, AR34, and SuperDragon",
+                "Cheat Unlock: Get gold medals for Shotgun, Sniper Rifle, Rocket Launcher, and Slayer",
+                "Cheat Unlock: Get gold medals for Timed Mine, Proximity Mine, and Remote Mine",
+                "Cheat Unlock: Get gold medals for FarSight XR-20, Crossbow, Combat Knife, and Grenade",
+                "Cheat Unlock: Get gold medals for Tranquilizer, Reaper, and Devastator",
+            ]
+        )            
+        carrington_institute.add_locations(cheat_locations, PerfectDarkLocation)
