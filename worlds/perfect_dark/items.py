@@ -644,32 +644,33 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         itempool.append(world.create_item("Cheat: Alien"))
 
     # Key Cards
-    if world.options.master_key:
-        itempool.append(world.create_item("G5 Building Master Key"))
-        itempool.append(world.create_item("Area 51 Master Key"))
+    if world.options.agent or world.options.special_agent or world.options.perfect_agent:
+        if world.options.master_key:
+            itempool.append(world.create_item("G5 Building Master Key"))
+            itempool.append(world.create_item("Area 51 Master Key"))
 
-        if world.options.special_agent or world.options.perfect_agent:
-            itempool.append(world.create_item("dataDyne Master Key"))
+            if world.options.special_agent or world.options.perfect_agent:
+                itempool.append(world.create_item("dataDyne Master Key"))
 
-        if (world.options.mission_logic.value == MissionLogic.option_veteran
-                or world.options.mission_logic.value == MissionLogic.option_hard
-                or world.options.special_agent
-                or world.options.perfect_agent):
-            itempool.append(world.create_item("Air Force One Master Key"))
+            if (world.options.mission_logic.value == MissionLogic.option_veteran
+                    or world.options.mission_logic.value == MissionLogic.option_hard
+                    or world.options.special_agent
+                    or world.options.perfect_agent):
+                itempool.append(world.create_item("Air Force One Master Key"))
 
-    else:
-        itempool.append(world.create_item("G5 Building Level 1 Key Card"))
-        itempool.append(world.create_item("G5 Building Level 2 Key Card"))
-        itempool.append(world.create_item("Medlab 2 Key Card"))
-        itempool.append(world.create_item("Op Room Key Card"))
-        itempool.append(world.create_item("Area 51 Lift Key Card"))
-        itempool.append(world.create_item("Cassandra's Office Key Card"))
-        itempool.append(world.create_item("Air Force One Left Room Key Card"))
-        itempool.append(world.create_item("Air Force One Right Room Key Card"))
+        else:
+            itempool.append(world.create_item("G5 Building Level 1 Key Card"))
+            itempool.append(world.create_item("G5 Building Level 2 Key Card"))
+            itempool.append(world.create_item("Medlab 2 Key Card"))
+            itempool.append(world.create_item("Op Room Key Card"))
+            itempool.append(world.create_item("Area 51 Lift Key Card"))
+            itempool.append(world.create_item("Cassandra's Office Key Card"))
+            itempool.append(world.create_item("Air Force One Left Room Key Card"))
+            itempool.append(world.create_item("Air Force One Right Room Key Card"))
 
-        if world.options.special_agent or world.options.perfect_agent:
-            itempool.append(world.create_item("Air Force One Lift Key Card"))
-            itempool.append(world.create_item("De Vries' Necklace"))
+            if world.options.special_agent or world.options.perfect_agent:
+                itempool.append(world.create_item("Air Force One Lift Key Card"))
+                itempool.append(world.create_item("De Vries' Necklace"))
 
 
     # Shield
