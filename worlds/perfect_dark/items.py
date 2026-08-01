@@ -882,6 +882,13 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         if world.options.perfect_agent:
             world.get_location("Complete: Skedar Ruins - Perfect Agent").place_locked_item(world.create_item("Victory"))
 
+        if not world.options.agent \
+                and not world.options.special_agent \
+                and not world.options.perfect_agent:
+            world.get_location("Complete: Skedar Ruins - Agent").place_locked_item(world.create_item("Victory"))
+            world.get_location("Complete: Skedar Ruins - Special Agent").place_locked_item(world.create_item("Victory"))
+            world.get_location("Complete: Skedar Ruins - Perfect Agent").place_locked_item(world.create_item("Victory"))
+
         if (world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_mission_stars
                 or world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_both_stars):
             mission_locations = []
