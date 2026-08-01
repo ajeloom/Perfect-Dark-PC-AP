@@ -2436,7 +2436,8 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
     if world.options.perfect_agent:
         add_rule(world, perfect_agent_rules_normal)
     if world.options.unlock_cheats:
-        add_rule(world, cheat_rules_normal)
+        if world.options.agent or world.options.special_agent or world.options.perfect_agent:
+            add_rule(world, cheat_rules_normal)
 
         if world.options.agent:
             add_rule(world, cheat_agent_rules_normal)
@@ -2444,6 +2445,32 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(world, cheat_sp_agent_rules_normal)
         if world.options.perfect_agent:
             add_rule(world, cheat_pf_agent_rules_normal)
+
+    if world.options.goal.value == Goal.option_complete_skedar_ruins \
+            and not world.options.agent \
+            and not world.options.special_agent \
+            and not world.options.perfect_agent:
+        world.set_rule(world.get_location("Skedar Ruins - Agent Objective 1"), agent_rules_normal["Skedar Ruins - Agent Objective 1"])
+        world.set_rule(world.get_location("Skedar Ruins - Agent Objective 2"), agent_rules_normal["Skedar Ruins - Agent Objective 2"])
+        world.set_rule(world.get_location("Skedar Ruins - Agent Objective 3"), agent_rules_normal["Skedar Ruins - Agent Objective 3"])
+        world.set_rule(world.get_location("Complete: Skedar Ruins - Agent"), agent_rules_normal["Complete: Skedar Ruins - Agent"])
+        
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 1"), special_agent_rules_normal["Skedar Ruins - Special Agent Objective 1"])
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 2"), special_agent_rules_normal["Skedar Ruins - Special Agent Objective 2"])
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 3"), special_agent_rules_normal["Skedar Ruins - Special Agent Objective 3"])
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 4"), special_agent_rules_normal["Skedar Ruins - Special Agent Objective 4"])
+        world.set_rule(world.get_location("Complete: Skedar Ruins - Special Agent"), special_agent_rules_normal["Complete: Skedar Ruins - Special Agent"])
+        
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 1"), perfect_agent_rules_normal["Skedar Ruins - Perfect Agent Objective 1"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 2"), perfect_agent_rules_normal["Skedar Ruins - Perfect Agent Objective 2"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 3"), perfect_agent_rules_normal["Skedar Ruins - Perfect Agent Objective 3"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 4"), perfect_agent_rules_normal["Skedar Ruins - Perfect Agent Objective 4"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 5"), perfect_agent_rules_normal["Skedar Ruins - Perfect Agent Objective 5"])
+        world.set_rule(world.get_location("Complete: Skedar Ruins - Perfect Agent"), perfect_agent_rules_normal["Complete: Skedar Ruins - Perfect Agent"])
+
+        if world.options.unlock_cheats:
+            world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins"), cheat_rules_normal["Cheat Unlock: Complete Skedar Ruins"])
+            world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"), cheat_pf_agent_rules_normal["Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"])
 
 
 def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
@@ -4561,7 +4588,8 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
     if world.options.perfect_agent:
         add_rule(world, perfect_agent_rules_veteran)
     if world.options.unlock_cheats:
-        add_rule(world, cheat_rules_veteran)
+        if world.options.agent or world.options.special_agent or world.options.perfect_agent:
+            add_rule(world, cheat_rules_veteran)
 
         if world.options.agent:
             add_rule(world, cheat_agent_rules_veteran)
@@ -4569,6 +4597,32 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(world, cheat_sp_agent_rules_veteran)
         if world.options.perfect_agent:
             add_rule(world, cheat_pf_agent_rules_veteran)
+
+    if world.options.goal.value == Goal.option_complete_skedar_ruins \
+            and not world.options.agent \
+            and not world.options.special_agent \
+            and not world.options.perfect_agent:
+        world.set_rule(world.get_location("Skedar Ruins - Agent Objective 1"), agent_rules_veteran["Skedar Ruins - Agent Objective 1"])
+        world.set_rule(world.get_location("Skedar Ruins - Agent Objective 2"), agent_rules_veteran["Skedar Ruins - Agent Objective 2"])
+        world.set_rule(world.get_location("Skedar Ruins - Agent Objective 3"), agent_rules_veteran["Skedar Ruins - Agent Objective 3"])
+        world.set_rule(world.get_location("Complete: Skedar Ruins - Agent"), agent_rules_veteran["Complete: Skedar Ruins - Agent"])
+        
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 1"), special_agent_rules_veteran["Skedar Ruins - Special Agent Objective 1"])
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 2"), special_agent_rules_veteran["Skedar Ruins - Special Agent Objective 2"])
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 3"), special_agent_rules_veteran["Skedar Ruins - Special Agent Objective 3"])
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 4"), special_agent_rules_veteran["Skedar Ruins - Special Agent Objective 4"])
+        world.set_rule(world.get_location("Complete: Skedar Ruins - Special Agent"), special_agent_rules_veteran["Complete: Skedar Ruins - Special Agent"])
+        
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 1"), perfect_agent_rules_veteran["Skedar Ruins - Perfect Agent Objective 1"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 2"), perfect_agent_rules_veteran["Skedar Ruins - Perfect Agent Objective 2"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 3"), perfect_agent_rules_veteran["Skedar Ruins - Perfect Agent Objective 3"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 4"), perfect_agent_rules_veteran["Skedar Ruins - Perfect Agent Objective 4"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 5"), perfect_agent_rules_veteran["Skedar Ruins - Perfect Agent Objective 5"])
+        world.set_rule(world.get_location("Complete: Skedar Ruins - Perfect Agent"), perfect_agent_rules_veteran["Complete: Skedar Ruins - Perfect Agent"])
+
+        if world.options.unlock_cheats:
+            world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins"), cheat_rules_veteran["Cheat Unlock: Complete Skedar Ruins"])
+            world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"), cheat_pf_agent_rules_veteran["Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"])
 
 
 def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
@@ -6686,7 +6740,8 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
     if world.options.perfect_agent:
         add_rule(world, perfect_agent_rules_hard)
     if world.options.unlock_cheats:
-        add_rule(world, cheat_rules_hard)
+        if world.options.agent or world.options.special_agent or world.options.perfect_agent:
+            add_rule(world, cheat_rules_hard)
 
         if world.options.agent:
             add_rule(world, cheat_agent_rules_hard)
@@ -6694,6 +6749,32 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(world, cheat_sp_agent_rules_hard)
         if world.options.perfect_agent:
             add_rule(world, cheat_pf_agent_rules_hard)
+
+    if world.options.goal.value == Goal.option_complete_skedar_ruins \
+            and not world.options.agent \
+            and not world.options.special_agent \
+            and not world.options.perfect_agent:
+        world.set_rule(world.get_location("Skedar Ruins - Agent Objective 1"), agent_rules_hard["Skedar Ruins - Agent Objective 1"])
+        world.set_rule(world.get_location("Skedar Ruins - Agent Objective 2"), agent_rules_hard["Skedar Ruins - Agent Objective 2"])
+        world.set_rule(world.get_location("Skedar Ruins - Agent Objective 3"), agent_rules_hard["Skedar Ruins - Agent Objective 3"])
+        world.set_rule(world.get_location("Complete: Skedar Ruins - Agent"), agent_rules_hard["Complete: Skedar Ruins - Agent"])
+        
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 1"), special_agent_rules_hard["Skedar Ruins - Special Agent Objective 1"])
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 2"), special_agent_rules_hard["Skedar Ruins - Special Agent Objective 2"])
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 3"), special_agent_rules_hard["Skedar Ruins - Special Agent Objective 3"])
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 4"), special_agent_rules_hard["Skedar Ruins - Special Agent Objective 4"])
+        world.set_rule(world.get_location("Complete: Skedar Ruins - Special Agent"), special_agent_rules_hard["Complete: Skedar Ruins - Special Agent"])
+        
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 1"), perfect_agent_rules_hard["Skedar Ruins - Perfect Agent Objective 1"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 2"), perfect_agent_rules_hard["Skedar Ruins - Perfect Agent Objective 2"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 3"), perfect_agent_rules_hard["Skedar Ruins - Perfect Agent Objective 3"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 4"), perfect_agent_rules_hard["Skedar Ruins - Perfect Agent Objective 4"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 5"), perfect_agent_rules_hard["Skedar Ruins - Perfect Agent Objective 5"])
+        world.set_rule(world.get_location("Complete: Skedar Ruins - Perfect Agent"), perfect_agent_rules_hard["Complete: Skedar Ruins - Perfect Agent"])
+
+        if world.options.unlock_cheats:
+            world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins"), cheat_rules_hard["Cheat Unlock: Complete Skedar Ruins"])
+            world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"), cheat_pf_agent_rules_hard["Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"])
 
 
 def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
@@ -8709,7 +8790,8 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
     if world.options.perfect_agent:
         add_rule(world, perfect_agent_rules_perfect)
     if world.options.unlock_cheats:
-        add_rule(world, cheat_rules_perfect)
+        if world.options.agent or world.options.special_agent or world.options.perfect_agent:
+            add_rule(world, cheat_rules_perfect)
 
         if world.options.agent:
             add_rule(world, cheat_agent_rules_perfect)
@@ -8717,6 +8799,32 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(world, cheat_sp_agent_rules_perfect)
         if world.options.perfect_agent:
             add_rule(world, cheat_pf_agent_rules_perfect)
+
+    if world.options.goal.value == Goal.option_complete_skedar_ruins \
+            and not world.options.agent \
+            and not world.options.special_agent \
+            and not world.options.perfect_agent:
+        world.set_rule(world.get_location("Skedar Ruins - Agent Objective 1"), agent_rules_perfect["Skedar Ruins - Agent Objective 1"])
+        world.set_rule(world.get_location("Skedar Ruins - Agent Objective 2"), agent_rules_perfect["Skedar Ruins - Agent Objective 2"])
+        world.set_rule(world.get_location("Skedar Ruins - Agent Objective 3"), agent_rules_perfect["Skedar Ruins - Agent Objective 3"])
+        world.set_rule(world.get_location("Complete: Skedar Ruins - Agent"), agent_rules_perfect["Complete: Skedar Ruins - Agent"])
+        
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 1"), special_agent_rules_perfect["Skedar Ruins - Special Agent Objective 1"])
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 2"), special_agent_rules_perfect["Skedar Ruins - Special Agent Objective 2"])
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 3"), special_agent_rules_perfect["Skedar Ruins - Special Agent Objective 3"])
+        world.set_rule(world.get_location("Skedar Ruins - Special Agent Objective 4"), special_agent_rules_perfect["Skedar Ruins - Special Agent Objective 4"])
+        world.set_rule(world.get_location("Complete: Skedar Ruins - Special Agent"), special_agent_rules_perfect["Complete: Skedar Ruins - Special Agent"])
+        
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 1"), perfect_agent_rules_perfect["Skedar Ruins - Perfect Agent Objective 1"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 2"), perfect_agent_rules_perfect["Skedar Ruins - Perfect Agent Objective 2"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 3"), perfect_agent_rules_perfect["Skedar Ruins - Perfect Agent Objective 3"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 4"), perfect_agent_rules_perfect["Skedar Ruins - Perfect Agent Objective 4"])
+        world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 5"), perfect_agent_rules_perfect["Skedar Ruins - Perfect Agent Objective 5"])
+        world.set_rule(world.get_location("Complete: Skedar Ruins - Perfect Agent"), perfect_agent_rules_perfect["Complete: Skedar Ruins - Perfect Agent"])
+
+        if world.options.unlock_cheats:
+            world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins"), cheat_rules_perfect["Cheat Unlock: Complete Skedar Ruins"])
+            world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"), cheat_pf_agent_rules_perfect["Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"])
 
 
 def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:

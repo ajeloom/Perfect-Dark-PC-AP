@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import TYPE_CHECKING
 
-from BaseClasses import ItemClassification, Location
+from BaseClasses import ItemClassification, Location, LocationProgressType
 
 from . import items
 
@@ -1197,6 +1197,46 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             ]
         )
         duel.add_locations(duel_locations, PerfectDarkLocation)
+
+
+    if world.options.goal.value == Goal.option_complete_skedar_ruins \
+            and not world.options.agent \
+            and not world.options.special_agent \
+            and not world.options.perfect_agent:
+        skedar_ruins_locations = get_location_names_with_ids(
+            [
+                "Skedar Ruins - Agent Objective 1",
+                "Skedar Ruins - Agent Objective 2",
+                "Skedar Ruins - Agent Objective 3",
+                "Complete: Skedar Ruins - Agent",
+                "Skedar Ruins - Special Agent Objective 1",
+                "Skedar Ruins - Special Agent Objective 2",
+                "Skedar Ruins - Special Agent Objective 3",
+                "Skedar Ruins - Special Agent Objective 4",
+                "Complete: Skedar Ruins - Special Agent",
+                "Skedar Ruins - Perfect Agent Objective 1",
+                "Skedar Ruins - Perfect Agent Objective 2",
+                "Skedar Ruins - Perfect Agent Objective 3",
+                "Skedar Ruins - Perfect Agent Objective 4",
+                "Skedar Ruins - Perfect Agent Objective 5",
+                "Complete: Skedar Ruins - Perfect Agent"
+            ]
+        )
+        skedar_ruins.add_locations(skedar_ruins_locations, PerfectDarkLocation)
+
+        if world.options.unlock_cheats:
+            cheat_locations = get_location_names_with_ids(
+                [
+                    "Cheat Unlock: Complete Skedar Ruins",
+                    "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"
+                ]
+            )
+            skedar_ruins.add_locations(cheat_locations, PerfectDarkLocation)
+
+            skedar_cheat = PerfectDarkLocation(world.player, "Cheat Unlock: Complete Skedar Ruins")
+            skedar_cheat_timed = PerfectDarkLocation(world.player, "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31")
+            skedar_cheat.progress_type = LocationProgressType.EXCLUDED
+            skedar_cheat_timed.progress_type = LocationProgressType.EXCLUDED
 
 
     if ((world.options.goal.value == Goal.option_complete_skedar_ruins
