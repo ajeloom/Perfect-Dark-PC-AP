@@ -845,6 +845,12 @@ def create_all_items(world:PerfectDarkWorld) -> None:
     if (has_challenges(world)):
         itempool.append(world.create_item("Briefcase"))
 
+        if not world.options.device_training \
+                and not world.options.agent \
+                and not world.options.special_agent \
+                and not world.options.perfect_agent:
+            itempool.append(world.create_item("Data Uplink"))
+
         if world.options.challenge_logic.value == ChallengeLogic.option_strict \
                 and not world.options.agent \
                 and not world.options.special_agent \
