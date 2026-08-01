@@ -1154,14 +1154,14 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                                 & (HasAll("Dragon", "K7 Avenger")
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])
-                                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                                | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Air Base - Special Agent": HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase")
                                               & (HasAny("Crossbow", "CamSpy")
                                               | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                               & (HasAll("Dragon", "K7 Avenger")
                                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])
-                                              | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                              | HAS_ANY_WEAPON_TYPE),
 
 
         # Stage 11 - Air Force One (Normal)
@@ -1862,21 +1862,21 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                                 & (HasAll("Dragon", "K7 Avenger")
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-                                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                                | HAS_ANY_WEAPON_TYPE),
 
         "Air Base - Perfect Agent Objective 5": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                                 & (HasAny("Crossbow", "CamSpy")
                                                 | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                                 & (HasAll("Dragon", "K7 Avenger")
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-                                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                                | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Air Base - Perfect Agent": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                               & (HasAny("Crossbow", "CamSpy")
                                               | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                               & (HasAll("Dragon", "K7 Avenger")
                                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-                                              | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                              | HAS_ANY_WEAPON_TYPE),
 
 
         # Stage 11 - Air Force One (Normal)
@@ -3305,14 +3305,14 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                                 & (HasAll("Dragon", "K7 Avenger")
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])
-                                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                                | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Air Base - Special Agent": HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase")
                                               & (HasAny("Crossbow", "CamSpy")
                                               | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                               & (HasAll("Dragon", "K7 Avenger")
                                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])
-                                              | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                              | HAS_ANY_WEAPON_TYPE),
 
 
         # Stage 11 - Air Force One (Veteran)
@@ -4014,21 +4014,21 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                                 & ((Has("Dragon") & HasAny("K7 Avenger", "Proximity Mine"))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-                                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                                | HAS_ANY_WEAPON_TYPE),
 
         "Air Base - Perfect Agent Objective 5": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                                 & (HasAny("Crossbow", "CamSpy")
                                                 | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                                 & (HasAll("Dragon", "K7 Avenger")
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-                                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                                | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Air Base - Perfect Agent": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                               & (HasAny("Crossbow", "CamSpy")
                                               | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                               & (HasAll("Dragon", "K7 Avenger")
                                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-                                              | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                              | HAS_ANY_WEAPON_TYPE),
 
 
         # Stage 11 - Air Force One (Veteran)
@@ -5457,14 +5457,14 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                                 & (HasAll("Dragon", "K7 Avenger")
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])
-                                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                                | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Air Base - Special Agent": HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase")
                                               & (HasAny("Crossbow", "CamSpy")
                                               | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                               & (HasAll("Dragon", "K7 Avenger")
                                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])
-                                              | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                              | HAS_ANY_WEAPON_TYPE),
 
 
         # Stage 11 - Air Force One  
@@ -6166,21 +6166,21 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                                 & ((Has("Dragon") & HasAny("K7 Avenger", "Proximity Mine"))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-                                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                                | HAS_ANY_WEAPON_TYPE),
 
         "Air Base - Perfect Agent Objective 5": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                                 & (HasAny("Crossbow", "CamSpy")
                                                 | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                                 & (HasAll("Dragon", "K7 Avenger")
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-                                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                                | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Air Base - Perfect Agent": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                               & (HasAny("Crossbow", "CamSpy")
                                               | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                               & (HasAll("Dragon", "K7 Avenger")
                                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-                                              | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                              | HAS_ANY_WEAPON_TYPE),
 
 
         # Stage 11 - Air Force One  
@@ -7562,14 +7562,14 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                                 & (HasAny("Dragon", "K7 Avenger")
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])
-                                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                                | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Air Base - Special Agent": HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase")
                                               & (HasAny("Crossbow", "CamSpy")
                                               | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                               & (HasAny("Dragon", "K7 Avenger")
                                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])
-                                              | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                              | HAS_ANY_WEAPON_TYPE),
 
 
         # Stage 11 - Air Force One  
@@ -8227,21 +8227,21 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                                 & ((Has("Dragon") & HasAny("K7 Avenger", "Proximity Mine"))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-                                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                                | HAS_ANY_WEAPON_TYPE),
 
         "Air Base - Perfect Agent Objective 5": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                                 & (HasAny("Crossbow", "CamSpy")
                                                 | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                                 & (HasAny("Dragon", "K7 Avenger")
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-                                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                                | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Air Base - Perfect Agent": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
                                               & (HasAny("Crossbow", "CamSpy")
                                               | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
                                               & (HasAny("Dragon", "K7 Avenger")
                                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-                                              | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])),
+                                              | HAS_ANY_WEAPON_TYPE),
 
 
         # Stage 11 - Air Force One  
