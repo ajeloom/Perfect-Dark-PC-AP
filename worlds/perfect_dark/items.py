@@ -981,28 +981,31 @@ def create_all_items(world:PerfectDarkWorld) -> None:
                 mission_locations.append("Complete: The Duel - Perfect Agent")
 
             for location in mission_locations:
-                world.get_location(location).place_locked_item(world.create_item("Mission Star"))
+                if world.options.place_stars_anywhere:
+                    itempool.append(world.create_item("Mission Star"))
+                else:
+                    world.get_location(location).place_locked_item(world.create_item("Mission Star"))
 
         if (world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_challenge_stars
                 or world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_both_stars):
-            set_challenge_stars(world)
+            set_challenge_stars(world, itempool)
 
         if world.options.skedar_ruins_requirements.value >= SkedarRuinsRequirements.option_collect_mission_stars:
             world.get_location("Collect All Stars").place_locked_item(world.create_item("Skedar Ruins"))
 
     elif world.options.goal == Goal.option_complete_missions:
-        set_mission_stars(world)
+        set_mission_stars(world, itempool)
 
         world.get_location("Collect All Stars").place_locked_item(world.create_item("Victory"))
 
     elif world.options.goal == Goal.option_complete_challenges:
-        set_challenge_stars(world)
+        set_challenge_stars(world, itempool)
 
         world.get_location("Collect All Stars").place_locked_item(world.create_item("Victory"))
 
     elif world.options.goal == Goal.option_complete_both:
-        set_mission_stars(world)
-        set_challenge_stars(world)
+        set_mission_stars(world, itempool)
+        set_challenge_stars(world, itempool)
 
         world.get_location("Collect All Stars").place_locked_item(world.create_item("Victory"))
 
@@ -1132,7 +1135,7 @@ def is_skedar_ruins_in_itempool(world: PerfectDarkWorld) -> bool:
     else:
         return False
 
-def set_mission_stars(world: PerfectDarkWorld) -> None:
+def set_mission_stars(world: PerfectDarkWorld, itempool:list[Item]) -> None:
     mission_locations = []
 
     if world.options.agent:
@@ -1205,14 +1208,21 @@ def set_mission_stars(world: PerfectDarkWorld) -> None:
         mission_locations.append("Complete: The Duel - Perfect Agent")
 
     for location in mission_locations:
-        world.get_location(location).place_locked_item(world.create_item("Mission Star"))
+        if world.options.place_stars_anywhere:
+            itempool.append(world.create_item("Mission Star"))
+        else:
+            world.get_location(location).place_locked_item(world.create_item("Mission Star"))
 
-def set_challenge_stars(world: PerfectDarkWorld) -> None:
+def set_challenge_stars(world: PerfectDarkWorld, itempool:list[Item]) -> None:
     for x in range(1, 31):
         challenge_name = f"Challenge {x}"
         if (world.options.excluded_challenges.__contains__(challenge_name) == False):
             challenge_location = f"Complete: Challenge {x}"
-            world.get_location(challenge_location).place_locked_item(world.create_item("Challenge Star"))
+
+            if world.options.place_stars_anywhere:
+                itempool.append(world.create_item("Challenge Star"))
+            else:
+                world.get_location(challenge_location).place_locked_item(world.create_item("Challenge Star"))
 
 def has_challenges(world: PerfectDarkWorld) -> bool:
     if (world.options.challenges

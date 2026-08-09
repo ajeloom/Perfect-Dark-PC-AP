@@ -43,6 +43,21 @@ class SkedarRuinsRequirements(Choice):
     default = option_collect_mission_stars
 
 
+class PlaceStarsAnywhere(Toggle):
+    """
+    Choose if you want mission stars and challenge stars to be placed in any location. 
+    This option only matters if you need to collect stars for the goal.
+    Recommend disabling if you are only playing Perfect Dark by itself.
+
+    - False: Mission stars and challenge stars can only be acquired 
+             from completing missions and challenges in your game.
+    
+    - True: Mission stars and challenge stars can be found in anyone's game.
+    """
+
+    display_name = "Place Stars Anywhere"
+
+
 class MissionLogic(Choice):
     """
     Choose how hard the logic will be for the missions. 
@@ -442,7 +457,8 @@ class DeathLink(Toggle):
 @dataclass
 class PerfectDarkOptions(PerGameCommonOptions):
     goal: Goal
-    skedar_ruins_requirements : SkedarRuinsRequirements
+    skedar_ruins_requirements: SkedarRuinsRequirements
+    place_stars_anywhere: PlaceStarsAnywhere
     mission_logic: MissionLogic
     agent: IncludeAgent
     required_agent_mission_stars: RequiredAgentMissionStars
@@ -478,6 +494,7 @@ option_groups = [
         [
             Goal,
             SkedarRuinsRequirements,
+            PlaceStarsAnywhere,
             MissionLogic,
             IncludeAgent,
             RequiredAgentMissionStars,
@@ -513,6 +530,7 @@ option_presets = {
     "default": {
         "goal": Goal.option_complete_skedar_ruins,
         "skedar_ruins_requirements": SkedarRuinsRequirements.option_item,
+        "place_stars_anywhere:": False,
         "mission_logic": MissionLogic.option_normal,
         "agent": False,
         "required_agent_mission_stars": 7,
@@ -543,6 +561,7 @@ option_presets = {
     "hard": {
         "goal": Goal.option_complete_skedar_ruins,
         "skedar_ruins_requirements": SkedarRuinsRequirements.option_collect_mission_stars,
+        "place_stars_anywhere:": False,
         "mission_logic": MissionLogic.option_hard,
         "agent": False,
         "required_agent_mission_stars": 7,
