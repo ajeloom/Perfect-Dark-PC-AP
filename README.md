@@ -43,4 +43,5 @@ If you find any issues or want to suggest anything to add, please report them on
 - black-silver for creating [apclientpp](https://github.com/black-sliver/apclientpp)
 - axxiim for helping with the logic
 - Maegis, Lebon14 for providing ideas for the Perfect Dark AP
-- Everyone on the AP discord server who provided feedback and suggestions
+- Sal the Dragon, Ryason55, lx5 for feedback and suggestions
+- Everyone on the AP discord server who tried this out
