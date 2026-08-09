@@ -2638,10 +2638,12 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
         add_rule(world, special_agent_rules_normal)
     if world.options.perfect_agent:
         add_rule(world, perfect_agent_rules_normal)
-    if world.options.unlock_cheats:
+
+    if world.options.completion_cheats:
         if world.options.agent or world.options.special_agent or world.options.perfect_agent:
             add_rule(world, cheat_rules_normal)
 
+    if world.options.timed_cheats:
         if world.options.agent:
             add_rule(world, cheat_agent_rules_normal)
         if world.options.special_agent:
@@ -2671,8 +2673,9 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
         world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 5"), perfect_agent_rules_normal["Skedar Ruins - Perfect Agent Objective 5"])
         world.set_rule(world.get_location("Complete: Skedar Ruins - Perfect Agent"), perfect_agent_rules_normal["Complete: Skedar Ruins - Perfect Agent"])
 
-        if world.options.unlock_cheats:
+        if world.options.completion_cheats:
             world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins"), cheat_rules_normal["Cheat Unlock: Complete Skedar Ruins"])
+        if world.options.timed_cheats:
             world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"), cheat_pf_agent_rules_normal["Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"])
 
 
@@ -4991,10 +4994,12 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
         add_rule(world, special_agent_rules_veteran)
     if world.options.perfect_agent:
         add_rule(world, perfect_agent_rules_veteran)
-    if world.options.unlock_cheats:
+
+    if world.options.completion_cheats:
         if world.options.agent or world.options.special_agent or world.options.perfect_agent:
             add_rule(world, cheat_rules_veteran)
 
+    if world.options.timed_cheats:
         if world.options.agent:
             add_rule(world, cheat_agent_rules_veteran)
         if world.options.special_agent:
@@ -5024,8 +5029,9 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
         world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 5"), perfect_agent_rules_veteran["Skedar Ruins - Perfect Agent Objective 5"])
         world.set_rule(world.get_location("Complete: Skedar Ruins - Perfect Agent"), perfect_agent_rules_veteran["Complete: Skedar Ruins - Perfect Agent"])
 
-        if world.options.unlock_cheats:
+        if world.options.completion_cheats:
             world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins"), cheat_rules_veteran["Cheat Unlock: Complete Skedar Ruins"])
+        if world.options.timed_cheats:
             world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"), cheat_pf_agent_rules_veteran["Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"])
 
 
@@ -7344,10 +7350,12 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
         add_rule(world, special_agent_rules_hard)
     if world.options.perfect_agent:
         add_rule(world, perfect_agent_rules_hard)
-    if world.options.unlock_cheats:
+
+    if world.options.completion_cheats:
         if world.options.agent or world.options.special_agent or world.options.perfect_agent:
             add_rule(world, cheat_rules_hard)
 
+    if world.options.timed_cheats:
         if world.options.agent:
             add_rule(world, cheat_agent_rules_hard)
         if world.options.special_agent:
@@ -7377,8 +7385,9 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
         world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 5"), perfect_agent_rules_hard["Skedar Ruins - Perfect Agent Objective 5"])
         world.set_rule(world.get_location("Complete: Skedar Ruins - Perfect Agent"), perfect_agent_rules_hard["Complete: Skedar Ruins - Perfect Agent"])
 
-        if world.options.unlock_cheats:
+        if world.options.completion_cheats:
             world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins"), cheat_rules_hard["Cheat Unlock: Complete Skedar Ruins"])
+        if world.options.timed_cheats:
             world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"), cheat_pf_agent_rules_hard["Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"])
 
 
@@ -9595,10 +9604,12 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         add_rule(world, special_agent_rules_perfect)
     if world.options.perfect_agent:
         add_rule(world, perfect_agent_rules_perfect)
-    if world.options.unlock_cheats:
+
+    if world.options.completion_cheats:
         if world.options.agent or world.options.special_agent or world.options.perfect_agent:
             add_rule(world, cheat_rules_perfect)
 
+    if world.options.timed_cheats:
         if world.options.agent:
             add_rule(world, cheat_agent_rules_perfect)
         if world.options.special_agent:
@@ -9628,8 +9639,9 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         world.set_rule(world.get_location("Skedar Ruins - Perfect Agent Objective 5"), perfect_agent_rules_perfect["Skedar Ruins - Perfect Agent Objective 5"])
         world.set_rule(world.get_location("Complete: Skedar Ruins - Perfect Agent"), perfect_agent_rules_perfect["Complete: Skedar Ruins - Perfect Agent"])
 
-        if world.options.unlock_cheats:
+        if world.options.completion_cheats:
             world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins"), cheat_rules_perfect["Cheat Unlock: Complete Skedar Ruins"])
+        if world.options.timed_cheats:
             world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"), cheat_pf_agent_rules_perfect["Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"])
 
 
@@ -10622,8 +10634,8 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
     if world.options.weapon_training:
         add_rule(world, weapon_training_rules)
 
-        if world.options.unlock_cheats:
-            add_rule(world, weapon_training_cheat_rules)
+    if world.options.weapon_cheats:
+        add_rule(world, weapon_training_cheat_rules)
 
     if has_challenges(world):
         if world.options.challenge_logic.value == ChallengeLogic.option_strict:

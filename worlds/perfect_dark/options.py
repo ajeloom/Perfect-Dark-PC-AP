@@ -380,18 +380,45 @@ class Holotraining(Toggle):
     default = True
 
 
-class UnlockCheats(Toggle):
+class CompletionCheatUnlocks(Toggle):
     """
-    Adds the unlockable cheats as checks.
-    Some checks require certain difficulties or weapon training.
+    Adds the 17 cheat unlocks that require you to
+    complete a mission on any difficulty as checks.
     """
 
-    display_name = "Unlock Cheats"
+    display_name = "Completion Cheat Unlocks"
+
+
+class TimedCheatUnlocks(Toggle):
+    """
+    Adds the 17 cheat unlocks that require you to 
+    complete a mission within a time limit as checks.
+    Some checks require certain difficulties.
+    """
+
+    display_name = "Timed Cheat Unlocks"
+
+
+class WeaponCheatUnlocks(Toggle):
+    """
+    Adds the 8 cheat unlocks that require you to
+    get gold medals in the firing range as checks.
+    """
+
+    display_name = "Weapon Cheat Unlocks"
 
 
 class IncludeCheatsInItemPool(Toggle):
     """
     Adds the cheats to the item pool.
+    
+    - False: Cheats will not be sent to you. They can be unlocked the normal way.
+    - True: Cheats will be sent to you. They cannot be unlocked the normal way.
+    """
+
+    display_name = "Cheats in the Item Pool"
+
+
 class NPCs(Toggle):
     """
     Adds important NPCs to the item pool.
@@ -437,7 +464,9 @@ class PerfectDarkOptions(PerGameCommonOptions):
     weapon_training: WeaponTraining
     device_training: DeviceTraining
     holotraining: Holotraining
-    unlock_cheats: UnlockCheats
+    completion_cheats: CompletionCheatUnlocks
+    timed_cheats: TimedCheatUnlocks
+    weapon_cheats: WeaponCheatUnlocks
     include_cheats_in_item_pool: IncludeCheatsInItemPool
     npcs: NPCs
     deathlink: DeathLink
@@ -470,7 +499,9 @@ option_groups = [
             WeaponTraining,
             DeviceTraining,
             Holotraining,
-            UnlockCheats,
+            CompletionCheatUnlocks,
+            TimedCheatUnlocks,
+            WeaponCheatUnlocks,
             IncludeCheatsInItemPool,
             NPCs,
             DeathLink
@@ -502,7 +533,9 @@ option_presets = {
         "weapon_training": False,
         "device_training": False,
         "holotraining": False,
-        "unlock_cheats": False,
+        "completion_cheats": False,
+        "timed_cheats": False,
+        "weapon_cheats": False,
         "include_cheats_in_item_pool": True,
         "npcs": False,
         "deathlink": False,
@@ -530,7 +563,9 @@ option_presets = {
         "weapon_training": True,
         "device_training": True,
         "holotraining": True,
-        "unlock_cheats": True,
+        "completion_cheats": True,
+        "timed_cheats": True,
+        "weapon_cheats": True,
         "include_cheats_in_item_pool": False,
         "npcs": True,
         "deathlink": True,

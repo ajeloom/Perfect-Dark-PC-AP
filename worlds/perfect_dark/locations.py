@@ -1224,18 +1224,24 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         )
         skedar_ruins.add_locations(skedar_ruins_locations, PerfectDarkLocation)
 
-        if world.options.unlock_cheats:
+        if world.options.completion_cheats:
             cheat_locations = get_location_names_with_ids(
                 [
                     "Cheat Unlock: Complete Skedar Ruins",
+                ]
+            )
+            skedar_ruins.add_locations(cheat_locations, PerfectDarkLocation)
+            skedar_cheat = PerfectDarkLocation(world.player, "Cheat Unlock: Complete Skedar Ruins")
+            skedar_cheat.progress_type = LocationProgressType.EXCLUDED
+
+        if world.options.timed_cheats:
+            cheat_locations = get_location_names_with_ids(
+                [
                     "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"
                 ]
             )
             skedar_ruins.add_locations(cheat_locations, PerfectDarkLocation)
-
-            skedar_cheat = PerfectDarkLocation(world.player, "Cheat Unlock: Complete Skedar Ruins")
             skedar_cheat_timed = PerfectDarkLocation(world.player, "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31")
-            skedar_cheat.progress_type = LocationProgressType.EXCLUDED
             skedar_cheat_timed.progress_type = LocationProgressType.EXCLUDED
 
 
@@ -1397,7 +1403,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         )
         carrington_institute.add_locations(holotraining_locations, PerfectDarkLocation)
 
-    if world.options.unlock_cheats \
+    if world.options.completion_cheats \
             and (world.options.agent or world.options.special_agent or world.options.perfect_agent):
         cheat_locations = get_location_names_with_ids(
             [
@@ -1518,6 +1524,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         )
         skedar_ruins.add_locations(cheat_locations, PerfectDarkLocation)
 
+    if world.options.timed_cheats:
         if world.options.agent:
             cheat_locations = get_location_names_with_ids(
                 [
@@ -1640,7 +1647,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             )
             skedar_ruins.add_locations(cheat_locations, PerfectDarkLocation)
 
-    if world.options.unlock_cheats and world.options.weapon_training:
+    if world.options.weapon_cheats:
         cheat_locations = get_location_names_with_ids(
             [
                 "Cheat Unlock: Get gold medals for Falcon 2, Falcon 2 (Silencer), and Falcon 2 (Scope)",
