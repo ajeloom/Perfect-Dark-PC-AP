@@ -804,8 +804,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                             | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                            | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                             | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT
@@ -813,8 +812,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                             | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                            | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                             | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT
@@ -822,8 +820,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                           | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                          | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                           | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
 
@@ -1490,35 +1487,32 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT
                                                 & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                    & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
 
         # Stage 18 - Mr. Blonde's Revenge
@@ -2326,49 +2320,40 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT
                                                 & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                    & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
 
         # Stage 18 - Mr. Blonde's Revenge
@@ -3158,8 +3143,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                             | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                            | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                             | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT
@@ -3167,8 +3151,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                             | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                            | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                             | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT
@@ -3176,8 +3159,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                           | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                          | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                           | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
 
@@ -3845,35 +3827,32 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT
                                                 & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                    & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
 
         # Stage 18 - Mr. Blonde's Revenge
@@ -4682,49 +4661,40 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT
                                                 & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                    & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
 
         # Stage 18 - Mr. Blonde's Revenge
@@ -5514,8 +5484,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                             | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                            | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                             | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT
@@ -5523,8 +5492,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                             | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                            | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                             | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT
@@ -5532,8 +5500,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                           | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                          | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                           | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
 
@@ -6201,35 +6168,32 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT
                                                 & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                    & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
 
         # Stage 18 - Mr. Blonde's Revenge
@@ -7038,49 +7002,40 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT
                                                 & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                    & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
 
         # Stage 18 - Mr. Blonde's Revenge
@@ -7848,8 +7803,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                             | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                            | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                             | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT
@@ -7857,8 +7811,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                             | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                            | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                             | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT
@@ -7866,8 +7819,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                           | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                          | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]))
+                                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                           | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
 
@@ -8498,35 +8450,32 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT
                                                 & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                    & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                | (Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
 
         # Stage 18 - Mr. Blonde's Revenge
@@ -9291,49 +9240,40 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT
                                                     & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT
                                                 & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                                | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                                    & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                                | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)),
+                                                | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
 
         # Stage 18 - Mr. Blonde's Revenge
@@ -10692,11 +10632,9 @@ def set_completion_condition(world: PerfectDarkWorld) -> None:
                                     & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE)))
+                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)))
 
         elif world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_mission_stars:
             required_mission_stars = get_mission_stars(world)
@@ -10705,11 +10643,9 @@ def set_completion_condition(world: PerfectDarkWorld) -> None:
                                     & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE))
+                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE))
                                     & Has("Mission Star", count=required_mission_stars))
 
         elif world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_challenge_stars:
@@ -10719,11 +10655,9 @@ def set_completion_condition(world: PerfectDarkWorld) -> None:
                                     & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE))
+                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE))
                                     & Has("Challenge Star", count=required_challenge_stars))
                     
         elif world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_both_stars:
@@ -10734,11 +10668,9 @@ def set_completion_condition(world: PerfectDarkWorld) -> None:
                                     & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                    | (HasAny("Falcon 2 (Scope)", "Callisto NTG", "Devastator", "Slayer", "Mauler")
-                                        & all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                    | ((Has("Devastator") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
-                                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]))
-                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]) & HAS_ANY_WEAPON_TYPE))
+                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE))
                                     & Has("Mission Star", count=required_mission_stars)
                                     & Has("Challenge Star", count=required_challenge_stars))
 

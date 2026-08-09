@@ -840,7 +840,6 @@ def create_all_items(world:PerfectDarkWorld) -> None:
     elif (world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon
             or world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun):
         itempool.append(world.create_item("RC-P120"))
-        itempool.append(world.create_item("Devastator"))
         itempool.append(world.create_item("Timed Mine"))
         itempool.append(world.create_item("Remote Mine"))
         if world.options.perfect_agent:
