@@ -255,6 +255,11 @@ ITEM_NAME_TO_ID = {
     "Progressive Rifle": 243,
     "Progressive Explosive": 244,
     "Progressive Other Weapon": 245,
+    "Cassandra": 246,
+    "Dr. Caroll": 247,
+    "Jonathan": 248,
+    "Elvis": 249,
+    "President": 250,
 }
 
 
@@ -504,6 +509,11 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Progressive Rifle": ItemClassification.progression | ItemClassification.useful,
     "Progressive Explosive": ItemClassification.progression | ItemClassification.useful,
     "Progressive Other Weapon": ItemClassification.progression | ItemClassification.useful,
+    "Cassandra": ItemClassification.progression | ItemClassification.useful,
+    "Dr. Caroll": ItemClassification.progression | ItemClassification.useful,
+    "Jonathan": ItemClassification.progression | ItemClassification.useful,
+    "Elvis": ItemClassification.progression | ItemClassification.useful,
+    "President": ItemClassification.progression | ItemClassification.useful,
 }
 
 
@@ -566,6 +576,13 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         itempool.append(world.create_item("Cellar Key Card"))
         itempool.append(world.create_item("Suitcase"))
 
+        if world.options.npcs:
+            itempool.append(world.create_item("Cassandra"))
+            itempool.append(world.create_item("Dr. Caroll"))
+            itempool.append(world.create_item("Jonathan"))
+            itempool.append(world.create_item("Elvis"))
+            itempool.append(world.create_item("President"))
+
     # Create ECM Mine
     if world.options.special_agent \
             or world.options.perfect_agent \
@@ -597,6 +614,9 @@ def create_all_items(world:PerfectDarkWorld) -> None:
                 and not world.options.special_agent \
                 and not world.options.perfect_agent:
             itempool.append(world.create_item("Target Amplifier"))
+
+            if world.options.npcs:
+                itempool.append(world.create_item("Elvis"))
 
     # Cheats
     if world.options.include_cheats_in_item_pool:

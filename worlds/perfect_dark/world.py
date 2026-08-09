@@ -41,7 +41,7 @@ class PerfectDarkWorld(World):
                 self.options.weapon_training.value = passthrough["options"]["weapon_training"]
                 self.options.device_training.value = passthrough["options"]["device_training"]
                 self.options.holotraining.value = passthrough["options"]["holotraining"]
-                self.options.unlock_cheats.value = passthrough["options"]["unlock_cheats"]
+                self.options.npcs.value = passthrough["options"]["npcs"]
 
     def create_regions(self) -> None:
         regions.create_and_connect_regions(self)
@@ -81,7 +81,7 @@ class PerfectDarkWorld(World):
                 "weapon_training": self.options.weapon_training.value,
                 "device_training": self.options.device_training.value,
                 "holotraining": self.options.holotraining.value,
-                "unlock_cheats": self.options.unlock_cheats.value,
+                "npcs": self.options.npcs.value,
                 "deathlink": self.options.deathlink.value,
             },
         }

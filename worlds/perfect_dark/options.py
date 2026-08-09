@@ -392,13 +392,14 @@ class UnlockCheats(Toggle):
 class IncludeCheatsInItemPool(Toggle):
     """
     Adds the cheats to the item pool.
-    You can still unlock cheats the normal way with either option.
-    
-    - False: Cheats will not be sent to you.
-    - True: Cheats will be sent to you. Useful if you want to make getting the cheats easier.
+class NPCs(Toggle):
+    """
+    Adds important NPCs to the item pool.
+    They are Cassandra, Dr. Caroll, Jonathan, Elvis, and the President.
+    You will not be able to do certain objectives and some missions if they are missing.
     """
 
-    display_name = "Include Cheats in Item Pool"
+    display_name = "NPCs in the Item Pool"
 
 
 class DeathLink(Toggle):
@@ -438,6 +439,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     holotraining: Holotraining
     unlock_cheats: UnlockCheats
     include_cheats_in_item_pool: IncludeCheatsInItemPool
+    npcs: NPCs
     deathlink: DeathLink
 
 
@@ -470,6 +472,7 @@ option_groups = [
             Holotraining,
             UnlockCheats,
             IncludeCheatsInItemPool,
+            NPCs,
             DeathLink
         ],
     ),
@@ -501,6 +504,7 @@ option_presets = {
         "holotraining": False,
         "unlock_cheats": False,
         "include_cheats_in_item_pool": True,
+        "npcs": False,
         "deathlink": False,
     },
     "hard": {
@@ -528,6 +532,7 @@ option_presets = {
         "holotraining": True,
         "unlock_cheats": True,
         "include_cheats_in_item_pool": False,
+        "npcs": True,
         "deathlink": True,
     },
 }
