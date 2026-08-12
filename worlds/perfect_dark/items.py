@@ -255,11 +255,12 @@ ITEM_NAME_TO_ID = {
     "Progressive Rifle": 243,
     "Progressive Explosive": 244,
     "Progressive Other Weapon": 245,
-    "Cassandra": 246,
-    "Dr. Caroll": 247,
-    "Jonathan": 248,
-    "Elvis": 249,
-    "President": 250,
+    "Carrington": 246,
+    "Cassandra": 247,
+    "Dr. Caroll": 248,
+    "Jonathan": 249,
+    "Elvis": 250,
+    "President": 251,
 }
 
 
@@ -509,6 +510,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Progressive Rifle": ItemClassification.progression | ItemClassification.useful,
     "Progressive Explosive": ItemClassification.progression | ItemClassification.useful,
     "Progressive Other Weapon": ItemClassification.progression | ItemClassification.useful,
+    "Carrington": ItemClassification.progression | ItemClassification.useful,
     "Cassandra": ItemClassification.progression | ItemClassification.useful,
     "Dr. Caroll": ItemClassification.progression | ItemClassification.useful,
     "Jonathan": ItemClassification.progression | ItemClassification.useful,
@@ -577,6 +579,7 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         itempool.append(world.create_item("Suitcase"))
 
         if world.options.npcs:
+            itempool.append(world.create_item("Carrington"))
             itempool.append(world.create_item("Cassandra"))
             itempool.append(world.create_item("Dr. Caroll"))
             itempool.append(world.create_item("Jonathan"))

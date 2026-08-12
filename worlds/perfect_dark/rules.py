@@ -410,12 +410,14 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 | HAS_ANY_WEAPON_TYPE),
 
         "Carrington Villa - Agent Objective 3": HasAll("Carrington Villa - Agent", "Cellar Key Card")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Sniper Rifle", "CMP150")
                                                 | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Carrington Villa - Agent": HasAll("Carrington Villa - Agent", "Cellar Key Card")
+                                              & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                               & (HasAll("Sniper Rifle", "CMP150")
                                               | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
@@ -731,12 +733,14 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 15 - Carrington Institute Defense
         "CI Defense - Agent Objective 1": Has("CI Defense - Agent")
+                                          & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & (Has("AR34")
                                           | (all_guns_filter & HAS_ANY_RIFLE)
                                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                           | HAS_ANY_WEAPON_TYPE),
 
         "CI Defense - Agent Objective 2": Has("CI Defense - Agent")
+                                          & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & (HasAll("AR34", "RC-P120")
                                           | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                           | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -744,6 +748,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                           | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE)),
 
         "CI Defense - Agent Objective 3": HasAll("CI Defense - Agent", "Data Uplink")
+                                          & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & (HasAll("AR34", "RC-P120")
                                           | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                           | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -751,6 +756,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                           | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: CI Defense - Agent": HasAll("CI Defense - Agent", "Data Uplink")
+                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                         & (HasAll("AR34", "RC-P120")
                                         | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                         | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -1011,12 +1017,14 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                         | HAS_ANY_WEAPON_TYPE),
 
         "Carrington Villa - Special Agent Objective 4": HasAll("Carrington Villa - Special Agent", "Cellar Key Card")
+                                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                         & (HasAll("Sniper Rifle", "CMP150")
                                                         | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                                         | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Carrington Villa - Special Agent": HasAll("Carrington Villa - Special Agent", "Cellar Key Card")
+                                                    & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Sniper Rifle", "CMP150")
                                                     | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
@@ -1397,18 +1405,21 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 15 - CI Defense
         "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"])),
 
         "CI Defense - Special Agent Objective 2": Has("CI Defense - Special Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"])),
 
         "CI Defense - Special Agent Objective 3": Has("CI Defense - Special Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120")
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -1417,6 +1428,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]))),
 
         "CI Defense - Special Agent Objective 4": HasAll("CI Defense - Special Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120")
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -1425,6 +1437,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]))),
 
         "Complete: CI Defense - Special Agent": HasAll("CI Defense - Special Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120")
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -1752,12 +1765,14 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
         "Carrington Villa - Perfect Agent Objective 4": Has("Carrington Villa - Perfect Agent"),
 
         "Carrington Villa - Perfect Agent Objective 5": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card")
+                                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                         & (HasAll("Laptop Gun", "CMP150")
                                                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                                         | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Carrington Villa - Perfect Agent": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card")
+                                                    & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Laptop Gun", "CMP150")
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
@@ -2212,18 +2227,21 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 15 - CI Defense (Normal)
         "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"])),
 
         "CI Defense - Perfect Agent Objective 2": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"])),
 
         "CI Defense - Perfect Agent Objective 3": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120")
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -2232,6 +2250,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]))),
 
         "CI Defense - Perfect Agent Objective 4": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120", "Laser")
                                                 | (all_guns_filter & HasAll("RC-P120", "Laser") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -2241,6 +2260,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]))),
 
         "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120", "Laser")
                                                 | (all_guns_filter & HasAll("RC-P120", "Laser") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -2250,6 +2270,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]))),
 
         "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120", "Laser")
                                                 | (all_guns_filter & HasAll("RC-P120", "Laser") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -2748,12 +2769,14 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 | HAS_ANY_WEAPON_TYPE),
 
         "Carrington Villa - Agent Objective 3": HasAll("Carrington Villa - Agent", "Cellar Key Card")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Sniper Rifle", "CMP150")
                                                 | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Carrington Villa - Agent": HasAll("Carrington Villa - Agent", "Cellar Key Card")
+                                              & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                               & (HasAll("Sniper Rifle", "CMP150")
                                               | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
@@ -3070,12 +3093,14 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 15 - Carrington Institute Defense
         "CI Defense - Agent Objective 1": Has("CI Defense - Agent")
+                                          & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & (Has("AR34")
                                           | (all_guns_filter & HAS_ANY_RIFLE)
                                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                           | HAS_ANY_WEAPON_TYPE),
 
         "CI Defense - Agent Objective 2": Has("CI Defense - Agent")
+                                          & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & (HasAll("AR34", "RC-P120")
                                           | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                           | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -3083,6 +3108,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                           | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE)),
 
         "CI Defense - Agent Objective 3": HasAll("CI Defense - Agent", "Data Uplink")
+                                          & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & (HasAll("AR34", "RC-P120")
                                           | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                           | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -3090,6 +3116,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                           | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: CI Defense - Agent": HasAll("CI Defense - Agent", "Data Uplink")
+                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                         & (HasAll("AR34", "RC-P120")
                                         | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                         | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -3350,12 +3377,14 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                         | HAS_ANY_WEAPON_TYPE),
 
         "Carrington Villa - Special Agent Objective 4": HasAll("Carrington Villa - Special Agent", "Cellar Key Card")
+                                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                         & (HasAll("Sniper Rifle", "CMP150")
                                                         | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                                         | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Carrington Villa - Special Agent": HasAll("Carrington Villa - Special Agent", "Cellar Key Card")
+                                                    & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Sniper Rifle", "CMP150")
                                                     | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
@@ -3737,18 +3766,21 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 15 - CI Defense
         "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"])),
 
         "CI Defense - Special Agent Objective 2": Has("CI Defense - Special Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"])),
 
         "CI Defense - Special Agent Objective 3": Has("CI Defense - Special Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120")
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -3757,6 +3789,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]))),
 
         "CI Defense - Special Agent Objective 4": HasAll("CI Defense - Special Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120")
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -3765,6 +3798,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]))),
 
         "Complete: CI Defense - Special Agent": HasAll("CI Defense - Special Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120")
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -4092,12 +4126,14 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
         "Carrington Villa - Perfect Agent Objective 4": Has("Carrington Villa - Perfect Agent"),
 
         "Carrington Villa - Perfect Agent Objective 5": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card")
+                                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                         & ((Has("Laptop Gun") & HasAny("CMP150", "Sniper Rifle"))
                                                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                                         | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Carrington Villa - Perfect Agent": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card")
+                                                    & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                     & ((Has("Laptop Gun") & HasAny("CMP150", "Sniper Rifle"))
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
@@ -4553,18 +4589,21 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 15 - CI Defense (Veteran)
         "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"])),
 
         "CI Defense - Perfect Agent Objective 2": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"])),
 
         "CI Defense - Perfect Agent Objective 3": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120")
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -4573,6 +4612,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]))),
 
         "CI Defense - Perfect Agent Objective 4": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((Has("AR34") & (HasAll("RC-P120", "Laser") | Has("Devastator")))
                                                 | (all_guns_filter & HasAll("RC-P120", "Laser") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -4582,6 +4622,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]))),
 
         "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAll("AR34", "RC-P120") & HasAny("Laser", "Devastator"))
                                                 | (all_guns_filter & HasAll("RC-P120", "Laser") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -4591,6 +4632,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]))),
 
         "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAll("AR34", "RC-P120") & HasAny("Laser", "Devastator"))
                                                 | (all_guns_filter & HasAll("RC-P120", "Laser") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -5089,12 +5131,14 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 | HAS_ANY_WEAPON_TYPE),
 
         "Carrington Villa - Agent Objective 3": HasAll("Carrington Villa - Agent", "Cellar Key Card")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Sniper Rifle", "CMP150")
                                                 | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Carrington Villa - Agent": HasAll("Carrington Villa - Agent", "Cellar Key Card")
+                                              & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                               & (HasAll("Sniper Rifle", "CMP150")
                                               | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
@@ -5411,12 +5455,14 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 15 - Carrington Institute Defense
         "CI Defense - Agent Objective 1": Has("CI Defense - Agent")
+                                          & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & (Has("AR34")
                                           | (all_guns_filter & HAS_ANY_RIFLE)
                                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                           | HAS_ANY_WEAPON_TYPE),
 
         "CI Defense - Agent Objective 2": Has("CI Defense - Agent")
+                                          & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & (HasAll("AR34", "RC-P120")
                                           | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                           | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -5424,6 +5470,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                           | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE)),
 
         "CI Defense - Agent Objective 3": HasAll("CI Defense - Agent", "Data Uplink")
+                                          & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & (HasAll("AR34", "RC-P120")
                                           | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                           | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -5431,6 +5478,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                           | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: CI Defense - Agent": HasAll("CI Defense - Agent", "Data Uplink")
+                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                         & (HasAll("AR34", "RC-P120")
                                         | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                         | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -5691,12 +5739,14 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                         | HAS_ANY_WEAPON_TYPE),
 
         "Carrington Villa - Special Agent Objective 4": HasAll("Carrington Villa - Special Agent", "Cellar Key Card")
+                                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                         & (HasAll("Sniper Rifle", "CMP150")
                                                         | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                                         | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Carrington Villa - Special Agent": HasAll("Carrington Villa - Special Agent", "Cellar Key Card")
+                                                    & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Sniper Rifle", "CMP150")
                                                     | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
@@ -6078,18 +6128,21 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 15 - CI Defense
         "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"])),
 
         "CI Defense - Special Agent Objective 2": Has("CI Defense - Special Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"])),
 
         "CI Defense - Special Agent Objective 3": Has("CI Defense - Special Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120")
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -6098,6 +6151,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]))),
 
         "CI Defense - Special Agent Objective 4": HasAll("CI Defense - Special Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120")
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -6106,6 +6160,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]))),
 
         "Complete: CI Defense - Special Agent": HasAll("CI Defense - Special Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120")
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -6433,12 +6488,14 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
         "Carrington Villa - Perfect Agent Objective 4": Has("Carrington Villa - Perfect Agent"),
 
         "Carrington Villa - Perfect Agent Objective 5": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card")
+                                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                         & ((Has("Laptop Gun") & HasAny("CMP150", "Sniper Rifle"))
                                                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                                         | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Carrington Villa - Perfect Agent": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card")
+                                                    & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                     & ((Has("Laptop Gun") & HasAny("CMP150", "Sniper Rifle"))
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
@@ -6894,18 +6951,21 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 15 - CI Defense  
         "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"])),
 
         "CI Defense - Perfect Agent Objective 2": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"])),
 
         "CI Defense - Perfect Agent Objective 3": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120")
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -6914,6 +6974,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]))),
 
         "CI Defense - Perfect Agent Objective 4": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((Has("AR34") & (HasAll("RC-P120", "Laser") | Has("Devastator")))
                                                 | (all_guns_filter & HasAll("RC-P120", "Laser") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -6923,6 +6984,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]))),
 
         "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAll("AR34", "RC-P120") & HasAny("Laser", "Devastator"))
                                                 | (all_guns_filter & HasAll("RC-P120", "Laser") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -6932,6 +6994,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]))),
 
         "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAll("AR34", "RC-P120") & HasAny("Laser", "Devastator"))
                                                 | (all_guns_filter & HasAll("RC-P120", "Laser") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -7418,12 +7481,14 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 | HAS_ANY_WEAPON_TYPE),
 
         "Carrington Villa - Agent Objective 3": HasAll("Carrington Villa - Agent", "Cellar Key Card")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAny("Sniper Rifle", "CMP150")
                                                 | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Carrington Villa - Agent": HasAll("Carrington Villa - Agent", "Cellar Key Card")
+                                              & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                               & (HasAny("Sniper Rifle", "CMP150")
                                               | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
                                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
@@ -7730,12 +7795,14 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 15 - Carrington Institute Defense
         "CI Defense - Agent Objective 1": Has("CI Defense - Agent")
+                                          & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & (HasAny("AR34", "Mauler")
                                           | (all_guns_filter & HAS_ANY_RIFLE)
                                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                           | HAS_ANY_WEAPON_TYPE),
 
         "CI Defense - Agent Objective 2": Has("CI Defense - Agent")
+                                          & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & ((HasAny("AR34", "Mauler") & Has("RC-P120"))
                                           | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                           | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -7743,6 +7810,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                           | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE)),
 
         "CI Defense - Agent Objective 3": HasAll("CI Defense - Agent", "Data Uplink")
+                                          & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & ((HasAny("AR34", "Mauler") & Has("RC-P120"))
                                           | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                           | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -7750,6 +7818,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                           | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: CI Defense - Agent": HasAll("CI Defense - Agent", "Data Uplink")
+                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                         & ((HasAny("AR34", "Mauler") & Has("RC-P120"))
                                         | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                         | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -7987,12 +8056,14 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                         | HAS_ANY_WEAPON_TYPE),
 
         "Carrington Villa - Special Agent Objective 4": HasAll("Carrington Villa - Special Agent", "Cellar Key Card")
+                                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                         & (HasAny("Sniper Rifle", "CMP150")
                                                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                                         | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Carrington Villa - Special Agent": HasAll("Carrington Villa - Special Agent", "Cellar Key Card")
+                                                    & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAny("Sniper Rifle", "CMP150")
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
@@ -8363,15 +8434,18 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 15 - CI Defense
-        "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent"),
+        "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent")
+                                                  & Has("Carrington", options=[npc_filter], filtered_resolution=True),
 
         "CI Defense - Special Agent Objective 2": Has("CI Defense - Special Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAny("AR34", "Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"])),
 
         "CI Defense - Special Agent Objective 3": Has("CI Defense - Special Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("AR34", "Mauler") & Has("RC-P120"))
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -8380,6 +8454,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]))),
 
         "CI Defense - Special Agent Objective 4": HasAll("CI Defense - Special Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("AR34", "Mauler") & Has("RC-P120"))
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -8388,6 +8463,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["KF7 Special"]))),
 
         "Complete: CI Defense - Special Agent": HasAll("CI Defense - Special Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("AR34", "Mauler") & Has("RC-P120"))
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -8689,12 +8765,14 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         "Carrington Villa - Perfect Agent Objective 4": Has("Carrington Villa - Perfect Agent"),
 
         "Carrington Villa - Perfect Agent Objective 5": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card")
+                                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                         & (HasFromList("Laptop Gun", "CMP150", "Sniper Rifle", count=2)
                                                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                                         | HAS_ANY_WEAPON_TYPE),
 
         "Complete: Carrington Villa - Perfect Agent": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card")
+                                                    & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                     & (HasFromList("Laptop Gun", "CMP150", "Sniper Rifle", count=2)
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
@@ -9135,15 +9213,18 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 15 - CI Defense  
-        "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent"),
+        "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent")
+                                                  & Has("Carrington", options=[npc_filter], filtered_resolution=True),
 
         "CI Defense - Perfect Agent Objective 2": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"])),
 
         "CI Defense - Perfect Agent Objective 3": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("AR34", "RC-P120")
                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -9152,6 +9233,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]))),
 
         "CI Defense - Perfect Agent Objective 4": Has("CI Defense - Perfect Agent")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((Has("AR34") & (HasAll("RC-P120", "Laser") | Has("Devastator")))
                                                 | (all_guns_filter & HAS_ANY_RIFLE & (HasAll("RC-P120", "Laser") | Has("Devastator")))
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -9161,6 +9243,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]))),
 
         "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAll("AR34", "RC-P120") & HasAny("Laser", "Devastator"))
                                                 | (all_guns_filter & HAS_ANY_RIFLE & Has("RC-P120") & HasAny("Laser", "Devastator"))
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -9170,6 +9253,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]))),
 
         "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "Data Uplink")
+                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAll("AR34", "RC-P120") & HasAny("Laser", "Devastator"))
                                                 | (all_guns_filter & HAS_ANY_RIFLE & Has("RC-P120") & HasAny("Laser", "Devastator"))
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -9487,6 +9571,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         # CI Defense
         # "Cheat Unlock: Complete CI Defense (Agent) in under 1:45": agent_rules_perfect["Complete: CI Defense - Agent"],
         "Cheat Unlock: Complete CI Defense (Agent) in under 1:45": HasAll("CI Defense - Agent", "Data Uplink")
+                                                                & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                                 & (HasAll("AR34", "RC-P120")
                                                                 | (all_guns_filter & Has("RC-P120") & HAS_ANY_RIFLE)
                                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
@@ -10620,7 +10705,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         world.set_rule(dt_disguise, Has("Stewardess Disguise"))
 
         dt_cloaking_device = world.get_location("Device Training: Cloaking Device")
-        world.set_rule(dt_cloaking_device, Has("Cloaking Device"))
+        world.set_rule(dt_cloaking_device, (Has("Cloaking Device") & Has("Carrington", options=[npc_filter], filtered_resolution=True)))
 
 
 def set_completion_condition(world: PerfectDarkWorld) -> None:
