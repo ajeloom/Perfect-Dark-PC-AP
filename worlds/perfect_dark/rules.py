@@ -2169,7 +2169,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
         "Deep Sea - Perfect Agent Objective 2": HasAll("Deep Sea - Perfect Agent", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20")
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -2177,7 +2177,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
         "Deep Sea - Perfect Agent Objective 3": HasAll("Deep Sea - Perfect Agent", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20")
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -2186,7 +2186,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20")
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -2195,7 +2195,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20")
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -2204,7 +2204,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                             & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & (HasAll("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20")
-                                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                             | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                             | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -4510,7 +4510,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
         "Deep Sea - Perfect Agent Objective 2": HasAll("Deep Sea - Perfect Agent", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20")
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -4518,7 +4518,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
         "Deep Sea - Perfect Agent Objective 3": HasAll("Deep Sea - Perfect Agent", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20")
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -4527,7 +4527,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20")
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -4536,7 +4536,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20")
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -4545,7 +4545,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                             & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & (HasAll("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20")
-                                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                             | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                             | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -6851,7 +6851,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
         "Deep Sea - Perfect Agent Objective 2": HasAll("Deep Sea - Perfect Agent", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -6859,7 +6859,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
         "Deep Sea - Perfect Agent Objective 3": HasAll("Deep Sea - Perfect Agent", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -6868,7 +6868,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -6877,7 +6877,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -6886,7 +6886,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                             & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
-                                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                             | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                             | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -9093,7 +9093,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         "Deep Sea - Perfect Agent Objective 2": HasAll("Deep Sea - Perfect Agent", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -9101,7 +9101,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         "Deep Sea - Perfect Agent Objective 3": HasAll("Deep Sea - Perfect Agent", "IR Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -9110,7 +9110,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -9119,7 +9119,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                                 | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
@@ -9128,7 +9128,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                             & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
-                                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
                                             | ((Has("FarSight XR-20") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                             | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
