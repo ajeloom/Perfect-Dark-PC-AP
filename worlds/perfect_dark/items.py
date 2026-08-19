@@ -245,7 +245,7 @@ ITEM_NAME_TO_ID = {
     "Area 51 Master Key": 233,
     "Air Force One Master Key": 234,
     "Cheese": 235,
-    "Trap": 236,
+    # "Trap": 236,
     "Mission Star": 237,
     "Challenge Star": 238,
     "Skedar Ruins": 239,
@@ -261,6 +261,14 @@ ITEM_NAME_TO_ID = {
     "Jonathan": 249,
     "Elvis": 250,
     "President": 251,
+    "DK Mode Trap": 252,
+    "Small Jo Trap": 253,
+    "Small Characters Trap": 254,
+    "Slow Motion Trap": 255,
+    "Enemy Rockets Trap": 256,
+    "Perfect Darkness Trap": 257,
+    "Fast Animations Trap": 258,
+    "Skedar Trap": 259,
 }
 
 
@@ -500,7 +508,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Area 51 Master Key": ItemClassification.progression | ItemClassification.useful,
     "Air Force One Master Key": ItemClassification.progression | ItemClassification.useful,
     "Cheese": ItemClassification.filler,
-    "Trap": ItemClassification.trap,
+    # "Trap": ItemClassification.trap,
     "Mission Star": ItemClassification.progression | ItemClassification.useful,
     "Challenge Star": ItemClassification.progression | ItemClassification.useful,
     "Skedar Ruins": ItemClassification.progression | ItemClassification.useful,
@@ -516,6 +524,14 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Jonathan": ItemClassification.progression | ItemClassification.useful,
     "Elvis": ItemClassification.progression | ItemClassification.useful,
     "President": ItemClassification.progression | ItemClassification.useful,
+    "DK Mode Trap": ItemClassification.trap,
+    "Small Jo Trap": ItemClassification.trap,
+    "Small Characters Trap": ItemClassification.trap,
+    "Slow Motion Trap": ItemClassification.trap,
+    "Enemy Rockets Trap": ItemClassification.trap,
+    "Perfect Darkness Trap": ItemClassification.trap,
+    "Fast Animations Trap": ItemClassification.trap,
+    "Skedar Trap": ItemClassification.trap,
 }
 
 
@@ -524,8 +540,28 @@ class PerfectDarkItem(Item):
 
 
 def get_random_filler_item_name(world: PerfectDarkWorld) -> str:
-    # if world.random.randint(0, 99) < world.options.trap_chance:
-    #     return "Trap"
+    if world.random.randint(0, 99) < world.options.trap_chance:
+        traps = [
+            "DK Mode Trap",
+            "Small Jo Trap",
+            "Small Characters Trap",
+            "Slow Motion Trap",
+            "Enemy Rockets Trap",
+            "Perfect Darkness Trap",
+            "Fast Animations Trap",
+            "Skedar Trap",
+        ]
+
+        available_traps = [
+            trap for trap in traps
+            if trap not in world.options.excluded_traps
+        ]
+
+        if available_traps:
+            return world.random.choice(available_traps)
+        else:
+            return "Cheese"
+
     return "Cheese"
 
 

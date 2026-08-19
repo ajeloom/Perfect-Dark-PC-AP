@@ -454,6 +454,46 @@ class MultiplayerUnlocks(Toggle):
     display_name = "Multiplayer Unlocks"
 
 
+class TrapChance(Range):
+    """
+    Percentage chance that any filler will be replaced by a trap.
+    """
+
+    display_name = "Trap Chance"
+
+    range_start = 0
+    range_end = 100
+    default = 0
+
+
+class ExcludedTraps(OptionSet):
+    """
+    Sets which traps will not appear in the item pool. 
+    Valid traps are:
+        - DK Mode Trap
+        - Small Jo Trap
+        - Small Characters Trap
+        - Slow Motion Trap
+        - Enemy Rockets Trap
+        - Perfect Darkness Trap
+        - Fast Animations Trap
+        - Skedar Trap
+    Ex: ['DK Mode Trap', 'Slow Motion Trap', 'Skedar Trap']
+    """
+    display_name = "Excluded Traps"
+    valid_keys = frozenset({
+        "DK Mode Trap",
+        "Small Jo Trap",
+        "Small Characters Trap",
+        "Slow Motion Trap",
+        "Enemy Rockets Trap",
+        "Perfect Darkness Trap",
+        "Fast Animations Trap",
+        "Skedar Trap"
+    })
+    default = frozenset({})
+
+
 class DeathLink(Toggle):
     """
     Enables death link in your game, making you die at the same time as other players.
@@ -496,6 +536,8 @@ class PerfectDarkOptions(PerGameCommonOptions):
     include_cheats_in_item_pool: IncludeCheatsInItemPool
     npcs: NPCs
     multiplayer_unlocks: MultiplayerUnlocks
+    trap_chance: TrapChance
+    excluded_traps: ExcludedTraps
     deathlink: DeathLink
 
 
@@ -533,6 +575,8 @@ option_groups = [
             IncludeCheatsInItemPool,
             NPCs,
             MultiplayerUnlocks,
+            TrapChance,
+            ExcludedTraps,
             DeathLink
         ],
     ),
@@ -569,6 +613,7 @@ option_presets = {
         "include_cheats_in_item_pool": True,
         "npcs": False,
         "multiplayer_unlocks": False,
+        "trap_chance": 0,
         "deathlink": False,
     },
     "hard": {
@@ -601,6 +646,7 @@ option_presets = {
         "include_cheats_in_item_pool": False,
         "npcs": True,
         "multiplayer_unlocks": True,
+        "trap_chance": 100,
         "deathlink": True,
     },
 }
