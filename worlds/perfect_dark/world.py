@@ -45,6 +45,7 @@ class PerfectDarkWorld(World):
                 self.options.timed_cheats.value = passthrough["options"]["timed_cheats"]
                 self.options.weapon_cheats.value = passthrough["options"]["weapon_cheats"]
                 self.options.npcs.value = passthrough["options"]["npcs"]
+                self.options.multiplayer_unlocks.value = passthrough["options"]["multiplayer_unlocks"]
 
     def create_regions(self) -> None:
         regions.create_and_connect_regions(self)
@@ -89,6 +90,7 @@ class PerfectDarkWorld(World):
                 "weapon_cheats": self.options.weapon_cheats.value,
                 "include_cheats_in_pool": self.options.include_cheats_in_item_pool.value,
                 "npcs": self.options.npcs.value,
+                "multiplayer_unlocks": self.options.multiplayer_unlocks.value,
                 "deathlink": self.options.deathlink.value,
             },
         }

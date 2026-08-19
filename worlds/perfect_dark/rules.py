@@ -10656,6 +10656,125 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                         | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"])),
     }
 
+    def location_count(state: CollectionState) -> int:
+        completable_locations = 0
+
+        for x in range(1, 31):
+            challenge_name = f"Challenge {x}"
+            if challenge_name not in world.options.excluded_challenges \
+                    and world.get_location(f"Complete: {challenge_name}").can_reach(state):
+                completable_locations += 1
+
+        return completable_locations
+
+    can_complete_one_challenge = lambda state: (location_count(state) >= 1)
+    can_complete_two_challenges = lambda state: (location_count(state) >= 2)
+    can_complete_three_challenges = lambda state: (location_count(state) >= 3)
+    can_complete_four_challenges = lambda state: (location_count(state) >= 4)
+    can_complete_five_challenges = lambda state: (location_count(state) >= 5)
+    can_complete_six_challenges = lambda state: (location_count(state) >= 6)
+    can_complete_seven_challenges = lambda state: (location_count(state) >= 7)
+    can_complete_eight_challenges = lambda state: (location_count(state) >= 8)
+    can_complete_nine_challenges = lambda state: (location_count(state) >= 9)
+    can_complete_ten_challenges = lambda state: (location_count(state) >= 10)
+    can_complete_eleven_challenges = lambda state: (location_count(state) >= 11)
+    can_complete_twelve_challenges = lambda state: (location_count(state) >= 12)
+    can_complete_thirteen_challenges = lambda state: (location_count(state) >= 13)
+    can_complete_fourteen_challenges = lambda state: (location_count(state) >= 14)
+    can_complete_fifteen_challenges = lambda state: (location_count(state) >= 15)
+    can_complete_sixteen_challenges = lambda state: (location_count(state) >= 16)
+    can_complete_seventeen_challenges = lambda state: (location_count(state) >= 17)
+    can_complete_eighteen_challenges = lambda state: (location_count(state) >= 18)
+    can_complete_nineteen_challenges = lambda state: (location_count(state) >= 19)
+    can_complete_twenty_challenges = lambda state: (location_count(state) >= 20)
+    can_complete_twenty_one_challenges = lambda state: (location_count(state) >= 21)
+    can_complete_twenty_two_challenges = lambda state: (location_count(state) >= 22)
+    # can_complete_twenty_three_challenges = lambda state: (location_count(state) >= 23)
+    can_complete_twenty_four_challenges = lambda state: (location_count(state) >= 24)
+
+    complete_challenge_unlock_rules = {
+        # "Complete Challenges: Unused First Unlock": can_complete_one_challenge,
+        "Complete 1 Challenge: FarSight XR-20 Unlock": can_complete_one_challenge,
+        "Complete 7 Challenges: Tranquilizer Unlock": can_complete_seven_challenges,
+        "Complete 4 Challenges: SuperDragon Unlock": can_complete_four_challenges,
+        "Complete 13 Challenges: Slayer Unlock": can_complete_thirteen_challenges,
+        "Complete 3 Challenges: Falcon 2 (Silencer) Unlock": can_complete_three_challenges,
+        "Complete 8 Challenges: Falcon 2 (Scope) Unlock": can_complete_eight_challenges,
+        "Complete 16 Challenges: Mauler Unlock": can_complete_sixteen_challenges,
+        "Complete 14 Challenges: Phoenix Unlock": can_complete_fourteen_challenges,
+        "Complete 20 Challenges: DY357-LX Unlock": can_complete_twenty_challenges,
+        "Complete 17 Challenges: Callisto NTG Unlock": can_complete_seventeen_challenges,
+        "Complete 5 Challenges: Laptop Gun Unlock": can_complete_five_challenges,
+        # "Complete Challenges: K7 Avenger Unlock": can_complete_one_challenge,
+        "Complete 19 Challenges: RC-P120 Unlock": can_complete_nineteen_challenges,
+        "Complete 2 Challenges: Shotgun Unlock": can_complete_two_challenges,
+        "Complete 9 Challenges: Reaper Unlock": can_complete_nine_challenges,
+        "Complete 11 Challenges: Devastator Unlock": can_complete_eleven_challenges,
+        "Complete 18 Challenges: Crossbow Unlock": can_complete_eighteen_challenges,
+        "Complete 21 Challenges: N-Bomb Unlock": can_complete_twenty_one_challenges,
+        "Complete 12 Challenges: Proximity Mine Unlock": can_complete_twelve_challenges,
+        "Complete 6 Challenges: Remote Mine Unlock": can_complete_six_challenges,
+        # "Complete Challenges: X-Ray Scanner Unlock": can_complete_one_challenge,
+        # "Complete Challenges: Shield Unlock": can_complete_one_challenge,
+        "Complete 10 Challenges: Cloaking Device Unlock": can_complete_ten_challenges,
+        "Complete 15 Challenges: Combat Boost Unlock": can_complete_fifteen_challenges,
+        "Complete 7 Challenges: Hard Bot Difficulty Unlock": can_complete_seven_challenges,
+        "Complete 12 Challenges: Perfect Bot Difficulty Unlock": can_complete_twelve_challenges,
+        # "Complete Challenges: Unused 1B Unlock": can_complete_one_challenge,
+        "Complete 22 Challenges: Dark Bot Difficulty Unlock": can_complete_twenty_two_challenges,
+        "Complete 8 Challenges: Slow Motion Unlock": can_complete_eight_challenges,
+        "Complete 3 Challenges: One-Hit Kills Unlock": can_complete_three_challenges,
+        # "Complete Challenges: King of the Hill Unlock": can_complete_one_challenge,
+        "Complete 2 Challenges: Hold the Briefcase Unlock": can_complete_two_challenges,
+        "Complete 4 Challenges: Capture the Case Unlock": can_complete_four_challenges,
+        # "Complete Challenges: Unused 22 Unlock": can_complete_one_challenge,
+        "Complete 17 Challenges: Car Park Unlock": can_complete_seventeen_challenges,
+        "Complete 1 Challenge: Complex Unlock": can_complete_one_challenge,
+        "Complete 3 Challenges: Warehouse Unlock": can_complete_three_challenges,
+        "Complete 5 Challenges: Ravine Unlock": can_complete_five_challenges,
+        "Complete 6 Challenges: Temple Unlock": can_complete_six_challenges,
+        "Complete 9 Challenges: G5 Building Unlock": can_complete_nine_challenges,
+        "Complete 11 Challenges: Grid Unlock": can_complete_eleven_challenges,
+        "Complete 12 Challenges: Felicity Unlock": can_complete_twelve_challenges,
+        "Complete 14 Challenges: Villa Unlock": can_complete_fourteen_challenges,
+        "Complete 16 Challenges: Sewers Unlock": can_complete_sixteen_challenges,
+        "Complete 22 Challenges: Ruins Unlock": can_complete_twenty_two_challenges,
+        "Complete 18 Challenges: Base Unlock": can_complete_eighteen_challenges,
+        # "Complete Challenges: Unused 2F Unlock": can_complete_one_challenge,
+        "Complete 20 Challenges: Fortress Unlock": can_complete_twenty_challenges,
+        # "Complete Challenges: Unused 31 Unlock": can_complete_one_challenge,
+        "Complete 1 Challenge: dataDyne Female Guard Unlock": can_complete_one_challenge,
+        "Complete 2 Challenges: Office Suit and Office Casual Unlock": can_complete_two_challenges,
+        "Complete 4 Challenges: Carrington Villa Outfits Unlock": can_complete_four_challenges,
+        "Complete 5 Challenges: Trent Unlock": can_complete_five_challenges,
+        "Complete 5 Challenges: NSA Lackey Unlock": can_complete_five_challenges,
+        "Complete 6 Challenges: G5 Building Outfits Unlock": can_complete_six_challenges,
+        "Complete 7 Challenges: Mr. Blonde Unlock": can_complete_seven_challenges,
+        "Complete 9 Challenges: CIA Agent and FBI Agent Unlock": can_complete_nine_challenges,
+        "Complete 10 Challenges: A51 Infiltration Outfits Unlock": can_complete_ten_challenges,
+        "Complete 11 Challenges: Lab Technician Outfits Unlock": can_complete_eleven_challenges,
+        "Complete 12 Challenges: Biotechnician Unlock": can_complete_twelve_challenges,
+        "Complete 14 Challenges: Elvis and Maian Soldier Unlock": can_complete_fourteen_challenges,
+        "Complete 17 Challenges: Alaskan Guard Unlock": can_complete_seventeen_challenges,
+        "Complete 16 Challenges: Air Force One Outfits Unlock": can_complete_sixteen_challenges,
+        "Complete 7 Challenges: 8 Bots and Dinner Jacket Outfits Unlock": can_complete_seven_challenges,
+        "Complete 18 Challenges: Party Frock, Party (Ripped), Evening Wear, and President Unlock": can_complete_eighteen_challenges,
+        "Complete 19 Challenges: President's Clone Unlock": can_complete_nineteen_challenges,
+        "Complete 18 Challenges: Presidential Security Unlock": can_complete_eighteen_challenges,
+        "Complete 19 Challenges: NSA Bodyguard Unlock": can_complete_nineteen_challenges,
+        "Complete 24 Challenges: Pelagic II Outfits Unlock": can_complete_twenty_four_challenges,
+        "Complete 8 Challenges: Joanna Trench Unlock": can_complete_eight_challenges,
+        # "Complete Challenges: Unused Jo Snow Unlock": can_complete_one_challenge,
+        # "Complete Challenges: Unused 48 Unlock": can_complete_one_challenge,
+        # "Complete Challenges: Unused 49 Unlock": can_complete_one_challenge,
+        "Complete 17 Challenges: Joanna Arctic Unlock": can_complete_seventeen_challenges,
+        # "Complete Challenges: Unused 4B Unlock": can_complete_one_challenge,
+        # "Complete Challenges: Jonathan Unlock": can_complete_one_challenge,
+        "Complete 12 Challenges: Pop a Cap Unlock": can_complete_twelve_challenges,
+        "Complete 6 Challenges: Hacker Central Unlock": can_complete_six_challenges,
+        # "Complete Challenges: Laser Unlock": can_complete_one_challenge,
+    }
+
     if world.options.weapon_training:
         add_rule(world, weapon_training_rules)
 
@@ -10669,6 +10788,9 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
             add_challenge_rules(world, normal_challenge_rules)
         elif world.options.challenge_logic.value == ChallengeLogic.option_hard:
             add_challenge_rules(world, hard_challenge_rules)
+
+        if world.options.multiplayer_unlocks:
+            add_rule(world, complete_challenge_unlock_rules)
 
     if world.options.holotraining:
         ht7 = world.get_location("Holotraining 7: Live Combat 2")

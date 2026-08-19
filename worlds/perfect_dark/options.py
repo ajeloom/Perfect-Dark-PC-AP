@@ -444,6 +444,16 @@ class NPCs(Toggle):
     display_name = "NPCs in the Item Pool"
 
 
+class MultiplayerUnlocks(Toggle):
+    """
+    Adds 65 checks for getting the multiplayer unlockables
+    by completing a number of challenges.
+    This option only matters if you have challenges enabled.
+    """
+
+    display_name = "Multiplayer Unlocks"
+
+
 class DeathLink(Toggle):
     """
     Enables death link in your game, making you die at the same time as other players.
@@ -485,6 +495,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     weapon_cheats: WeaponCheatUnlocks
     include_cheats_in_item_pool: IncludeCheatsInItemPool
     npcs: NPCs
+    multiplayer_unlocks: MultiplayerUnlocks
     deathlink: DeathLink
 
 
@@ -521,6 +532,7 @@ option_groups = [
             WeaponCheatUnlocks,
             IncludeCheatsInItemPool,
             NPCs,
+            MultiplayerUnlocks,
             DeathLink
         ],
     ),
@@ -556,6 +568,7 @@ option_presets = {
         "weapon_cheats": False,
         "include_cheats_in_item_pool": True,
         "npcs": False,
+        "multiplayer_unlocks": False,
         "deathlink": False,
     },
     "hard": {
@@ -587,6 +600,7 @@ option_presets = {
         "weapon_cheats": True,
         "include_cheats_in_item_pool": False,
         "npcs": True,
+        "multiplayer_unlocks": True,
         "deathlink": True,
     },
 }
