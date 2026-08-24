@@ -5158,27 +5158,27 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 3 - Extraction
-        "dD Extraction - Agent Objective 1": HasAll("dD Extraction - Agent", "Night Vision")
+        "dD Extraction - Agent Objective 1": Has("dD Extraction - Agent")
                                              & (HasAny("Falcon 2 (Scope)", "CMP150")
                                              | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                              | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"])
                                              | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Agent Objective 2": HasAll("dD Extraction - Agent", "Night Vision")
+        "dD Extraction - Agent Objective 2": Has("dD Extraction - Agent")
                                              & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                              & (HasAll("Falcon 2 (Scope)", "CMP150", "Shotgun")
                                              | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                              | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                              | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Agent Objective 3": HasAll("dD Extraction - Agent", "Night Vision")
+        "dD Extraction - Agent Objective 3": Has("dD Extraction - Agent")
                                              & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                              & (HasAll("Falcon 2 (Scope)", "CMP150", "Shotgun")
                                              | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                              | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                              | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: dD Extraction - Agent": HasAll("dD Extraction - Agent", "Night Vision")
+        "Complete: dD Extraction - Agent": Has("dD Extraction - Agent")
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                            & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                            & (HasAll("Falcon 2 (Scope)", "CMP150", "Shotgun")
@@ -5434,19 +5434,15 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 12 - Crash Site
-        "Crash Site - Agent Objective 1": Has("Crash Site - Agent")
-                                          & (HasAny("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
-                                          | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
-                                          | HAS_ANY_WEAPON_TYPE),
+        "Crash Site - Agent Objective 1": Has("Crash Site - Agent"),
 
-        "Crash Site - Agent Objective 2": HasAll("Crash Site - Agent", "President Scanner")
+        "Crash Site - Agent Objective 2": Has("Crash Site - Agent")
                                           & (HasAny("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
                                           | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                           | HAS_ANY_WEAPON_TYPE),
 
-        "Crash Site - Agent Objective 3": HasAll("Crash Site - Agent", "President Scanner")
+        "Crash Site - Agent Objective 3": Has("Crash Site - Agent")
                                           & Has("President", options=[npc_filter], filtered_resolution=True)
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & (HasAll("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
@@ -5454,7 +5450,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                           | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: Crash Site - Agent": HasAll("Crash Site - Agent", "President Scanner")
+        "Complete: Crash Site - Agent": Has("Crash Site - Agent")
                                         & Has("President", options=[npc_filter], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & (HasAll("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
@@ -5606,7 +5602,6 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                             | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT
-                                            & Has("IR Scanner")
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                             | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -5614,7 +5609,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                             | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT
-                                          & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
+                                          & HasAll("R-Tracker", "Target Amplifier")
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                           | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -5754,33 +5749,33 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 3 - Extraction
-        "dD Extraction - Special Agent Objective 1": HasAll("dD Extraction - Special Agent", "Night Vision")
+        "dD Extraction - Special Agent Objective 1": Has("dD Extraction - Special Agent")
                                                     & (HasAny("Falcon 2 (Scope)", "CMP150")
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Special Agent Objective 2": HasAll("dD Extraction - Special Agent", "Night Vision")
+        "dD Extraction - Special Agent Objective 2": Has("dD Extraction - Special Agent")
                                                     & (HasAll("Falcon 2 (Scope)", "CMP150", "Shotgun", "Rocket Launcher")
                                                     | (all_guns_filter & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Slayer"])
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE)),
 
-        "dD Extraction - Special Agent Objective 3": HasAll("dD Extraction - Special Agent", "Night Vision")
+        "dD Extraction - Special Agent Objective 3": Has("dD Extraction - Special Agent")
                                                     & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "CMP150", "Shotgun")
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Special Agent Objective 4": HasAll("dD Extraction - Special Agent", "Night Vision")
+        "dD Extraction - Special Agent Objective 4": Has("dD Extraction - Special Agent")
                                                     & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "CMP150", "Shotgun")
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: dD Extraction - Special Agent": HasAll("dD Extraction - Special Agent", "Night Vision")
+        "Complete: dD Extraction - Special Agent": Has("dD Extraction - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "CMP150", "Shotgun", "Rocket Launcher")
@@ -6088,25 +6083,17 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 12 - Crash Site
-        "Crash Site - Special Agent Objective 1": HasAll("Crash Site - Special Agent", "President Scanner")
-                                                & (HasAny("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
-                                                | HAS_ANY_WEAPON_TYPE),
+        "Crash Site - Special Agent Objective 1": HasAll("Crash Site - Special Agent", "President Scanner"),
 
-        "Crash Site - Special Agent Objective 2": Has("Crash Site - Special Agent")
-                                                & (HasAny("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
-                                                | HAS_ANY_WEAPON_TYPE),
+        "Crash Site - Special Agent Objective 2": Has("Crash Site - Special Agent"),
 
-        "Crash Site - Special Agent Objective 3": HasAll("Crash Site - Special Agent", "President Scanner")
+        "Crash Site - Special Agent Objective 3": Has("Crash Site - Special Agent")
                                                 & (HasAll("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Crash Site - Special Agent Objective 4": HasAll("Crash Site - Special Agent", "President Scanner")
+        "Crash Site - Special Agent Objective 4": Has("Crash Site - Special Agent")
                                                 & Has("President", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
@@ -6297,7 +6284,6 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT
-                                                    & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -6305,7 +6291,6 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT
-                                                    & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -6313,7 +6298,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT
-                                                & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
+                                                & HasAll("R-Tracker", "Target Amplifier")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                 | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -6495,39 +6480,39 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 3 - Extraction
-        "dD Extraction - Perfect Agent Objective 1": HasAll("dD Extraction - Perfect Agent", "Night Vision")
+        "dD Extraction - Perfect Agent Objective 1": Has("dD Extraction - Perfect Agent")
                                                     & (HasAny("Falcon 2 (Scope)", "CMP150")
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Perfect Agent Objective 2": HasAll("dD Extraction - Perfect Agent", "Night Vision")
+        "dD Extraction - Perfect Agent Objective 2": Has("dD Extraction - Perfect Agent")
                                                     & (HasAny("Falcon 2 (Scope)", "CMP150")
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Perfect Agent Objective 3": HasAll("dD Extraction - Perfect Agent", "Night Vision")
+        "dD Extraction - Perfect Agent Objective 3": Has("dD Extraction - Perfect Agent")
                                                     & (HasAll("Falcon 2 (Scope)", "CMP150", "Shotgun", "Rocket Launcher")
                                                     | (all_guns_filter & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Slayer"])
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE)),
 
-        "dD Extraction - Perfect Agent Objective 4": HasAll("dD Extraction - Perfect Agent", "Night Vision")
+        "dD Extraction - Perfect Agent Objective 4": Has("dD Extraction - Perfect Agent")
                                                     & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "CMP150", "Shotgun")
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Perfect Agent Objective 5": HasAll("dD Extraction - Perfect Agent", "Night Vision")
+        "dD Extraction - Perfect Agent Objective 5": Has("dD Extraction - Perfect Agent")
                                                     & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "CMP150", "Shotgun")
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: dD Extraction - Perfect Agent": HasAll("dD Extraction - Perfect Agent", "Night Vision")
+        "Complete: dD Extraction - Perfect Agent": Has("dD Extraction - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "CMP150", "Shotgun", "Rocket Launcher")
@@ -6886,17 +6871,9 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 12 - Crash Site  
-        "Crash Site - Perfect Agent Objective 1": HasAll("Crash Site - Perfect Agent", "President Scanner")
-                                                & (HasAny("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
-                                                | HAS_ANY_WEAPON_TYPE),
+        "Crash Site - Perfect Agent Objective 1": HasAll("Crash Site - Perfect Agent", "President Scanner"),
 
-        "Crash Site - Perfect Agent Objective 2": Has("Crash Site - Perfect Agent")
-                                                & (HasAny("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
-                                                | HAS_ANY_WEAPON_TYPE),
+        "Crash Site - Perfect Agent Objective 2": Has("Crash Site - Perfect Agent"),
 
         "Crash Site - Perfect Agent Objective 3": Has("Crash Site - Perfect Agent")
                                                 & ((HasAll("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle") & (Has("Remote Mine") | HasAll("DY357-LX", "President Scanner")))
@@ -6904,13 +6881,13 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Crash Site - Perfect Agent Objective 4": HasAll("Crash Site - Perfect Agent", "President Scanner")
+        "Crash Site - Perfect Agent Objective 4": Has("Crash Site - Perfect Agent")
                                                 & (HasAll("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Crash Site - Perfect Agent Objective 5": HasAll("Crash Site - Perfect Agent", "President Scanner")
+        "Crash Site - Perfect Agent Objective 5": Has("Crash Site - Perfect Agent")
                                                 & Has("President", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
@@ -7139,7 +7116,6 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT
-                                                    & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -7147,7 +7123,6 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT
-                                                    & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -7155,7 +7130,6 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT
-                                                    & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -7163,7 +7137,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT
-                                                & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
+                                                & HasAll("R-Tracker", "Target Amplifier")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                 | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -7543,27 +7517,27 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 3 - Extraction
-        "dD Extraction - Agent Objective 1": HasAll("dD Extraction - Agent", "Night Vision")
+        "dD Extraction - Agent Objective 1": Has("dD Extraction - Agent")
                                              & (HasAny("Falcon 2 (Scope)", "CMP150")
                                              | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                              | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"])
                                              | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Agent Objective 2": HasAll("dD Extraction - Agent", "Night Vision")
+        "dD Extraction - Agent Objective 2": Has("dD Extraction - Agent")
                                              & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                              & (HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2)
                                              | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                              | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                              | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Agent Objective 3": HasAll("dD Extraction - Agent", "Night Vision")
+        "dD Extraction - Agent Objective 3": Has("dD Extraction - Agent")
                                              & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                              & (HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2)
                                              | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                              | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                              | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: dD Extraction - Agent": HasAll("dD Extraction - Agent", "Night Vision")
+        "Complete: dD Extraction - Agent": Has("dD Extraction - Agent")
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                            & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                            & (HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2)
@@ -7815,13 +7789,13 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         # Stage 12 - Crash Site
         "Crash Site - Agent Objective 1": Has("Crash Site - Agent"),
 
-        "Crash Site - Agent Objective 2": HasAll("Crash Site - Agent", "President Scanner")
+        "Crash Site - Agent Objective 2": Has("Crash Site - Agent")
                                           & (HasAny("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
                                           | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                           | HAS_ANY_WEAPON_TYPE),
 
-        "Crash Site - Agent Objective 3": HasAll("Crash Site - Agent", "President Scanner")
+        "Crash Site - Agent Objective 3": Has("Crash Site - Agent")
                                           & Has("President", options=[npc_filter], filtered_resolution=True)
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & (HasFromList("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", count=2)
@@ -7829,7 +7803,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                           | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: Crash Site - Agent": HasAll("Crash Site - Agent", "President Scanner")
+        "Complete: Crash Site - Agent": Has("Crash Site - Agent")
                                         & Has("President", options=[npc_filter], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & (HasFromList("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", count=2)
@@ -7867,21 +7841,21 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 14 - Deep Sea
-        "Deep Sea - Agent Objective 1": HasAll("Deep Sea - Agent", "IR Scanner")
+        "Deep Sea - Agent Objective 1": Has("Deep Sea - Agent")
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & (HasAny("Falcon 2 (Scope)", "Shotgun")
                                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                         | HAS_ANY_WEAPON_TYPE),
 
-        "Deep Sea - Agent Objective 2": HasAll("Deep Sea - Agent", "IR Scanner")
+        "Deep Sea - Agent Objective 2": Has("Deep Sea - Agent")
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & (HasFromList("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20", count=2)
                                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                         | HAS_ANY_WEAPON_TYPE),
 
-        "Deep Sea - Agent Objective 3": HasAll("Deep Sea - Agent", "IR Scanner")
+        "Deep Sea - Agent Objective 3": Has("Deep Sea - Agent")
                                         & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & (HasFromList("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20", count=2)
@@ -7889,7 +7863,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                         | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: Deep Sea - Agent": HasAll("Deep Sea - Agent", "IR Scanner")
+        "Complete: Deep Sea - Agent": Has("Deep Sea - Agent")
                                       & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                       & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                       & (HasFromList("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20", count=2)
@@ -7981,7 +7955,6 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                             | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT
-                                            & Has("IR Scanner")
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                             | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -7989,7 +7962,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                             | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT
-                                          & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
+                                          & HasAll("R-Tracker", "Target Amplifier")
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                           | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -8105,34 +8078,34 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 3 - Extraction
-        "dD Extraction - Special Agent Objective 1": HasAll("dD Extraction - Special Agent", "Night Vision")
+        "dD Extraction - Special Agent Objective 1": Has("dD Extraction - Special Agent")
                                                     & (HasAny("Falcon 2 (Scope)", "CMP150")
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Special Agent Objective 2": HasAll("dD Extraction - Special Agent", "Night Vision")
+        "dD Extraction - Special Agent Objective 2": Has("dD Extraction - Special Agent")
                                                     & ((HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2)
                                                         | (HasAny("Falcon 2 (Scope)", "CMP150") & Has("Rocket Launcher")))
                                                     | (all_guns_filter & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Slayer"])
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE)),
 
-        "dD Extraction - Special Agent Objective 3": HasAll("dD Extraction - Special Agent", "Night Vision")
+        "dD Extraction - Special Agent Objective 3": Has("dD Extraction - Special Agent")
                                                     & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                     & (HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2)
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Special Agent Objective 4": HasAll("dD Extraction - Special Agent", "Night Vision")
+        "dD Extraction - Special Agent Objective 4": Has("dD Extraction - Special Agent")
                                                     & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                     & (HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2)
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: dD Extraction - Special Agent": HasAll("dD Extraction - Special Agent", "Night Vision")
+        "Complete: dD Extraction - Special Agent": Has("dD Extraction - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & (HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2)
@@ -8442,13 +8415,13 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
         "Crash Site - Special Agent Objective 2": Has("Crash Site - Special Agent"),
 
-        "Crash Site - Special Agent Objective 3": HasAll("Crash Site - Special Agent", "President Scanner")
+        "Crash Site - Special Agent Objective 3": Has("Crash Site - Special Agent")
                                                 & (HasAny("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Crash Site - Special Agent Objective 4": HasAll("Crash Site - Special Agent", "President Scanner")
+        "Crash Site - Special Agent Objective 4": Has("Crash Site - Special Agent")
                                                 & Has("President", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasFromList("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", count=2)
@@ -8500,28 +8473,28 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 14 - Deep Sea
-        "Deep Sea - Special Agent Objective 1": HasAll("Deep Sea - Special Agent", "IR Scanner")
+        "Deep Sea - Special Agent Objective 1": Has("Deep Sea - Special Agent")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAny("Falcon 2 (Scope)", "Shotgun")
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Deep Sea - Special Agent Objective 2": HasAll("Deep Sea - Special Agent", "IR Scanner")
+        "Deep Sea - Special Agent Objective 2": Has("Deep Sea - Special Agent")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasFromList("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20", count=2)
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Deep Sea - Special Agent Objective 3": HasAll("Deep Sea - Special Agent", "IR Scanner")
+        "Deep Sea - Special Agent Objective 3": Has("Deep Sea - Special Agent")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasFromList("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20", count=2)
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Deep Sea - Special Agent Objective 4": HasAll("Deep Sea - Special Agent", "IR Scanner")
+        "Deep Sea - Special Agent Objective 4": Has("Deep Sea - Special Agent")
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasFromList("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20", count=2)
@@ -8529,7 +8502,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: Deep Sea - Special Agent": HasAll("Deep Sea - Special Agent", "IR Scanner")
+        "Complete: Deep Sea - Special Agent": Has("Deep Sea - Special Agent")
                                             & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & (HasFromList("Falcon 2 (Scope)", "Shotgun", "FarSight XR-20", count=2)
@@ -8635,7 +8608,6 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT
-                                                    & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -8643,7 +8615,6 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT
-                                                    & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -8651,7 +8622,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT
-                                                & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
+                                                & HasAll("R-Tracker", "Target Amplifier")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                 | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -8806,40 +8777,40 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 3 - Extraction
-        "dD Extraction - Perfect Agent Objective 1": HasAll("dD Extraction - Perfect Agent", "Night Vision")
+        "dD Extraction - Perfect Agent Objective 1": Has("dD Extraction - Perfect Agent")
                                                     & (HasAny("Falcon 2 (Scope)", "CMP150")
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Perfect Agent Objective 2": HasAll("dD Extraction - Perfect Agent", "Night Vision")
+        "dD Extraction - Perfect Agent Objective 2": Has("dD Extraction - Perfect Agent")
                                                     & (HasAny("Falcon 2 (Scope)", "CMP150")
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Perfect Agent Objective 3": HasAll("dD Extraction - Perfect Agent", "Night Vision")
+        "dD Extraction - Perfect Agent Objective 3": Has("dD Extraction - Perfect Agent")
                                                     & ((HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2)
                                                         | (HasAny("Falcon 2 (Scope)", "CMP150") & Has("Rocket Launcher")))
                                                     | (all_guns_filter & HasAny("Rocket Launcher", "Slayer", "Devastator") & HasFromList(*exclude_weapons_from_list(["Rocket Launcher", "Slayer", "Devastator"]), count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Slayer"])
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]) & HAS_ANY_WEAPON_TYPE)),
 
-        "dD Extraction - Perfect Agent Objective 4": HasAll("dD Extraction - Perfect Agent", "Night Vision")
+        "dD Extraction - Perfect Agent Objective 4": Has("dD Extraction - Perfect Agent")
                                                     & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                     & (HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2)
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "dD Extraction - Perfect Agent Objective 5": HasAll("dD Extraction - Perfect Agent", "Night Vision")
+        "dD Extraction - Perfect Agent Objective 5": Has("dD Extraction - Perfect Agent")
                                                     & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                     & (HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2)
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: dD Extraction - Perfect Agent": HasAll("dD Extraction - Perfect Agent", "Night Vision")
+        "Complete: dD Extraction - Perfect Agent": Has("dD Extraction - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & (HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2)
@@ -9202,13 +9173,13 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Crash Site - Perfect Agent Objective 4": HasAll("Crash Site - Perfect Agent", "President Scanner")
+        "Crash Site - Perfect Agent Objective 4": Has("Crash Site - Perfect Agent")
                                                 & (HasAny("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Crash Site - Perfect Agent Objective 5": HasAll("Crash Site - Perfect Agent", "President Scanner")
+        "Crash Site - Perfect Agent Objective 5": Has("Crash Site - Perfect Agent")
                                                 & Has("President", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasFromList("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", count=2)
@@ -9266,14 +9237,14 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 14 - Deep Sea
-        "Deep Sea - Perfect Agent Objective 1": HasAll("Deep Sea - Perfect Agent", "IR Scanner")
+        "Deep Sea - Perfect Agent Objective 1": Has("Deep Sea - Perfect Agent")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAny("Falcon 2 (Scope)", "Shotgun")
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Deep Sea - Perfect Agent Objective 2": HasAll("Deep Sea - Perfect Agent", "IR Scanner")
+        "Deep Sea - Perfect Agent Objective 2": Has("Deep Sea - Perfect Agent")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
@@ -9281,7 +9252,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
 
-        "Deep Sea - Perfect Agent Objective 3": HasAll("Deep Sea - Perfect Agent", "IR Scanner")
+        "Deep Sea - Perfect Agent Objective 3": Has("Deep Sea - Perfect Agent")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2) & Has("FarSight XR-20"))
@@ -9289,7 +9260,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
 
-        "Deep Sea - Perfect Agent Objective 4": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk")
+        "Deep Sea - Perfect Agent Objective 4": HasAll("Deep Sea - Perfect Agent", "Backup Disk")
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
@@ -9298,7 +9269,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
 
-        "Deep Sea - Perfect Agent Objective 5": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk")
+        "Deep Sea - Perfect Agent Objective 5": HasAll("Deep Sea - Perfect Agent", "Backup Disk")
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
@@ -9307,7 +9278,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                                                 | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]) & HAS_ANY_WEAPON_TYPE)),
 
-        "Complete: Deep Sea - Perfect Agent": HasAll("Deep Sea - Perfect Agent", "IR Scanner", "Backup Disk")
+        "Complete: Deep Sea - Perfect Agent": HasAll("Deep Sea - Perfect Agent", "Backup Disk")
                                             & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & ((HasAny("Falcon 2 (Scope)", "Shotgun") & Has("FarSight XR-20"))
@@ -9433,7 +9404,6 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT
-                                                    & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -9441,7 +9411,6 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT
-                                                    & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -9449,7 +9418,6 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT
-                                                    & Has("IR Scanner")
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -9457,7 +9425,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)),
 
         "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT
-                                                & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
+                                                & HasAll("R-Tracker", "Target Amplifier")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                                 | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
@@ -10974,52 +10942,66 @@ def set_completion_condition(world: PerfectDarkWorld) -> None:
     if world.options.goal.value == Goal.option_complete_skedar_ruins:
         has_skedar_ruins = Has("Skedar Ruins - Agent") | Has("Skedar Ruins - Special Agent") | Has("Skedar Ruins - Perfect Agent") | Has("Skedar Ruins")
 
-        if world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_item:
-            world.set_completion_rule(has_skedar_ruins
-                                    & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
+        has_items_for_skedar = (HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
+                                & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
+                                | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
+                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)))
+
+        has_items_for_skedar_hard = (HasAll("R-Tracker", "Target Amplifier")
                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                     & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)))
 
+        if world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_item:
+            if world.options.mission_logic < MissionLogic.option_hard:
+                world.set_completion_rule(has_skedar_ruins
+                                        & has_items_for_skedar)
+            else:
+                world.set_completion_rule(has_skedar_ruins
+                                        & has_items_for_skedar_hard)
+
         elif world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_mission_stars:
             required_mission_stars = get_mission_stars(world)
 
-            world.set_completion_rule(has_skedar_ruins
-                                    & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
-                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                    & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
-                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE))
-                                    & Has("Mission Star", count=required_mission_stars))
+            if world.options.mission_logic < MissionLogic.option_hard:
+                world.set_completion_rule(has_skedar_ruins
+                                        & has_items_for_skedar
+                                        & Has("Mission Star", count=required_mission_stars))
+            else:
+                world.set_completion_rule(has_skedar_ruins
+                                        & has_items_for_skedar_hard
+                                        & Has("Mission Star", count=required_mission_stars))
 
         elif world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_challenge_stars:
             required_challenge_stars = get_challenge_stars(world)
 
-            world.set_completion_rule(has_skedar_ruins
-                                    & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
-                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                    & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
-                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE))
-                                    & Has("Challenge Star", count=required_challenge_stars))
+            if world.options.mission_logic < MissionLogic.option_hard:
+                world.set_completion_rule(has_skedar_ruins
+                                        & has_items_for_skedar
+                                        & Has("Challenge Star", count=required_challenge_stars))
+            else:
+                world.set_completion_rule(has_skedar_ruins
+                                        & has_items_for_skedar_hard
+                                        & Has("Challenge Star", count=required_challenge_stars))
                     
         elif world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_both_stars:
             required_mission_stars = get_mission_stars(world)
             required_challenge_stars = get_challenge_stars(world)
 
-            world.set_completion_rule(has_skedar_ruins
-                                    & HasAll("R-Tracker", "Target Amplifier", "IR Scanner")
-                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                    & (HasAll("Falcon 2 (Scope)", "Callisto NTG", "Devastator")
-                                    | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
-                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
-                                    | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE))
-                                    & Has("Mission Star", count=required_mission_stars)
-                                    & Has("Challenge Star", count=required_challenge_stars))
+            if world.options.mission_logic < MissionLogic.option_hard:
+                world.set_completion_rule(has_skedar_ruins
+                                        & has_items_for_skedar
+                                        & Has("Mission Star", count=required_mission_stars)
+                                        & Has("Challenge Star", count=required_challenge_stars))
+            else:
+                world.set_completion_rule(has_skedar_ruins
+                                        & has_items_for_skedar_hard
+                                        & Has("Mission Star", count=required_mission_stars)
+                                        & Has("Challenge Star", count=required_challenge_stars))
 
     elif world.options.goal.value == Goal.option_complete_missions:
         required_mission_stars = get_mission_stars(world)

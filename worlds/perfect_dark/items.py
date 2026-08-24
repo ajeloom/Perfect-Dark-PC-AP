@@ -568,6 +568,16 @@ def get_random_filler_item_name(world: PerfectDarkWorld) -> str:
 def create_item_with_correct_classification(world: PerfectDarkWorld, name: str) -> PerfectDarkItem:
     classification = DEFAULT_ITEM_CLASSIFICATIONS[name]
 
+    if world.options.mission_logic >= MissionLogic.option_hard \
+            and not world.options.device_training \
+            and name == "Night Vision":
+        classification = ItemClassification.filler
+
+    if world.options.mission_logic == MissionLogic.option_perfect \
+                and not world.options.device_training \
+                and name == "IR Scanner":
+            classification = ItemClassification.filler
+
     if (world.options.challenge_logic.value == ChallengeLogic.option_strict
             and has_challenges(world)
             and (name == "Combat Boost" or name == "Shield")):
