@@ -454,6 +454,18 @@ class MultiplayerUnlocks(Toggle):
     display_name = "Multiplayer Unlocks"
 
 
+class AlternateExits(Toggle):
+    """
+    Adds checks for each possible exit you can take on 
+    A51 Escape and Air Base in order to complete the mission.
+    You must have any of the difficulties enabled for this to work.
+    """
+
+    display_name = "Alternate Exits"
+
+    default = False
+
+
 class TrapChance(Range):
     """
     Percentage chance that any filler will be replaced by a trap.
@@ -536,6 +548,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     include_cheats_in_item_pool: IncludeCheatsInItemPool
     npcs: NPCs
     multiplayer_unlocks: MultiplayerUnlocks
+    alternate_exits: AlternateExits
     trap_chance: TrapChance
     excluded_traps: ExcludedTraps
     deathlink: DeathLink
@@ -575,6 +588,7 @@ option_groups = [
             IncludeCheatsInItemPool,
             NPCs,
             MultiplayerUnlocks,
+            AlternateExits,
             TrapChance,
             ExcludedTraps,
             DeathLink
@@ -613,6 +627,7 @@ option_presets = {
         "include_cheats_in_item_pool": True,
         "npcs": False,
         "multiplayer_unlocks": False,
+        "alternate_exits": False,
         "trap_chance": 0,
         "deathlink": False,
     },
@@ -646,6 +661,7 @@ option_presets = {
         "include_cheats_in_item_pool": False,
         "npcs": True,
         "multiplayer_unlocks": True,
+        "alternate_exits": False,
         "trap_chance": 100,
         "deathlink": True,
     },

@@ -2638,12 +2638,47 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
     }
 
 
+    agent_alternate_exits_normal = {
+        "Complete A51 Escape (Agent): UFO Escape": agent_rules_normal["Complete: A51 Escape - Agent"],
+        "Complete A51 Escape (Agent): Alternate Escape": agent_rules_normal["Complete: A51 Escape - Agent"],
+        "Complete Air Base (Agent): Shuttle Exit": agent_rules_normal["Complete: Air Base - Agent"],
+        "Complete Air Base (Agent): Ladder Exit": agent_rules_normal["Complete: Air Base - Agent"],
+    }
+
+
+    special_agent_alternate_exits_normal = {
+        "Complete A51 Escape (Special Agent): UFO Escape": special_agent_rules_normal["Complete: A51 Escape - Special Agent"],
+        "Complete A51 Escape (Special Agent): Alternate Escape": special_agent_rules_normal["Complete: A51 Escape - Special Agent"],
+        "Complete Air Base (Special Agent): Shuttle Exit": special_agent_rules_normal["Complete: Air Base - Special Agent"],
+        "Complete Air Base (Special Agent): Ladder Exit": special_agent_rules_normal["Complete: Air Base - Special Agent"],
+    }
+
+
+    perfect_agent_alternate_exits_normal = {
+        "Complete A51 Escape (Perfect Agent): UFO Escape": perfect_agent_rules_normal["Complete: A51 Escape - Perfect Agent"],
+        "Complete A51 Escape (Perfect Agent): Alternate Escape": perfect_agent_rules_normal["Complete: A51 Escape - Perfect Agent"],
+        "Complete Air Base (Perfect Agent): Shuttle Exit": perfect_agent_rules_normal["Complete: Air Base - Perfect Agent"],
+        "Complete Air Base (Perfect Agent): Ladder Exit": perfect_agent_rules_normal["Complete: Air Base - Perfect Agent"],
+    }
+
+
     if world.options.agent:
         add_rule(world, agent_rules_normal)
+
+        if world.options.alternate_exits:
+            add_rule(world, agent_alternate_exits_normal)
+
     if world.options.special_agent:
         add_rule(world, special_agent_rules_normal)
+
+        if world.options.alternate_exits:
+            add_rule(world, special_agent_alternate_exits_normal)
+
     if world.options.perfect_agent:
         add_rule(world, perfect_agent_rules_normal)
+
+        if world.options.alternate_exits:
+            add_rule(world, perfect_agent_alternate_exits_normal)
 
     if world.options.completion_cheats:
         if world.options.agent or world.options.special_agent or world.options.perfect_agent:
@@ -5000,12 +5035,47 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
     }
 
 
+    agent_alternate_exits_veteran = {
+        "Complete A51 Escape (Agent): UFO Escape": agent_rules_veteran["Complete: A51 Escape - Agent"],
+        "Complete A51 Escape (Agent): Alternate Escape": agent_rules_veteran["Complete: A51 Escape - Agent"],
+        "Complete Air Base (Agent): Shuttle Exit": agent_rules_veteran["Complete: Air Base - Agent"],
+        "Complete Air Base (Agent): Ladder Exit": agent_rules_veteran["Complete: Air Base - Agent"],
+    }
+
+
+    special_agent_alternate_exits_veteran = {
+        "Complete A51 Escape (Special Agent): UFO Escape": special_agent_rules_veteran["Complete: A51 Escape - Special Agent"],
+        "Complete A51 Escape (Special Agent): Alternate Escape": special_agent_rules_veteran["Complete: A51 Escape - Special Agent"],
+        "Complete Air Base (Special Agent): Shuttle Exit": special_agent_rules_veteran["Complete: Air Base - Special Agent"],
+        "Complete Air Base (Special Agent): Ladder Exit": special_agent_rules_veteran["Complete: Air Base - Special Agent"],
+    }
+
+
+    perfect_agent_alternate_exits_veteran = {
+        "Complete A51 Escape (Perfect Agent): UFO Escape": perfect_agent_rules_veteran["Complete: A51 Escape - Perfect Agent"],
+        "Complete A51 Escape (Perfect Agent): Alternate Escape": perfect_agent_rules_veteran["Complete: A51 Escape - Perfect Agent"],
+        "Complete Air Base (Perfect Agent): Shuttle Exit": perfect_agent_rules_veteran["Complete: Air Base - Perfect Agent"],
+        "Complete Air Base (Perfect Agent): Ladder Exit": perfect_agent_rules_veteran["Complete: Air Base - Perfect Agent"],
+    }
+
+
     if world.options.agent:
         add_rule(world, agent_rules_veteran)
+
+        if world.options.alternate_exits:
+            add_rule(world, agent_alternate_exits_veteran)
+
     if world.options.special_agent:
         add_rule(world, special_agent_rules_veteran)
+
+        if world.options.alternate_exits:
+            add_rule(world, special_agent_alternate_exits_veteran)
+
     if world.options.perfect_agent:
         add_rule(world, perfect_agent_rules_veteran)
+
+        if world.options.alternate_exits:
+            add_rule(world, perfect_agent_alternate_exits_veteran)
 
     if world.options.completion_cheats:
         if world.options.agent or world.options.special_agent or world.options.perfect_agent:
@@ -7362,12 +7432,47 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
     }
 
 
+    agent_alternate_exits_hard = {
+        "Complete A51 Escape (Agent): UFO Escape": agent_rules_hard["Complete: A51 Escape - Agent"],
+        "Complete A51 Escape (Agent): Alternate Escape": agent_rules_hard["Complete: A51 Escape - Agent"],
+        "Complete Air Base (Agent): Shuttle Exit": agent_rules_hard["Complete: Air Base - Agent"],
+        "Complete Air Base (Agent): Ladder Exit": agent_rules_hard["Complete: Air Base - Agent"],
+    }
+
+
+    special_agent_alternate_exits_hard = {
+        "Complete A51 Escape (Special Agent): UFO Escape": special_agent_rules_hard["Complete: A51 Escape - Special Agent"],
+        "Complete A51 Escape (Special Agent): Alternate Escape": special_agent_rules_hard["Complete: A51 Escape - Special Agent"],
+        "Complete Air Base (Special Agent): Shuttle Exit": special_agent_rules_hard["Complete: Air Base - Special Agent"],
+        "Complete Air Base (Special Agent): Ladder Exit": special_agent_rules_hard["Complete: Air Base - Special Agent"],
+    }
+
+
+    perfect_agent_alternate_exits_hard = {
+        "Complete A51 Escape (Perfect Agent): UFO Escape": perfect_agent_rules_hard["Complete: A51 Escape - Perfect Agent"],
+        "Complete A51 Escape (Perfect Agent): Alternate Escape": perfect_agent_rules_hard["Complete: A51 Escape - Perfect Agent"],
+        "Complete Air Base (Perfect Agent): Shuttle Exit": perfect_agent_rules_hard["Complete: Air Base - Perfect Agent"],
+        "Complete Air Base (Perfect Agent): Ladder Exit": perfect_agent_rules_hard["Complete: Air Base - Perfect Agent"],
+    }
+
+
     if world.options.agent:
         add_rule(world, agent_rules_hard)
+
+        if world.options.alternate_exits:
+            add_rule(world, agent_alternate_exits_hard)
+
     if world.options.special_agent:
         add_rule(world, special_agent_rules_hard)
+
+        if world.options.alternate_exits:
+            add_rule(world, special_agent_alternate_exits_hard)
+
     if world.options.perfect_agent:
         add_rule(world, perfect_agent_rules_hard)
+
+        if world.options.alternate_exits:
+            add_rule(world, perfect_agent_alternate_exits_hard)
 
     if world.options.completion_cheats:
         if world.options.agent or world.options.special_agent or world.options.perfect_agent:
@@ -9623,12 +9728,47 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
     }
 
 
+    agent_alternate_exits_perfect = {
+        "Complete A51 Escape (Agent): UFO Escape": agent_rules_perfect["Complete: A51 Escape - Agent"],
+        "Complete A51 Escape (Agent): Alternate Escape": agent_rules_perfect["Complete: A51 Escape - Agent"],
+        "Complete Air Base (Agent): Shuttle Exit": agent_rules_perfect["Complete: Air Base - Agent"],
+        "Complete Air Base (Agent): Ladder Exit": agent_rules_perfect["Complete: Air Base - Agent"],
+    }
+
+
+    special_agent_alternate_exits_perfect = {
+        "Complete A51 Escape (Special Agent): UFO Escape": special_agent_rules_perfect["Complete: A51 Escape - Special Agent"],
+        "Complete A51 Escape (Special Agent): Alternate Escape": special_agent_rules_perfect["Complete: A51 Escape - Special Agent"],
+        "Complete Air Base (Special Agent): Shuttle Exit": special_agent_rules_perfect["Complete: Air Base - Special Agent"],
+        "Complete Air Base (Special Agent): Ladder Exit": special_agent_rules_perfect["Complete: Air Base - Special Agent"],
+    }
+
+
+    perfect_agent_alternate_exits_perfect = {
+        "Complete A51 Escape (Perfect Agent): UFO Escape": perfect_agent_rules_perfect["Complete: A51 Escape - Perfect Agent"],
+        "Complete A51 Escape (Perfect Agent): Alternate Escape": perfect_agent_rules_perfect["Complete: A51 Escape - Perfect Agent"],
+        "Complete Air Base (Perfect Agent): Shuttle Exit": perfect_agent_rules_perfect["Complete: Air Base - Perfect Agent"],
+        "Complete Air Base (Perfect Agent): Ladder Exit": perfect_agent_rules_perfect["Complete: Air Base - Perfect Agent"],
+    }
+
+
     if world.options.agent:
         add_rule(world, agent_rules_perfect)
+
+        if world.options.alternate_exits:
+            add_rule(world, agent_alternate_exits_perfect)
+
     if world.options.special_agent:
         add_rule(world, special_agent_rules_perfect)
+
+        if world.options.alternate_exits:
+            add_rule(world, special_agent_alternate_exits_perfect)
+
     if world.options.perfect_agent:
         add_rule(world, perfect_agent_rules_perfect)
+
+        if world.options.alternate_exits:
+            add_rule(world, perfect_agent_alternate_exits_perfect)
 
     if world.options.completion_cheats:
         if world.options.agent or world.options.special_agent or world.options.perfect_agent:

@@ -570,6 +570,18 @@ LOCATION_NAME_TO_ID = {
     "Complete 12 Challenges: Pop a Cap Unlock": 576,
     "Complete 6 Challenges: Hacker Central Unlock": 577,
     # "Complete Challenges: Laser Unlock": 578,
+    "Complete A51 Escape (Agent): UFO Escape": 579,
+    "Complete A51 Escape (Agent): Alternate Escape": 580,
+    "Complete A51 Escape (Special Agent): UFO Escape": 581,
+    "Complete A51 Escape (Special Agent): Alternate Escape": 582,
+    "Complete A51 Escape (Perfect Agent): UFO Escape": 583,
+    "Complete A51 Escape (Perfect Agent): Alternate Escape": 584,
+    "Complete Air Base (Agent): Shuttle Exit": 585,
+    "Complete Air Base (Agent): Ladder Exit": 586,
+    "Complete Air Base (Special Agent): Shuttle Exit": 587,
+    "Complete Air Base (Special Agent): Ladder Exit": 588,
+    "Complete Air Base (Perfect Agent): Shuttle Exit": 589,
+    "Complete Air Base (Perfect Agent): Ladder Exit": 590,
 }
 
 class PerfectDarkLocation(Location):
@@ -808,6 +820,24 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         )
         duel.add_locations(duel_locations, PerfectDarkLocation)
 
+        if world.options.alternate_exits:
+            escape_locations = get_location_names_with_ids(
+                [
+                    "Complete A51 Escape (Agent): UFO Escape",
+                    "Complete A51 Escape (Agent): Alternate Escape"
+                ]
+            )
+            escape.add_locations(escape_locations, PerfectDarkLocation)
+
+            air_base_locations = get_location_names_with_ids(
+                [
+                    "Complete Air Base (Agent): Shuttle Exit",
+                    "Complete Air Base (Agent): Ladder Exit"
+                ]
+            )
+            air_base.add_locations(air_base_locations, PerfectDarkLocation)
+
+
     if world.options.special_agent:
         defection_locations = get_location_names_with_ids(
             [
@@ -1031,6 +1061,23 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             ]
         )
         duel.add_locations(duel_locations, PerfectDarkLocation)
+
+        if world.options.alternate_exits:
+            escape_locations = get_location_names_with_ids(
+                [
+                    "Complete A51 Escape (Special Agent): UFO Escape",
+                    "Complete A51 Escape (Special Agent): Alternate Escape"
+                ]
+            )
+            escape.add_locations(escape_locations, PerfectDarkLocation)
+
+            air_base_locations = get_location_names_with_ids(
+                [
+                    "Complete Air Base (Special Agent): Shuttle Exit",
+                    "Complete Air Base (Special Agent): Ladder Exit"
+                ]
+            )
+            air_base.add_locations(air_base_locations, PerfectDarkLocation)
 
 
     if world.options.perfect_agent:
@@ -1277,6 +1324,23 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             ]
         )
         duel.add_locations(duel_locations, PerfectDarkLocation)
+
+        if world.options.alternate_exits:
+            escape_locations = get_location_names_with_ids(
+                [
+                    "Complete A51 Escape (Perfect Agent): UFO Escape",
+                    "Complete A51 Escape (Perfect Agent): Alternate Escape"
+                ]
+            )
+            escape.add_locations(escape_locations, PerfectDarkLocation)
+
+            air_base_locations = get_location_names_with_ids(
+                [
+                    "Complete Air Base (Perfect Agent): Shuttle Exit",
+                    "Complete Air Base (Perfect Agent): Ladder Exit"
+                ]
+            )
+            air_base.add_locations(air_base_locations, PerfectDarkLocation)
 
 
     if world.options.goal.value == Goal.option_complete_skedar_ruins \
