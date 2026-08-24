@@ -6,10 +6,10 @@ class Goal(Choice):
     """
     Sets the goal in order to beat the game.
 
-    - Complete Skedar Ruins: Finish the game with Skedar Ruins.
-    - Complete Missions: Complete a set number of missions.
-    - Complete Challenges: Complete a set number of challenges.
-    - Complete Both: Complete a set number of missions and challenges.
+    - Complete Skedar Ruins: The game ends after completing Skedar Ruins.
+    - Complete Missions: Complete missions until you get the set amount of mission stars.
+    - Complete Challenges: Complete challenges until you get the set amount of challenge stars.
+    - Complete Both: Complete both missions and challenges until you get the set amount of stars.
     """
 
     display_name = "Goal"
@@ -47,7 +47,6 @@ class PlaceStarsAnywhere(Toggle):
     """
     Choose if you want mission stars and challenge stars to be placed in any location. 
     This option only matters if you need to collect stars for the goal.
-    Recommend disabling if you are only playing Perfect Dark by itself.
 
     - False: Mission stars and challenge stars can only be acquired 
              from completing missions and challenges in your game.
@@ -65,8 +64,8 @@ class MissionLogic(Choice):
 
     - Normal: The logic expects you to have the starting weapon in missions.
     - Veteran: The logic is the same as Normal but it expects you to use hidden items.
-    - Hard: The logic expects you to disarm enemies for a weapon in missions.
-    - Perfect: The logic expects you to play near perfect in missions.
+    - Hard: The logic expects you to do missions without certain items.
+    - Perfect: The logic expects you to complete missions with less items than hard.
 
     Note: Hard and Perfect includes the hidden items in logic
     """
@@ -227,9 +226,9 @@ class ProgressiveWeaponsInChallenges(Toggle):
     """
     Allows you to use progressive weapons in challenges.
     This option only works if challenges are enabled 
-    weapon progression is not set to normal.
+    and weapon progression is not set to normal.
 
-    - False: You will not start with any weapons in your inventory
+    - False: You will not have any weapons in your inventory
              and must pick up weapons that you have unlocked.
 
     - True: Your progressive weapons will be in your inventory.
@@ -264,8 +263,6 @@ class Challenges(Toggle):
     """
     Adds the combat simulator challenges as checks.
     Each challenge is an item you need to find in order to play it.
-    Only recommend enabling this if you can handle the harder challenges.
-    If challenge stars are part of the goal, then this option is automatically enabled.
     """
 
     display_name = "Challenges"
@@ -289,7 +286,8 @@ class RequiredChallengeStars(Range):
 
 class ExcludedChallenges(OptionSet):
     """
-    Sets which challenges will not appear in the run. 
+    Sets which challenges will not appear in the run,
+    allowing you to leave out any difficult ones. 
     Valid challenges are Challenge 1 through Challenge 30.
     Ex: ['Challenge 1', 'Challenge 5', 'Challenge 26']
     """
@@ -437,7 +435,7 @@ class IncludeCheatsInItemPool(Toggle):
 class NPCs(Toggle):
     """
     Adds important NPCs to the item pool.
-    They are Cassandra, Dr. Caroll, Jonathan, Elvis, and the President.
+    They are Carrington, Cassandra, Dr. Caroll, Jonathan, Elvis, and the President.
     You will not be able to do certain objectives and some missions if they are missing.
     """
 
@@ -448,7 +446,7 @@ class MultiplayerUnlocks(Toggle):
     """
     Adds 65 checks for getting the multiplayer unlockables
     by completing a number of challenges.
-    This option only matters if you have challenges enabled.
+    This option only works if you have challenges enabled.
     """
 
     display_name = "Multiplayer Unlocks"
@@ -468,7 +466,16 @@ class AlternateExits(Toggle):
 
 class TrapChance(Range):
     """
-    Percentage chance that any filler will be replaced by a trap.
+    Sets the percentage of filler that is replaced by a trap.
+    Types of traps:
+        - DK Mode Trap: turns on DK Mode
+        - Small Jo Trap: turns the player small
+        - Small Characters Trap: turns everyone else small
+        - Slow Motion Trap: slows down the game
+        - Enemy Rockets Trap: gives enemies a Rocket Launcher
+        - Perfect Darkness Trap: turns the map dark
+        - Fast Animations Trap: makes enemies move fast
+        - Skedar Trap: spawns Skedars on the map
     """
 
     display_name = "Trap Chance"
