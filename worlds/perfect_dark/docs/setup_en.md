@@ -31,7 +31,7 @@ More info:
 If you have an old version of the client, you can update to the newest version without having to delete any files.
 
 1. Download the latest version of the client and apworld
-2. Drag the pd.x86_64 inside the Perfect Dark AP Client folder you just downloaded and replace the old one
+2. Drag all the files inside the Perfect Dark AP Client folder you just downloaded and replace the files in the old one
 3. Follow the steps from the setup section to get started
 
 ## Switching Rooms
