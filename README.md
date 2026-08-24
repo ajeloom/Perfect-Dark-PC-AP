@@ -11,10 +11,14 @@ You can [find our releases here](https://github.com/ajeloom/Perfect-Dark-PC-AP/r
 
 If you find any issues or want to suggest anything to add, please report them on our [issues page](https://github.com/ajeloom/Perfect-Dark-PC-AP/issues).
 
+You can view the code for the client and how to build it [here](https://github.com/ajeloom/perfect_dark/tree/port-aprandomizer).
+
 ## Current Features
-- Two goals:
+- Four goals:
   - Complete Skedar Ruins
   - Collect Mission Stars
+  - Collect Challenge Stars
+  - Collect Both
 - Completing the following sends a check:
   - Mission Objectives
   - Mission Completion
@@ -24,13 +28,13 @@ If you find any issues or want to suggest anything to add, please report them on
   - Holotraining
   - Cheat Unlocks
 - Weapon Progression
+- Traps
 - Death Link
 - Random player characters
+- Random enemy weapons
 - Random music
 
 ## Known issues
-
-- Disconnecting in the mission/challenge complete menus will crash the game
 - Closing the game will sometimes crash the client
 
 ## Planned Features
@@ -41,7 +45,12 @@ If you find any issues or want to suggest anything to add, please report them on
 - fgsfdsfgs for creating the [PC port](https://github.com/fgsfdsfgs/perfect_dark) and everyone else who worked on it
 - Ryan Dwyer for decompiling the game
 - black-silver for creating [apclientpp](https://github.com/black-sliver/apclientpp)
-- axxiim for helping with the logic
-- Maegis, Lebon14 for providing ideas for the Perfect Dark AP
-- Sal the Dragon, Ryason55, lx5 for feedback and suggestions
+- axxiim for helping with the logic and playtest
+- Maegis and Lebon14 for providing the original ideas for the AP
+- Special thanks to the following for feedback and suggestions:
+  - Sal the Dragon
+  - Ryason55
+  - lx5
+  - Hinaloth
+  - Freaky Mutant Man
 - Everyone on the AP discord server who tried this out
