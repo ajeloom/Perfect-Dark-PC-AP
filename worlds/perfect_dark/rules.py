@@ -5618,14 +5618,14 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 18 - Mr. Blonde's Revenge
-        "Mr. Blonde's Revenge - Agent Objective 1": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device")
+        "Mr. Blonde's Revenge - Agent Objective 1": HasAll("Mr. Blonde's Revenge - Agent")
                                                     & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                     & (HasAny("Mauler", "CMP150")
                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                     | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: Mr. Blonde's Revenge - Agent": HasAll("Mr. Blonde's Revenge - Agent", "Cloaking Device")
+        "Complete: Mr. Blonde's Revenge - Agent": HasAll("Mr. Blonde's Revenge - Agent")
                                                   & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                   & (HasAny("Mauler", "CMP150")
                                                   | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
@@ -6307,20 +6307,20 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 18 - Mr. Blonde's Revenge
-        "Mr. Blonde's Revenge - Special Agent Objective 1": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb")
+        "Mr. Blonde's Revenge - Special Agent Objective 1": HasAll("Mr. Blonde's Revenge - Special Agent", "Skedar Bomb")
                                                             & (HasAny("Mauler", "CMP150")
                                                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                             | HAS_ANY_WEAPON_TYPE),
 
-        "Mr. Blonde's Revenge - Special Agent Objective 2": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device")
+        "Mr. Blonde's Revenge - Special Agent Objective 2": Has("Mr. Blonde's Revenge - Special Agent")
                                                             & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                             & (HasAny("Mauler", "CMP150")
                                                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                             | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: Mr. Blonde's Revenge - Special Agent": HasAll("Mr. Blonde's Revenge - Special Agent", "Cloaking Device", "Skedar Bomb")
+        "Complete: Mr. Blonde's Revenge - Special Agent": HasAll("Mr. Blonde's Revenge - Special Agent", "Skedar Bomb")
                                                         & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                         & (HasAny("Mauler", "CMP150")
                                                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
@@ -7023,7 +7023,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
         "CI Defense - Perfect Agent Objective 4": Has("CI Defense - Perfect Agent")
                                                 & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((Has("AR34") & (HasAll("RC-P120", "Laser") | Has("Devastator")))
-                                                | (all_guns_filter & HasAll("RC-P120", "Laser") & HAS_ANY_RIFLE)
+                                                | (all_guns_filter & (HAS_ANY_RIFLE & HasAll("RC-P120", "Laser")) | HasAny(*EXPLOSIVE_LIST))
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"]))
                                                 | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) 
@@ -7033,7 +7033,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
         "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "Data Uplink")
                                                 & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAll("AR34", "RC-P120") & HasAny("Laser", "Devastator"))
-                                                | (all_guns_filter & HasAll("RC-P120", "Laser") & HAS_ANY_RIFLE)
+                                                | (all_guns_filter & HAS_ANY_RIFLE & Has("RC-P120") & (Has("Laser") | HasAny(*EXPLOSIVE_LIST)))
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"]))
                                                 | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) 
@@ -7043,7 +7043,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
         "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "Data Uplink")
                                                 & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAll("AR34", "RC-P120") & HasAny("Laser", "Devastator"))
-                                                | (all_guns_filter & HasAll("RC-P120", "Laser") & HAS_ANY_RIFLE)
+                                                | (all_guns_filter & HAS_ANY_RIFLE & Has("RC-P120") & (Has("Laser") | HasAny(*EXPLOSIVE_LIST)))
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"]))
                                                 | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) 
@@ -7146,26 +7146,26 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 18 - Mr. Blonde's Revenge
-        "Mr. Blonde's Revenge - Perfect Agent Objective 1": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb")
+        "Mr. Blonde's Revenge - Perfect Agent Objective 1": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Skedar Bomb")
                                                             & (HasAny("Mauler", "CMP150")
                                                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                             | HAS_ANY_WEAPON_TYPE),
 
-        "Mr. Blonde's Revenge - Perfect Agent Objective 2": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device")
+        "Mr. Blonde's Revenge - Perfect Agent Objective 2": Has("Mr. Blonde's Revenge - Perfect Agent")
                                                             & (HasAny("Mauler", "CMP150")
                                                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                             | HAS_ANY_WEAPON_TYPE),
 
-        "Mr. Blonde's Revenge - Perfect Agent Objective 3": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device")
+        "Mr. Blonde's Revenge - Perfect Agent Objective 3": Has("Mr. Blonde's Revenge - Perfect Agent")
                                                             & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                             & (HasAny("Mauler", "CMP150")
                                                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                             | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: Mr. Blonde's Revenge - Perfect Agent": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Cloaking Device", "Skedar Bomb")
+        "Complete: Mr. Blonde's Revenge - Perfect Agent": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Skedar Bomb")
                                                         & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                         & (HasAny("Mauler", "CMP150")
                                                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
@@ -7813,7 +7813,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 13 - Pelagic II
-        "Pelagic II - Agent Objective 1": HasAll("Pelagic II - Agent", "X-Ray Scanner")
+        "Pelagic II - Agent Objective 1": Has("Pelagic II - Agent")
                                           & (HasAny("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", "Phoenix")
                                           | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
@@ -7825,14 +7825,14 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                           | HAS_ANY_WEAPON_TYPE),
 
-        "Pelagic II - Agent Objective 3": HasAll("Pelagic II - Agent", "X-Ray Scanner")
+        "Pelagic II - Agent Objective 3": Has("Pelagic II - Agent")
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & (HasFromList("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", count=2)
                                           | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                           | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: Pelagic II - Agent": HasAll("Pelagic II - Agent", "X-Ray Scanner")
+        "Complete: Pelagic II - Agent": Has("Pelagic II - Agent")
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & (HasFromList("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", count=2)
                                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
@@ -8439,7 +8439,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 13 - Pelagic II
-        "Pelagic II - Special Agent Objective 1": HasAll("Pelagic II - Special Agent", "X-Ray Scanner")
+        "Pelagic II - Special Agent Objective 1": Has("Pelagic II - Special Agent")
                                                 & (HasAny("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", "Phoenix")
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
@@ -8457,14 +8457,14 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Pelagic II - Special Agent Objective 4": HasAll("Pelagic II - Special Agent", "X-Ray Scanner")
+        "Pelagic II - Special Agent Objective 4": Has("Pelagic II - Special Agent")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasFromList("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", count=2)
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: Pelagic II - Special Agent": HasAll("Pelagic II - Special Agent", "X-Ray Scanner")
+        "Complete: Pelagic II - Special Agent": Has("Pelagic II - Special Agent")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasFromList("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", count=2)
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
@@ -8833,7 +8833,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                         | HAS_ANY_WEAPON_TYPE),
 
         "Carrington Villa - Perfect Agent Objective 3": Has("Carrington Villa - Perfect Agent")
-                                                        & (HasFromList("Laptop Gun", "CMP150", "Sniper Rifle", count=2)
+                                                        & (HasAny("Laptop Gun", "CMP150", "Sniper Rifle")
                                                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                         | HAS_ANY_WEAPON_TYPE),
@@ -9197,7 +9197,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 13 - Pelagic II
-        "Pelagic II - Perfect Agent Objective 1": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner")
+        "Pelagic II - Perfect Agent Objective 1": Has("Pelagic II - Perfect Agent")
                                                 & (HasAny("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", "Phoenix")
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
@@ -9221,14 +9221,14 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Pelagic II - Perfect Agent Objective 5": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape")
+        "Pelagic II - Perfect Agent Objective 5": HasAll("Pelagic II - Perfect Agent", "Research Tape")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasFromList("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", count=2)
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                                 | HAS_ANY_WEAPON_TYPE),
 
-        "Complete: Pelagic II - Perfect Agent": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape")
+        "Complete: Pelagic II - Perfect Agent": HasAll("Pelagic II - Perfect Agent", "Research Tape")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & (HasFromList("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", count=2)
                                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
@@ -9311,7 +9311,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         "CI Defense - Perfect Agent Objective 4": Has("CI Defense - Perfect Agent")
                                                 & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((Has("AR34") & (HasAll("RC-P120", "Laser") | Has("Devastator")))
-                                                | (all_guns_filter & HAS_ANY_RIFLE & (HasAll("RC-P120", "Laser") | Has("Devastator")))
+                                                | (all_guns_filter & (HAS_ANY_RIFLE & HasAll("RC-P120", "Laser")) | HasAny(*EXPLOSIVE_LIST))
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"]))
                                                 | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) 
@@ -9321,7 +9321,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "Data Uplink")
                                                 & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAll("AR34", "RC-P120") & HasAny("Laser", "Devastator"))
-                                                | (all_guns_filter & HAS_ANY_RIFLE & Has("RC-P120") & HasAny("Laser", "Devastator"))
+                                                | (all_guns_filter & HAS_ANY_RIFLE & Has("RC-P120") & (Has("Laser") | HasAny(*EXPLOSIVE_LIST)))
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"]))
                                                 | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) 
@@ -9331,7 +9331,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "Data Uplink")
                                                 & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & ((HasAll("AR34", "RC-P120") & HasAny("Laser", "Devastator"))
-                                                | (all_guns_filter & HAS_ANY_RIFLE & Has("RC-P120") & HasAny("Laser", "Devastator"))
+                                                | (all_guns_filter & HAS_ANY_RIFLE & Has("RC-P120") & (Has("Laser") | HasAny(*EXPLOSIVE_LIST)))
                                                 | ((Has("RC-P120") & Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]))
                                                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"]))
                                                 | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]) 
@@ -9525,18 +9525,10 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         "The Duel - Perfect Agent Objective 2": Has("The Duel - Perfect Agent")
                                                 & Has("Jonathan", options=[npc_filter], filtered_resolution=True),
 
-        "The Duel - Perfect Agent Objective 3": Has("The Duel - Perfect Agent")
-                                                & (HasAny("Falcon 2 (Scope)", "DY357 Magnum")
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                                | HAS_ANY_WEAPON_TYPE),
+        "The Duel - Perfect Agent Objective 3": Has("The Duel - Perfect Agent"),
 
         "Complete: The Duel - Perfect Agent": Has("The Duel - Perfect Agent")
-                                            & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
-                                            & (HasAny("Falcon 2 (Scope)", "DY357 Magnum")
-                                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                            | HAS_ANY_WEAPON_TYPE),
+                                            & Has("Jonathan", options=[npc_filter], filtered_resolution=True),
     }
 
 
