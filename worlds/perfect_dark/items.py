@@ -594,6 +594,19 @@ def create_item_with_correct_classification(world: PerfectDarkWorld, name: str) 
         if name == "Air Force One Left Room Key Card" or name == "Air Force One Right Room Key Card":
             classification = ItemClassification.progression | ItemClassification.useful
 
+    if (world.options.pickupsanity 
+            and (world.options.agent
+            or world.options.special_agent
+            or world.options.perfect_agent)):
+        if name == "Air Force One Left Room Key Card" \
+                or name == "Air Force One Right Room Key Card" \
+                or name == "Cassandra's Office Key Card" \
+                or name == "Shield":
+            classification = ItemClassification.progression | ItemClassification.useful
+
+        if name == "Psychosis Gun":
+            classification = ItemClassification.progression
+
     return PerfectDarkItem(name, classification, ITEM_NAME_TO_ID[name], world.player)
 
 

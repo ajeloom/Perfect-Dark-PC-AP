@@ -464,6 +464,15 @@ class AlternateExits(Toggle):
     default = False
 
 
+class Pickupsanity(Toggle):
+    """
+    Adds checks for picking up ammo crates, shields, and hidden items in missions.
+    You must have any of the difficulties enabled for this to work.
+    """
+
+    display_name = "Pickupsanity"
+
+
 class TrapChance(Range):
     """
     Sets the percentage of filler that is replaced by a trap.
@@ -556,6 +565,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     npcs: NPCs
     multiplayer_unlocks: MultiplayerUnlocks
     alternate_exits: AlternateExits
+    pickupsanity: Pickupsanity
     trap_chance: TrapChance
     excluded_traps: ExcludedTraps
     deathlink: DeathLink
@@ -596,6 +606,7 @@ option_groups = [
             NPCs,
             MultiplayerUnlocks,
             AlternateExits,
+            Pickupsanity,
             TrapChance,
             ExcludedTraps,
             DeathLink
@@ -635,6 +646,7 @@ option_presets = {
         "npcs": False,
         "multiplayer_unlocks": False,
         "alternate_exits": False,
+        "pickupsanity": False,
         "trap_chance": 0,
         "deathlink": False,
     },
@@ -669,6 +681,7 @@ option_presets = {
         "npcs": True,
         "multiplayer_unlocks": True,
         "alternate_exits": False,
+        "pickupsanity": False,
         "trap_chance": 100,
         "deathlink": True,
     },
