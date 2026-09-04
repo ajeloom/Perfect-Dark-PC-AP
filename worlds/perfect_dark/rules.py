@@ -2625,7 +2625,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
         "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30": perfect_agent_rules_normal["Complete: dD Investigation - Perfect Agent"],
 
         # Chicago
-        "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": perfect_agent_rules_normal["Complete: Chicago - Perfect Agent"],
+        "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": perfect_agent_rules_normal["Complete: Chicago - Perfect Agent"] & Has("CamSpy"),
 
         # Rescue
         "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59": perfect_agent_rules_normal["Complete: A51 Rescue - Perfect Agent"],
@@ -5022,7 +5022,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
         "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30": perfect_agent_rules_veteran["Complete: dD Investigation - Perfect Agent"],
 
         # Chicago
-        "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": perfect_agent_rules_veteran["Complete: Chicago - Perfect Agent"],
+        "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": perfect_agent_rules_veteran["Complete: Chicago - Perfect Agent"] & Has("CamSpy"),
 
         # Rescue
         "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59": perfect_agent_rules_veteran["Complete: A51 Rescue - Perfect Agent"],
@@ -7393,7 +7393,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
         "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30": perfect_agent_rules_hard["Complete: dD Investigation - Perfect Agent"],
 
         # Chicago
-        "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": perfect_agent_rules_hard["Complete: Chicago - Perfect Agent"],
+        "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": perfect_agent_rules_hard["Complete: Chicago - Perfect Agent"] & Has("CamSpy"),
 
         # Rescue
         "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59": perfect_agent_rules_hard["Complete: A51 Rescue - Perfect Agent"],
@@ -9675,7 +9675,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         "Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30": perfect_agent_rules_perfect["Complete: dD Investigation - Perfect Agent"],
 
         # Chicago
-        "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": perfect_agent_rules_perfect["Complete: Chicago - Perfect Agent"],
+        "Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00": perfect_agent_rules_perfect["Complete: Chicago - Perfect Agent"] & Has("CamSpy"),
 
         # Rescue
         "Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59": perfect_agent_rules_perfect["Complete: A51 Rescue - Perfect Agent"],
