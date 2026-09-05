@@ -570,6 +570,8 @@ def create_item_with_correct_classification(world: PerfectDarkWorld, name: str) 
 
     if world.options.mission_logic >= MissionLogic.option_hard \
             and not world.options.device_training \
+            and not world.options.perfect_agent \
+            and not world.options.pickupsanity \
             and name == "Night Vision":
         classification = ItemClassification.filler
 
