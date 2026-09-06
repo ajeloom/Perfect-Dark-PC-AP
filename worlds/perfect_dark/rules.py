@@ -10964,6 +10964,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]))
 
     has_weapon_for_attack_ship = (HasAll("Combat Knife", "Mauler", "AR34")
+                                    | Has("Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                     | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                     | HAS_ANY_WEAPON_TYPE)
@@ -11075,8 +11076,8 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                                                       & has_falcon2_silencer,
 
         "dD Defection: Pick up Laptop Gun in the room that the office worker hides in": has_defection
-                                                                                        & has_falcon2_silencer
-                                                                                        & has_laptop_gun,
+                                                                                        & has_laptop_gun
+                                                                                        & has_weapon_for_defection,
 
         "dD Defection: Pick up Falcon 2 (silencer) on the right side of the room that the office worker hides in": has_defection
                                                                                                                    & has_falcon2_silencer,
@@ -11144,30 +11145,39 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                    & has_proxy_mine
                                                                                    & has_weapon_for_investigation,
         
-        "dD Extraction: Pick up DY357 Magnum from the fifth guard after defeating the first five guards without being seen": has_extraction 
+        "dD Extraction: Pick up DY357 Magnum from the fifth guard after eliminating the first five guards without being seen": has_extraction
+                                                                                                                             & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
                                                                                                                              & has_dy357 
                                                                                                                              & has_weapon_for_extraction,
 
         "dD Extraction: Pick up the Rocket Launcher in the room outside Cassandra's office": has_extraction 
+                                                                                             & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                                                              & has_rocket_launcher 
                                                                                              & has_weapon_for_extraction,
 
         "dD Extraction: Pick up Grenade on Cassandra's desk": has_extraction
+                                                              & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                               & HAS_CASS_OFFICE_KEY
                                                               & has_grenade
                                                               & has_weapon_for_extraction,
 
         "dD Extraction: Pick up Dragon in the hidden room near Cassandra's office": has_extraction
+                                                                                    & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                                                     & HAS_CASS_OFFICE_KEY
-                                                                                    & (has_grenade | has_rocket_launcher)
+                                                                                    & (HasAny("Grenade", "Rocket Launcher")
+                                                                                    | (all_guns_filter & HasFromList(*EXPLOSIVE_LIST, count=1))
+                                                                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                                                                    | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))
                                                                                     & has_dragon
                                                                                     & has_weapon_for_extraction,
 
-        "dD Extraction: Pick up first rocket ammo box on the roof": has_extraction 
+        "dD Extraction: Pick up first rocket ammo box on the roof": has_extraction
+                                                                    & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
                                                                     & has_rocket_launcher 
                                                                     & has_weapon_for_extraction,
 
-        "dD Extraction: Pick up second rocket ammo box on the roof": has_extraction 
+        "dD Extraction: Pick up second rocket ammo box on the roof": has_extraction
+                                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
                                                                      & has_rocket_launcher 
                                                                      & has_weapon_for_extraction,
     
@@ -11178,33 +11188,45 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         "Carrington Villa: Pick up first ammo box hidden in crate leading to the observatory": has_villa
                                                                                                & has_weapon_for_villa,
 
-        "Carrington Villa: Pick up second ammo box hidden in crate leading to the observatory": has_villa & has_weapon_for_villa,
+        "Carrington Villa: Pick up second ammo box hidden in crate leading to the observatory": has_villa 
+                                                                                                & has_weapon_for_villa,
 
-        "Carrington Villa: Pick up third ammo box hidden in crate leading to the observatory": has_villa & has_weapon_for_villa,
+        "Carrington Villa: Pick up third ammo box hidden in crate leading to the observatory": has_villa 
+                                                                                               & has_weapon_for_villa,
 
-        "Carrington Villa: Pick up fourth ammo box hidden in crate leading to the observatory": has_villa & has_weapon_for_villa,
+        "Carrington Villa: Pick up fourth ammo box hidden in crate leading to the observatory": has_villa 
+                                                                                                & has_weapon_for_villa,
 
-        "Carrington Villa: Pick up fifth ammo box hidden in crate leading to the observatory": has_villa & has_weapon_for_villa,
+        "Carrington Villa: Pick up fifth ammo box hidden in crate leading to the observatory": has_villa 
+                                                                                               & has_weapon_for_villa,
 
-        "Carrington Villa: Pick up sixth ammo box hidden in crate leading to the observatory": has_villa & has_weapon_for_villa,
+        "Carrington Villa: Pick up sixth ammo box hidden in crate leading to the observatory": has_villa 
+                                                                                               & has_weapon_for_villa,
 
-        "Carrington Villa: Pick up seventh ammo box hidden in crate leading to the observatory": has_villa & has_weapon_for_villa,
+        "Carrington Villa: Pick up seventh ammo box hidden in crate leading to the observatory": has_villa 
+                                                                                                 & has_weapon_for_villa,
         
-        "Carrington Villa: Pick up eighth ammo box hidden in crate leading to the observatory": has_villa & has_weapon_for_villa,
+        "Carrington Villa: Pick up eighth ammo box hidden in crate leading to the observatory": has_villa 
+                                                                                                & has_weapon_for_villa,
         
-        "Carrington Villa: Pick up ninth ammo box hidden in crate leading to the observatory": has_villa & has_weapon_for_villa,
+        "Carrington Villa: Pick up ninth ammo box hidden in crate leading to the observatory": has_villa 
+                                                                                               & has_weapon_for_villa,
         
         "Carrington Villa: Pick up double CMP150 dropped from the sniper near the helipad in under 38 seconds": has_villa 
                                                                                                                 & has_cmp150
                                                                                                                 & has_weapon_for_villa,
             
-        "Chicago: Pick up BombSpy hidden in the dumpster": has_chicago & Has("CamSpy") & has_weapon_for_chicago,
+        "Chicago: Pick up BombSpy hidden in the dumpster": has_chicago 
+                                                           & Has("CamSpy") 
+                                                           & has_weapon_for_chicago,
 
         "Chicago: Pick up double Falcon 2 (scope) inside the Pond Punk": has_chicago 
                                                                          & has_falcon2_scope 
+                                                                         & has_cmp150
                                                                          & has_weapon_for_chicago,
     
-        "G5 Building: Pick up Crossbow after knocking out the first two guards": has_g5 & has_crossbow,
+        "G5 Building: Pick up Crossbow after knocking out the first two guards": has_g5 
+                                                                                 & has_crossbow,
     
         "A51 Infiltration: Pick up Rocket Launcher in the mine field": has_infiltration 
                                                                        & has_rocket_launcher 
@@ -11221,8 +11243,8 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                                                                   & has_falcon2_silencer,
         
-        "A51 Escape: Pick up double Falcon 2 (scope) in the room where the two biotechnicians are in": has_escape
-                                                                                                       & has_falcon2_scope,
+        "A51 Escape: Pick up double Falcon 2 (scope) in the room behind you at the start of the mission": has_escape
+                                                                                                          & has_falcon2_scope,
         
         "A51 Escape: Pick up Remote Mine in the room before the secret hangar after moving Elvis to safety within 36 seconds": has_escape
                                                                                                                                & Has("Elvis", options=[npc_filter], filtered_resolution=True)
@@ -11254,8 +11276,8 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                      & has_proxy_mine
                                                                                      & has_weapon_for_crash_site,
     
-        "Pelagic II: Pick up double Falcon 2 (silencer) dropped by the guard past the fourth door from the start of the mission without setting off the alarm": has_pelagic
-                                                                                                                                                                     & has_falcon2_silencer,
+        "Pelagic II: Pick up double Falcon 2 (scope) dropped by the guard past the fourth door from the start of the mission without setting off the alarm": has_pelagic
+                                                                                                                                                                & has_falcon2_silencer,
     
         "Deep Sea: Pick up Proximity Mine dropped by guard on the far left from the dead Skedar before Elvis gets them": has_deep_sea
                                                                                                                          & has_proxy_mine
@@ -11297,20 +11319,20 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                                              & has_weapon_for_mbr
                                                                                                              & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
 
-        "Mr. Blonde's Revenge: Pick up Laptop Gun in the room that the office worker hides in": has_mbr 
-                                                                                                & has_laptop_gun
-                                                                                                & has_weapon_for_mbr
-                                                                                                & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+        # "Mr. Blonde's Revenge: Pick up Laptop Gun in the room that the office worker hides in": has_mbr 
+        #                                                                                         & has_laptop_gun
+        #                                                                                         & has_weapon_for_mbr
+        #                                                                                         & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
 
-        "Mr. Blonde's Revenge: Pick up Falcon 2 on the right side of the room that the office worker hides in": has_mbr
-                                                                                                                & has_falcon2 
-                                                                                                                & has_weapon_for_mbr
-                                                                                                                & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+        # "Mr. Blonde's Revenge: Pick up Falcon 2 on the right side of the room that the office worker hides in": has_mbr
+        #                                                                                                         & has_falcon2 
+        #                                                                                                         & has_weapon_for_mbr
+        #                                                                                                         & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
 
-        "Mr. Blonde's Revenge: Pick up Falcon 2 on the left side of the room that the office worker hides in": has_mbr 
-                                                                                                               & has_falcon2 
-                                                                                                               & has_weapon_for_mbr
-                                                                                                               & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+        # "Mr. Blonde's Revenge: Pick up Falcon 2 on the left side of the room that the office worker hides in": has_mbr 
+        #                                                                                                        & has_falcon2 
+        #                                                                                                        & has_weapon_for_mbr
+        #                                                                                                        & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
         
 
         "Mr. Blonde's Revenge: Pick up tiny ammo box on the desk in the corner room with 4 windows (floor below Cassandra's office)": has_mbr
@@ -11342,14 +11364,14 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         
         "Mr. Blonde's Revenge: Pick up left CMP150 behind the front desk": has_mbr
                                                                            & has_cmp150,
-        
-    
+            
         "Maian SOS: Pick up double DY357-LX from guard in the circular room with the exit": has_maian_sos 
                                                                                             & has_dy357lx 
                                                                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                                                             & has_weapon_for_maian_sos,
 
-        "Maian SOS: Pick up Psychosis Gun on the desk near the start of the mission": has_maian_sos & has_psychosis_gun,
+        "Maian SOS: Pick up Psychosis Gun on the desk near the start of the mission": has_maian_sos 
+                                                                                      & has_psychosis_gun,
     }
 
     pickupsanity_rules_agent_only = {
@@ -11374,18 +11396,20 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                         & Has("Shield")
                                                                         & has_weapon_for_villa,
 
-        "Chicago (Agent): Pick up Shield in the grate under the taxi": Has("Chicago - Agent") & Has("Shield"),
+        "Chicago (Agent): Pick up Shield in the grate under the taxi": Has("Chicago - Agent") 
+                                                                       & Has("Shield"),
 
-        "G5 Building (Agent): Pick up Shield in the room before the room with the lasers": Has("G5 Building - Agent") 
-                                                                                           & Has("Shield")
-                                                                                           & HAS_G5_KEYS
-                                                                                           & has_weapon_for_g5,
+        "G5 Building (Agent): Pick up Shield in the room before the one with the lasers": Has("G5 Building - Agent") 
+                                                                                          & Has("Shield")
+                                                                                          & HAS_G5_KEYS
+                                                                                          & has_weapon_for_g5,
 
         "A51 Infiltration (Agent): Pick up Shield under the gun turret near the hoverbike": Has("A51 Infiltration - Agent") 
                                                                                             & Has("Shield")
                                                                                             & has_weapon_for_infiltration,
 
-        "A51 Rescue (Agent): Pick up Shield from the guard past the bottom of the first elevator": Has("A51 Rescue - Agent") 
+        "A51 Rescue (Agent): Pick up Shield from the guard past the bottom of the first elevator": Has("A51 Rescue - Agent")
+                                                                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True) 
                                                                                                    & Has("Shield")
                                                                                                    & has_weapon_for_rescue,
 
@@ -11404,7 +11428,8 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                                                    & Has("Shield"),
 
         "Crash Site (Agent): Pick up Shield near the crashed UFO": Has("Crash Site - Agent") 
-                                                                   & Has("Shield"), 
+                                                                   & Has("Shield")
+                                                                   & has_weapon_for_crash_site, 
 
         "Pelagic II (Agent): Pick up Shield on the helipad": Has("Pelagic II - Agent") 
                                                              & Has("Shield")
@@ -11429,7 +11454,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         "Mr. Blonde's Revenge (Agent): Pick up Shield next to the glass elevator on the bottom floor": Has("Mr. Blonde's Revenge - Agent") 
                                                                                                        & Has("Shield")
                                                                                                        & (has_weapon_for_mbr
-                                                                                                       | Has("Cloaking Device")),
+                                                                                                       | Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)),
     }
 
     pickupsanity_rules_agent_or_special = {
@@ -11455,10 +11480,12 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                                             & has_weapon_for_infiltration,
 
         "A51 Rescue (Agent/Special): Pick up Shield on the desk in the room next to the locked room at the top of the sloping corridor": (Has("A51 Rescue - Agent") | Has("A51 Rescue - Special Agent")) 
+                                                                                                                                         & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                                                                                                          & Has("Shield")
                                                                                                                                          & has_weapon_for_rescue,
 
         "A51 Escape (Agent/Special): Pick up Shield after unlocking the medical containment doors": (Has("A51 Escape - Agent") | Has("A51 Escape - Special Agent")) 
+                                                                                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                                                                     & Has("Shield")
                                                                                                     & has_weapon_for_escape,
 
@@ -11471,7 +11498,8 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                       | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
                                                                                       | HAS_ANY_WEAPON_TYPE),
 
-        "Air Force One (Agent/Special): Pick up Shield in the room with the piano": (Has("Air Force One - Agent") | Has("Air Force One - Special Agent")) & Has("Shield"),
+        "Air Force One (Agent/Special): Pick up Shield in the room with the piano": (Has("Air Force One - Agent") | Has("Air Force One - Special Agent")) 
+                                                                                    & Has("Shield"),
 
         "Crash Site (Agent/Special): Pick up Shield behind the President's clone": (Has("Crash Site - Agent") | Has("Crash Site - Special Agent")) 
                                                                                    & Has("Shield")
@@ -11529,7 +11557,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                                                                     & has_nbomb
                                                                                                                                     & has_weapon_for_g5
                                                                                                                                     & (Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
-                                                                                                                                    & Has("Remote Mine")
+                                                                                                                                    & has_remote_mine
                                                                                                                                     & has_weapon_for_chicago,
 
         "A51 Infiltration (Special/Perfect): Pick up double MagSec 4 from A51 guard after placing comms rider": (Has("A51 Infiltration - Special Agent") | Has("A51 Infiltration - Perfect Agent"))
@@ -11613,6 +11641,23 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
 
         if world.options.special_agent or world.options.perfect_agent:
             add_rule(world, pickupsanity_rules_special_or_perfect)
+
+        if world.options.mission_logic.value == MissionLogic.perfect:
+            mbr_laptop_gun = world.get_location("Mr. Blonde's Revenge: Pick up Laptop Gun in the room that the office worker hides in")
+            world.set_rule(mbr_laptop_gun, has_mbr 
+                                           & has_laptop_gun
+                                           & has_weapon_for_mbr
+                                           & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True))
+            
+            mbr_falcon2_1 = world.get_location("Mr. Blonde's Revenge: Pick up Falcon 2 on the right side of the room that the office worker hides in")
+            world.set_rule(mbr_falcon2_1, has_mbr
+                                          & has_falcon2 
+                                          & has_weapon_for_mbr)
+
+            mbr_falcon2_2 = world.get_location("Mr. Blonde's Revenge: Pick up Falcon 2 on the left side of the room that the office worker hides in")
+            world.set_rule(mbr_falcon2_2, has_mbr
+                                          & has_falcon2 
+                                          & has_weapon_for_mbr)
 
 
 def set_completion_condition(world: PerfectDarkWorld) -> None:

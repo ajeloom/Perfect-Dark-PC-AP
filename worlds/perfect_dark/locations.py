@@ -9,7 +9,7 @@ from . import items
 if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
-from .options import Goal, SkedarRuinsRequirements
+from .options import Goal, SkedarRuinsRequirements, MissionLogic
 from .items import has_challenges
 
 LOCATION_NAME_TO_ID = {
@@ -611,7 +611,7 @@ LOCATION_NAME_TO_ID = {
     "dD Investigation: Pick up Proximity Mine behind the radioactive isotope": 4637,
     "dD Investigation (Agent): Pick up Shield on the crate in the room with the maintenance hatch": 4638,
     "dD Investigation (Agent/Special): Pick up Shield inside the glass enclosure in the room past the laser grids": 4639,
-    "dD Extraction: Pick up DY357 Magnum from the fifth guard after defeating the first five guards without being seen": 6005,
+    "dD Extraction: Pick up DY357 Magnum from the fifth guard after eliminating the first five guards without being seen": 6005,
     "dD Extraction (Agent): Pick up Shield inside the room to the left of the elevator (2nd floor under Cassandra's office)": 6120,
     "dD Extraction: Pick up the Rocket Launcher in the room outside Cassandra's office": 6452,
     "dD Extraction: Pick up Grenade on Cassandra's desk": 6466,
@@ -639,7 +639,7 @@ LOCATION_NAME_TO_ID = {
     "G5 Building: Pick up Crossbow after knocking out the first two guards": 12000,
     "G5 Building (Agent/Special): Pick up Shield on the stairs leading to the upper exit": 12086,
     "G5 Building (Special/Perfect): Pick up N-Bomb near the upper exit after placing Remote Mine on the upper exit in Chicago": 12149,
-    "G5 Building (Agent): Pick up Shield in the room before the room with the lasers": 12150,
+    "G5 Building (Agent): Pick up Shield in the room before the one with the lasers": 12150,
     "A51 Infiltration: Pick up Rocket Launcher in the mine field": 14052,
     "A51 Infiltration (Special/Perfect): Pick up double MagSec 4 from A51 guard after placing comms rider": 14053,
     "A51 Infiltration (Agent): Pick up Shield under the gun turret near the hoverbike": 14150,
@@ -648,7 +648,7 @@ LOCATION_NAME_TO_ID = {
     "A51 Rescue: Pick up Phoenix after knocking out technician in A51 Infiltration then getting them to open the door to the right of the first elevator": 16905,
     "A51 Rescue: Pick up Falcon 2 (silencer) hidden in barrel under the stack of the crates": 16987,
     "A51 Rescue (Agent/Special): Pick up Shield on the desk in the room next to the locked room at the top of the sloping corridor": 17140,
-    "A51 Escape: Pick up double Falcon 2 (scope) in the room where the two biotechnicians are in": 18036,
+    "A51 Escape: Pick up double Falcon 2 (scope) in the room behind you at the start of the mission": 18036,
     "A51 Escape (Agent): Pick up Shield dropped by the biotechnician in the circular room without the slope after moving Elvis to safety": 18040,
     "A51 Escape (Agent/Special): Pick up Shield after unlocking the medical containment doors": 18895,
     "A51 Escape: Pick up Remote Mine in the room before the secret hangar after moving Elvis to safety within 36 seconds": 19383,
@@ -663,7 +663,7 @@ LOCATION_NAME_TO_ID = {
     "Crash Site (Agent/Special): Pick up Shield behind the President's clone": 24144,
     "Crash Site (Agent): Pick up Shield near the crashed UFO": 24262, 
     "Crash Site: Get Proximity Mine from Elvis before completing any objective": 24263, # Shares same pad as Shield (need to add one for the location)
-    "Pelagic II: Pick up double Falcon 2 (silencer) dropped by the guard past the fourth door from the start of the mission without setting off the alarm": 26052,
+    "Pelagic II: Pick up double Falcon 2 (scope) dropped by the guard past the fourth door from the start of the mission without setting off the alarm": 26052,
     "Pelagic II (Agent): Pick up Shield on the helipad": 26541,
     "Pelagic II (Agent/Special): Pick up Shield on the crate in the Moon Pool room": 26542,
     "Deep Sea: Pick up Proximity Mine dropped by guard on the far left from the dead Skedar before Elvis gets them": 28008,
@@ -2042,7 +2042,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
         extraction_locations = get_location_names_with_ids(
             [
-                "dD Extraction: Pick up DY357 Magnum from the fifth guard after defeating the first five guards without being seen",
+                "dD Extraction: Pick up DY357 Magnum from the fifth guard after eliminating the first five guards without being seen",
                 "dD Extraction: Pick up the Rocket Launcher in the room outside Cassandra's office",
                 "dD Extraction: Pick up Grenade on Cassandra's desk",
                 "dD Extraction: Pick up Dragon in the hidden room near Cassandra's office",
@@ -2101,7 +2101,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
         escape_locations = get_location_names_with_ids(
             [
-                "A51 Escape: Pick up double Falcon 2 (scope) in the room where the two biotechnicians are in",
+                "A51 Escape: Pick up double Falcon 2 (scope) in the room behind you at the start of the mission",
                 "A51 Escape: Pick up Remote Mine in the room before the secret hangar after moving Elvis to safety within 36 seconds"
             ]
         )
@@ -2132,7 +2132,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
         pelagic_locations = get_location_names_with_ids(
             [
-                "Pelagic II: Pick up double Falcon 2 (silencer) dropped by the guard past the fourth door from the start of the mission without setting off the alarm"
+                "Pelagic II: Pick up double Falcon 2 (scope) dropped by the guard past the fourth door from the start of the mission without setting off the alarm"
             ]
         )
         pelagic.add_locations(pelagic_locations, PerfectDarkLocation)
@@ -2170,9 +2170,6 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         mbr_locations = get_location_names_with_ids(
             [
                 "Mr. Blonde's Revenge: Pick up double CMP150 from guard near the elevator where you plant the bomb",
-                "Mr. Blonde's Revenge: Pick up Laptop Gun in the room that the office worker hides in",
-                "Mr. Blonde's Revenge: Pick up Falcon 2 on the right side of the room that the office worker hides in",
-                "Mr. Blonde's Revenge: Pick up Falcon 2 on the left side of the room that the office worker hides in",
                 "Mr. Blonde's Revenge: Pick up tiny ammo box on the desk in the corner room with 4 windows (floor below Cassandra's office)",
                 "Mr. Blonde's Revenge: Pick up tiny ammo box on the desk in the room next to the computer room (floor below Cassandra's office)",
                 "Mr. Blonde's Revenge: Pick up tiny ammo box on the desk in the room next to the room the office worker hides in (2nd floor below Cassandra's office)",
@@ -2225,7 +2222,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             )
 
             g5_building.add_locations(
-                get_location_names_with_ids(["G5 Building (Agent): Pick up Shield in the room before the room with the lasers"]), 
+                get_location_names_with_ids(["G5 Building (Agent): Pick up Shield in the room before the one with the lasers"]), 
                 PerfectDarkLocation
             )
 
@@ -2393,3 +2390,13 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
                 get_location_names_with_ids(["Carrington Villa (Perfect Agent): Pick up Sniper Rifle in the bathroom"]), 
                 PerfectDarkLocation
             )
+
+        if world.options.mission_logic.value == MissionLogic.perfect:
+            mbr_locations = get_location_names_with_ids(
+                [
+                    "Mr. Blonde's Revenge: Pick up Laptop Gun in the room that the office worker hides in",
+                    "Mr. Blonde's Revenge: Pick up Falcon 2 on the right side of the room that the office worker hides in",
+                    "Mr. Blonde's Revenge: Pick up Falcon 2 on the left side of the room that the office worker hides in",
+                ]
+            )
+            mbr.add_locations(mbr_locations, PerfectDarkLocation)
