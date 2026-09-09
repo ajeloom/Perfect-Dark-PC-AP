@@ -452,16 +452,24 @@ class MultiplayerUnlocks(Toggle):
     display_name = "Multiplayer Unlocks"
 
 
-class AlternateExits(Toggle):
+class AlternateExits(Choice):
     """
-    Adds checks for each possible exit you can take on 
-    A51 Escape and Air Base in order to complete the mission.
+    Adds checks for the different exits you can take on
+    G5 Building, A51 Escape, and Air Base in order to complete the mission.
     You must have any of the difficulties enabled for this to work.
+
+    - Disabled: There will not be a check on any exit.
+    - One: One of the exits is randomly picked to have a check.
+    - All: Each exit will have a check.
     """
 
     display_name = "Alternate Exits"
 
-    default = False
+    option_disabled = 0
+    option_one = 1
+    option_all = 2
+        
+    default = option_disabled
 
 
 class Pickupsanity(Toggle):
@@ -645,7 +653,7 @@ option_presets = {
         "include_cheats_in_item_pool": True,
         "npcs": False,
         "multiplayer_unlocks": False,
-        "alternate_exits": False,
+        "alternate_exits": AlternateExits.option_disabled,
         "pickupsanity": False,
         "trap_chance": 0,
         "deathlink": False,
@@ -680,7 +688,7 @@ option_presets = {
         "include_cheats_in_item_pool": False,
         "npcs": True,
         "multiplayer_unlocks": True,
-        "alternate_exits": False,
+        "alternate_exits": AlternateExits.option_disabled,
         "pickupsanity": False,
         "trap_chance": 100,
         "deathlink": True,

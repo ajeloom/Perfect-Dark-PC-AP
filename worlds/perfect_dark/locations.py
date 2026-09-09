@@ -9,7 +9,7 @@ from . import items
 if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
-from .options import Goal, SkedarRuinsRequirements, MissionLogic
+from .options import Goal, SkedarRuinsRequirements, MissionLogic, AlternateExits
 from .items import has_challenges
 
 LOCATION_NAME_TO_ID = {
@@ -570,18 +570,24 @@ LOCATION_NAME_TO_ID = {
     "Complete 12 Challenges: Pop a Cap Unlock": 576,
     "Complete 6 Challenges: Hacker Central Unlock": 577,
     # "Complete Challenges: Laser Unlock": 578,
-    "Complete A51 Escape (Agent): UFO Escape": 579,
-    "Complete A51 Escape (Agent): Alternate Escape": 580,
-    "Complete A51 Escape (Special Agent): UFO Escape": 581,
-    "Complete A51 Escape (Special Agent): Alternate Escape": 582,
-    "Complete A51 Escape (Perfect Agent): UFO Escape": 583,
-    "Complete A51 Escape (Perfect Agent): Alternate Escape": 584,
-    "Complete Air Base (Agent): Shuttle Exit": 585,
-    "Complete Air Base (Agent): Ladder Exit": 586,
-    "Complete Air Base (Special Agent): Shuttle Exit": 587,
-    "Complete Air Base (Special Agent): Ladder Exit": 588,
-    "Complete Air Base (Perfect Agent): Shuttle Exit": 589,
-    "Complete Air Base (Perfect Agent): Ladder Exit": 590,
+    "Complete G5 Building (Agent): Bottom Exit": 579,
+    "Complete G5 Building (Agent): Upper Exit": 580,
+    "Complete G5 Building (Special Agent): Bottom Exit": 581,
+    "Complete G5 Building (Special Agent): Upper Exit": 582,
+    "Complete G5 Building (Perfect Agent): Bottom Exit": 583,
+    "Complete G5 Building (Perfect Agent): Upper Exit": 584,
+    "Complete A51 Escape (Agent): UFO Escape": 585,
+    "Complete A51 Escape (Agent): Alternate Escape": 586,
+    "Complete A51 Escape (Special Agent): UFO Escape": 587,
+    "Complete A51 Escape (Special Agent): Alternate Escape": 588,
+    "Complete A51 Escape (Perfect Agent): UFO Escape": 589,
+    "Complete A51 Escape (Perfect Agent): Alternate Escape": 590,
+    "Complete Air Base (Agent): Shuttle Exit": 591,
+    "Complete Air Base (Agent): Ladder Exit": 592,
+    "Complete Air Base (Special Agent): Shuttle Exit": 593,
+    "Complete Air Base (Special Agent): Ladder Exit": 594,
+    "Complete Air Base (Perfect Agent): Shuttle Exit": 595,
+    "Complete Air Base (Perfect Agent): Ladder Exit": 596,
     "dD Defection (Agent/Special): Pick up Shield from the guard on the floor below Cassandra's office": 2010,
     "dD Defection: Pick up double Falcon 2 (silencer) from guard in the room next to the office worker's office": 2033,
     "dD Defection: Pick up Laptop Gun in the room that the office worker hides in": 2466,
@@ -696,6 +702,8 @@ LOCATION_NAME_TO_ID = {
     "Maian SOS: Pick up double DY357-LX from guard in the circular room with the exit": 38011,
     "Maian SOS: Pick up Psychosis Gun on the desk near the start of the mission": 38919,
 }
+
+alternate_exits = []
 
 class PerfectDarkLocation(Location):
     game = "Perfect Dark"
@@ -933,7 +941,63 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         )
         duel.add_locations(duel_locations, PerfectDarkLocation)
 
-        if world.options.alternate_exits:
+        if world.options.alternate_exits.value == AlternateExits.option_one:
+            g5_building_exits = [
+                "Complete G5 Building (Agent): Bottom Exit",
+                "Complete G5 Building (Agent): Upper Exit"
+            ]
+
+            escape_exits = [
+                "Complete A51 Escape (Agent): UFO Escape",
+                "Complete A51 Escape (Agent): Alternate Escape"
+            ]
+
+            air_base_exits = [
+                "Complete Air Base (Agent): Shuttle Exit",
+                "Complete Air Base (Agent): Ladder Exit"
+            ]
+
+            g5_item = world.random.choice(g5_building_exits)
+            escape_item = world.random.choice(escape_exits)
+            air_base_item = world.random.choice(air_base_exits)
+
+            g5_building_exits.remove(g5_item)
+            escape_exits.remove(escape_item)
+            air_base_exits.remove(air_base_item)
+
+            add_alternate_exit_location(g5_building_exits)
+            add_alternate_exit_location(escape_exits)
+            add_alternate_exit_location(air_base_exits)
+
+            g5_building_locations = get_location_names_with_ids(g5_building_exits)
+            g5_building.add_locations(g5_building_locations, PerfectDarkLocation)
+
+            escape_locations = get_location_names_with_ids(escape_exits)
+            escape.add_locations(escape_locations, PerfectDarkLocation)
+
+            air_base_locations = get_location_names_with_ids(air_base_exits)
+            air_base.add_locations(air_base_locations, PerfectDarkLocation)
+            
+        elif world.options.alternate_exits.value == AlternateExits.option_all:
+            all_exits = [
+                "Complete G5 Building (Agent): Bottom Exit",
+                "Complete G5 Building (Agent): Upper Exit",
+                "Complete A51 Escape (Agent): UFO Escape",
+                "Complete A51 Escape (Agent): Alternate Escape",
+                "Complete Air Base (Agent): Shuttle Exit",
+                "Complete Air Base (Agent): Ladder Exit"
+            ]
+
+            add_alternate_exit_location(all_exits)
+
+            g5_building_locations = get_location_names_with_ids(
+                [
+                    "Complete G5 Building (Agent): Bottom Exit",
+                    "Complete G5 Building (Agent): Upper Exit"
+                ]
+            )
+            g5_building.add_locations(g5_building_locations, PerfectDarkLocation)
+
             escape_locations = get_location_names_with_ids(
                 [
                     "Complete A51 Escape (Agent): UFO Escape",
@@ -1175,7 +1239,63 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         )
         duel.add_locations(duel_locations, PerfectDarkLocation)
 
-        if world.options.alternate_exits:
+        if world.options.alternate_exits.value == AlternateExits.option_one:
+            g5_building_exits = [
+                "Complete G5 Building (Special Agent): Bottom Exit",
+                "Complete G5 Building (Special Agent): Upper Exit"
+            ]
+
+            escape_exits = [
+                "Complete A51 Escape (Special Agent): UFO Escape",
+                "Complete A51 Escape (Special Agent): Alternate Escape"
+            ]
+
+            air_base_exits = [
+                "Complete Air Base (Special Agent): Shuttle Exit",
+                "Complete Air Base (Special Agent): Ladder Exit"
+            ]
+
+            g5_item = world.random.choice(g5_building_exits)
+            escape_item = world.random.choice(escape_exits)
+            air_base_item = world.random.choice(air_base_exits)
+
+            g5_building_exits.remove(g5_item)
+            escape_exits.remove(escape_item)
+            air_base_exits.remove(air_base_item)
+
+            add_alternate_exit_location(g5_building_exits)
+            add_alternate_exit_location(escape_exits)
+            add_alternate_exit_location(air_base_exits)
+
+            g5_building_locations = get_location_names_with_ids(g5_building_exits)
+            g5_building.add_locations(g5_building_locations, PerfectDarkLocation)
+
+            escape_locations = get_location_names_with_ids(escape_exits)
+            escape.add_locations(escape_locations, PerfectDarkLocation)
+
+            air_base_locations = get_location_names_with_ids(air_base_exits)
+            air_base.add_locations(air_base_locations, PerfectDarkLocation)
+
+        elif world.options.alternate_exits.value == AlternateExits.option_all:
+            all_exits = [
+                "Complete G5 Building (Special Agent): Bottom Exit",
+                "Complete G5 Building (Special Agent): Upper Exit",
+                "Complete A51 Escape (Special Agent): UFO Escape",
+                "Complete A51 Escape (Special Agent): Alternate Escape",
+                "Complete Air Base (Special Agent): Shuttle Exit",
+                "Complete Air Base (Special Agent): Ladder Exit"
+            ]
+
+            add_alternate_exit_location(all_exits)
+
+            g5_building_locations = get_location_names_with_ids(
+                [
+                    "Complete G5 Building (Special Agent): Bottom Exit",
+                    "Complete G5 Building (Special Agent): Upper Exit"
+                ]
+            )
+            g5_building.add_locations(g5_building_locations, PerfectDarkLocation)
+
             escape_locations = get_location_names_with_ids(
                 [
                     "Complete A51 Escape (Special Agent): UFO Escape",
@@ -1438,7 +1558,63 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         )
         duel.add_locations(duel_locations, PerfectDarkLocation)
 
-        if world.options.alternate_exits:
+        if world.options.alternate_exits.value == AlternateExits.option_one:
+            g5_building_exits = [
+                "Complete G5 Building (Perfect Agent): Bottom Exit",
+                "Complete G5 Building (Perfect Agent): Upper Exit"
+            ]
+
+            escape_exits = [
+                "Complete A51 Escape (Perfect Agent): UFO Escape",
+                "Complete A51 Escape (Perfect Agent): Alternate Escape"
+            ]
+
+            air_base_exits = [
+                "Complete Air Base (Perfect Agent): Shuttle Exit",
+                "Complete Air Base (Perfect Agent): Ladder Exit"
+            ]
+
+            g5_item = world.random.choice(g5_building_exits)
+            escape_item = world.random.choice(escape_exits)
+            air_base_item = world.random.choice(air_base_exits)
+
+            g5_building_exits.remove(g5_item)
+            escape_exits.remove(escape_item)
+            air_base_exits.remove(air_base_item)
+
+            add_alternate_exit_location(g5_building_exits)
+            add_alternate_exit_location(escape_exits)
+            add_alternate_exit_location(air_base_exits)
+
+            g5_building_locations = get_location_names_with_ids(g5_building_exits)
+            g5_building.add_locations(g5_building_locations, PerfectDarkLocation)
+
+            escape_locations = get_location_names_with_ids(escape_exits)
+            escape.add_locations(escape_locations, PerfectDarkLocation)
+
+            air_base_locations = get_location_names_with_ids(air_base_exits)
+            air_base.add_locations(air_base_locations, PerfectDarkLocation)
+
+        elif world.options.alternate_exits.value == AlternateExits.option_all:
+            all_exits = [
+                "Complete G5 Building (Perfect Agent): Bottom Exit",
+                "Complete G5 Building (Perfect Agent): Upper Exit",
+                "Complete A51 Escape (Perfect Agent): UFO Escape",
+                "Complete A51 Escape (Perfect Agent): Alternate Escape",
+                "Complete Air Base (Perfect Agent): Shuttle Exit",
+                "Complete Air Base (Perfect Agent): Ladder Exit"
+            ]
+
+            add_alternate_exit_location(all_exits)
+            
+            g5_building_locations = get_location_names_with_ids(
+                [
+                    "Complete G5 Building (Perfect Agent): Bottom Exit",
+                    "Complete G5 Building (Perfect Agent): Upper Exit"
+                ]
+            )
+            g5_building.add_locations(g5_building_locations, PerfectDarkLocation)
+            
             escape_locations = get_location_names_with_ids(
                 [
                     "Complete A51 Escape (Perfect Agent): UFO Escape",
@@ -2400,3 +2576,6 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
                 ]
             )
             mbr.add_locations(mbr_locations, PerfectDarkLocation)
+
+def add_alternate_exit_location(location_name: list[str]) -> None:
+    alternate_exits.extend(location_name)
