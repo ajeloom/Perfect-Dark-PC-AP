@@ -663,7 +663,7 @@ LOCATION_NAME_TO_ID = {
     "Crash Site (Agent/Special): Pick up Shield behind the President's clone": 24144,
     "Crash Site (Agent): Pick up Shield near the crashed UFO": 24262, 
     "Crash Site: Get Proximity Mine from Elvis before completing any objective": 24263, # Shares same pad as Shield (need to add one for the location)
-    "Pelagic II: Pick up double Falcon 2 (scope) dropped by the guard past the fourth door from the start of the mission without setting off the alarm": 26052,
+    "Pelagic II: Pick up double Falcon 2 (silencer) dropped by the guard past the fourth door from the start of the mission without setting off the alarm": 26052,
     "Pelagic II (Agent): Pick up Shield on the helipad": 26541,
     "Pelagic II (Agent/Special): Pick up Shield on the crate in the Moon Pool room": 26542,
     "Deep Sea: Pick up Proximity Mine dropped by guard on the far left from the dead Skedar before Elvis gets them": 28008,
@@ -2132,7 +2132,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
         pelagic_locations = get_location_names_with_ids(
             [
-                "Pelagic II: Pick up double Falcon 2 (scope) dropped by the guard past the fourth door from the start of the mission without setting off the alarm"
+                "Pelagic II: Pick up double Falcon 2 (silencer) dropped by the guard past the fourth door from the start of the mission without setting off the alarm"
             ]
         )
         pelagic.add_locations(pelagic_locations, PerfectDarkLocation)

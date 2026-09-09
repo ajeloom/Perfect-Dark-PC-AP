@@ -11276,7 +11276,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                      & has_proxy_mine
                                                                                      & has_weapon_for_crash_site,
     
-        "Pelagic II: Pick up double Falcon 2 (scope) dropped by the guard past the fourth door from the start of the mission without setting off the alarm": has_pelagic
+        "Pelagic II: Pick up double Falcon 2 (silencer) dropped by the guard past the fourth door from the start of the mission without setting off the alarm": has_pelagic
                                                                                                                                                                 & has_falcon2_silencer,
     
         "Deep Sea: Pick up Proximity Mine dropped by guard on the far left from the dead Skedar before Elvis gets them": has_deep_sea
