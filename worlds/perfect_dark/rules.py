@@ -10928,7 +10928,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                         | HAS_ANY_WEAPON_TYPE)
 
-    has_weapon_for_infiltration = (HasAny("Falcon 2", "CMP150")
+    has_weapon_for_infiltration = (HasAny("Falcon 2", "MagSec 4")
                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                     | HAS_ANY_WEAPON_TYPE)
@@ -11556,7 +11556,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                                                                     & HAS_G5_KEYS
                                                                                                                                     & has_nbomb
                                                                                                                                     & has_weapon_for_g5
-                                                                                                                                    & (Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                                                                                                    & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
                                                                                                                                     & has_remote_mine
                                                                                                                                     & has_weapon_for_chicago,
 

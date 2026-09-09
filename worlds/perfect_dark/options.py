@@ -491,7 +491,7 @@ class TrapChance(Range):
 
     range_start = 0
     range_end = 100
-    default = 0
+    default = 25
 
 
 class ExcludedTraps(OptionSet):
