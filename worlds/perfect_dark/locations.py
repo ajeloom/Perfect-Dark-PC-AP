@@ -666,6 +666,7 @@ LOCATION_NAME_TO_ID = {
     "Air Force One: Pick up Cyclone in the small room to the left of the stairs": 22204,
     "Air Force One (Agent/Special): Pick up Shield in the room with the piano": 22363,
     "Air Force One (Agent): Pick up Shield in the small kitchen past the stairs that leads to the lower deck": 22364,
+    "Crash Site: Pick up DY357-LX by disarming Trent": 24001,
     "Crash Site (Agent/Special): Pick up Shield behind the President's clone": 24144,
     "Crash Site (Agent): Pick up Shield near the crashed UFO": 24262, 
     "Crash Site: Get Proximity Mine from Elvis before completing any objective": 24263, # Shares same pad as Shield (need to add one for the location)
@@ -680,6 +681,7 @@ LOCATION_NAME_TO_ID = {
     "CI Defense (Agent/Special): Pick up Shield in the basement room with the two small hangar doors": 30146,
     "CI Defense (Agent): Pick up Shield on the second floor at the dead end opposite from Carrington's office": 30648,
     "Attack Ship: Pick up double Mauler in the final room from the Skedar on top of the bridge": 32045,
+    "Attack Ship (Perfect Agent): Pick up De Vries' necklace": 32051,
     "Attack Ship: Pick up Slayer in the room straight ahead from the lift you take with Elvis": 32466,
     "Attack Ship (Agent/Special): Pick up Shield on table in the room to the right after taking the lift with Elvis": 32499,
     "Skedar Ruins: Pick up double Phoenix near the gap after blowing up the two pillars that didn't need the target amplifier": 34050,
@@ -2186,9 +2188,6 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         defection_locations = get_location_names_with_ids(
             [
                 "dD Defection: Pick up double Falcon 2 (silencer) from guard in the room next to the office worker's office",
-                "dD Defection: Pick up Laptop Gun in the room that the office worker hides in",
-                "dD Defection: Pick up Falcon 2 (silencer) on the right side of the room that the office worker hides in",
-                "dD Defection: Pick up Falcon 2 (silencer) on the left side of the room that the office worker hides in",
                 "dD Defection: Pick up tiny ammo box on the desk in the corner room with 4 windows (floor below Cassandra's office)",
                 "dD Defection: Pick up tiny ammo box on the desk in the room next to the computer room (floor below Cassandra's office)",
                 "dD Defection: Pick up tiny ammo box on the desk in the room next to the room the office worker hides in (2nd floor below Cassandra's office)",
@@ -2301,6 +2300,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
         crash_site_locations = get_location_names_with_ids(
             [
+                "Crash Site: Pick up DY357-LX by disarming Trent",
                 "Crash Site: Get Proximity Mine from Elvis before completing any objective"
             ]
         )
@@ -2562,12 +2562,36 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             )
 
         if world.options.perfect_agent:
+            if world.options.mission_logic.value < MissionLogic.option_perfect:
+                defection_locations = get_location_names_with_ids(
+                    [
+                        "dD Defection: Pick up Laptop Gun in the room that the office worker hides in",
+                        "dD Defection: Pick up Falcon 2 (silencer) on the right side of the room that the office worker hides in",
+                        "dD Defection: Pick up Falcon 2 (silencer) on the left side of the room that the office worker hides in"
+                    ]
+                )
+                defection.add_locations(defection_locations, PerfectDarkLocation)
+
             villa.add_locations(
                 get_location_names_with_ids(["Carrington Villa (Perfect Agent): Pick up Sniper Rifle in the bathroom"]), 
                 PerfectDarkLocation
             )
 
+            attack_ship.add_locations(
+                get_location_names_with_ids(["Attack Ship (Perfect Agent): Pick up De Vries' necklace"]), 
+                PerfectDarkLocation
+            )
+
         if world.options.mission_logic.value == MissionLogic.option_perfect:
+            defection_locations = get_location_names_with_ids(
+                [
+                    "dD Defection: Pick up Laptop Gun in the room that the office worker hides in",
+                    "dD Defection: Pick up Falcon 2 (silencer) on the right side of the room that the office worker hides in",
+                    "dD Defection: Pick up Falcon 2 (silencer) on the left side of the room that the office worker hides in"
+                ]
+            )
+            defection.add_locations(defection_locations, PerfectDarkLocation)
+
             mbr_locations = get_location_names_with_ids(
                 [
                     "Mr. Blonde's Revenge: Pick up Laptop Gun in the room that the office worker hides in",

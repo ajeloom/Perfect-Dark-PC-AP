@@ -11125,16 +11125,6 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         "dD Defection: Pick up double Falcon 2 (silencer) from guard in the room next to the office worker's office": has_defection
                                                                                                                       & has_falcon2_silencer,
 
-        "dD Defection: Pick up Laptop Gun in the room that the office worker hides in": has_defection
-                                                                                        & has_laptop_gun
-                                                                                        & has_weapon_for_defection,
-
-        "dD Defection: Pick up Falcon 2 (silencer) on the right side of the room that the office worker hides in": has_defection
-                                                                                                                   & has_falcon2_silencer,
-
-        "dD Defection: Pick up Falcon 2 (silencer) on the left side of the room that the office worker hides in": has_defection
-                                                                                                                  & has_falcon2_silencer,
-
         "dD Defection: Pick up tiny ammo box on the desk in the corner room with 4 windows (floor below Cassandra's office)": has_defection
                                                                                                                               & has_weapon_for_defection,
 
@@ -11320,9 +11310,12 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                       & HAS_AFO_LEFT_KEY
                                                                                       & has_cyclone,
     
-        # "Crash Site: Pick up DY357-LX from Trent": 1,
+        "Crash Site: Pick up DY357-LX by disarming Trent": has_crash_site
+                                                           & has_dy357lx
+                                                           & has_weapon_for_crash_site,
         
         "Crash Site: Get Proximity Mine from Elvis before completing any objective": has_crash_site
+                                                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                                                      & has_proxy_mine
                                                                                      & has_weapon_for_crash_site,
     
@@ -11368,22 +11361,6 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                                              & has_cmp150
                                                                                                              & has_weapon_for_mbr
                                                                                                              & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
-
-        # "Mr. Blonde's Revenge: Pick up Laptop Gun in the room that the office worker hides in": has_mbr 
-        #                                                                                         & has_laptop_gun
-        #                                                                                         & has_weapon_for_mbr
-        #                                                                                         & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
-
-        # "Mr. Blonde's Revenge: Pick up Falcon 2 on the right side of the room that the office worker hides in": has_mbr
-        #                                                                                                         & has_falcon2 
-        #                                                                                                         & has_weapon_for_mbr
-        #                                                                                                         & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
-
-        # "Mr. Blonde's Revenge: Pick up Falcon 2 on the left side of the room that the office worker hides in": has_mbr 
-        #                                                                                                        & has_falcon2 
-        #                                                                                                        & has_weapon_for_mbr
-        #                                                                                                        & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
-        
 
         "Mr. Blonde's Revenge: Pick up tiny ammo box on the desk in the corner room with 4 windows (floor below Cassandra's office)": has_mbr
                                                                                                                                       & has_weapon_for_mbr
@@ -11681,6 +11658,20 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
             add_rule(world, pickupsanity_rules_agent_or_special)
 
         if world.options.perfect_agent:
+            if world.options.mission_logic.value < MissionLogic.option_perfect:
+                defection_laptop_gun = world.get_location("dD Defection: Pick up Laptop Gun in the room that the office worker hides in")
+                world.set_rule(defection_laptop_gun, Has("dD Defection - Perfect Agent")
+                                                     & has_laptop_gun
+                                                     & has_weapon_for_defection)
+
+                defection_right_falcon2 = world.get_location("dD Defection: Pick up Falcon 2 (silencer) on the right side of the room that the office worker hides in")
+                world.set_rule(defection_right_falcon2, Has("dD Defection - Perfect Agent")
+                                                        & has_falcon2_silencer)
+
+                defection_left_falcon2 = world.get_location("dD Defection: Pick up Falcon 2 (silencer) on the left side of the room that the office worker hides in")
+                world.set_rule(defection_left_falcon2, Has("dD Defection - Perfect Agent")
+                                                       & has_falcon2_silencer)
+
             villa_sniper_rifle = world.get_location("Carrington Villa (Perfect Agent): Pick up Sniper Rifle in the bathroom")
             world.set_rule(villa_sniper_rifle, Has("Carrington Villa - Perfect Agent")
                                                & has_sniper_rifle
@@ -11689,10 +11680,28 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                                | HAS_ANY_WEAPON_TYPE))
 
+            attack_ship_necklace = world.get_location("Attack Ship (Perfect Agent): Pick up De Vries' necklace")
+            world.set_rule(attack_ship_necklace, Has("Attack Ship - Perfect Agent")
+                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
+                                                 & HAS_DD_KEYS)
+
         if world.options.special_agent or world.options.perfect_agent:
             add_rule(world, pickupsanity_rules_special_or_perfect)
 
         if world.options.mission_logic.value == MissionLogic.option_perfect:
+            defection_laptop_gun = world.get_location("dD Defection: Pick up Laptop Gun in the room that the office worker hides in")
+            world.set_rule(defection_laptop_gun, has_defection
+                                                 & has_laptop_gun
+                                                 & has_weapon_for_defection)
+
+            defection_right_falcon2 = world.get_location("dD Defection: Pick up Falcon 2 (silencer) on the right side of the room that the office worker hides in")
+            world.set_rule(defection_right_falcon2, has_defection
+                                                    & has_falcon2_silencer)
+
+            defection_left_falcon2 = world.get_location("dD Defection: Pick up Falcon 2 (silencer) on the left side of the room that the office worker hides in")
+            world.set_rule(defection_left_falcon2, has_defection
+                                                   & has_falcon2_silencer)
+
             mbr_laptop_gun = world.get_location("Mr. Blonde's Revenge: Pick up Laptop Gun in the room that the office worker hides in")
             world.set_rule(mbr_laptop_gun, has_mbr 
                                            & has_laptop_gun
@@ -11843,10 +11852,10 @@ def add_challenge_rules(world: PerfectDarkWorld, challenge_rules: dict) -> None:
 
 
 def add_exit_rules(world: PerfectDarkWorld, exit_rules: dict) -> None:
-    for exit, rule in exit_rules.items():
-        if exit in alternate_exits:
-            exit_location = world.get_location(exit)
-            world.set_rule(exit_location, rule)
+    for location in world.multiworld.get_locations(world.player):
+        if location.name in exit_rules:
+            exit_location = world.get_location(location.name)
+            world.set_rule(exit_location, exit_rules[location.name])
 
 
 def exclude_weapons_from_list(excluded_weapons: list[str]) -> list[str]:
