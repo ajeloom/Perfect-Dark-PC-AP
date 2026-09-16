@@ -269,6 +269,10 @@ ITEM_NAME_TO_ID = {
     "Perfect Darkness Trap": 257,
     "Fast Animations Trap": 258,
     "Skedar Trap": 259,
+    "Ammo Refill": 260,
+    "Shield Refill": 261,
+    "Health Refill": 262,
+    "Buddy": 263,
 }
 
 
@@ -532,6 +536,10 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Perfect Darkness Trap": ItemClassification.trap,
     "Fast Animations Trap": ItemClassification.trap,
     "Skedar Trap": ItemClassification.trap,
+    "Ammo Refill": ItemClassification.filler | ItemClassification.useful,
+    "Shield Refill": ItemClassification.filler | ItemClassification.useful,
+    "Health Refill": ItemClassification.filler | ItemClassification.useful,
+    "Buddy": ItemClassification.filler | ItemClassification.useful,
 }
 
 
@@ -561,8 +569,16 @@ def get_random_filler_item_name(world: PerfectDarkWorld) -> str:
             return world.random.choice(available_traps)
         else:
             return "Cheese"
+    
+    filler = [
+        "Cheese",
+        "Ammo Refill",
+        "Shield Refill",
+        "Health Refill",
+        "Buddy",
+    ]
 
-    return "Cheese"
+    return world.random.choice(filler)
 
 
 def create_item_with_correct_classification(world: PerfectDarkWorld, name: str) -> PerfectDarkItem:
