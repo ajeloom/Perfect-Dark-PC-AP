@@ -10928,77 +10928,86 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         # "Complete Challenges: Laser Unlock": can_complete_one_challenge,
     }
 
-    has_defection = Has("dD Defection - Agent") | Has("dD Defection - Special Agent") | Has("dD Defection - Perfect Agent")
-    has_investigation = Has("dD Investigation - Agent") | Has("dD Investigation - Special Agent") | Has("dD Investigation - Perfect Agent")
-    has_extraction = Has("dD Extraction - Agent") | Has("dD Extraction - Special Agent") | Has("dD Extraction - Perfect Agent")
-    has_villa = Has("Carrington Villa - Agent") | Has("Carrington Villa - Special Agent") | Has("Carrington Villa - Perfect Agent")
-    has_chicago = Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent")
-    has_g5 = Has("G5 Building - Agent") | Has("G5 Building - Special Agent") | Has("G5 Building - Perfect Agent")
-    has_infiltration = Has("A51 Infiltration - Agent") | Has("A51 Infiltration - Special Agent") | Has("A51 Infiltration - Perfect Agent")
-    has_rescue = Has("A51 Rescue - Agent") | Has("A51 Rescue - Special Agent") | Has("A51 Rescue - Perfect Agent")
-    has_escape = Has("A51 Escape - Agent") | Has("A51 Escape - Special Agent") | Has("A51 Escape - Perfect Agent")
-    has_air_base = Has("Air Base - Agent") | Has("Air Base - Special Agent") | Has("Air Base - Perfect Agent")
-    has_air_force_one = Has("Air Force One - Agent") | Has("Air Force One - Special Agent") | Has("Air Force One - Perfect Agent")
-    has_crash_site = Has("Crash Site - Agent") | Has("Crash Site - Special Agent") | Has("Crash Site - Perfect Agent")
-    has_pelagic = Has("Pelagic II - Agent") | Has("Pelagic II - Special Agent") | Has("Pelagic II - Perfect Agent")
-    has_deep_sea = Has("Deep Sea - Agent") | Has("Deep Sea - Special Agent") | Has("Deep Sea - Perfect Agent")
-    has_defense = Has("CI Defense - Agent") | Has("CI Defense - Special Agent") | Has("CI Defense - Perfect Agent")
-    has_attack_ship = Has("Attack Ship - Agent") | Has("Attack Ship - Special Agent") | Has("Attack Ship - Perfect Agent")
-    has_skedar_ruins = Has("Skedar Ruins - Agent") | Has("Skedar Ruins - Special Agent") | Has("Skedar Ruins - Perfect Agent") | Has("Skedar Ruins")
-    has_mbr = Has("Mr. Blonde's Revenge - Agent") | Has("Mr. Blonde's Revenge - Special Agent") | Has("Mr. Blonde's Revenge - Perfect Agent")
-    has_maian_sos = Has("Maian SOS - Agent") | Has("Maian SOS - Special Agent") | Has("Maian SOS - Perfect Agent")
-
-    has_weapon_for_defection = (HasAny("Falcon 2 (Silencer)", "CMP150")
+    has_weapon_for_defection = (Has("Falcon 2 (Silencer)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                                | HasAny("Falcon 2 (Silencer)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                 | HAS_ANY_WEAPON_TYPE)
 
-    has_weapon_for_investigation = (HasAny("Falcon 2", "CMP150")
+    has_weapon_for_investigation = (Has("Falcon 2", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                                    | HasAny("Falcon 2", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                     | HAS_ANY_WEAPON_TYPE)
 
-    has_weapon_for_extraction = (HasAny("Falcon 2 (Scope)", "CMP150")
-                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                | HAS_ANY_WEAPON_TYPE)
+    has_weapon_for_extraction_bottom_floor = (Has("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                                                | HasAny("Falcon 2 (Scope)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
+                                                | HAS_ANY_WEAPON_TYPE)
 
-    has_weapon_for_villa = (HasAny("Laptop Gun", "CMP150", "Sniper Rifle")
+    has_weapon_for_extraction_upper_floors = (HasAll("Falcon 2 (Scope)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                                            | HasAny("Falcon 2 (Scope)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+                                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
+                                            | HAS_ANY_WEAPON_TYPE)
+
+    has_villa_agent_or_special = (Has("Carrington Villa - Agent") | Has("Carrington Villa - Special Agent"))
+
+    has_weapon_for_villa = (has_villa_agent_or_special & Has("Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                            | (has_villa_agent_or_special & HasAny("Sniper Rifle", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
+                            | (Has("Carrington Villa - Perfect Agent") & Has("Laptop Gun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False))
+                            | (Has("Carrington Villa - Perfect Agent") & HasAny("Laptop Gun", "CMP150", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                             | HAS_ANY_WEAPON_TYPE)
 
-    has_weapon_for_chicago = (HasAny("Falcon 2 (Scope)", "CMP150")
+    has_weapon_for_chicago = (Has("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                                | HasAny("Falcon 2 (Scope)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
+                                | HasAny("Falcon 2 (Scope)", "CMP150", "DY357 Magnum", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                 | HAS_ANY_WEAPON_TYPE)
 
-    has_weapon_for_g5 = (HasAny("Falcon 2 (Silencer)", "CMP150")
+    has_weapon_for_g5 = (Has("Falcon 2 (Silencer)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                        | HasAny("Falcon 2 (Silencer)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                         | HAS_ANY_WEAPON_TYPE)
 
-    has_weapon_for_infiltration = (HasAny("Falcon 2", "MagSec 4")
+    has_weapon_for_infiltration = (Has("Falcon 2", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                                    | HasAny("Falcon 2", "MagSec 4", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                     | HAS_ANY_WEAPON_TYPE)
 
-    has_weapon_for_rescue = (HasAny("Falcon 2 (Silencer)", "Dragon")
+    has_weapon_for_rescue = (Has("Falcon 2 (Silencer)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                            | HasAny("Falcon 2 (Silencer)", "Dragon", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                             | HAS_ANY_WEAPON_TYPE)
 
-    has_weapon_for_escape = (Has("Falcon 2 (Scope)")
+    has_weapon_for_escape = (Has("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                            | HasAny("Falcon 2 (Scope)", "SuperDragon", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
+                            | HasAny("Falcon 2 (Scope)", "SuperDragon", "Tranquilizer", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                             | HAS_ANY_WEAPON_TYPE)
 
-    has_weapon_for_crash_site = (HasAny("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle")
+    has_weapon_for_air_base = (HasAll("Dragon", "K7 Avenger", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
+                                | HasAny("Dragon", "K7 Avenger", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
+                                | HAS_ANY_WEAPON_TYPE)
+
+    has_weapon_for_crash_site = (HasAny("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
+                                | HasAny("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                 | HAS_ANY_WEAPON_TYPE)
 
-    has_weapon_for_pelagic = (HasAny("Falcon 2 (Silencer)", "Laptop Gun")
+    has_weapon_for_pelagic = (HasAny("Falcon 2 (Silencer)", "Laptop Gun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                                | HasAny("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
+                                | HasAny("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", "Phoenix", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                 | HAS_ANY_WEAPON_TYPE)
@@ -11013,19 +11022,21 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
                                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]))
 
-    has_weapon_for_attack_ship = (HasAll("Combat Knife", "Mauler", "AR34")
+    has_weapon_for_attack_ship = (HasAll("Combat Knife", "Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
                                     | Has("Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                     | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                     | HAS_ANY_WEAPON_TYPE)
 
-    has_weapon_for_mbr = (Has("Mauler")
+    has_weapon_for_mbr = (Has("Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                            | HasAny("Mauler", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                             | HAS_ANY_WEAPON_TYPE)
 
-    has_weapon_for_maian_sos = (HasAll("Falcon 2", "Dragon")
-                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
+    has_weapon_for_maian_sos = (HasAll("Falcon 2", "Dragon", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                                | Has("Falcon 2", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                 | HAS_ANY_WEAPON_TYPE)
 
@@ -11188,18 +11199,18 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         "dD Extraction: Pick up DY357 Magnum from the fifth guard after eliminating the first five guards without being seen": has_extraction
                                                                                                                              & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
                                                                                                                              & has_dy357 
-                                                                                                                             & has_weapon_for_extraction,
+                                                                                                                             & has_weapon_for_extraction_bottom_floor,
 
         "dD Extraction: Pick up the Rocket Launcher in the room outside Cassandra's office": has_extraction 
                                                                                              & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                                                              & has_rocket_launcher 
-                                                                                             & has_weapon_for_extraction,
+                                                                                             & has_weapon_for_extraction_upper_floors,
 
         "dD Extraction: Pick up Grenade on Cassandra's desk": has_extraction
                                                               & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                               & HAS_CASS_OFFICE_KEY
                                                               & has_grenade
-                                                              & has_weapon_for_extraction,
+                                                              & has_weapon_for_extraction_upper_floors,
 
         "dD Extraction: Pick up Dragon in the hidden room near Cassandra's office": has_extraction
                                                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
@@ -11209,17 +11220,17 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                                                                     | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))
                                                                                     & has_dragon
-                                                                                    & has_weapon_for_extraction,
+                                                                                    & has_weapon_for_extraction_upper_floors,
 
         "dD Extraction: Pick up first rocket ammo box on the roof": has_extraction
                                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
                                                                     & has_rocket_launcher 
-                                                                    & has_weapon_for_extraction,
+                                                                    & has_weapon_for_extraction_upper_floors,
 
         "dD Extraction: Pick up second rocket ammo box on the roof": has_extraction
                                                                      & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
                                                                      & has_rocket_launcher 
-                                                                     & has_weapon_for_extraction,
+                                                                     & has_weapon_for_extraction_upper_floors,
     
         "Carrington Villa: Pick up Devastator hidden in crate near the helipad": has_villa
                                                                                  & has_devastator
@@ -11413,7 +11424,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         "dD Extraction (Agent): Pick up Shield inside the room to the left of the elevator (2nd floor under Cassandra's office)": Has("dD Extraction - Agent") 
                                                                                                                                   & Has("Shield")
                                                                                                                                   & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
-                                                                                                                                  & has_weapon_for_extraction,
+                                                                                                                                  & has_weapon_for_extraction_upper_floors,
 
         "Carrington Villa (Agent): Pick up Shield on the crate near the helipad": Has("Carrington Villa - Agent") 
                                                                                   & Has("Shield")
@@ -11521,9 +11532,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                       & Has("Stewardess Disguise")
                                                                                       & (HasAny("Crossbow", "CamSpy")
                                                                                       | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
-                                                                                      & (HasAll("Dragon", "K7 Avenger")
-                                                                                      | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-                                                                                      | HAS_ANY_WEAPON_TYPE),
+                                                                                      & has_weapon_for_air_base,
 
         "Air Force One (Agent/Special): Pick up Shield in the room with the piano": (Has("Air Force One - Agent") | Has("Air Force One - Special Agent")) 
                                                                                     & Has("Shield"),
