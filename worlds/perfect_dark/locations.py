@@ -656,7 +656,7 @@ LOCATION_NAME_TO_ID = {
     "A51 Rescue (Agent/Special): Pick up Shield on the desk in the room next to the locked room at the top of the sloping corridor": 17140,
     "A51 Escape: Pick up double Falcon 2 (scope) in the room behind you at the start of the mission": 18036,
     "A51 Escape (Agent): Pick up Shield dropped by the biotechnician in the circular room without the slope after moving Elvis to safety": 18040,
-    "A51 Escape (Agent/Special): Pick up Shield after unlocking the medical containment doors": 18895,
+    "A51 Escape (Agent/Special): Pick up Shield behind the locked medical containment doors": 18895,
     "A51 Escape: Pick up Remote Mine in the room before the secret hangar after moving Elvis to safety within 36 seconds": 19383,
     "Air Base (Agent): Pick up Shield dropped by NSA Lackey near the elevator door": 20017,
     "Air Base: Pick up double DY357 Magnum after knocking out the three NSA Lackeys": 20018,
@@ -676,7 +676,7 @@ LOCATION_NAME_TO_ID = {
     "Deep Sea: Pick up Proximity Mine dropped by guard on the far left from the dead Skedar before Elvis gets them": 28008,
     "Deep Sea (Agent/Special): Pick up Shield on the left path from the first teleportal": 28018,
     # "Deep Sea (Agent): Pick up Shield dropped from Sniper guard": 28026,
-    "Deep Sea: Pick up Shotgun next to the Shield on the left path from the first teleportal": 28063,
+    # "Deep Sea: Pick up Shotgun next to the Shield on the left path from the first teleportal": 28063,
     "CI Defense: Pick up Devastator in the Info Room after saving most of the hostages": 30000,
     "CI Defense (Agent/Special): Pick up Shield in the basement room with the two small hangar doors": 30146,
     "CI Defense (Agent): Pick up Shield on the second floor at the dead end opposite from Carrington's office": 30648,
@@ -2316,7 +2316,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         deep_sea_locations = get_location_names_with_ids(
             [
                 "Deep Sea: Pick up Proximity Mine dropped by guard on the far left from the dead Skedar before Elvis gets them",
-                "Deep Sea: Pick up Shotgun next to the Shield on the left path from the first teleportal"
+                # "Deep Sea: Pick up Shotgun next to the Shield on the left path from the first teleportal"
             ]
         )
         deep_sea.add_locations(deep_sea_locations, PerfectDarkLocation)
@@ -2489,7 +2489,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             )
 
             escape.add_locations(
-                get_location_names_with_ids(["A51 Escape (Agent/Special): Pick up Shield after unlocking the medical containment doors"]), 
+                get_location_names_with_ids(["A51 Escape (Agent/Special): Pick up Shield behind the locked medical containment doors"]), 
                 PerfectDarkLocation
             )
 

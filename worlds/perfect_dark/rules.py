@@ -11327,10 +11327,10 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                                                          & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
                                                                                                                          & has_weapon_for_deep_sea,
         
-        "Deep Sea: Pick up Shotgun next to the Shield on the left path from the first teleportal": has_deep_sea
-                                                                                                   & has_shotgun
-                                                                                                   & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
-                                                                                                   & has_weapon_for_deep_sea,
+        # "Deep Sea: Pick up Shotgun next to the Shield on the left path from the first teleportal": has_deep_sea
+        #                                                                                            & has_shotgun
+        #                                                                                            & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+        #                                                                                            & has_weapon_for_deep_sea,
     
         "CI Defense: Pick up Devastator in the Info Room after saving most of the hostages": has_defense
                                                                                              & has_devastator
@@ -11511,10 +11511,10 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                                                                          & Has("Shield")
                                                                                                                                          & has_weapon_for_rescue,
 
-        "A51 Escape (Agent/Special): Pick up Shield after unlocking the medical containment doors": (Has("A51 Escape - Agent") | Has("A51 Escape - Special Agent")) 
-                                                                                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                                                                    & Has("Shield")
-                                                                                                    & has_weapon_for_escape,
+        "A51 Escape (Agent/Special): Pick up Shield behind the locked medical containment doors": (Has("A51 Escape - Agent") | Has("A51 Escape - Special Agent")) 
+                                                                                                  & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                                                                  & Has("Shield")
+                                                                                                  & has_weapon_for_escape,
 
         "Air Base (Agent/Special): Pick up Shield in the safe with the flight plans": (Has("Air Base - Agent") | Has("Air Base - Special Agent")) 
                                                                                       & Has("Shield")
