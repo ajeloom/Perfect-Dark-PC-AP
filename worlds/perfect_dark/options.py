@@ -197,10 +197,8 @@ class WeaponProgression(Choice):
     
     - Progressive One Gun:
         You progress through the weapons in the same order, but you will only have
-        the current progressive weapon in your inventory at the start of a mission. 
-        You are given infinite ammo and a laser on some missions to prevent softlocks. 
-        In missions, other weapons cannot be picked up except for the ones required for some objectives. 
-        In challenges, you are allowed to pick up other weapons.
+        the current progressive weapon in your inventory at the start of a mission.
+        You are given infinite ammo on some weapons and a laser on some missions to prevent softlocks.
         Only recommended for people who are looking for a challenging run.
 
     - Progressive Types:
@@ -208,7 +206,6 @@ class WeaponProgression(Choice):
         Pistols, SMGs, Rifles, Explosives, and Other.
         Your inventory will only be filled with the current
         progressive weapon for each type at the start of a mission.
-        You cannot pick up weapons except for the ones required in certain missions.
     """
 
     display_name = "Weapon Progression"
@@ -476,6 +473,7 @@ class Pickupsanity(Toggle):
     """
     Adds checks for picking up ammo crates, shields, and hidden items in missions.
     You must have any of the difficulties enabled for this to work.
+    Some checks are only in certain difficulties.
     """
 
     display_name = "Pickupsanity"
