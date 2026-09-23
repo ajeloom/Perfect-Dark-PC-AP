@@ -247,7 +247,9 @@ has_remote_mine = (Has("Remote Mine")
                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])
                     | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]))
 
-has_weapon_for_chicago = (HasAny("Falcon 2 (Scope)", "CMP150")
+has_weapon_for_chicago = (Has("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                            | HasAny("Falcon 2 (Scope)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
+                            | HasAny("Falcon 2 (Scope)", "CMP150", "DY357 Magnum", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                             | HAS_ANY_WEAPON_TYPE)
@@ -2653,11 +2655,11 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
 
     alternate_exits_normal = {
         "Complete G5 Building (Agent): Bottom Exit": agent_rules_normal["Complete: G5 Building - Agent"]
-                                                     & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                     & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                      & has_remote_mine
                                                      & has_weapon_for_chicago,
         "Complete G5 Building (Agent): Upper Exit": agent_rules_normal["Complete: G5 Building - Agent"] 
-                                                    & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                    & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                     & has_remote_mine
                                                     & has_weapon_for_chicago,
         "Complete A51 Escape (Agent): UFO Escape": agent_rules_normal["Complete: A51 Escape - Agent"],
@@ -2665,11 +2667,11 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
         "Complete Air Base (Agent): Shuttle Exit": agent_rules_normal["Complete: Air Base - Agent"],
         "Complete Air Base (Agent): Ladder Exit": agent_rules_normal["Complete: Air Base - Agent"],
         "Complete G5 Building (Special Agent): Bottom Exit": special_agent_rules_normal["Complete: G5 Building - Special Agent"]
-                                                             & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                             & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                              & has_remote_mine
                                                              & has_weapon_for_chicago,
         "Complete G5 Building (Special Agent): Upper Exit": special_agent_rules_normal["Complete: G5 Building - Special Agent"] 
-                                                            & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                            & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                             & has_remote_mine
                                                             & has_weapon_for_chicago,
         "Complete A51 Escape (Special Agent): UFO Escape": special_agent_rules_normal["Complete: A51 Escape - Special Agent"],
@@ -2677,11 +2679,11 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
         "Complete Air Base (Special Agent): Shuttle Exit": special_agent_rules_normal["Complete: Air Base - Special Agent"],
         "Complete Air Base (Special Agent): Ladder Exit": special_agent_rules_normal["Complete: Air Base - Special Agent"],
         "Complete G5 Building (Perfect Agent): Bottom Exit": perfect_agent_rules_normal["Complete: G5 Building - Perfect Agent"]
-                                                             & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                             & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                              & has_remote_mine
                                                              & has_weapon_for_chicago,
         "Complete G5 Building (Perfect Agent): Upper Exit": perfect_agent_rules_normal["Complete: G5 Building - Perfect Agent"]
-                                                            & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                            & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                             & has_remote_mine
                                                             & has_weapon_for_chicago,
         "Complete A51 Escape (Perfect Agent): UFO Escape": perfect_agent_rules_normal["Complete: A51 Escape - Perfect Agent"],
@@ -5060,11 +5062,11 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
 
     alternate_exits_veteran = {
         "Complete G5 Building (Agent): Bottom Exit": agent_rules_veteran["Complete: G5 Building - Agent"]
-                                                     & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                     & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                      & has_remote_mine
                                                      & has_weapon_for_chicago,
         "Complete G5 Building (Agent): Upper Exit": agent_rules_veteran["Complete: G5 Building - Agent"] 
-                                                    & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                    & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                     & has_remote_mine
                                                     & has_weapon_for_chicago,
         "Complete A51 Escape (Agent): UFO Escape": agent_rules_veteran["Complete: A51 Escape - Agent"],
@@ -5072,11 +5074,11 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
         "Complete Air Base (Agent): Shuttle Exit": agent_rules_veteran["Complete: Air Base - Agent"],
         "Complete Air Base (Agent): Ladder Exit": agent_rules_veteran["Complete: Air Base - Agent"],
         "Complete G5 Building (Special Agent): Bottom Exit": special_agent_rules_veteran["Complete: G5 Building - Special Agent"]
-                                                             & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                             & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                              & has_remote_mine
                                                              & has_weapon_for_chicago,
         "Complete G5 Building (Special Agent): Upper Exit": special_agent_rules_veteran["Complete: G5 Building - Special Agent"] 
-                                                            & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                            & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                             & has_remote_mine
                                                             & has_weapon_for_chicago,
         "Complete A51 Escape (Special Agent): UFO Escape": special_agent_rules_veteran["Complete: A51 Escape - Special Agent"],
@@ -5084,11 +5086,11 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
         "Complete Air Base (Special Agent): Shuttle Exit": special_agent_rules_veteran["Complete: Air Base - Special Agent"],
         "Complete Air Base (Special Agent): Ladder Exit": special_agent_rules_veteran["Complete: Air Base - Special Agent"],
         "Complete G5 Building (Perfect Agent): Bottom Exit": perfect_agent_rules_veteran["Complete: G5 Building - Perfect Agent"]
-                                                             & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                             & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                              & has_remote_mine
                                                              & has_weapon_for_chicago,
         "Complete G5 Building (Perfect Agent): Upper Exit": perfect_agent_rules_veteran["Complete: G5 Building - Perfect Agent"]
-                                                            & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                            & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                             & has_remote_mine
                                                             & has_weapon_for_chicago,
         "Complete A51 Escape (Perfect Agent): UFO Escape": perfect_agent_rules_veteran["Complete: A51 Escape - Perfect Agent"],
@@ -7441,11 +7443,11 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
 
     alternate_exits_hard = {
         "Complete G5 Building (Agent): Bottom Exit": agent_rules_hard["Complete: G5 Building - Agent"]
-                                                     & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                     & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                      & has_remote_mine
                                                      & has_weapon_for_chicago,
         "Complete G5 Building (Agent): Upper Exit": agent_rules_hard["Complete: G5 Building - Agent"] 
-                                                    & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                    & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                     & has_remote_mine
                                                     & has_weapon_for_chicago,
         "Complete A51 Escape (Agent): UFO Escape": agent_rules_hard["Complete: A51 Escape - Agent"],
@@ -7453,11 +7455,11 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
         "Complete Air Base (Agent): Shuttle Exit": agent_rules_hard["Complete: Air Base - Agent"],
         "Complete Air Base (Agent): Ladder Exit": agent_rules_hard["Complete: Air Base - Agent"],
         "Complete G5 Building (Special Agent): Bottom Exit": special_agent_rules_hard["Complete: G5 Building - Special Agent"]
-                                                             & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                             & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                              & has_remote_mine
                                                              & has_weapon_for_chicago,
         "Complete G5 Building (Special Agent): Upper Exit": special_agent_rules_hard["Complete: G5 Building - Special Agent"] 
-                                                            & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                            & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                             & has_remote_mine
                                                             & has_weapon_for_chicago,
         "Complete A51 Escape (Special Agent): UFO Escape": special_agent_rules_hard["Complete: A51 Escape - Special Agent"],
@@ -7465,11 +7467,11 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
         "Complete Air Base (Special Agent): Shuttle Exit": special_agent_rules_hard["Complete: Air Base - Special Agent"],
         "Complete Air Base (Special Agent): Ladder Exit": special_agent_rules_hard["Complete: Air Base - Special Agent"],
         "Complete G5 Building (Perfect Agent): Bottom Exit": perfect_agent_rules_hard["Complete: G5 Building - Perfect Agent"]
-                                                             & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                             & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                              & has_remote_mine
                                                              & has_weapon_for_chicago,
         "Complete G5 Building (Perfect Agent): Upper Exit": perfect_agent_rules_hard["Complete: G5 Building - Perfect Agent"]
-                                                            & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                            & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                             & has_remote_mine
                                                             & has_weapon_for_chicago,
         "Complete A51 Escape (Perfect Agent): UFO Escape": perfect_agent_rules_hard["Complete: A51 Escape - Perfect Agent"],
@@ -9733,11 +9735,11 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
 
     alternate_exits_perfect = {
         "Complete G5 Building (Agent): Bottom Exit": agent_rules_perfect["Complete: G5 Building - Agent"]
-                                                     & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                     & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                      & has_remote_mine
                                                      & has_weapon_for_chicago,
         "Complete G5 Building (Agent): Upper Exit": agent_rules_perfect["Complete: G5 Building - Agent"] 
-                                                    & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                    & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                     & has_remote_mine
                                                     & has_weapon_for_chicago,
         "Complete A51 Escape (Agent): UFO Escape": agent_rules_perfect["Complete: A51 Escape - Agent"],
@@ -9745,11 +9747,11 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         "Complete Air Base (Agent): Shuttle Exit": agent_rules_perfect["Complete: Air Base - Agent"],
         "Complete Air Base (Agent): Ladder Exit": agent_rules_perfect["Complete: Air Base - Agent"],
         "Complete G5 Building (Special Agent): Bottom Exit": special_agent_rules_perfect["Complete: G5 Building - Special Agent"]
-                                                             & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                             & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                              & has_remote_mine
                                                              & has_weapon_for_chicago,
         "Complete G5 Building (Special Agent): Upper Exit": special_agent_rules_perfect["Complete: G5 Building - Special Agent"] 
-                                                            & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                            & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                             & has_remote_mine
                                                             & has_weapon_for_chicago,
         "Complete A51 Escape (Special Agent): UFO Escape": special_agent_rules_perfect["Complete: A51 Escape - Special Agent"],
@@ -9757,11 +9759,11 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
         "Complete Air Base (Special Agent): Shuttle Exit": special_agent_rules_perfect["Complete: Air Base - Special Agent"],
         "Complete Air Base (Special Agent): Ladder Exit": special_agent_rules_perfect["Complete: Air Base - Special Agent"],
         "Complete G5 Building (Perfect Agent): Bottom Exit": perfect_agent_rules_perfect["Complete: G5 Building - Perfect Agent"]
-                                                             & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                             & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                              & has_remote_mine
                                                              & has_weapon_for_chicago,
         "Complete G5 Building (Perfect Agent): Upper Exit": perfect_agent_rules_perfect["Complete: G5 Building - Perfect Agent"]
-                                                            & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                            & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
                                                             & has_remote_mine
                                                             & has_weapon_for_chicago,
         "Complete A51 Escape (Perfect Agent): UFO Escape": perfect_agent_rules_perfect["Complete: A51 Escape - Perfect Agent"],
@@ -10928,6 +10930,26 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         # "Complete Challenges: Laser Unlock": can_complete_one_challenge,
     }
 
+    has_defection = HasAny("dD Defection - Agent", "dD Defection - Special Agent", "dD Defection - Perfect Agent")
+    has_investigation = HasAny("dD Investigation - Agent", "dD Investigation - Special Agent", "dD Investigation - Perfect Agent")
+    has_extraction = HasAny("dD Extraction - Agent", "dD Extraction - Special Agent", "dD Extraction - Perfect Agent")
+    has_villa = HasAny("Carrington Villa - Agent", "Carrington Villa - Special Agent", "Carrington Villa - Perfect Agent")
+    has_chicago = HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
+    has_g5 = HasAny("G5 Building - Agent", "G5 Building - Special Agent", "G5 Building - Perfect Agent")
+    has_infiltration = HasAny("A51 Infiltration - Agent", "A51 Infiltration - Special Agent", "A51 Infiltration - Perfect Agent")
+    has_rescue = HasAny("A51 Rescue - Agent", "A51 Rescue - Special Agent", "A51 Rescue - Perfect Agent")
+    has_escape = HasAny("A51 Escape - Agent", "A51 Escape - Special Agent", "A51 Escape - Perfect Agent")
+    has_air_base = HasAny("Air Base - Agent", "Air Base - Special Agent", "Air Base - Perfect Agent")
+    has_air_force_one = HasAny("Air Force One - Agent", "Air Force One - Special Agent", "Air Force One - Perfect Agent")
+    has_crash_site = HasAny("Crash Site - Agent", "Crash Site - Special Agent", "Crash Site - Perfect Agent")
+    has_pelagic = HasAny("Pelagic II - Agent", "Pelagic II - Special Agent", "Pelagic II - Perfect Agent")
+    has_deep_sea = HasAny("Deep Sea - Agent", "Deep Sea - Special Agent", "Deep Sea - Perfect Agent")
+    has_defense = HasAny("CI Defense - Agent", "CI Defense - Special Agent", "CI Defense - Perfect Agent")
+    has_attack_ship = HasAny("Attack Ship - Agent", "Attack Ship - Special Agent", "Attack Ship - Perfect Agent")
+    has_skedar_ruins = HasAny("Skedar Ruins - Agent", "Skedar Ruins - Special Agent", "Skedar Ruins - Perfect Agent", "Skedar Ruins")
+    has_mbr = HasAny("Mr. Blonde's Revenge - Agent", "Mr. Blonde's Revenge - Special Agent", "Mr. Blonde's Revenge - Perfect Agent")
+    has_maian_sos = HasAny("Maian SOS - Agent", "Maian SOS - Special Agent", "Maian SOS - Perfect Agent")
+
     has_weapon_for_defection = (Has("Falcon 2 (Silencer)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
                                 | HasAny("Falcon 2 (Silencer)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
@@ -11592,7 +11614,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                                                                                     & HAS_G5_KEYS
                                                                                                                                     & has_nbomb
                                                                                                                                     & has_weapon_for_g5
-                                                                                                                                    & (Has("Chicago - Agent") | Has("Chicago - Special Agent") | Has("Chicago - Perfect Agent"))
+                                                                                                                                    & has_chicago
                                                                                                                                     & has_remote_mine
                                                                                                                                     & has_weapon_for_chicago,
 
