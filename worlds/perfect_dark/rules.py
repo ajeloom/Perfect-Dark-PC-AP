@@ -242,6 +242,7 @@ PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID = {
 
 weapon_types = ("Progressive Pistol", "Progressive SMG", "Progressive Rifle", "Progressive Explosive")
 HAS_ANY_WEAPON_TYPE = ((Has("Progressive Other Weapon", count=4) & HasFromList(*weapon_types, count=1)) | HasFromList(*weapon_types, count=2))
+HAS_ANY_WEAPON_TYPE_ATTACKSHIP = (HasAll("Progressive SMG", "Progressive Rifle", "Progressive Pistol"))
 
 has_remote_mine = (Has("Remote Mine")
                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])
@@ -785,7 +786,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                            & (HasAll("Combat Knife", "Mauler")
                                            | (all_guns_filter & HAS_ANY_RIFLE)
                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                           | HAS_ANY_WEAPON_TYPE),
+                                           | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Agent Objective 2": Has("Attack Ship - Agent")
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -793,7 +794,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                            & (HasAll("Combat Knife", "Mauler", "AR34")
                                            | (all_guns_filter & HAS_ANY_RIFLE)
                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                           | HAS_ANY_WEAPON_TYPE),
+                                           | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Agent Objective 3": Has("Attack Ship - Agent")
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -801,7 +802,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                            & (HasAll("Combat Knife", "Mauler", "AR34")
                                            | (all_guns_filter & HAS_ANY_RIFLE)
                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                           | HAS_ANY_WEAPON_TYPE),
+                                           | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Complete: Attack Ship - Agent": Has("Attack Ship - Agent")
                                          & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -809,7 +810,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                          & (HasAll("Combat Knife", "Mauler", "AR34")
                                          | (all_guns_filter & HAS_ANY_RIFLE)
                                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                         | HAS_ANY_WEAPON_TYPE),
+                                         | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
 
         # Stage 17 - Skedar Ruins
@@ -1467,7 +1468,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Special Agent Objective 2": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -1475,7 +1476,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Special Agent Objective 3": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -1483,7 +1484,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Special Agent Objective 4": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -1491,7 +1492,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Complete: Attack Ship - Special Agent": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -1499,7 +1500,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
 
         # Stage 17 - Skedar Ruins
@@ -2301,14 +2302,14 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 2": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Combat Knife", "Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 3": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -2316,7 +2317,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 4": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -2324,7 +2325,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 5": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -2332,7 +2333,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Complete: Attack Ship - Perfect Agent": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -2340,7 +2341,7 @@ def set_all_normal_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
 
         # Stage 17 - Skedar Ruins
@@ -3190,7 +3191,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                            & (HasAll("Combat Knife", "Mauler")
                                            | (all_guns_filter & HAS_ANY_RIFLE)
                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                           | HAS_ANY_WEAPON_TYPE),
+                                           | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Agent Objective 2": Has("Attack Ship - Agent")
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -3198,7 +3199,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                            & (HasAll("Combat Knife", "Mauler", "AR34")
                                            | (all_guns_filter & HAS_ANY_RIFLE)
                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                           | HAS_ANY_WEAPON_TYPE),
+                                           | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Agent Objective 3": Has("Attack Ship - Agent")
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -3206,7 +3207,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                            & (HasAll("Combat Knife", "Mauler", "AR34")
                                            | (all_guns_filter & HAS_ANY_RIFLE)
                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                           | HAS_ANY_WEAPON_TYPE),
+                                           | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Complete: Attack Ship - Agent": Has("Attack Ship - Agent")
                                          & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -3214,7 +3215,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                          & (HasAll("Combat Knife", "Mauler", "AR34")
                                          | (all_guns_filter & HAS_ANY_RIFLE)
                                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                         | HAS_ANY_WEAPON_TYPE),
+                                         | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
 
         # Stage 17 - Skedar Ruins
@@ -3873,7 +3874,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Special Agent Objective 2": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -3881,7 +3882,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Special Agent Objective 3": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -3889,7 +3890,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Special Agent Objective 4": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -3897,7 +3898,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Complete: Attack Ship - Special Agent": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -3905,7 +3906,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
 
         # Stage 17 - Skedar Ruins
@@ -4708,14 +4709,14 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 2": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Combat Knife", "Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 3": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -4723,7 +4724,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 4": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -4731,7 +4732,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 5": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -4739,7 +4740,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Complete: Attack Ship - Perfect Agent": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -4747,7 +4748,7 @@ def set_all_veteran_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
 
         # Stage 17 - Skedar Ruins
@@ -5593,7 +5594,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                            & (HasAll("Combat Knife", "Mauler")
                                            | (all_guns_filter & HAS_ANY_RIFLE)
                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                           | HAS_ANY_WEAPON_TYPE),
+                                           | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Agent Objective 2": Has("Attack Ship - Agent")
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -5601,7 +5602,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                            & (HasAll("Combat Knife", "Mauler", "AR34")
                                            | (all_guns_filter & HAS_ANY_RIFLE)
                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                           | HAS_ANY_WEAPON_TYPE),
+                                           | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Agent Objective 3": Has("Attack Ship - Agent")
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -5609,7 +5610,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                            & (HasAll("Combat Knife", "Mauler", "AR34")
                                            | (all_guns_filter & HAS_ANY_RIFLE)
                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                           | HAS_ANY_WEAPON_TYPE),
+                                           | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Complete: Attack Ship - Agent": Has("Attack Ship - Agent")
                                          & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -5617,7 +5618,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                          & (HasAll("Combat Knife", "Mauler", "AR34")
                                          | (all_guns_filter & HAS_ANY_RIFLE)
                                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                         | HAS_ANY_WEAPON_TYPE),
+                                         | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
 
         # Stage 17 - Skedar Ruins
@@ -6267,7 +6268,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Special Agent Objective 2": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -6275,7 +6276,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Special Agent Objective 3": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -6283,7 +6284,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Special Agent Objective 4": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -6291,7 +6292,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Complete: Attack Ship - Special Agent": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -6299,7 +6300,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
 
         # Stage 17 - Skedar Ruins
@@ -7092,14 +7093,14 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 2": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                 & (HasAll("Combat Knife", "Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 3": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -7107,7 +7108,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 4": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -7115,7 +7116,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 5": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -7123,7 +7124,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Complete: Attack Ship - Perfect Agent": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -7131,7 +7132,7 @@ def set_all_hard_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (HasAll("Combat Knife", "Mauler", "AR34")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
 
         # Stage 17 - Skedar Ruins
@@ -7956,7 +7957,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                            & (Has("Mauler")
                                            | (all_guns_filter & HAS_ANY_RIFLE)
                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                           | HAS_ANY_WEAPON_TYPE),
+                                           | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Agent Objective 2": Has("Attack Ship - Agent")
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -7964,7 +7965,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                            & (Has("Mauler")
                                            | (all_guns_filter & HAS_ANY_RIFLE)
                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                           | HAS_ANY_WEAPON_TYPE),
+                                           | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Agent Objective 3": Has("Attack Ship - Agent")
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -7972,7 +7973,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                            & (Has("Mauler")
                                            | (all_guns_filter & HAS_ANY_RIFLE)
                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                           | HAS_ANY_WEAPON_TYPE),
+                                           | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Complete: Attack Ship - Agent": Has("Attack Ship - Agent")
                                          & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -7980,7 +7981,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                          & (Has("Mauler")
                                          | (all_guns_filter & HAS_ANY_RIFLE)
                                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                         | HAS_ANY_WEAPON_TYPE),
+                                         | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
 
         # Stage 17 - Skedar Ruins
@@ -8601,7 +8602,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (Has("Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Special Agent Objective 2": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -8609,7 +8610,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (Has("Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Special Agent Objective 3": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -8617,7 +8618,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (Has("Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Special Agent Objective 4": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -8625,7 +8626,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (Has("Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Complete: Attack Ship - Special Agent": Has("Attack Ship - Special Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -8633,7 +8634,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (Has("Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE)
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
 
         # Stage 17 - Skedar Ruins
@@ -9390,14 +9391,14 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (Has("Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 2": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                 & (Has("Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=2))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 3": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -9405,7 +9406,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (Has("Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 4": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -9413,7 +9414,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (Has("Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Attack Ship - Perfect Agent Objective 5": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -9421,7 +9422,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (Has("Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
         "Complete: Attack Ship - Perfect Agent": Has("Attack Ship - Perfect Agent")
                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
@@ -9429,7 +9430,7 @@ def set_all_perfect_location_rules(world: PerfectDarkWorld) -> None:
                                                 & (Has("Mauler")
                                                 | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                                | HAS_ANY_WEAPON_TYPE),
+                                                | HAS_ANY_WEAPON_TYPE_ATTACKSHIP),
 
 
         # Stage 17 - Skedar Ruins
@@ -11048,7 +11049,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                     | Has("Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                     | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                    | HAS_ANY_WEAPON_TYPE)
+                                    | HAS_ANY_WEAPON_TYPE_ATTACKSHIP)
 
     has_weapon_for_mbr = (Has("Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
                             | HasAny("Mauler", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
