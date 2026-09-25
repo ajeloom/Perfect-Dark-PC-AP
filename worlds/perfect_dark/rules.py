@@ -10311,45 +10311,45 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
     }
 
     weapon_training_cheat_rules = {
-        "Cheat Unlock: Get gold medals for Falcon 2, Falcon 2 (Silencer), and Falcon 2 (Scope)":
+        "Cheat Unlock: Get gold on Falcon 2, Falcon 2 (Silencer), and Falcon 2 (Scope)":
             HasAll("Falcon 2", "Falcon 2 (Silencer)", "Falcon 2 (Scope)", options=[OptionFilter(WeaponProgression, WeaponProgression.option_all_guns, operator="le")])
             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2 (Scope)"])
             | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Scope)"]),
 
-        "Cheat Unlock: Get gold medals for MagSec 4, Mauler, Phoenix, DY357 Magnum, and DY357-LX":
+        "Cheat Unlock: Get gold on MagSec 4, Mauler, Phoenix, DY357 Magnum, and DY357-LX":
             HasAll("MagSec 4", "Mauler", "Phoenix", "DY357 Magnum", "DY357-LX", options=[OptionFilter(WeaponProgression, WeaponProgression.option_all_guns, operator="le")])
             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DY357-LX"])
             | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"]),
 
-        "Cheat Unlock: Get gold medals for CMP150, Cyclone, Callisto NTG, and RC-P120":
+        "Cheat Unlock: Get gold on CMP150, Cyclone, Callisto NTG, and RC-P120":
             HasAll("CMP150", "Cyclone", "Callisto NTG", "RC-P120", options=[OptionFilter(WeaponProgression, WeaponProgression.option_all_guns, operator="le")])
             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"])
             | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]),
 
-        "Cheat Unlock: Get gold medals for Laptop Gun, Dragon, K7 Avenger, AR34, and SuperDragon":
+        "Cheat Unlock: Get gold on Laptop Gun, Dragon, K7 Avenger, AR34, and SuperDragon":
             HasAll("Laptop Gun", "Dragon", "K7 Avenger", "AR34", "SuperDragon", options=[OptionFilter(WeaponProgression, WeaponProgression.option_all_guns, operator="le")])
             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["SuperDragon"])
             | (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"])
                 & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"])),
 
-        "Cheat Unlock: Get gold medals for Shotgun, Sniper Rifle, Rocket Launcher, and Slayer":
+        "Cheat Unlock: Get gold on Shotgun, Sniper Rifle, Rocket Launcher, and Slayer":
             HasAll("Shotgun", "Sniper Rifle", "Rocket Launcher", "Slayer", options=[OptionFilter(WeaponProgression, WeaponProgression.option_all_guns, operator="le")])
             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Rocket Launcher"])
             | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"])
                 & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"])),
 
-        "Cheat Unlock: Get gold medals for Timed Mine, Proximity Mine, and Remote Mine":
+        "Cheat Unlock: Get gold on Timed Mine, Proximity Mine, and Remote Mine":
             HasAll("Timed Mine", "Proximity Mine", "Remote Mine", options=[OptionFilter(WeaponProgression, WeaponProgression.option_all_guns, operator="le")])
             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])
             | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]),
 
-        "Cheat Unlock: Get gold medals for FarSight XR-20, Crossbow, Combat Knife, and Grenade":
+        "Cheat Unlock: Get gold on FarSight XR-20, Crossbow, Combat Knife, and Grenade":
             HasAll("FarSight XR-20", "Crossbow", "Combat Knife", "Grenade", options=[OptionFilter(WeaponProgression, WeaponProgression.option_all_guns, operator="le")])
             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"])
             | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"])
                 & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"])),
 
-        "Cheat Unlock: Get gold medals for Tranquilizer, Reaper, and Devastator":
+        "Cheat Unlock: Get gold on Tranquilizer, Reaper, and Devastator":
             HasAll("Tranquilizer", "Reaper", "Devastator", options=[OptionFilter(WeaponProgression, WeaponProgression.option_all_guns, operator="le")])
             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"])
             | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"])
