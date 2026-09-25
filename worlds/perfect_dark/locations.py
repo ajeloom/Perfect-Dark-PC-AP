@@ -588,121 +588,121 @@ LOCATION_NAME_TO_ID = {
     "Complete Air Base (Special Agent): Ladder Exit": 594,
     "Complete Air Base (Perfect Agent): Shuttle Exit": 595,
     "Complete Air Base (Perfect Agent): Ladder Exit": 596,
-    "dD Defection (Agent/Special): Pick up Shield from the guard on the floor below Cassandra's office": 2010,
-    "dD Defection: Pick up double Falcon 2 (silencer) from guard in the room next to the office worker's office": 2033,
-    "dD Defection: Pick up Laptop Gun in the room that the office worker hides in": 2466,
-    "dD Defection: Pick up Falcon 2 (silencer) on the right side of the room that the office worker hides in": 2468,
-    "dD Defection: Pick up Falcon 2 (silencer) on the left side of the room that the office worker hides in": 2469,
-    "dD Defection: Pick up tiny ammo box on the desk in the corner room with 4 windows (floor below Cassandra's office)": 2470,
-    "dD Defection: Pick up tiny ammo box on the desk in the room next to the computer room (floor below Cassandra's office)": 2471,
-    "dD Defection: Pick up tiny ammo box on the desk in the room next to the room the office worker hides in (2nd floor below Cassandra's office)": 2472,
-    "dD Defection: Pick up tiny ammo box on the desk in room across the elevator (2nd floor below Cassandra's office)": 2473,
-    "dD Defection: Pick up Falcon 2 (silencer) on the desk in the corner room (2nd floor below Cassandra's office)": 2474,
-    "dD Defection: Pick up tiny ammo box under the stairs that leads to the 2nd floor below Cassandra's office": 2475,
-    "dD Defection: Pick up right CMP150 behind the front desk": 2605,
-    "dD Defection: Pick up left CMP150 behind the front desk": 2606,
-    "dD Defection (Agent): Pick up Shield next to the elevator on the bottom floor": 2607,
-    "dD Investigation: Pick up left ammo box in the room above the K7 Avenger guard": 4625,
-    "dD Investigation: Pick up right ammo box in the room above the K7 Avenger guard": 4626,
-    "dD Investigation (Special/Perfect): Pick up left ammo box in the room with one scientist": 4627,
-    "dD Investigation (Special/Perfect): Pick up right ammo box in the room with one scientist": 4628,
-    "dD Investigation: Pick up left ammo box in the room with the Night Vision": 4629,
-    "dD Investigation: Pick up right ammo box in the room with the Night Vision": 4630,
-    "dD Investigation (Special/Perfect): Pick up left ammo box in the first room near the two scientists": 4631,
-    "dD Investigation (Special/Perfect): Pick up right ammo box in the first room near the two scientists": 4632,
-    "dD Investigation: Pick up first CMP150 on the table in the room past the laser grids": 4633,
-    "dD Investigation: Pick up second CMP150 on the table in the room past the laser grids": 4634,
-    "dD Investigation: Pick up left CMP150 in the secret weapons compartment": 4635,
-    "dD Investigation: Pick up right CMP150 in the secret weapons compartment": 4636,
-    "dD Investigation: Pick up Proximity Mine behind the radioactive isotope": 4637,
-    "dD Investigation (Agent): Pick up Shield on the crate in the room with the maintenance hatch": 4638,
-    "dD Investigation (Agent/Special): Pick up Shield inside the glass enclosure in the room past the laser grids": 4639,
-    "dD Extraction: Pick up DY357 Magnum from the fifth guard after eliminating the first five guards without being seen": 6005,
-    "dD Extraction (Agent): Pick up Shield inside the room to the left of the elevator (2nd floor under Cassandra's office)": 6120,
-    "dD Extraction: Pick up the Rocket Launcher in the room outside Cassandra's office": 6452,
-    "dD Extraction: Pick up Grenade on Cassandra's desk": 6466,
-    "dD Extraction: Pick up Dragon in the hidden room near Cassandra's office": 6467,
-    "dD Extraction: Pick up first rocket ammo box on the roof": 6516,
-    "dD Extraction: Pick up second rocket ammo box on the roof": 6519,
-    "Carrington Villa: Pick up Devastator hidden in crate near the helipad": 8000,
-    "Carrington Villa: Pick up first ammo box hidden in crate leading to the observatory": 8001,
-    "Carrington Villa: Pick up second ammo box hidden in crate leading to the observatory": 8002,
-    "Carrington Villa: Pick up third ammo box hidden in crate leading to the observatory": 8003,
-    "Carrington Villa: Pick up fourth ammo box hidden in crate leading to the observatory": 8004,
-    "Carrington Villa: Pick up fifth ammo box hidden in crate leading to the observatory": 8005,
-    "Carrington Villa: Pick up sixth ammo box hidden in crate leading to the observatory": 8006,
-    "Carrington Villa: Pick up seventh ammo box hidden in crate leading to the observatory": 8007,
-    "Carrington Villa: Pick up eighth ammo box hidden in crate leading to the observatory": 8008,
-    "Carrington Villa: Pick up ninth ammo box hidden in crate leading to the observatory": 8009,
-    "Carrington Villa (Perfect Agent): Pick up Sniper Rifle in the bathroom": 8085,
-    "Carrington Villa: Pick up double CMP150 dropped from the sniper near the helipad in under 38 seconds": 8410,
-    "Carrington Villa (Agent): Pick up Shield on the crate near the helipad": 8568,
-    "Carrington Villa (Agent): Pick up Shield inside the bathroom": 8569,
-    "Chicago: Pick up BombSpy hidden in the dumpster": 10000,
-    "Chicago: Pick up double Falcon 2 (scope) inside the Pond Punk": 10287,
-    "Chicago (Agent): Pick up Shield in the grate under the taxi": 10289,
-    "Chicago (Agent/Special): Pick up Shield under the stairs that leads to the Pond Punk": 10290,
-    "G5 Building: Pick up Crossbow after knocking out the first two guards": 12000,
-    "G5 Building (Agent/Special): Pick up Shield on the stairs leading to the upper exit": 12086,
-    "G5 Building (Special/Perfect): Pick up N-Bomb near the upper exit after placing Remote Mine on the upper exit in Chicago": 12149,
-    "G5 Building (Agent): Pick up Shield in the room before the one with the lasers": 12150,
-    "A51 Infiltration: Pick up Rocket Launcher in the mine field": 14052,
-    "A51 Infiltration (Special/Perfect): Pick up double MagSec 4 from A51 guard after placing comms rider": 14053,
-    "A51 Infiltration (Agent): Pick up Shield under the gun turret near the hoverbike": 14150,
-    "A51 Infiltration (Agent/Special): Pick up Shield in the crawl space that leads to the mine field": 15381,
-    "A51 Rescue (Agent): Pick up Shield from the guard past the bottom of the first elevator": 16004,
-    "A51 Rescue: Pick up Phoenix after knocking out technician in A51 Infiltration then getting them to open the door to the right of the first elevator": 16905,
-    "A51 Rescue: Pick up Falcon 2 (silencer) hidden in barrel under the stack of the crates": 16987,
-    "A51 Rescue (Agent/Special): Pick up Shield on the desk in the room next to the locked room at the top of the sloping corridor": 17140,
-    "A51 Escape: Pick up double Falcon 2 (scope) in the room behind you at the start of the mission": 18036,
-    "A51 Escape (Agent): Pick up Shield dropped by the biotechnician in the circular room without the slope after moving Elvis to safety": 18040,
-    "A51 Escape (Agent/Special): Pick up Shield behind the locked medical containment doors": 18895,
-    "A51 Escape: Pick up Remote Mine in the room before the secret hangar after moving Elvis to safety within 36 seconds": 19383,
-    "Air Base (Agent): Pick up Shield dropped by NSA Lackey near the elevator door": 20017,
-    "Air Base: Pick up double DY357 Magnum after knocking out the three NSA Lackeys": 20018,
-    "Air Base: Pick up Proximity Mine past the cave": 20181,
-    "Air Base (Agent/Special): Pick up Shield in the safe with the flight plans": 20214,
-    "Air Force One: Pick up Cyclone in the small room to the right of the stairs": 22203,
-    "Air Force One: Pick up Cyclone in the small room to the left of the stairs": 22204,
-    "Air Force One (Agent/Special): Pick up Shield in the room with the piano": 22363,
-    "Air Force One (Agent): Pick up Shield in the small kitchen past the stairs that leads to the lower deck": 22364,
-    "Crash Site: Pick up DY357-LX by disarming Trent": 24001,
-    "Crash Site (Agent/Special): Pick up Shield behind the President's clone": 24144,
-    "Crash Site (Agent): Pick up Shield near the crashed UFO": 24262, 
-    "Crash Site: Get Proximity Mine from Elvis before completing any objective": 24263, # Shares same pad as Shield (need to add one for the location)
-    "Pelagic II: Pick up double Falcon 2 (silencer) dropped by the guard past the fourth door from the start of the mission without setting off the alarm": 26052,
-    "Pelagic II (Agent): Pick up Shield on the helipad": 26541,
-    "Pelagic II (Agent/Special): Pick up Shield on the crate in the Moon Pool room": 26542,
-    "Deep Sea: Pick up Proximity Mine dropped by guard on the far left from the dead Skedar before Elvis gets them": 28008,
-    "Deep Sea (Agent/Special): Pick up Shield on the left path from the first teleportal": 28018,
-    # "Deep Sea (Agent): Pick up Shield dropped from Sniper guard": 28026,
-    # "Deep Sea: Pick up Shotgun next to the Shield on the left path from the first teleportal": 28063,
-    "CI Defense: Pick up Devastator in the Info Room after saving most of the hostages": 30000,
-    "CI Defense (Agent/Special): Pick up Shield in the basement room with the two small hangar doors": 30146,
-    "CI Defense (Agent): Pick up Shield on the second floor at the dead end opposite from Carrington's office": 30648,
-    "Attack Ship: Pick up double Mauler in the final room from the Skedar on top of the bridge": 32045,
-    "Attack Ship (Perfect Agent): Pick up De Vries' necklace": 32051,
-    "Attack Ship: Pick up Slayer in the room straight ahead from the lift you take with Elvis": 32466,
-    "Attack Ship (Agent/Special): Pick up Shield on table in the room to the right after taking the lift with Elvis": 32499,
-    "Skedar Ruins: Pick up double Phoenix near the gap after blowing up the two pillars that didn't need the target amplifier": 34050,
-    "Skedar Ruins (Agent/Special): Pick up Shield in the area past the gap to the right near the cheese": 34186,
-    "Skedar Ruins (Agent): Pick up Shield behind the fallen pillar": 34337,
-    "Mr. Blonde's Revenge (Agent/Special): Pick up Shield from the guard on the floor below Cassandra's office": 36010,
-    "Mr. Blonde's Revenge: Pick up double CMP150 from guard near the elevator where you plant the bomb": 36015,
-    "Mr. Blonde's Revenge: Pick up Laptop Gun in the room that the office worker hides in": 36466,
-    "Mr. Blonde's Revenge: Pick up Falcon 2 on the right side of the room that the office worker hides in": 36468,
-    "Mr. Blonde's Revenge: Pick up Falcon 2 on the left side of the room that the office worker hides in": 36469,
-    "Mr. Blonde's Revenge: Pick up tiny ammo box on the desk in the corner room with 4 windows (floor below Cassandra's office)": 36470,
-    "Mr. Blonde's Revenge: Pick up tiny ammo box on the desk in the room next to the computer room (floor below Cassandra's office)": 36471,
-    "Mr. Blonde's Revenge: Pick up tiny ammo box on the desk in the room next to the room the office worker hides in (2nd floor below Cassandra's office)": 36472,
-    "Mr. Blonde's Revenge: Pick up tiny ammo box on the desk in room across the elevator (2nd floor below Cassandra's office)": 36473,
-    "Mr. Blonde's Revenge: Pick up Falcon 2 on the desk in the corner room (2nd floor below Cassandra's office)": 36474,
-    "Mr. Blonde's Revenge: Pick up tiny ammo box under the stairs that leads to the 2nd floor below Cassandra's office": 36475,
-    "Mr. Blonde's Revenge: Pick up right CMP150 behind the front desk": 36605,
-    "Mr. Blonde's Revenge: Pick up left CMP150 behind the front desk": 36606,
-    "Mr. Blonde's Revenge (Agent): Pick up Shield next to the glass elevator on the bottom floor": 36607,
-    "Maian SOS: Pick up double DY357-LX from guard in the circular room with the exit": 38011,
-    "Maian SOS: Pick up Psychosis Gun on the desk near the start of the mission": 38919,
+    "dD Defection: 3F Shield - (Agent/Special)": 2010,
+    "dD Defection: 2F double Falcon 2 (silencer)": 2033,
+    "dD Defection: 2F Laptop Gun": 2466,
+    "dD Defection: 2F Falcon 2 (silencer) (right side)": 2468,
+    "dD Defection: 2F Falcon 2 (silencer) (left side)": 2469,
+    "dD Defection: 3F tiny ammo box (on corner desk)": 2470,
+    "dD Defection: 3F tiny ammo box (on table near couch)": 2471,
+    "dD Defection: 2F tiny ammo box (on desk across the stairs)": 2472,
+    "dD Defection: 2F tiny ammo box (on desk across the elevator)": 2473,
+    "dD Defection: 2F Falcon 2 (silencer) (on desk)": 2474,
+    "dD Defection: 2F tiny ammo box (under stairs)": 2475,
+    "dD Defection: 1F CMP150 (on right of front desk)": 2605,
+    "dD Defection: 1F CMP150 (on left of front desk)": 2606,
+    "dD Defection: 1F Shield - (Agent)": 2607,
+    "dD Investigation: ammo box (front of room above the K7 Avenger)": 4625,
+    "dD Investigation: ammo box (back of room above the K7 Avenger)": 4626,
+    "dD Investigation: ammo box (front of room with one scientist)": 4627,
+    "dD Investigation: ammo box (back of room with one scientist)": 4628,
+    "dD Investigation: ammo box (front of Night Vision room)": 4629,
+    "dD Investigation: ammo box (back of Night Vision room)": 4630,
+    "dD Investigation: ammo box (front of room near two scientists)": 4631,
+    "dD Investigation: ammo box (back of room near two scientists)": 4632,
+    "dD Investigation: CMP150 (on front of table)": 4633,
+    "dD Investigation: CMP150 (on back of table)": 4634,
+    "dD Investigation: CMP150 (left of secret weapons compartment)": 4635,
+    "dD Investigation: CMP150 (right of secret weapons compartment)": 4636,
+    "dD Investigation: Proximity Mine (in radioactive room)": 4637,
+    "dD Investigation: Shield (on crate) - (Agent)": 4638,
+    "dD Investigation: Shield (behind the glass) - (Agent/Special)": 4639,
+    "dD Extraction: 1F DY357 Magnum (from fifth guard)": 6005,
+    "dD Extraction: 2F Shield - (Agent)": 6120,
+    "dD Extraction: 4F Rocket Launcher": 6452,
+    "dD Extraction: 4F Grenade (on Cassandra's desk)": 6466,
+    "dD Extraction: 4F Dragon (in hidden room in Cassandra's office)": 6467,
+    "dD Extraction: Roof ammo box (on left)": 6516,
+    "dD Extraction: Roof ammo box (on right)": 6519,
+    "Carrington Villa: Devastator (in helipad crate)": 8000,
+    "Carrington Villa: 1st ammo box (in crate on observatory path)": 8001,
+    "Carrington Villa: 2nd ammo box (in crate on observatory path)": 8002,
+    "Carrington Villa: 3rd ammo box (in crate on observatory path)": 8003,
+    "Carrington Villa: 4th ammo box (in crate on observatory path)": 8004,
+    "Carrington Villa: 5th ammo box (in crate on observatory path)": 8005,
+    "Carrington Villa: 6th ammo box (in crate on observatory path)": 8006,
+    "Carrington Villa: 7th ammo box (in crate on observatory path)": 8007,
+    "Carrington Villa: 8th ammo box (in crate on observatory path)": 8008,
+    "Carrington Villa: 9th ammo box (in crate on observatory path)": 8009,
+    "Carrington Villa: Sniper Rifle (in the bathroom) - (Perfect Agent)": 8085,
+    "Carrington Villa: double CMP150 (from sniper near the helipad)": 8410,
+    "Carrington Villa: Shield (on helipad crate) - (Agent)": 8568,
+    "Carrington Villa: Shield (in the bathroom) - (Agent)": 8569,
+    "Chicago: BombSpy (in the dumpster)": 10000,
+    "Chicago: double Falcon 2 (scope) (in the Pond Punk)": 10287,
+    "Chicago: Shield (near the taxi) - (Agent)": 10289,
+    "Chicago: Shield (under stairs near Pond Punk) - (Agent/Special)": 10290,
+    "G5 Building: Crossbow (after knocking out first two guards)": 12000,
+    "G5 Building: Shield (on stairs to the upper exit) - (Agent/Special)": 12086,
+    "G5 Building: N-Bomb (near the upper exit)": 12149,
+    "G5 Building: Shield (in room before the laser grids) - (Agent)": 12150,
+    "A51 Infiltration: Rocket Launcher (in mine field)": 14052,
+    "A51 Infiltration: double MagSec 4 (after placing comms rider)": 14053,
+    "A51 Infiltration: Shield (near hoverbike) - (Agent)": 14150,
+    "A51 Infiltration: Shield (in the crawl space) - (Agent/Special)": 15381,
+    "A51 Rescue: Shield (guard past first elevator) - (Agent)": 16004,
+    "A51 Rescue: Phoenix (past locked hangar door)": 16905,
+    "A51 Rescue: double Falcon 2 (silencer) (hidden in barrel)": 16987,
+    "A51 Rescue: Shield (on desk near computer) - (Agent/Special)": 17140,
+    "A51 Escape: double Falcon 2 (scope) (behind you at the start)": 18036,
+    "A51 Escape: Shield (dropped by biotechnician) - (Agent)": 18040,
+    "A51 Escape: Shield (behind locked medical containment doors) - (Agent/Special)": 18895,
+    "A51 Escape: Remote Mine (in first room with guards)": 19383,
+    "Air Base: Shield (dropped by NSA Lackey) - (Agent)": 20017,
+    "Air Base: double DY357 Magnum (after knocking out all NSA Lackeys)": 20018,
+    "Air Base: Proximity Mine (past the cave)": 20181,
+    "Air Base: Shield (in the safe) - (Agent/Special)": 20214,
+    "Air Force One: Cyclone (in room right of stairs)": 22203,
+    "Air Force One: Cyclone (in room left of stairs)": 22204,
+    "Air Force One: Shield (in piano room) - (Agent/Special)": 22363,
+    "Air Force One: Shield (in small kitchen) - (Agent)": 22364,
+    "Crash Site: DY357-LX (from disarming Trent)": 24001,
+    "Crash Site: Shield (behind President's clone) - (Agent/Special)": 24144,
+    "Crash Site: Shield (near the crashed UFO) - (Agent)": 24262, 
+    "Crash Site: Proximity Mine (from Elvis before doing any objective)": 24263, # Shares same pad as Shield (need to add one for the location)
+    "Pelagic II: double Falcon 2 (silencer) (from guard and no alarm)": 26052,
+    "Pelagic II: Shield (on the helipad) - (Agent)": 26541,
+    "Pelagic II: Shield (on the sub hangar crate) - (Agent/Special)": 26542,
+    "Deep Sea: Proximity Mine (from guard in 2nd room with cloaked guards)": 28008,
+    "Deep Sea: Shield (on the left path) - (Agent/Special)": 28018,
+    # "Deep Sea: Shield (dropped from guard) - (Agent)": 28026,
+    # "Deep Sea: Shotgun (near Shield on the left path)": 28063,
+    "CI Defense: Devastator (dropped after saving most of the hostages)": 30000,
+    "CI Defense: Basement Shield - (Agent/Special)": 30146,
+    "CI Defense: 2F Shield - (Agent)": 30648,
+    "Attack Ship: double Mauler (dropped from Skedar in final room)": 32045,
+    "Attack Ship: De Vries' necklace - (Perfect Agent)": 32051,
+    "Attack Ship: Slayer (in the room past green chambers)": 32466,
+    "Attack Ship: Shield (on table) - (Agent/Special)": 32499,
+    "Skedar Ruins: double Phoenix (near the gap)": 34050,
+    "Skedar Ruins: Shield (area past the gap to the right) - (Agent/Special)": 34186,
+    "Skedar Ruins: Shield (behind the fallen pillar) - (Agent)": 34337,
+    "Mr. Blonde's Revenge: 3F Shield - (Agent/Special)": 36010,
+    "Mr. Blonde's Revenge: 1F double CMP150 (from guard near bottom elevator)": 36015,
+    "Mr. Blonde's Revenge: 2F Laptop Gun": 36466,
+    "Mr. Blonde's Revenge: 2F Falcon 2 (right side)": 36468,
+    "Mr. Blonde's Revenge: 2F Falcon 2 (left side)": 36469,
+    "Mr. Blonde's Revenge: 3F tiny ammo box (on corner desk)": 36470,
+    "Mr. Blonde's Revenge: 3F tiny ammo box (on table near couch)": 36471,
+    "Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the stairs)": 36472,
+    "Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the elevator)": 36473,
+    "Mr. Blonde's Revenge: 2F Falcon 2 (on desk)": 36474,
+    "Mr. Blonde's Revenge: 2F tiny ammo box (under stairs)": 36475,
+    "Mr. Blonde's Revenge: 1F CMP150 (on right of front desk)": 36605,
+    "Mr. Blonde's Revenge: 1F CMP150 (on left of front desk)": 36606,
+    "Mr. Blonde's Revenge: 1F Shield - (Agent)": 36607,
+    "Maian SOS: double DY357-LX (from dual-wielded guard)": 38011,
+    "Maian SOS: Psychosis Gun (on desk near the start)": 38919,
 }
 
 alternate_exits = []
@@ -2187,253 +2187,253 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
     if world.options.pickupsanity and (world.options.agent or world.options.special_agent or world.options.perfect_agent):
         defection_locations = get_location_names_with_ids(
             [
-                "dD Defection: Pick up double Falcon 2 (silencer) from guard in the room next to the office worker's office",
-                "dD Defection: Pick up tiny ammo box on the desk in the corner room with 4 windows (floor below Cassandra's office)",
-                "dD Defection: Pick up tiny ammo box on the desk in the room next to the computer room (floor below Cassandra's office)",
-                "dD Defection: Pick up tiny ammo box on the desk in the room next to the room the office worker hides in (2nd floor below Cassandra's office)",
-                "dD Defection: Pick up tiny ammo box on the desk in room across the elevator (2nd floor below Cassandra's office)",
-                "dD Defection: Pick up Falcon 2 (silencer) on the desk in the corner room (2nd floor below Cassandra's office)",
-                "dD Defection: Pick up tiny ammo box under the stairs that leads to the 2nd floor below Cassandra's office",
-                "dD Defection: Pick up right CMP150 behind the front desk",
-                "dD Defection: Pick up left CMP150 behind the front desk"
+                "dD Defection: 2F double Falcon 2 (silencer)",
+                "dD Defection: 3F tiny ammo box (on corner desk)",
+                "dD Defection: 3F tiny ammo box (on table near couch)",
+                "dD Defection: 2F tiny ammo box (on desk across the stairs)",
+                "dD Defection: 2F tiny ammo box (on desk across the elevator)",
+                "dD Defection: 2F Falcon 2 (silencer) (on desk)",
+                "dD Defection: 2F tiny ammo box (under stairs)",
+                "dD Defection: 1F CMP150 (on right of front desk)",
+                "dD Defection: 1F CMP150 (on left of front desk)"
             ]
         )
         defection.add_locations(defection_locations, PerfectDarkLocation)
 
         investigation_locations = get_location_names_with_ids(
             [
-                "dD Investigation: Pick up left ammo box in the room above the K7 Avenger guard",
-                "dD Investigation: Pick up right ammo box in the room above the K7 Avenger guard",
-                "dD Investigation: Pick up left ammo box in the room with the Night Vision",
-                "dD Investigation: Pick up right ammo box in the room with the Night Vision",
-                "dD Investigation: Pick up first CMP150 on the table in the room past the laser grids",
-                "dD Investigation: Pick up second CMP150 on the table in the room past the laser grids",
-                "dD Investigation: Pick up left CMP150 in the secret weapons compartment",
-                "dD Investigation: Pick up right CMP150 in the secret weapons compartment",
-                "dD Investigation: Pick up Proximity Mine behind the radioactive isotope"
+                "dD Investigation: ammo box (front of room above the K7 Avenger)",
+                "dD Investigation: ammo box (back of room above the K7 Avenger)",
+                "dD Investigation: ammo box (front of Night Vision room)",
+                "dD Investigation: ammo box (back of Night Vision room)",
+                "dD Investigation: CMP150 (on front of table)",
+                "dD Investigation: CMP150 (on back of table)",
+                "dD Investigation: CMP150 (left of secret weapons compartment)",
+                "dD Investigation: CMP150 (right of secret weapons compartment)",
+                "dD Investigation: Proximity Mine (in radioactive room)"
             ]
         )
         investigation.add_locations(investigation_locations, PerfectDarkLocation)
 
         extraction_locations = get_location_names_with_ids(
             [
-                "dD Extraction: Pick up DY357 Magnum from the fifth guard after eliminating the first five guards without being seen",
-                "dD Extraction: Pick up the Rocket Launcher in the room outside Cassandra's office",
-                "dD Extraction: Pick up Grenade on Cassandra's desk",
-                "dD Extraction: Pick up Dragon in the hidden room near Cassandra's office",
-                "dD Extraction: Pick up first rocket ammo box on the roof",
-                "dD Extraction: Pick up second rocket ammo box on the roof"
+                "dD Extraction: 1F DY357 Magnum (from fifth guard)",
+                "dD Extraction: 4F Rocket Launcher",
+                "dD Extraction: 4F Grenade (on Cassandra's desk)",
+                "dD Extraction: 4F Dragon (in hidden room in Cassandra's office)",
+                "dD Extraction: Roof ammo box (on left)",
+                "dD Extraction: Roof ammo box (on right)"
             ]
         )
         extraction.add_locations(extraction_locations, PerfectDarkLocation)
 
         villa_locations = get_location_names_with_ids(
             [
-                "Carrington Villa: Pick up Devastator hidden in crate near the helipad",
-                "Carrington Villa: Pick up first ammo box hidden in crate leading to the observatory",
-                "Carrington Villa: Pick up second ammo box hidden in crate leading to the observatory",
-                "Carrington Villa: Pick up third ammo box hidden in crate leading to the observatory",
-                "Carrington Villa: Pick up fourth ammo box hidden in crate leading to the observatory",
-                "Carrington Villa: Pick up fifth ammo box hidden in crate leading to the observatory",
-                "Carrington Villa: Pick up sixth ammo box hidden in crate leading to the observatory",
-                "Carrington Villa: Pick up seventh ammo box hidden in crate leading to the observatory",
-                "Carrington Villa: Pick up eighth ammo box hidden in crate leading to the observatory",
-                "Carrington Villa: Pick up ninth ammo box hidden in crate leading to the observatory",
-                "Carrington Villa: Pick up double CMP150 dropped from the sniper near the helipad in under 38 seconds"
+                "Carrington Villa: Devastator (in helipad crate)",
+                "Carrington Villa: 1st ammo box (in crate on observatory path)",
+                "Carrington Villa: 2nd ammo box (in crate on observatory path)",
+                "Carrington Villa: 3rd ammo box (in crate on observatory path)",
+                "Carrington Villa: 4th ammo box (in crate on observatory path)",
+                "Carrington Villa: 5th ammo box (in crate on observatory path)",
+                "Carrington Villa: 6th ammo box (in crate on observatory path)",
+                "Carrington Villa: 7th ammo box (in crate on observatory path)",
+                "Carrington Villa: 8th ammo box (in crate on observatory path)",
+                "Carrington Villa: 9th ammo box (in crate on observatory path)",
+                "Carrington Villa: double CMP150 (from sniper near the helipad)"
             ]
         )
         villa.add_locations(villa_locations, PerfectDarkLocation)
 
         chicago_locations = get_location_names_with_ids(
             [
-                "Chicago: Pick up BombSpy hidden in the dumpster",
-                "Chicago: Pick up double Falcon 2 (scope) inside the Pond Punk"
+                "Chicago: BombSpy (in the dumpster)",
+                "Chicago: double Falcon 2 (scope) (in the Pond Punk)"
             ]
         )
         chicago.add_locations(chicago_locations, PerfectDarkLocation)
 
         g5_building_locations = get_location_names_with_ids(
             [
-                "G5 Building: Pick up Crossbow after knocking out the first two guards"
+                "G5 Building: Crossbow (after knocking out first two guards)"
             ]
         )
         g5_building.add_locations(g5_building_locations, PerfectDarkLocation)
 
         infiltration_locations = get_location_names_with_ids(
             [
-                "A51 Infiltration: Pick up Rocket Launcher in the mine field"
+                "A51 Infiltration: Rocket Launcher (in mine field)"
             ]
         )
         infiltration.add_locations(infiltration_locations, PerfectDarkLocation)
 
         rescue_locations = get_location_names_with_ids(
             [
-                "A51 Rescue: Pick up Phoenix after knocking out technician in A51 Infiltration then getting them to open the door to the right of the first elevator",
-                "A51 Rescue: Pick up Falcon 2 (silencer) hidden in barrel under the stack of the crates"
+                "A51 Rescue: Phoenix (past locked hangar door)",
+                "A51 Rescue: double Falcon 2 (silencer) (hidden in barrel)"
             ]
         )
         rescue.add_locations(rescue_locations, PerfectDarkLocation)
 
         escape_locations = get_location_names_with_ids(
             [
-                "A51 Escape: Pick up double Falcon 2 (scope) in the room behind you at the start of the mission",
-                "A51 Escape: Pick up Remote Mine in the room before the secret hangar after moving Elvis to safety within 36 seconds"
+                "A51 Escape: double Falcon 2 (scope) (behind you at the start)",
+                "A51 Escape: Remote Mine (in first room with guards)"
             ]
         )
         escape.add_locations(escape_locations, PerfectDarkLocation)
 
         air_base_locations = get_location_names_with_ids(
             [
-                "Air Base: Pick up double DY357 Magnum after knocking out the three NSA Lackeys",
-                "Air Base: Pick up Proximity Mine past the cave"
+                "Air Base: double DY357 Magnum (after knocking out all NSA Lackeys)",
+                "Air Base: Proximity Mine (past the cave)"
             ]
         )
         air_base.add_locations(air_base_locations, PerfectDarkLocation)
 
         air_force_one_locations = get_location_names_with_ids(
             [
-                "Air Force One: Pick up Cyclone in the small room to the right of the stairs",
-                "Air Force One: Pick up Cyclone in the small room to the left of the stairs"
+                "Air Force One: Cyclone (in room right of stairs)",
+                "Air Force One: Cyclone (in room left of stairs)"
             ]
         )
         air_force_one.add_locations(air_force_one_locations, PerfectDarkLocation)
 
         crash_site_locations = get_location_names_with_ids(
             [
-                "Crash Site: Pick up DY357-LX by disarming Trent",
-                "Crash Site: Get Proximity Mine from Elvis before completing any objective"
+                "Crash Site: DY357-LX (from disarming Trent)",
+                "Crash Site: Proximity Mine (from Elvis before doing any objective)"
             ]
         )
         crash_site.add_locations(crash_site_locations, PerfectDarkLocation)
 
         pelagic_locations = get_location_names_with_ids(
             [
-                "Pelagic II: Pick up double Falcon 2 (silencer) dropped by the guard past the fourth door from the start of the mission without setting off the alarm"
+                "Pelagic II: double Falcon 2 (silencer) (from guard and no alarm)"
             ]
         )
         pelagic.add_locations(pelagic_locations, PerfectDarkLocation)
 
         deep_sea_locations = get_location_names_with_ids(
             [
-                "Deep Sea: Pick up Proximity Mine dropped by guard on the far left from the dead Skedar before Elvis gets them",
-                # "Deep Sea: Pick up Shotgun next to the Shield on the left path from the first teleportal"
+                "Deep Sea: Proximity Mine (from guard in 2nd room with cloaked guards)",
+                # "Deep Sea: Shotgun (near Shield on the left path)"
             ]
         )
         deep_sea.add_locations(deep_sea_locations, PerfectDarkLocation)
 
         institute_defense_locations = get_location_names_with_ids(
             [
-                "CI Defense: Pick up Devastator in the Info Room after saving most of the hostages"
+                "CI Defense: Devastator (dropped after saving most of the hostages)"
             ]
         )
         institute_defense.add_locations(institute_defense_locations, PerfectDarkLocation)
 
         attack_ship_locations = get_location_names_with_ids(
             [
-                "Attack Ship: Pick up double Mauler in the final room from the Skedar on top of the bridge",
-                "Attack Ship: Pick up Slayer in the room straight ahead from the lift you take with Elvis"
+                "Attack Ship: double Mauler (dropped from Skedar in final room)",
+                "Attack Ship: Slayer (in the room past green chambers)"
             ]
         )
         attack_ship.add_locations(attack_ship_locations, PerfectDarkLocation)
 
         skedar_ruins_locations = get_location_names_with_ids(
             [
-                "Skedar Ruins: Pick up double Phoenix near the gap after blowing up the two pillars that didn't need the target amplifier"
+                "Skedar Ruins: double Phoenix (near the gap)"
             ]
         )
         skedar_ruins.add_locations(skedar_ruins_locations, PerfectDarkLocation)
 
         mbr_locations = get_location_names_with_ids(
             [
-                "Mr. Blonde's Revenge: Pick up double CMP150 from guard near the elevator where you plant the bomb",
-                "Mr. Blonde's Revenge: Pick up tiny ammo box on the desk in the corner room with 4 windows (floor below Cassandra's office)",
-                "Mr. Blonde's Revenge: Pick up tiny ammo box on the desk in the room next to the computer room (floor below Cassandra's office)",
-                "Mr. Blonde's Revenge: Pick up tiny ammo box on the desk in the room next to the room the office worker hides in (2nd floor below Cassandra's office)",
-                "Mr. Blonde's Revenge: Pick up tiny ammo box on the desk in room across the elevator (2nd floor below Cassandra's office)",
-                "Mr. Blonde's Revenge: Pick up Falcon 2 on the desk in the corner room (2nd floor below Cassandra's office)",
-                "Mr. Blonde's Revenge: Pick up tiny ammo box under the stairs that leads to the 2nd floor below Cassandra's office",
-                "Mr. Blonde's Revenge: Pick up right CMP150 behind the front desk",
-                "Mr. Blonde's Revenge: Pick up left CMP150 behind the front desk"
+                "Mr. Blonde's Revenge: 1F double CMP150 (from guard near bottom elevator)",
+                "Mr. Blonde's Revenge: 3F tiny ammo box (on corner desk)",
+                "Mr. Blonde's Revenge: 3F tiny ammo box (on table near couch)",
+                "Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the stairs)",
+                "Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the elevator)",
+                "Mr. Blonde's Revenge: 2F Falcon 2 (on desk)",
+                "Mr. Blonde's Revenge: 2F tiny ammo box (under stairs)",
+                "Mr. Blonde's Revenge: 1F CMP150 (on right of front desk)",
+                "Mr. Blonde's Revenge: 1F CMP150 (on left of front desk)"
             ]
         )
         mbr.add_locations(mbr_locations, PerfectDarkLocation)
 
         maian_sos_locations = get_location_names_with_ids(
             [
-                "Maian SOS: Pick up double DY357-LX from guard in the circular room with the exit",
-                "Maian SOS: Pick up Psychosis Gun on the desk near the start of the mission"
+                "Maian SOS: double DY357-LX (from dual-wielded guard)",
+                "Maian SOS: Psychosis Gun (on desk near the start)"
             ]
         )
         maian_sos.add_locations(maian_sos_locations, PerfectDarkLocation)
 
         if world.options.agent:
             defection.add_locations(
-                get_location_names_with_ids(["dD Defection (Agent): Pick up Shield next to the elevator on the bottom floor"]), 
+                get_location_names_with_ids(["dD Defection: 1F Shield - (Agent)"]), 
                 PerfectDarkLocation
             )
 
             investigation.add_locations(
-                get_location_names_with_ids(["dD Investigation (Agent): Pick up Shield on the crate in the room with the maintenance hatch"]), 
+                get_location_names_with_ids(["dD Investigation: Shield (on crate) - (Agent)"]), 
                 PerfectDarkLocation
             )
 
             extraction.add_locations(
-                get_location_names_with_ids(["dD Extraction (Agent): Pick up Shield inside the room to the left of the elevator (2nd floor under Cassandra's office)"]), 
+                get_location_names_with_ids(["dD Extraction: 2F Shield - (Agent)"]), 
                 PerfectDarkLocation
             )
 
             villa.add_locations(
                 get_location_names_with_ids(
                     [
-                        "Carrington Villa (Agent): Pick up Shield on the crate near the helipad",
-                        "Carrington Villa (Agent): Pick up Shield inside the bathroom"
+                        "Carrington Villa: Shield (on helipad crate) - (Agent)",
+                        "Carrington Villa: Shield (in the bathroom) - (Agent)"
                     ]
                 ), 
                 PerfectDarkLocation
             )
 
             chicago.add_locations(
-                get_location_names_with_ids(["Chicago (Agent): Pick up Shield in the grate under the taxi"]), 
+                get_location_names_with_ids(["Chicago: Shield (near the taxi) - (Agent)"]), 
                 PerfectDarkLocation
             )
 
             g5_building.add_locations(
-                get_location_names_with_ids(["G5 Building (Agent): Pick up Shield in the room before the one with the lasers"]), 
+                get_location_names_with_ids(["G5 Building: Shield (in room before the laser grids) - (Agent)"]), 
                 PerfectDarkLocation
             )
 
             infiltration.add_locations(
-                get_location_names_with_ids(["A51 Infiltration (Agent): Pick up Shield under the gun turret near the hoverbike"]), 
+                get_location_names_with_ids(["A51 Infiltration: Shield (near hoverbike) - (Agent)"]), 
                 PerfectDarkLocation
             )
 
             rescue.add_locations(
-                get_location_names_with_ids(["A51 Rescue (Agent): Pick up Shield from the guard past the bottom of the first elevator"]), 
+                get_location_names_with_ids(["A51 Rescue: Shield (guard past first elevator) - (Agent)"]), 
                 PerfectDarkLocation
             )
 
             escape.add_locations(
-                get_location_names_with_ids(["A51 Escape (Agent): Pick up Shield dropped by the biotechnician in the circular room without the slope after moving Elvis to safety"]), 
+                get_location_names_with_ids(["A51 Escape: Shield (dropped by biotechnician) - (Agent)"]), 
                 PerfectDarkLocation
             )
 
             air_base.add_locations(
-                get_location_names_with_ids(["Air Base (Agent): Pick up Shield dropped by NSA Lackey near the elevator door"]), 
+                get_location_names_with_ids(["Air Base: Shield (dropped by NSA Lackey) - (Agent)"]), 
                 PerfectDarkLocation
             )
 
             air_force_one.add_locations(
-                get_location_names_with_ids(["Air Force One (Agent): Pick up Shield in the small kitchen past the stairs that leads to the lower deck"]), 
+                get_location_names_with_ids(["Air Force One: Shield (in small kitchen) - (Agent)"]), 
                 PerfectDarkLocation
             )
 
             crash_site.add_locations(
-                get_location_names_with_ids(["Crash Site (Agent): Pick up Shield near the crashed UFO"]), 
+                get_location_names_with_ids(["Crash Site: Shield (near the crashed UFO) - (Agent)"]), 
                 PerfectDarkLocation
             )
 
             pelagic.add_locations(
-                get_location_names_with_ids(["Pelagic II (Agent): Pick up Shield on the helipad"]), 
+                get_location_names_with_ids(["Pelagic II: Shield (on the helipad) - (Agent)"]), 
                 PerfectDarkLocation
             )
 
@@ -2443,98 +2443,98 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             # )
 
             institute_defense.add_locations(
-                get_location_names_with_ids(["CI Defense (Agent): Pick up Shield on the second floor at the dead end opposite from Carrington's office"]), 
+                get_location_names_with_ids(["CI Defense: 2F Shield - (Agent)"]), 
                 PerfectDarkLocation
             )
 
             skedar_ruins.add_locations(
-                get_location_names_with_ids(["Skedar Ruins (Agent): Pick up Shield behind the fallen pillar"]), 
+                get_location_names_with_ids(["Skedar Ruins: Shield (behind the fallen pillar) - (Agent)"]), 
                 PerfectDarkLocation
             )
 
             mbr.add_locations(
-                get_location_names_with_ids(["Mr. Blonde's Revenge (Agent): Pick up Shield next to the glass elevator on the bottom floor"]), 
+                get_location_names_with_ids(["Mr. Blonde's Revenge: 1F Shield - (Agent)"]), 
                 PerfectDarkLocation
             )
 
         if world.options.agent or world.options.special_agent:
             defection.add_locations(
-                get_location_names_with_ids(["dD Defection (Agent/Special): Pick up Shield from the guard on the floor below Cassandra's office"]), 
+                get_location_names_with_ids(["dD Defection: 3F Shield - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             investigation.add_locations(
-                get_location_names_with_ids(["dD Investigation (Agent/Special): Pick up Shield inside the glass enclosure in the room past the laser grids"]), 
+                get_location_names_with_ids(["dD Investigation: Shield (behind the glass) - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             chicago.add_locations(
-                get_location_names_with_ids(["Chicago (Agent/Special): Pick up Shield under the stairs that leads to the Pond Punk"]), 
+                get_location_names_with_ids(["Chicago: Shield (under stairs near Pond Punk) - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             g5_building.add_locations(
-                get_location_names_with_ids(["G5 Building (Agent/Special): Pick up Shield on the stairs leading to the upper exit"]), 
+                get_location_names_with_ids(["G5 Building: Shield (on stairs to the upper exit) - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             infiltration.add_locations(
-                get_location_names_with_ids(["A51 Infiltration (Agent/Special): Pick up Shield in the crawl space that leads to the mine field"]), 
+                get_location_names_with_ids(["A51 Infiltration: Shield (in the crawl space) - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             rescue.add_locations(
-                get_location_names_with_ids(["A51 Rescue (Agent/Special): Pick up Shield on the desk in the room next to the locked room at the top of the sloping corridor"]), 
+                get_location_names_with_ids(["A51 Rescue: Shield (on desk near computer) - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             escape.add_locations(
-                get_location_names_with_ids(["A51 Escape (Agent/Special): Pick up Shield behind the locked medical containment doors"]), 
+                get_location_names_with_ids(["A51 Escape: Shield (behind locked medical containment doors) - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             air_base.add_locations(
-                get_location_names_with_ids(["Air Base (Agent/Special): Pick up Shield in the safe with the flight plans"]), 
+                get_location_names_with_ids(["Air Base: Shield (in the safe) - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             air_force_one.add_locations(
-                get_location_names_with_ids(["Air Force One (Agent/Special): Pick up Shield in the room with the piano"]), 
+                get_location_names_with_ids(["Air Force One: Shield (in piano room) - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             crash_site.add_locations(
-                get_location_names_with_ids(["Crash Site (Agent/Special): Pick up Shield behind the President's clone"]), 
+                get_location_names_with_ids(["Crash Site: Shield (behind President's clone) - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             pelagic.add_locations(
-                get_location_names_with_ids(["Pelagic II (Agent/Special): Pick up Shield on the crate in the Moon Pool room"]), 
+                get_location_names_with_ids(["Pelagic II: Shield (on the sub hangar crate) - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             deep_sea.add_locations(
-                get_location_names_with_ids(["Deep Sea (Agent/Special): Pick up Shield on the left path from the first teleportal"]), 
+                get_location_names_with_ids(["Deep Sea: Shield (on the left path) - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             institute_defense.add_locations(
-                get_location_names_with_ids(["CI Defense (Agent/Special): Pick up Shield in the basement room with the two small hangar doors"]), 
+                get_location_names_with_ids(["CI Defense: Basement Shield - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             attack_ship.add_locations(
-                get_location_names_with_ids(["Attack Ship (Agent/Special): Pick up Shield on table in the room to the right after taking the lift with Elvis"]), 
+                get_location_names_with_ids(["Attack Ship: Shield (on table) - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             skedar_ruins.add_locations(
-                get_location_names_with_ids(["Skedar Ruins (Agent/Special): Pick up Shield in the area past the gap to the right near the cheese"]), 
+                get_location_names_with_ids(["Skedar Ruins: Shield (area past the gap to the right) - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
             mbr.add_locations(
-                get_location_names_with_ids(["Mr. Blonde's Revenge (Agent/Special): Pick up Shield from the guard on the floor below Cassandra's office"]), 
+                get_location_names_with_ids(["Mr. Blonde's Revenge: 3F Shield - (Agent/Special)"]), 
                 PerfectDarkLocation
             )
 
@@ -2542,22 +2542,22 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             investigation.add_locations(
                 get_location_names_with_ids(
                     [
-                        "dD Investigation (Special/Perfect): Pick up left ammo box in the room with one scientist",
-                        "dD Investigation (Special/Perfect): Pick up right ammo box in the room with one scientist",
-                        "dD Investigation (Special/Perfect): Pick up left ammo box in the first room near the two scientists",
-                        "dD Investigation (Special/Perfect): Pick up right ammo box in the first room near the two scientists"
+                        "dD Investigation: ammo box (front of room with one scientist)",
+                        "dD Investigation: ammo box (back of room with one scientist)",
+                        "dD Investigation: ammo box (front of room near two scientists)",
+                        "dD Investigation: ammo box (back of room near two scientists)"
                     ]
                 ), 
                 PerfectDarkLocation
             )
 
             g5_building.add_locations(
-                get_location_names_with_ids(["G5 Building (Special/Perfect): Pick up N-Bomb near the upper exit after placing Remote Mine on the upper exit in Chicago"]), 
+                get_location_names_with_ids(["G5 Building: N-Bomb (near the upper exit)"]), 
                 PerfectDarkLocation
             )
 
             infiltration.add_locations(
-                get_location_names_with_ids(["A51 Infiltration (Special/Perfect): Pick up double MagSec 4 from A51 guard after placing comms rider"]), 
+                get_location_names_with_ids(["A51 Infiltration: double MagSec 4 (after placing comms rider)"]), 
                 PerfectDarkLocation
             )
 
@@ -2565,38 +2565,38 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             if world.options.mission_logic.value < MissionLogic.option_perfect:
                 defection_locations = get_location_names_with_ids(
                     [
-                        "dD Defection: Pick up Laptop Gun in the room that the office worker hides in",
-                        "dD Defection: Pick up Falcon 2 (silencer) on the right side of the room that the office worker hides in",
-                        "dD Defection: Pick up Falcon 2 (silencer) on the left side of the room that the office worker hides in"
+                        "dD Defection: 2F Laptop Gun",
+                        "dD Defection: 2F Falcon 2 (silencer) (right side)",
+                        "dD Defection: 2F Falcon 2 (silencer) (left side)"
                     ]
                 )
                 defection.add_locations(defection_locations, PerfectDarkLocation)
 
             villa.add_locations(
-                get_location_names_with_ids(["Carrington Villa (Perfect Agent): Pick up Sniper Rifle in the bathroom"]), 
+                get_location_names_with_ids(["Carrington Villa: Sniper Rifle (in the bathroom) - (Perfect Agent)"]), 
                 PerfectDarkLocation
             )
 
             attack_ship.add_locations(
-                get_location_names_with_ids(["Attack Ship (Perfect Agent): Pick up De Vries' necklace"]), 
+                get_location_names_with_ids(["Attack Ship: De Vries' necklace - (Perfect Agent)"]), 
                 PerfectDarkLocation
             )
 
         if world.options.mission_logic.value == MissionLogic.option_perfect:
             defection_locations = get_location_names_with_ids(
                 [
-                    "dD Defection: Pick up Laptop Gun in the room that the office worker hides in",
-                    "dD Defection: Pick up Falcon 2 (silencer) on the right side of the room that the office worker hides in",
-                    "dD Defection: Pick up Falcon 2 (silencer) on the left side of the room that the office worker hides in"
+                    "dD Defection: 2F Laptop Gun",
+                    "dD Defection: 2F Falcon 2 (silencer) (right side)",
+                    "dD Defection: 2F Falcon 2 (silencer) (left side)"
                 ]
             )
             defection.add_locations(defection_locations, PerfectDarkLocation)
 
             mbr_locations = get_location_names_with_ids(
                 [
-                    "Mr. Blonde's Revenge: Pick up Laptop Gun in the room that the office worker hides in",
-                    "Mr. Blonde's Revenge: Pick up Falcon 2 on the right side of the room that the office worker hides in",
-                    "Mr. Blonde's Revenge: Pick up Falcon 2 on the left side of the room that the office worker hides in",
+                    "Mr. Blonde's Revenge: 2F Laptop Gun",
+                    "Mr. Blonde's Revenge: 2F Falcon 2 (right side)",
+                    "Mr. Blonde's Revenge: 2F Falcon 2 (left side)",
                 ]
             )
             mbr.add_locations(mbr_locations, PerfectDarkLocation)
