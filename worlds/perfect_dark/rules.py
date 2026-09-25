@@ -11426,7 +11426,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         "Mr. Blonde's Revenge: 1F CMP150 (on left of front desk)": has_mbr
                                                                            & has_cmp150,
             
-        "Maian SOS: double DY357-LX (from dual-wielded guard)": has_maian_sos 
+        "Maian SOS: double DY357-LX (from dual-wielding guard)": has_maian_sos 
                                                                                             & has_dy357lx 
                                                                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                                                             & has_weapon_for_maian_sos,

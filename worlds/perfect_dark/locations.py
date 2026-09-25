@@ -701,7 +701,7 @@ LOCATION_NAME_TO_ID = {
     "Mr. Blonde's Revenge: 1F CMP150 (on right of front desk)": 36605,
     "Mr. Blonde's Revenge: 1F CMP150 (on left of front desk)": 36606,
     "Mr. Blonde's Revenge: 1F Shield - (Agent)": 36607,
-    "Maian SOS: double DY357-LX (from dual-wielded guard)": 38011,
+    "Maian SOS: double DY357-LX (from dual-wielding guard)": 38011,
     "Maian SOS: Psychosis Gun (on desk near the start)": 38919,
 }
 
@@ -2360,7 +2360,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
         maian_sos_locations = get_location_names_with_ids(
             [
-                "Maian SOS: double DY357-LX (from dual-wielded guard)",
+                "Maian SOS: double DY357-LX (from dual-wielding guard)",
                 "Maian SOS: Psychosis Gun (on desk near the start)"
             ]
         )
