@@ -622,8 +622,8 @@ LOCATION_NAME_TO_ID = {
     "dD Extraction: 4F Rocket Launcher": 6452,
     "dD Extraction: 4F Grenade (on Cassandra's desk)": 6466,
     "dD Extraction: 4F Dragon (in hidden room in Cassandra's office)": 6467,
-    "dD Extraction: Roof ammo box (on left)": 6516,
-    "dD Extraction: Roof ammo box (on right)": 6519,
+    "dD Extraction: Roof ammo box (on left) - (Agent)": 6516,
+    "dD Extraction: Roof ammo box (on right) - (Agent)": 6519,
     "Carrington Villa: Devastator (in helipad crate)": 8000,
     "Carrington Villa: 1st ammo box (in crate on observatory path)": 8001,
     "Carrington Villa: 2nd ammo box (in crate on observatory path)": 8002,
@@ -2220,9 +2220,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
                 "dD Extraction: 1F DY357 Magnum (from fifth guard)",
                 "dD Extraction: 4F Rocket Launcher",
                 "dD Extraction: 4F Grenade (on Cassandra's desk)",
-                "dD Extraction: 4F Dragon (in hidden room in Cassandra's office)",
-                "dD Extraction: Roof ammo box (on left)",
-                "dD Extraction: Roof ammo box (on right)"
+                "dD Extraction: 4F Dragon (in hidden room in Cassandra's office)"
             ]
         )
         extraction.add_locations(extraction_locations, PerfectDarkLocation)
@@ -2379,7 +2377,13 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             )
 
             extraction.add_locations(
-                get_location_names_with_ids(["dD Extraction: 2F Shield - (Agent)"]), 
+                get_location_names_with_ids(
+                    [
+                        "dD Extraction: 2F Shield - (Agent)",
+                        "dD Extraction: Roof ammo box (on left) - (Agent)",
+                        "dD Extraction: Roof ammo box (on right) - (Agent)"
+                    ]
+                ), 
                 PerfectDarkLocation
             )
 

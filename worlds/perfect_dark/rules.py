@@ -11244,16 +11244,6 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                                                            | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))
                                                                            & has_dragon
                                                                            & has_weapon_for_extraction_upper_floors,
-
-        "dD Extraction: Roof ammo box (on left)": has_extraction
-                                                  & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
-                                                  & has_rocket_launcher 
-                                                  & has_weapon_for_extraction_upper_floors,
-
-        "dD Extraction: Roof ammo box (on right)": has_extraction
-                                                   & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
-                                                   & has_rocket_launcher 
-                                                   & has_weapon_for_extraction_upper_floors,
     
         "Carrington Villa: Devastator (in helipad crate)": has_villa
                                                            & has_devastator
@@ -11457,6 +11447,16 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                                               & Has("Shield")
                                               & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                               & has_weapon_for_extraction_upper_floors,
+
+        "dD Extraction: Roof ammo box (on left) - (Agent)": Has("dD Extraction - Agent") 
+                                                            & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
+                                                            & has_rocket_launcher 
+                                                            & has_weapon_for_extraction_upper_floors,
+
+        "dD Extraction: Roof ammo box (on right) - (Agent)": Has("dD Extraction - Agent") 
+                                                             & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
+                                                             & has_rocket_launcher 
+                                                             & has_weapon_for_extraction_upper_floors,
 
         "Carrington Villa: Shield (on helipad crate) - (Agent)": Has("Carrington Villa - Agent") 
                                                                  & Has("Shield")
