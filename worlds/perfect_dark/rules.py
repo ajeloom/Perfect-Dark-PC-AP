@@ -10914,7 +10914,7 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         "Complete 17 Challenges: Alaskan Guard Unlock": can_complete_seventeen_challenges,
         "Complete 16 Challenges: Air Force One Outfits Unlock": can_complete_sixteen_challenges,
         "Complete 7 Challenges: 8 Bots and Dinner Jacket Outfits Unlock": can_complete_seven_challenges,
-        "Complete 18 Challenges: Party Frock, Party (Ripped), Evening Wear, and President Unlock": can_complete_eighteen_challenges,
+        "Complete 18 Challenges: Formal Outfits and President Unlock": can_complete_eighteen_challenges,
         "Complete 19 Challenges: President's Clone Unlock": can_complete_nineteen_challenges,
         "Complete 18 Challenges: Presidential Security Unlock": can_complete_eighteen_challenges,
         "Complete 19 Challenges: NSA Bodyguard Unlock": can_complete_nineteen_challenges,
