@@ -2254,7 +2254,8 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
         g5_building_locations = get_location_names_with_ids(
             [
-                "G5 Building: Crossbow (after knocking out first two guards)"
+                "G5 Building: Crossbow (after knocking out first two guards)",
+                "G5 Building: N-Bomb (near the upper exit)"
             ]
         )
         g5_building.add_locations(g5_building_locations, PerfectDarkLocation)
@@ -2548,11 +2549,6 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
                         "dD Investigation: ammo box (back of room near two scientists)"
                     ]
                 ), 
-                PerfectDarkLocation
-            )
-
-            g5_building.add_locations(
-                get_location_names_with_ids(["G5 Building: N-Bomb (near the upper exit)"]), 
                 PerfectDarkLocation
             )
 
