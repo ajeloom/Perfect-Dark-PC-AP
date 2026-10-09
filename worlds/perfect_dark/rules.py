@@ -429,6 +429,16 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                      | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                      | HAS_ANY_WEAPON_TYPE)
 
+    has_villa_agent_or_special = (HasAny("Carrington Villa - Agent", "Carrington Villa - Special Agent"))
+    
+    villa_pickupsanity_weapon = (has_villa_agent_or_special & Has("Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
+                                | (has_villa_agent_or_special & HasAny("Sniper Rifle", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
+                                | (Has("Carrington Villa - Perfect Agent") & Has("Laptop Gun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False))
+                                | (Has("Carrington Villa - Perfect Agent") & HasAny("Laptop Gun", "CMP150", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
+                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
+                                | HAS_ANY_WEAPON_TYPE)
+
 
     # Chicago
     has_chicago_weapon = (Has("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
@@ -645,6 +655,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                     | (all_guns_filter & HasAny(*EXPLOSIVE_LIST) & HasFromList(*exclude_weapons_from_list(EXPLOSIVE_LIST), count=2))
                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE))
+
+    has_skedar_ruins_explosive = (Has("Devastator")
+                                 | (all_guns_filter & HasAny(*EXPLOSIVE_LIST))
+                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                                 | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))
 
 
     # Mr. Blonde's Revenge
@@ -2299,6 +2314,592 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         "Complete Air Base (Perfect Agent): Ladder Exit": perfect_agent_rules["Complete: Air Base - Perfect Agent"],
     }
 
+    has_falcon2 = (Has("Falcon 2")
+                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
+                  | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]))
+    
+    has_falcon2_silencer = (Has("Falcon 2 (Silencer)")
+                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2 (Silencer)"])
+                           | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Silencer)"]))
+
+    has_falcon2_scope = (Has("Falcon 2 (Scope)")
+                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2 (Scope)"])
+                        | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Scope)"]))
+
+    has_magsec4 = (Has("MagSec 4")
+                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"])
+                  | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]))
+
+    has_mauler = (Has("Mauler")
+                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"])
+                 | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]))
+
+    has_phoenix = (Has("Phoenix")
+                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Phoenix"])
+                  | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Phoenix"]))
+
+    has_dy357 = (Has("DY357 Magnum")
+                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DY357 Magnum"])
+                | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]))
+
+    has_dy357lx = (Has("DY357-LX")
+                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DY357-LX"])
+                  | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"]))
+
+    has_cmp150 = (Has("CMP150")
+                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["CMP150"])
+                 | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]))
+
+    has_cyclone = (Has("Cyclone")
+                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Cyclone"])
+                  | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]))
+
+    has_laptop_gun = (Has("Laptop Gun")
+                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Laptop Gun"])
+                     | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]))
+
+    has_dragon = (Has("Dragon")
+                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])
+                 | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]))
+
+    has_shotgun = (Has("Shotgun")
+                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
+                  | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]))
+
+    has_sniper_rifle = (Has("Sniper Rifle")
+                       | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
+                       | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]))
+
+    has_devastator = (Has("Devastator", options=[OptionFilter(WeaponProgression, WeaponProgression.option_all_guns, operator="le")])
+                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"])
+                     | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]))
+
+    has_rocket_launcher = (Has("Rocket Launcher")
+                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Rocket Launcher"])
+                          | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]))
+
+    has_slayer = (Has("Slayer")
+                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Slayer"])
+                 | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"]))
+
+    has_crossbow = (Has("Crossbow")
+                   | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Crossbow"])
+                   | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Crossbow"]))
+
+    has_grenade = (Has("Grenade")
+                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Grenade"])
+                  | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]))
+
+    has_proxy_mine = (Has("Proximity Mine")
+                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Proximity Mine"])
+                     | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Proximity Mine"]))
+
+    has_remote_mine = (Has("Remote Mine")
+                      | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])
+                      | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]))
+
+    has_nbomb = (Has("N-Bomb")
+                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["N-Bomb"])
+                | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["N-Bomb"]))
+
+    has_psychosis_gun = (Has("Psychosis Gun")
+                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Psychosis Gun"])
+                        | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Psychosis Gun"]))
+
+    pickupsanity_rules = {
+        "dD Defection: 2F double Falcon 2 (silencer)": has_defection
+                                                       & has_falcon2_silencer,
+
+        "dD Defection: 3F tiny ammo box (on corner desk)": has_defection
+                                                           & (has_defection_weapon
+                                                           | perfect_logic),
+
+        "dD Defection: 3F tiny ammo box (on table near couch)": has_defection 
+                                                                & (has_defection_weapon
+                                                                | perfect_logic),
+
+        "dD Defection: 2F tiny ammo box (on desk across the stairs)": has_defection 
+                                                                      & (has_defection_weapon
+                                                                      | perfect_logic),
+
+        "dD Defection: 2F tiny ammo box (on desk across the elevator)": has_defection 
+                                                                        & (has_defection_weapon
+                                                                        | perfect_logic),
+
+        "dD Defection: 2F Falcon 2 (silencer) (on desk)": has_defection 
+                                                          & (has_defection_weapon
+                                                          | perfect_logic),
+
+        "dD Defection: 2F tiny ammo box (under stairs)": has_defection 
+                                                         & (has_defection_weapon
+                                                         | perfect_logic),
+
+        "dD Defection: 1F CMP150 (on right of front desk)": has_defection
+                                                            & has_cmp150
+                                                            & (has_defection_weapon
+                                                            | perfect_logic),
+
+        "dD Defection: 1F CMP150 (on left of front desk)": has_defection
+                                                           & has_cmp150
+                                                           & (has_defection_weapon
+                                                           | perfect_logic),
+
+        "dD Investigation: ammo box (front of room above the K7 Avenger)": has_investigation
+                                                                           & (has_investigation_weapon
+                                                                           | perfect_logic),
+
+        "dD Investigation: ammo box (back of room above the K7 Avenger)": has_investigation
+                                                                          & (has_investigation_weapon
+                                                                          | perfect_logic),
+
+        "dD Investigation: ammo box (front of Night Vision room)": has_investigation
+                                                                   & (has_investigation_weapon
+                                                                   | perfect_logic),
+
+        "dD Investigation: ammo box (back of Night Vision room)": has_investigation 
+                                                                  & (has_investigation_weapon
+                                                                  | perfect_logic),
+
+        "dD Investigation: CMP150 (on front of table)": has_investigation
+                                                        & has_cmp150
+                                                        & has_investigation_weapon,
+
+        "dD Investigation: CMP150 (on back of table)": has_investigation
+                                                       & has_cmp150
+                                                       & has_investigation_weapon,
+
+        "dD Investigation: CMP150 (left of secret weapons compartment)": has_investigation
+                                                                         & Has("CamSpy")
+                                                                         & has_cmp150,
+
+        "dD Investigation: CMP150 (right of secret weapons compartment)": has_investigation
+                                                                          & Has("CamSpy")
+                                                                          & has_cmp150,
+
+        "dD Investigation: Proximity Mine (in radioactive room)": has_investigation
+                                                                  & has_proxy_mine
+                                                                  & (has_investigation_weapon
+                                                                  | perfect_logic),
+        
+        "dD Extraction: 1F DY357 Magnum (from fifth guard)": has_extraction
+                                                             & Has("Night Vision") 
+                                                             & has_dy357 
+                                                             & (Has("Falcon 2 (Scope)")
+                                                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
+                                                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
+                                                             | HAS_ANY_WEAPON_TYPE),
+
+        "dD Extraction: 4F Rocket Launcher": has_extraction 
+                                             & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                             & has_rocket_launcher 
+                                             & complete_extraction_weapons,
+
+        "dD Extraction: 4F Grenade (on Cassandra's desk)": has_extraction
+                                                           & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                           & HAS_CASS_OFFICE_KEY
+                                                           & has_grenade
+                                                           & complete_extraction_weapons,
+
+        "dD Extraction: 4F Dragon (in hidden room in Cassandra's office)": has_extraction
+                                                                           & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                                           & HAS_CASS_OFFICE_KEY
+                                                                           & has_dragon
+                                                                           & complete_extraction_weapons
+                                                                           & (has_extraction_explosive
+                                                                           | Has("Grenade")),
+
+        "Carrington Villa: Devastator (in helipad crate)": has_villa
+                                                           & has_devastator
+                                                           & villa_pickupsanity_weapon,
+
+        "Carrington Villa: 1st ammo box (in crate on observatory path)": has_villa
+                                                                         & villa_pickupsanity_weapon,
+
+        "Carrington Villa: 2nd ammo box (in crate on observatory path)": has_villa 
+                                                                         & villa_pickupsanity_weapon,
+
+        "Carrington Villa: 3rd ammo box (in crate on observatory path)": has_villa 
+                                                                         & villa_pickupsanity_weapon,
+
+        "Carrington Villa: 4th ammo box (in crate on observatory path)": has_villa 
+                                                                         & villa_pickupsanity_weapon,
+
+        "Carrington Villa: 5th ammo box (in crate on observatory path)": has_villa 
+                                                                         & villa_pickupsanity_weapon,
+
+        "Carrington Villa: 6th ammo box (in crate on observatory path)": has_villa 
+                                                                         & villa_pickupsanity_weapon,
+
+        "Carrington Villa: 7th ammo box (in crate on observatory path)": has_villa 
+                                                                         & villa_pickupsanity_weapon,
+        
+        "Carrington Villa: 8th ammo box (in crate on observatory path)": has_villa 
+                                                                         & villa_pickupsanity_weapon,
+        
+        "Carrington Villa: 9th ammo box (in crate on observatory path)": has_villa 
+                                                                         & villa_pickupsanity_weapon,
+        
+        "Carrington Villa: double CMP150 (from sniper near the helipad)": has_villa 
+                                                                          & has_cmp150
+                                                                          & villa_pickupsanity_weapon,
+            
+        "Chicago: BombSpy (in the dumpster)": has_chicago 
+                                              & Has("CamSpy") 
+                                              & has_chicago_weapon,
+
+        "Chicago: double Falcon 2 (scope) (in the Pond Punk)": has_chicago 
+                                                               & has_falcon2_scope 
+                                                               & has_cmp150,
+
+        "G5 Building: Crossbow (after knocking out first two guards)": has_g5 
+                                                                       & has_crossbow,
+
+        # "G5 Building: N-Bomb (near the upper exit)": has_g5
+        #                                              & HAS_G5_KEYS
+        #                                              & has_nbomb
+        #                                              & has_g5_weapon
+        #                                              & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent")
+        #                                              & has_remote_mine
+        #                                              & has_chicago_weapon,
+
+        "A51 Infiltration: Rocket Launcher (in mine field)": has_infiltration 
+                                                             & has_rocket_launcher 
+                                                             & has_infiltration_weapon,
+        
+        "A51 Rescue: Phoenix (past locked hangar door)": has_rescue
+                                                         & has_phoenix
+                                                         & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
+                                                         & has_rescue_weapon
+                                                         & has_infiltration 
+                                                         & has_infiltration_weapon,
+
+        "A51 Rescue: double Falcon 2 (silencer) (hidden in barrel)": has_rescue
+                                                                     & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
+                                                                     & has_falcon2_silencer,
+        
+        "A51 Escape: double Falcon 2 (scope) (behind you at the start)": has_escape
+                                                                         & has_falcon2_scope,
+        
+        "A51 Escape: Remote Mine (in first room with guards)": has_escape
+                                                               & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                               & has_remote_mine
+                                                               & has_escape_weapon,
+
+        "Air Base: double DY357 Magnum (after knocking out all NSA Lackeys)": has_air_base
+                                                                              & has_dy357
+                                                                              & Has("Stewardess Disguise")
+                                                                              & has_sedate,
+
+        "Air Base: Proximity Mine (past the cave)": has_air_base
+                                                    & has_proxy_mine
+                                                    & (has_sedate
+                                                    | perfect_logic),
+        
+        "Air Force One: Cyclone (in room right of stairs)": has_air_force_one
+                                                            & HAS_AFO_RIGHT_KEY
+                                                            & has_cyclone,
+
+        "Air Force One: Cyclone (in room left of stairs)": has_air_force_one 
+                                                           & HAS_AFO_LEFT_KEY
+                                                           & has_cyclone,
+
+        "Crash Site: DY357-LX (from disarming Trent)": has_crash_site
+                                                       & has_dy357lx
+                                                       & (has_crash_site_weapon
+                                                       | perfect_logic),
+        
+        "Crash Site: Proximity Mine (from Elvis before doing any objective)": has_crash_site
+                                                                              & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                                              & has_proxy_mine
+                                                                              & (has_crash_site_weapon
+                                                                              | perfect_logic),
+
+        "Pelagic II: double Falcon 2 (silencer) (from guard and no alarm)": has_pelagic
+                                                                            & has_falcon2_silencer,
+
+        "Deep Sea: Proximity Mine (from guard in 2nd room with cloaked guards)": has_deep_sea
+                                                                                 & has_proxy_mine
+                                                                                 & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+                                                                                 & has_deep_sea_weapon,
+        
+        # "Deep Sea: Shotgun (near Shield on the left path)": has_deep_sea
+        #                                                     & has_shotgun
+        #                                                     & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+        #                                                     & has_deep_sea_weapon,
+
+        "CI Defense: Devastator (dropped after saving most of the hostages)": has_defense
+                                                                              & Has("Carrington", options=[npc_filter], filtered_resolution=True)
+                                                                              & has_devastator
+                                                                              & complete_defense_weapons,
+        
+        "Attack Ship: double Mauler (dropped from Skedar in final room)": has_attack_ship
+                                                                          & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
+                                                                          & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                                          & has_mauler
+                                                                          & complete_attack_ship_weapons,
+
+        "Attack Ship: Slayer (in the room past green chambers)": has_attack_ship
+                                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
+                                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                                 & has_slayer
+                                                                 & complete_attack_ship_weapons,
+        
+        "Skedar Ruins: double Phoenix (near the gap)": has_skedar_ruins
+                                                       & has_phoenix
+                                                       & HasAll("R-Tracker", "Target Amplifier")
+                                                       & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                       & has_skedar_ruins_weapon
+                                                       & has_skedar_ruins_explosive,
+        
+        "Mr. Blonde's Revenge: 1F double CMP150 (from guard near bottom elevator)": has_mbr
+                                                                                    & has_cmp150
+                                                                                    & complete_mbr_weapons
+                                                                                    & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+
+        "Mr. Blonde's Revenge: 3F tiny ammo box (on corner desk)": has_mbr
+                                                                   & complete_mbr_weapons
+                                                                   & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+
+        "Mr. Blonde's Revenge: 3F tiny ammo box (on table near couch)": has_mbr 
+                                                                        & complete_mbr_weapons
+                                                                        & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+
+        "Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the stairs)": has_mbr 
+                                                                              & complete_mbr_weapons
+                                                                              & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+        
+        "Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the elevator)": has_mbr 
+                                                                                & complete_mbr_weapons
+                                                                                & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+
+        "Mr. Blonde's Revenge: 2F Falcon 2 (on desk)": has_mbr 
+                                                       & complete_mbr_weapons
+                                                       & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+        
+        "Mr. Blonde's Revenge: 2F tiny ammo box (under stairs)": has_mbr 
+                                                                 & complete_mbr_weapons
+                                                                 & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+
+        "Mr. Blonde's Revenge: 1F CMP150 (on right of front desk)": has_mbr
+                                                                    & has_cmp150,
+        
+        "Mr. Blonde's Revenge: 1F CMP150 (on left of front desk)": has_mbr
+                                                                   & has_cmp150,
+            
+        "Maian SOS: double DY357-LX (from dual-wielding guard)": has_maian_sos 
+                                                                 & has_dy357lx 
+                                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                                 & complete_maian_sos_weapons,
+
+        "Maian SOS: Psychosis Gun (on desk near the start)": has_maian_sos 
+                                                             & has_psychosis_gun,
+    }
+
+    pickupsanity_rules_agent_only = {
+        "dD Defection (Agent): 1F Shield": Has("dD Defection - Agent") 
+                                           & Has("Shield")
+                                           & (has_defection_weapon
+                                           | perfect_logic),
+
+        "dD Investigation (Agent): Shield (on crate)": Has("dD Investigation - Agent") 
+                                                       & Has("Shield")
+                                                       & (has_investigation_weapon
+                                                       | perfect_logic),
+
+        "dD Extraction (Agent): 2F Shield": Has("dD Extraction - Agent") 
+                                            & Has("Shield")
+                                            & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                            & has_extraction_weapon,
+
+        "dD Extraction (Agent): Roof ammo box (on left)": Has("dD Extraction - Agent") 
+                                                          & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
+                                                          & has_rocket_launcher 
+                                                          & complete_extraction_weapons,
+
+        "dD Extraction (Agent): Roof ammo box (on right)": Has("dD Extraction - Agent") 
+                                                           & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
+                                                           & has_rocket_launcher 
+                                                           & complete_extraction_weapons,
+
+        "Carrington Villa (Agent): Shield (on helipad crate)": Has("Carrington Villa - Agent") 
+                                                               & Has("Shield")
+                                                               & villa_pickupsanity_weapon,
+
+        "Carrington Villa (Agent): Shield (in the bathroom)": Has("Carrington Villa - Agent") 
+                                                              & Has("Shield")
+                                                              & villa_pickupsanity_weapon,
+
+        "Chicago (Agent): Shield (near the taxi)": Has("Chicago - Agent") 
+                                                   & Has("Shield"),
+
+        "G5 Building (Agent): Shield (in room before the laser grids)": Has("G5 Building - Agent") 
+                                                                        & Has("Shield")
+                                                                        & HAS_G5_KEYS
+                                                                        & has_g5_weapon,
+
+        "A51 Infiltration (Agent): Shield (near hoverbike)": Has("A51 Infiltration - Agent") 
+                                                             & Has("Shield")
+                                                             & has_infiltration_weapon,
+
+        "A51 Rescue (Agent): Shield (guard past first elevator)": Has("A51 Rescue - Agent")
+                                                                  & Has("Jonathan", options=[npc_filter], filtered_resolution=True) 
+                                                                  & Has("Shield")
+                                                                  & has_rescue_weapon,
+
+        "A51 Escape (Agent): Shield (dropped by biotechnician)": Has("A51 Escape - Agent") 
+                                                                 & Has("Shield")
+                                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                                 & (has_escape_weapon
+                                                                 | hard_logic
+                                                                 | perfect_logic),
+
+        "Air Base (Agent): Shield (dropped by NSA Lackey)": Has("Air Base - Agent") 
+                                                            & Has("Shield")
+                                                            & Has("Stewardess Disguise")
+                                                            & has_sedate,
+
+        "Air Force One (Agent): Shield (in small kitchen)": Has("Air Force One - Agent") 
+                                                            & Has("Shield"),
+
+        "Crash Site (Agent): Shield (near the crashed UFO)": Has("Crash Site - Agent") 
+                                                             & Has("Shield")
+                                                             & (has_crash_site_weapon
+                                                             | perfect_logic), 
+
+        "Pelagic II (Agent): Shield (on the helipad)": Has("Pelagic II - Agent") 
+                                                       & Has("Shield")
+                                                       & has_pelagic_weapon,
+
+        # "Deep Sea (Agent): Shield (dropped from guard)": Has("Deep Sea - Agent") 
+        #                                                  & Has("Shield")
+        #                                                  & has_deep_sea_weapon,
+
+        "CI Defense (Agent): 2F Shield": Has("CI Defense - Agent") 
+                                         & Has("Carrington", options=[npc_filter], filtered_resolution=True)
+                                         & Has("Shield"),
+
+        "Skedar Ruins (Agent): Shield (behind the fallen pillar)": HAS_SKEDAR_RUINS_AGENT
+                                                                   & Has("Shield")
+                                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                                   & has_skedar_ruins_weapon,
+
+        "Mr. Blonde's Revenge (Agent): 1F Shield": Has("Mr. Blonde's Revenge - Agent") 
+                                                   & Has("Shield")
+                                                   & (complete_mbr_weapons
+                                                   | Has("Cloaking Device")),
+    }
+
+    pickupsanity_rules_agent_or_special = {
+        "dD Defection (Agent/Special): 3F Shield": HasAny("dD Defection - Agent", "dD Defection - Special Agent")
+                                                   & Has("Shield")
+                                                   & (has_defection_weapon
+                                                   | (perfect_logic & complete_defection_weapons)),
+
+        "dD Investigation (Agent/Special): Shield (behind the glass)": HasAny("dD Investigation - Agent", "dD Investigation - Special Agent") 
+                                                                       & Has("Shield")
+                                                                       & has_investigation_weapon,
+
+        "Chicago (Agent/Special): Shield (under stairs near Pond Punk)": HasAny("Chicago - Agent", "Chicago - Special Agent") 
+                                                                         & Has("Shield")
+                                                                         & (has_chicago_weapon
+                                                                         | perfect_logic),
+
+        "G5 Building (Agent/Special): Shield (on stairs to the upper exit)": HasAny("G5 Building - Agent", "G5 Building - Special Agent")
+                                                                             & Has("Shield")
+                                                                             & HAS_G5_KEYS
+                                                                             & has_g5_weapon,
+
+        "A51 Infiltration (Agent/Special): Shield (in the crawl space)": HasAny("A51 Infiltration - Agent", "A51 Infiltration - Special Agent")
+                                                                         & Has("Shield")
+                                                                         & has_infiltration_weapon,
+
+        "A51 Rescue (Agent/Special): Shield (on desk near computer)": HasAny("A51 Rescue - Agent", "A51 Rescue - Special Agent")
+                                                                      & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
+                                                                      & Has("Shield")
+                                                                      & has_rescue_weapon,
+
+        "A51 Escape (Agent/Special): Shield (behind locked medical containment doors)": HasAny("A51 Escape - Agent", "A51 Escape - Special Agent")
+                                                                                        & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                                                        & Has("Shield")
+                                                                                        & has_escape_weapon,
+
+        "Air Base (Agent/Special): Shield (in the safe)": HasAny("Air Base - Agent", "Air Base - Special Agent") 
+                                                          & Has("Shield")
+                                                          & Has("Stewardess Disguise")
+                                                          & has_sedate
+                                                          & complete_air_base_weapons,
+
+        "Air Force One (Agent/Special): Shield (in piano room)": HasAny("Air Force One - Agent", "Air Force One - Special Agent")
+                                                                 & Has("Shield"),
+
+        "Crash Site (Agent/Special): Shield (behind President's clone)": HasAny("Crash Site - Agent", "Crash Site - Special Agent")
+                                                                         & Has("Shield")
+                                                                         & Has("Night Vision")
+                                                                         & has_crash_site_weapon,
+
+        "Pelagic II (Agent/Special): Shield (on the sub hangar crate)": HasAny("Pelagic II - Agent", "Pelagic II - Special Agent")
+                                                                        & Has("Shield")
+                                                                        & has_pelagic_weapon,
+
+        "Deep Sea (Agent/Special): Shield (on the left path)": HasAny("Deep Sea - Agent", "Deep Sea - Special Agent")
+                                                               & Has("Shield")
+                                                               & has_deep_sea_weapon,
+
+        "CI Defense (Agent/Special): Basement Shield": HasAny("CI Defense - Agent", "CI Defense - Special Agent")
+                                                       & Has("Carrington", options=[npc_filter], filtered_resolution=True)
+                                                       & Has("Shield")
+                                                       & (complete_defense_weapons
+                                                       | perfect_logic),
+
+        "Attack Ship (Agent/Special): Shield (on table)": HasAny("Attack Ship - Agent", "Attack Ship - Special Agent")
+                                                          & Has("Shield")
+                                                          & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
+                                                          & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                          & has_attack_ship_weapon,
+
+        "Skedar Ruins (Agent/Special): Shield (area past the gap to the right)": HasAny("Skedar Ruins - Agent", "Skedar Ruins - Special Agent", "Skedar Ruins")
+                                                                                 & Has("Shield")
+                                                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                                                 & has_skedar_ruins_weapon
+                                                                                 & has_skedar_ruins_explosive,
+
+        "Mr. Blonde's Revenge (Agent/Special): 3F Shield": HasAny("Mr. Blonde's Revenge - Agent", "Mr. Blonde's Revenge - Special Agent")
+                                                           & Has("Shield")
+                                                           & complete_mbr_weapons
+                                                           & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+    }
+
+    pickupsanity_rules_special_or_perfect = {
+        "dD Investigation: ammo box (front of room with one scientist)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent")
+                                                                         & (has_investigation_weapon
+                                                                         | perfect_logic),
+        
+        "dD Investigation: ammo box (back of room with one scientist)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent")
+                                                                        & (has_investigation_weapon
+                                                                        | perfect_logic),
+
+        "dD Investigation: ammo box (front of room near two scientists)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent")
+                                                                          & (has_investigation_weapon
+                                                                          | perfect_logic),
+        
+        "dD Investigation: ammo box (back of room near two scientists)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent") 
+                                                                         & (has_investigation_weapon
+                                                                         | perfect_logic),
+
+        "G5 Building: N-Bomb (near the upper exit)": has_g5
+                                                     & HAS_G5_KEYS
+                                                     & has_nbomb
+                                                     & has_g5_weapon
+                                                     & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent")
+                                                     & has_remote_mine
+                                                     & has_chicago_weapon,
+
+        "A51 Infiltration: double MagSec 4 (after placing comms rider)": HasAny("A51 Infiltration - Special Agent", "A51 Infiltration - Perfect Agent")
+                                                                         & Has("Comms Rider")
+                                                                         & has_magsec4
+                                                                         & has_infiltration_weapon,
+    }
+
 
     if world.options.agent:
         add_rule(world, agent_rules)
@@ -2346,6 +2947,74 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins"), cheat_rules["Cheat Unlock: Complete Skedar Ruins"])
         if world.options.timed_cheats:
             world.set_rule(world.get_location("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"), cheat_pf_agent_rules["Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31"])
+
+    if world.options.pickupsanity:
+        if world.options.agent or world.options.special_agent or world.options.perfect_agent:
+            add_rule(world, pickupsanity_rules)
+
+        if world.options.agent:
+            add_rule(world, pickupsanity_rules_agent_only)
+
+        if world.options.agent or world.options.special_agent:
+            add_rule(world, pickupsanity_rules_agent_or_special)
+
+        if world.options.perfect_agent:
+            villa_sniper_rifle = world.get_location("Carrington Villa (Perfect Agent): Sniper Rifle (in the bathroom)")
+            world.set_rule(villa_sniper_rifle, Has("Carrington Villa - Perfect Agent")
+                                               & has_sniper_rifle
+                                               & has_villa_weapon_perfect)
+
+            attack_ship_necklace = world.get_location("Attack Ship (Perfect Agent): De Vries' Necklace")
+            world.set_rule(attack_ship_necklace, Has("Attack Ship - Perfect Agent")
+                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
+                                                 & HAS_DD_KEYS)
+
+        if world.options.special_agent or world.options.perfect_agent:
+            add_rule(world, pickupsanity_rules_special_or_perfect)
+
+        if world.options.perfect_agent \
+                or world.options.mission_logic.value == MissionLogic.option_perfect:
+            defection_laptop_gun = world.get_location("dD Defection: 2F Laptop Gun")
+            world.set_rule(defection_laptop_gun, (Has("dD Defection - Perfect Agent") 
+                                                    & has_laptop_gun 
+                                                    & complete_defection_weapons)
+                                                 | (perfect_logic 
+                                                    & has_defection 
+                                                    & has_laptop_gun 
+                                                    & complete_defection_weapons))
+
+            defection_right_falcon2 = world.get_location("dD Defection: 2F Falcon 2 (silencer) (on right side)")
+            world.set_rule(defection_right_falcon2, (Has("dD Defection - Perfect Agent") 
+                                                        & has_falcon2_silencer 
+                                                        & complete_defection_weapons)
+                                                    | (perfect_logic 
+                                                        & has_defection 
+                                                        & has_falcon2_silencer))
+
+            defection_left_falcon2 = world.get_location("dD Defection: 2F Falcon 2 (silencer) (on left side)")
+            world.set_rule(defection_left_falcon2, (Has("dD Defection - Perfect Agent") 
+                                                        & has_falcon2_silencer 
+                                                        & complete_defection_weapons)
+                                                   | (perfect_logic 
+                                                        & has_defection 
+                                                        & has_falcon2_silencer))
+
+        if world.options.mission_logic.value == MissionLogic.option_perfect:
+            mbr_laptop_gun = world.get_location("Mr. Blonde's Revenge: 2F Laptop Gun")
+            world.set_rule(mbr_laptop_gun, has_mbr 
+                                           & has_laptop_gun
+                                           & complete_mbr_weapons
+                                           & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True))
+            
+            mbr_falcon2_1 = world.get_location("Mr. Blonde's Revenge: 2F Falcon 2 (on right side)")
+            world.set_rule(mbr_falcon2_1, has_mbr
+                                          & has_falcon2 
+                                          & complete_mbr_weapons)
+
+            mbr_falcon2_2 = world.get_location("Mr. Blonde's Revenge: 2F Falcon 2 (on left side)")
+            world.set_rule(mbr_falcon2_2, has_mbr
+                                          & has_falcon2 
+                                          & complete_mbr_weapons)
 
 
 def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
@@ -3453,680 +4122,6 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         # "Complete Challenges: Laser Unlock": can_complete_one_challenge,
     }
 
-    has_weapon_for_defection = (Has("Falcon 2 (Silencer)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                                | HasAny("Falcon 2 (Silencer)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
-                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_investigation = (Has("Falcon 2", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                                    | HasAny("Falcon 2", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
-                                    | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                    | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_extraction_bottom_floor = (Has("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                                                | HasAny("Falcon 2 (Scope)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
-                                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                                | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_extraction_upper_floors = (HasAll("Falcon 2 (Scope)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                                            | HasAny("Falcon 2 (Scope)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
-                                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                            | HAS_ANY_WEAPON_TYPE)
-
-    has_villa_agent_or_special = (HasAny("Carrington Villa - Agent", "Carrington Villa - Special Agent"))
-
-    has_weapon_for_villa = (has_villa_agent_or_special & Has("Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                            | (has_villa_agent_or_special & HasAny("Sniper Rifle", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
-                            | (Has("Carrington Villa - Perfect Agent") & Has("Laptop Gun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False))
-                            | (Has("Carrington Villa - Perfect Agent") & HasAny("Laptop Gun", "CMP150", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
-                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                            | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_chicago = (Has("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                                | HasAny("Falcon 2 (Scope)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
-                                | HasAny("Falcon 2 (Scope)", "CMP150", "DY357 Magnum", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
-                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_g5 = (Has("Falcon 2 (Silencer)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                        | HasAny("Falcon 2 (Silencer)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
-                        | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                        | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_infiltration = (Has("Falcon 2", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                                    | HasAny("Falcon 2", "MagSec 4", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
-                                    | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                    | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_rescue = (Has("Falcon 2 (Silencer)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                            | HasAny("Falcon 2 (Silencer)", "Dragon", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
-                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                            | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_escape = (Has("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                            | HasAny("Falcon 2 (Scope)", "SuperDragon", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
-                            | HasAny("Falcon 2 (Scope)", "SuperDragon", "Tranquilizer", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
-                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                            | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_air_base = (HasAll("Dragon", "K7 Avenger", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                                | HasAny("Dragon", "K7 Avenger", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
-                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
-                                | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_crash_site = (Has("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                                | HasAny("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
-                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_pelagic = (HasAny("Falcon 2 (Silencer)", "Laptop Gun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                                | HasAny("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
-                                | HasAny("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", "Phoenix", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
-                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_deep_sea = (HasAny("Falcon 2 (Scope)", "Shotgun")
-                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2 (Scope)"])
-                                | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_defense = (Has("AR34")
-                                | (all_guns_filter & HAS_ANY_RIFLE)
-                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
-                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]))
-
-    has_weapon_for_attack_ship = (HasAll("Combat Knife", "Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                                    | Has("Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
-                                    | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
-                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                                    | HAS_ANY_WEAPON_TYPE_ATTACKSHIP)
-
-    has_weapon_for_mbr = (Has("Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                            | HasAny("Mauler", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
-                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                            | HAS_ANY_WEAPON_TYPE)
-
-    has_weapon_for_maian_sos = (HasAll("Falcon 2", "Dragon", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                                | Has("Falcon 2", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
-                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                | HAS_ANY_WEAPON_TYPE)
-
-    has_falcon2 = (Has("Falcon 2")
-                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
-                    | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]))
-
-    has_falcon2_silencer = (Has("Falcon 2 (Silencer)")
-                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2 (Silencer)"])
-                            | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Silencer)"]))
-
-    has_falcon2_scope = (Has("Falcon 2 (Scope)")
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2 (Scope)"])
-                        | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Scope)"]))
-
-    has_magsec4 = (Has("MagSec 4")
-                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"])
-                    | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]))
-
-    has_mauler = (Has("Mauler")
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"])
-                        | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]))
-
-    has_phoenix = (Has("Phoenix")
-                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Phoenix"])
-                    | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Phoenix"]))
-
-    has_dy357 = (Has("DY357 Magnum")
-                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DY357 Magnum"])
-                    | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]))
-
-    has_dy357lx = (Has("DY357-LX")
-                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DY357-LX"])
-                    | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"]))
-
-    has_cmp150 = (Has("CMP150")
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["CMP150"])
-                        | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]))
-
-    has_cyclone = (Has("Cyclone")
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Cyclone"])
-                        | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]))
-
-    has_laptop_gun = (Has("Laptop Gun")
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Laptop Gun"])
-                        | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]))
-
-    has_dragon = (Has("Dragon")
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"])
-                        | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]))
-
-    has_shotgun = (Has("Shotgun")
-                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
-                    | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]))
-
-    has_sniper_rifle = (Has("Sniper Rifle")
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
-                        | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]))
-
-    has_devastator = (Has("Devastator", options=[OptionFilter(WeaponProgression, WeaponProgression.option_all_guns, operator="le")])
-                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"])
-                            | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]))
-
-    has_rocket_launcher = (Has("Rocket Launcher")
-                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Rocket Launcher"])
-                            | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]))
-
-    has_slayer = (Has("Slayer")
-                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Slayer"])
-                    | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"]))
-
-    has_crossbow = (Has("Crossbow")
-                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Crossbow"])
-                    | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Crossbow"]))
-
-    has_grenade = (Has("Grenade")
-                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Grenade"])
-                    | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]))
-
-    has_proxy_mine = (Has("Proximity Mine")
-                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Proximity Mine"])
-                            | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Proximity Mine"]))
-
-    has_remote_mine = (Has("Remote Mine")
-                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])
-                                | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]))
-
-    has_nbomb = (Has("N-Bomb")
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["N-Bomb"])
-                        | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["N-Bomb"]))
-
-    has_psychosis_gun = (Has("Psychosis Gun")
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Psychosis Gun"])
-                        | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Psychosis Gun"]))
-
-    pickupsanity_rules = {
-        "dD Defection: 2F double Falcon 2 (silencer)": has_defection
-                                                       & has_falcon2_silencer,
-
-        "dD Defection: 3F tiny ammo box (on corner desk)": has_defection
-                                                           & has_weapon_for_defection,
-
-        "dD Defection: 3F tiny ammo box (on table near couch)": has_defection 
-                                                                & has_weapon_for_defection,
-
-        "dD Defection: 2F tiny ammo box (on desk across the stairs)": has_defection 
-                                                                      & has_weapon_for_defection,
-
-        "dD Defection: 2F tiny ammo box (on desk across the elevator)": has_defection 
-                                                                        & has_weapon_for_defection,
-
-        "dD Defection: 2F Falcon 2 (silencer) (on desk)": has_defection 
-                                                          & has_weapon_for_defection,
-
-        "dD Defection: 2F tiny ammo box (under stairs)": has_defection 
-                                                         & has_weapon_for_defection,
-
-        "dD Defection: 1F CMP150 (on right of front desk)": has_defection
-                                                            & has_cmp150
-                                                            & has_weapon_for_defection,
-
-        "dD Defection: 1F CMP150 (on left of front desk)": has_defection
-                                                           & has_cmp150
-                                                           & has_weapon_for_defection,
-
-        "dD Investigation: ammo box (front of room above the K7 Avenger)": has_investigation
-                                                                           & has_weapon_for_investigation,
-
-        "dD Investigation: ammo box (back of room above the K7 Avenger)": has_investigation
-                                                                          & has_weapon_for_investigation,
-
-        "dD Investigation: ammo box (front of Night Vision room)": has_investigation
-                                                                   & has_weapon_for_investigation,
-
-        "dD Investigation: ammo box (back of Night Vision room)": has_investigation 
-                                                                  & has_weapon_for_investigation,
-
-        "dD Investigation: CMP150 (on front of table)": has_investigation
-                                                        & has_cmp150
-                                                        & has_weapon_for_investigation,
-
-        "dD Investigation: CMP150 (on back of table)": has_investigation
-                                                       & has_cmp150
-                                                       & has_weapon_for_investigation,
-
-        "dD Investigation: CMP150 (left of secret weapons compartment)": has_investigation
-                                                                         & Has("CamSpy")
-                                                                         & has_cmp150
-                                                                         & has_weapon_for_investigation,
-
-        "dD Investigation: CMP150 (right of secret weapons compartment)": has_investigation
-                                                                          & Has("CamSpy")
-                                                                          & has_cmp150
-                                                                          & has_weapon_for_investigation,
-
-        "dD Investigation: Proximity Mine (in radioactive room)": has_investigation
-                                                                  & has_proxy_mine
-                                                                  & has_weapon_for_investigation,
-        
-        "dD Extraction: 1F DY357 Magnum (from fifth guard)": has_extraction
-                                                             & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
-                                                             & has_dy357 
-                                                             & has_weapon_for_extraction_bottom_floor,
-
-        "dD Extraction: 4F Rocket Launcher": has_extraction 
-                                             & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
-                                             & has_rocket_launcher 
-                                             & has_weapon_for_extraction_upper_floors,
-
-        "dD Extraction: 4F Grenade (on Cassandra's desk)": has_extraction
-                                                           & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
-                                                           & HAS_CASS_OFFICE_KEY
-                                                           & has_grenade
-                                                           & has_weapon_for_extraction_upper_floors,
-
-        "dD Extraction: 4F Dragon (in hidden room in Cassandra's office)": has_extraction
-                                                                           & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
-                                                                           & HAS_CASS_OFFICE_KEY
-                                                                           & (HasAny("Grenade", "Rocket Launcher")
-                                                                           | (all_guns_filter & HasFromList(*EXPLOSIVE_LIST, count=1))
-                                                                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
-                                                                           | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))
-                                                                           & has_dragon
-                                                                           & has_weapon_for_extraction_upper_floors,
-    
-        "Carrington Villa: Devastator (in helipad crate)": has_villa
-                                                           & has_devastator
-                                                           & has_weapon_for_villa,
-
-        "Carrington Villa: 1st ammo box (in crate on observatory path)": has_villa
-                                                                         & has_weapon_for_villa,
-
-        "Carrington Villa: 2nd ammo box (in crate on observatory path)": has_villa 
-                                                                         & has_weapon_for_villa,
-
-        "Carrington Villa: 3rd ammo box (in crate on observatory path)": has_villa 
-                                                                         & has_weapon_for_villa,
-
-        "Carrington Villa: 4th ammo box (in crate on observatory path)": has_villa 
-                                                                         & has_weapon_for_villa,
-
-        "Carrington Villa: 5th ammo box (in crate on observatory path)": has_villa 
-                                                                         & has_weapon_for_villa,
-
-        "Carrington Villa: 6th ammo box (in crate on observatory path)": has_villa 
-                                                                         & has_weapon_for_villa,
-
-        "Carrington Villa: 7th ammo box (in crate on observatory path)": has_villa 
-                                                                         & has_weapon_for_villa,
-        
-        "Carrington Villa: 8th ammo box (in crate on observatory path)": has_villa 
-                                                                         & has_weapon_for_villa,
-        
-        "Carrington Villa: 9th ammo box (in crate on observatory path)": has_villa 
-                                                                         & has_weapon_for_villa,
-        
-        "Carrington Villa: double CMP150 (from sniper near the helipad)": has_villa 
-                                                                          & has_cmp150
-                                                                          & has_weapon_for_villa,
-            
-        "Chicago: BombSpy (in the dumpster)": has_chicago 
-                                              & Has("CamSpy") 
-                                              & has_weapon_for_chicago,
-
-        "Chicago: double Falcon 2 (scope) (in the Pond Punk)": has_chicago 
-                                                               & has_falcon2_scope 
-                                                               & has_cmp150
-                                                               & has_weapon_for_chicago,
-    
-        "G5 Building: Crossbow (after knocking out first two guards)": has_g5 
-                                                                       & has_crossbow,
-
-        "G5 Building: N-Bomb (near the upper exit)": has_g5
-                                                     & HAS_G5_KEYS
-                                                     & has_nbomb
-                                                     & has_weapon_for_g5
-                                                     & has_chicago
-                                                     & has_remote_mine
-                                                     & has_weapon_for_chicago,
-    
-        "A51 Infiltration: Rocket Launcher (in mine field)": has_infiltration 
-                                                             & has_rocket_launcher 
-                                                             & has_weapon_for_infiltration,
-        
-        "A51 Rescue: Phoenix (past locked hangar door)": has_rescue
-                                                         & has_phoenix
-                                                         & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
-                                                         & has_weapon_for_rescue
-                                                         & has_infiltration 
-                                                         & has_weapon_for_infiltration,
-
-        "A51 Rescue: double Falcon 2 (silencer) (hidden in barrel)": has_rescue
-                                                                     & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
-                                                                     & has_falcon2_silencer,
-        
-        "A51 Escape: double Falcon 2 (scope) (behind you at the start)": has_escape
-                                                                         & has_falcon2_scope,
-        
-        "A51 Escape: Remote Mine (in first room with guards)": has_escape
-                                                               & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                               & has_remote_mine
-                                                               & has_weapon_for_escape,
-    
-        "Air Base: double DY357 Magnum (after knocking out all NSA Lackeys)": has_air_base
-                                                                              & has_dy357
-                                                                              & Has("Stewardess Disguise")
-                                                                              & (HasAny("Crossbow", "CamSpy")
-                                                                              | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer"))),
-
-        "Air Base: Proximity Mine (past the cave)": has_air_base
-                                                    & has_proxy_mine
-                                                    & (HasAny("Crossbow", "CamSpy")
-                                                    | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer"))),
-        
-        "Air Force One: Cyclone (in room right of stairs)": has_air_force_one
-                                                            & HAS_AFO_RIGHT_KEY
-                                                            & has_cyclone,
-
-        "Air Force One: Cyclone (in room left of stairs)": has_air_force_one 
-                                                           & HAS_AFO_LEFT_KEY
-                                                           & has_cyclone,
-    
-        "Crash Site: DY357-LX (from disarming Trent)": has_crash_site
-                                                       & has_dy357lx
-                                                       & has_weapon_for_crash_site,
-        
-        "Crash Site: Proximity Mine (from Elvis before doing any objective)": has_crash_site
-                                                                              & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                                              & has_proxy_mine
-                                                                              & has_weapon_for_crash_site,
-    
-        "Pelagic II: double Falcon 2 (silencer) (from guard and no alarm)": has_pelagic
-                                                                            & has_falcon2_silencer,
-    
-        "Deep Sea: Proximity Mine (from guard in 2nd room with cloaked guards)": has_deep_sea
-                                                                                 & has_proxy_mine
-                                                                                 & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
-                                                                                 & has_weapon_for_deep_sea,
-        
-        # "Deep Sea: Shotgun (near Shield on the left path)": has_deep_sea
-        #                                                     & has_shotgun
-        #                                                     & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
-        #                                                     & has_weapon_for_deep_sea,
-    
-        "CI Defense: Devastator (dropped after saving most of the hostages)": has_defense
-                                                                              & Has("Carrington", options=[npc_filter], filtered_resolution=True)
-                                                                              & has_devastator
-                                                                              & has_weapon_for_defense,
-        
-        "Attack Ship: double Mauler (dropped from Skedar in final room)": has_attack_ship
-                                                                          & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
-                                                                          & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                                          & has_mauler
-                                                                          & has_weapon_for_attack_ship,
-
-        "Attack Ship: Slayer (in the room past green chambers)": has_attack_ship
-                                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
-                                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                                 & has_slayer
-                                                                 & has_weapon_for_attack_ship,
-        
-        "Skedar Ruins: double Phoenix (near the gap)": has_skedar_ruins
-                                                       & has_phoenix
-                                                       & HasAll("R-Tracker", "Target Amplifier")
-                                                       & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                       & ((HasAny("Falcon 2 (Scope)", "Callisto NTG") & Has("Devastator"))
-                                                       | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1) & HasFromList(*EXPLOSIVE_LIST, count=1))
-                                                       | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
-                                                       | (HAS_ANY_WEAPON_TYPE & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))),
-        
-        "Mr. Blonde's Revenge: 1F double CMP150 (from guard near bottom elevator)": has_mbr
-                                                                                    & has_cmp150
-                                                                                    & has_weapon_for_mbr
-                                                                                    & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
-
-        "Mr. Blonde's Revenge: 3F tiny ammo box (on corner desk)": has_mbr
-                                                                   & has_weapon_for_mbr
-                                                                   & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
-
-        "Mr. Blonde's Revenge: 3F tiny ammo box (on table near couch)": has_mbr 
-                                                                        & has_weapon_for_mbr
-                                                                        & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
-
-        "Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the stairs)": has_mbr 
-                                                                              & has_weapon_for_mbr
-                                                                              & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
-        
-        "Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the elevator)": has_mbr 
-                                                                                & has_weapon_for_mbr
-                                                                                & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
-
-        "Mr. Blonde's Revenge: 2F Falcon 2 (on desk)": has_mbr 
-                                                       & has_weapon_for_mbr
-                                                       & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
-        
-        "Mr. Blonde's Revenge: 2F tiny ammo box (under stairs)": has_mbr 
-                                                                 & has_weapon_for_mbr
-                                                                 & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
-
-        "Mr. Blonde's Revenge: 1F CMP150 (on right of front desk)": has_mbr
-                                                                    & has_cmp150,
-        
-        "Mr. Blonde's Revenge: 1F CMP150 (on left of front desk)": has_mbr
-                                                                   & has_cmp150,
-            
-        "Maian SOS: double DY357-LX (from dual-wielding guard)": has_maian_sos 
-                                                                 & has_dy357lx 
-                                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                                 & has_weapon_for_maian_sos,
-
-        "Maian SOS: Psychosis Gun (on desk near the start)": has_maian_sos 
-                                                             & has_psychosis_gun,
-    }
-
-    pickupsanity_rules_agent_only = {
-        "dD Defection: 1F Shield - (Agent)": Has("dD Defection - Agent") 
-                                             & Has("Shield")
-                                             & has_weapon_for_defection,
-
-        "dD Investigation: Shield (on crate) - (Agent)": Has("dD Investigation - Agent") 
-                                                         & Has("Shield")
-                                                         & has_weapon_for_investigation,
-
-        "dD Extraction: 2F Shield - (Agent)": Has("dD Extraction - Agent") 
-                                              & Has("Shield")
-                                              & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
-                                              & has_weapon_for_extraction_upper_floors,
-
-        "dD Extraction: Roof ammo box (on left) - (Agent)": Has("dD Extraction - Agent") 
-                                                            & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
-                                                            & has_rocket_launcher 
-                                                            & has_weapon_for_extraction_upper_floors,
-
-        "dD Extraction: Roof ammo box (on right) - (Agent)": Has("dD Extraction - Agent") 
-                                                             & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
-                                                             & has_rocket_launcher 
-                                                             & has_weapon_for_extraction_upper_floors,
-
-        "Carrington Villa: Shield (on helipad crate) - (Agent)": Has("Carrington Villa - Agent") 
-                                                                 & Has("Shield")
-                                                                 & has_weapon_for_villa,
-
-        "Carrington Villa: Shield (in the bathroom) - (Agent)": Has("Carrington Villa - Agent") 
-                                                                & Has("Shield")
-                                                                & has_weapon_for_villa,
-
-        "Chicago: Shield (near the taxi) - (Agent)": Has("Chicago - Agent") 
-                                                     & Has("Shield"),
-
-        "G5 Building: Shield (in room before the laser grids) - (Agent)": Has("G5 Building - Agent") 
-                                                                          & Has("Shield")
-                                                                          & HAS_G5_KEYS
-                                                                          & has_weapon_for_g5,
-
-        "A51 Infiltration: Shield (near hoverbike) - (Agent)": Has("A51 Infiltration - Agent") 
-                                                               & Has("Shield")
-                                                               & has_weapon_for_infiltration,
-
-        "A51 Rescue: Shield (guard past first elevator) - (Agent)": Has("A51 Rescue - Agent")
-                                                                    & Has("Jonathan", options=[npc_filter], filtered_resolution=True) 
-                                                                    & Has("Shield")
-                                                                    & has_weapon_for_rescue,
-
-        "A51 Escape: Shield (dropped by biotechnician) - (Agent)": Has("A51 Escape - Agent") 
-                                                                   & Has("Shield")
-                                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                                   & has_weapon_for_escape,
-
-        "Air Base: Shield (dropped by NSA Lackey) - (Agent)": Has("Air Base - Agent") 
-                                                              & Has("Shield")
-                                                              & Has("Stewardess Disguise")
-                                                              & (HasAny("Crossbow", "CamSpy")
-                                                              | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer"))),
-
-        "Air Force One: Shield (in small kitchen) - (Agent)": Has("Air Force One - Agent") 
-                                                              & Has("Shield"),
-
-        "Crash Site: Shield (near the crashed UFO) - (Agent)": Has("Crash Site - Agent") 
-                                                               & Has("Shield")
-                                                               & has_weapon_for_crash_site, 
-
-        "Pelagic II: Shield (on the helipad) - (Agent)": Has("Pelagic II - Agent") 
-                                                         & Has("Shield")
-                                                         & has_weapon_for_pelagic,
-
-        # "Deep Sea: Shield (dropped from guard) - (Agent)": Has("Deep Sea - Agent") 
-        #                                                    & Has("Shield")
-        #                                                    & has_weapon_for_deep_sea,
-
-        "CI Defense: 2F Shield - (Agent)": Has("CI Defense - Agent") 
-                                           & Has("Carrington", options=[npc_filter], filtered_resolution=True)
-                                           & Has("Shield"),
-
-        "Skedar Ruins: Shield (behind the fallen pillar) - (Agent)": HAS_SKEDAR_RUINS_AGENT
-                                                                     & Has("Shield")
-                                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                                     & (HasAny("Falcon 2 (Scope)", "Callisto NTG")
-                                                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                                                     | HAS_ANY_WEAPON_TYPE),
-
-        "Mr. Blonde's Revenge: 1F Shield - (Agent)": Has("Mr. Blonde's Revenge - Agent") 
-                                                     & Has("Shield")
-                                                     & (has_weapon_for_mbr
-                                                     | Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)),
-    }
-
-    pickupsanity_rules_agent_or_special = {
-        "dD Defection: 3F Shield - (Agent/Special)": HasAny("dD Defection - Agent", "dD Defection - Special Agent")
-                                                     & Has("Shield")
-                                                     & has_weapon_for_defection,
-
-        "dD Investigation: Shield (behind the glass) - (Agent/Special)": HasAny("dD Investigation - Agent", "dD Investigation - Special Agent") 
-                                                                         & Has("Shield")
-                                                                         & has_weapon_for_investigation,
-
-        "Chicago: Shield (under stairs near Pond Punk) - (Agent/Special)": HasAny("Chicago - Agent", "Chicago - Special Agent") 
-                                                                           & Has("Shield")
-                                                                           & has_weapon_for_chicago,
-
-        "G5 Building: Shield (on stairs to the upper exit) - (Agent/Special)": HasAny("G5 Building - Agent", "G5 Building - Special Agent")
-                                                                               & Has("Shield")
-                                                                               & HAS_G5_KEYS
-                                                                               & has_weapon_for_g5,
-
-        "A51 Infiltration: Shield (in the crawl space) - (Agent/Special)": HasAny("A51 Infiltration - Agent", "A51 Infiltration - Special Agent")
-                                                                           & Has("Shield")
-                                                                           & has_weapon_for_infiltration,
-
-        "A51 Rescue: Shield (on desk near computer) - (Agent/Special)": HasAny("A51 Rescue - Agent", "A51 Rescue - Special Agent")
-                                                                        & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
-                                                                        & Has("Shield")
-                                                                        & has_weapon_for_rescue,
-
-        "A51 Escape: Shield (behind locked medical containment doors) - (Agent/Special)": HasAny("A51 Escape - Agent", "A51 Escape - Special Agent")
-                                                                                          & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                                                          & Has("Shield")
-                                                                                          & has_weapon_for_escape,
-
-        "Air Base: Shield (in the safe) - (Agent/Special)": HasAny("Air Base - Agent", "Air Base - Special Agent") 
-                                                            & Has("Shield")
-                                                            & Has("Stewardess Disguise")
-                                                            & (HasAny("Crossbow", "CamSpy")
-                                                            | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
-                                                            & has_weapon_for_air_base,
-
-        "Air Force One: Shield (in piano room) - (Agent/Special)": HasAny("Air Force One - Agent", "Air Force One - Special Agent")
-                                                                   & Has("Shield"),
-
-        "Crash Site: Shield (behind President's clone) - (Agent/Special)": HasAny("Crash Site - Agent", "Crash Site - Special Agent")
-                                                                           & Has("Shield")
-                                                                           & Has("Night Vision")
-                                                                           & has_weapon_for_crash_site,
-
-        "Pelagic II: Shield (on the sub hangar crate) - (Agent/Special)": HasAny("Pelagic II - Agent", "Pelagic II - Special Agent")
-                                                                          & Has("Shield")
-                                                                          & has_weapon_for_pelagic,
-
-        "Deep Sea: Shield (on the left path) - (Agent/Special)": HasAny("Deep Sea - Agent", "Deep Sea - Special Agent")
-                                                                 & Has("Shield")
-                                                                 & has_weapon_for_deep_sea,
-
-        "CI Defense: Basement Shield - (Agent/Special)": HasAny("CI Defense - Agent", "CI Defense - Special Agent")
-                                                         & Has("Carrington", options=[npc_filter], filtered_resolution=True)
-                                                         & Has("Shield")
-                                                         & has_weapon_for_defense,
-
-        "Attack Ship: Shield (on table) - (Agent/Special)": HasAny("Attack Ship - Agent", "Attack Ship - Special Agent")
-                                                            & Has("Shield")
-                                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
-                                                            & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                            & has_weapon_for_attack_ship,
-
-        "Skedar Ruins: Shield (area past the gap to the right) - (Agent/Special)": HasAny("Skedar Ruins - Agent", "Skedar Ruins - Special Agent", "Skedar Ruins")
-                                                                                   & Has("Shield")
-                                                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                                                   & ((HasAny("Falcon 2 (Scope)", "Callisto NTG") & Has("Devastator"))
-                                                                                   | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1) & HasFromList(*EXPLOSIVE_LIST, count=1))
-                                                                                   | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
-                                                                                   | (HAS_ANY_WEAPON_TYPE & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))),
-
-        "Mr. Blonde's Revenge: 3F Shield - (Agent/Special)": HasAny("Mr. Blonde's Revenge - Agent", "Mr. Blonde's Revenge - Special Agent")
-                                                             & Has("Shield")
-                                                             & has_weapon_for_mbr
-                                                             & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
-    }
-
-    pickupsanity_rules_special_or_perfect = {
-        "dD Investigation: ammo box (front of room with one scientist)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent")
-                                                                         & has_weapon_for_investigation,
-        
-        "dD Investigation: ammo box (back of room with one scientist)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent")
-                                                                        & has_weapon_for_investigation,
-
-        "dD Investigation: ammo box (front of room near two scientists)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent")
-                                                                          & has_weapon_for_investigation,
-        
-        "dD Investigation: ammo box (back of room near two scientists)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent") 
-                                                                         & has_weapon_for_investigation,
-
-        "A51 Infiltration: double MagSec 4 (after placing comms rider)": HasAny("A51 Infiltration - Special Agent", "A51 Infiltration - Perfect Agent")
-                                                                         & Has("Comms Rider")
-                                                                         & has_magsec4
-                                                                         & has_weapon_for_infiltration,
-    }
 
     if world.options.weapon_training:
         add_rule(world, weapon_training_rules)
@@ -4181,65 +4176,6 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
 
         dt_cloaking_device = world.get_location("Device Training: Cloaking Device")
         world.set_rule(dt_cloaking_device, (Has("Cloaking Device") & Has("Carrington", options=[npc_filter], filtered_resolution=True)))
-
-    if world.options.pickupsanity:
-        if world.options.agent or world.options.special_agent or world.options.perfect_agent:
-            add_rule(world, pickupsanity_rules)
-
-        if world.options.agent:
-            add_rule(world, pickupsanity_rules_agent_only)
-
-        if world.options.agent or world.options.special_agent:
-            add_rule(world, pickupsanity_rules_agent_or_special)
-
-        if world.options.perfect_agent:
-            villa_sniper_rifle = world.get_location("Carrington Villa: Sniper Rifle (in the bathroom) - (Perfect Agent)")
-            world.set_rule(villa_sniper_rifle, Has("Carrington Villa - Perfect Agent")
-                                               & has_sniper_rifle
-                                               & ((Has("Laptop Gun") | Has("CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
-                                               | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                               | HAS_ANY_WEAPON_TYPE))
-
-            attack_ship_necklace = world.get_location("Attack Ship: De Vries' necklace - (Perfect Agent)")
-            world.set_rule(attack_ship_necklace, Has("Attack Ship - Perfect Agent")
-                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
-                                                 & HAS_DD_KEYS)
-
-        if world.options.special_agent or world.options.perfect_agent:
-            add_rule(world, pickupsanity_rules_special_or_perfect)
-
-        if world.options.perfect_agent \
-                or world.options.mission_logic.value == MissionLogic.option_perfect:
-            defection_laptop_gun = world.get_location("dD Defection: 2F Laptop Gun")
-            world.set_rule(defection_laptop_gun, has_defection
-                                                 & has_laptop_gun
-                                                 & has_weapon_for_defection)
-
-            defection_right_falcon2 = world.get_location("dD Defection: 2F Falcon 2 (silencer) (right side)")
-            world.set_rule(defection_right_falcon2, has_defection
-                                                    & has_falcon2_silencer)
-
-            defection_left_falcon2 = world.get_location("dD Defection: 2F Falcon 2 (silencer) (left side)")
-            world.set_rule(defection_left_falcon2, has_defection
-                                                   & has_falcon2_silencer)
-
-        if world.options.mission_logic.value == MissionLogic.option_perfect:
-            mbr_laptop_gun = world.get_location("Mr. Blonde's Revenge: 2F Laptop Gun")
-            world.set_rule(mbr_laptop_gun, has_mbr 
-                                           & has_laptop_gun
-                                           & has_weapon_for_mbr
-                                           & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True))
-            
-            mbr_falcon2_1 = world.get_location("Mr. Blonde's Revenge: 2F Falcon 2 (right side)")
-            world.set_rule(mbr_falcon2_1, has_mbr
-                                          & has_falcon2 
-                                          & has_weapon_for_mbr)
-
-            mbr_falcon2_2 = world.get_location("Mr. Blonde's Revenge: 2F Falcon 2 (left side)")
-            world.set_rule(mbr_falcon2_2, has_mbr
-                                          & has_falcon2 
-                                          & has_weapon_for_mbr)
 
 
 def set_completion_condition(world: PerfectDarkWorld) -> None:

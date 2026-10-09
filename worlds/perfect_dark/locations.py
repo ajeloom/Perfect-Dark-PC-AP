@@ -588,11 +588,11 @@ LOCATION_NAME_TO_ID = {
     "Complete Air Base (Special Agent): Ladder Exit": 594,
     "Complete Air Base (Perfect Agent): Shuttle Exit": 595,
     "Complete Air Base (Perfect Agent): Ladder Exit": 596,
-    "dD Defection: 3F Shield - (Agent/Special)": 2010,
+    "dD Defection (Agent/Special): 3F Shield": 2010,
     "dD Defection: 2F double Falcon 2 (silencer)": 2033,
     "dD Defection: 2F Laptop Gun": 2466,
-    "dD Defection: 2F Falcon 2 (silencer) (right side)": 2468,
-    "dD Defection: 2F Falcon 2 (silencer) (left side)": 2469,
+    "dD Defection: 2F Falcon 2 (silencer) (on right side)": 2468,
+    "dD Defection: 2F Falcon 2 (silencer) (on left side)": 2469,
     "dD Defection: 3F tiny ammo box (on corner desk)": 2470,
     "dD Defection: 3F tiny ammo box (on table near couch)": 2471,
     "dD Defection: 2F tiny ammo box (on desk across the stairs)": 2472,
@@ -601,7 +601,7 @@ LOCATION_NAME_TO_ID = {
     "dD Defection: 2F tiny ammo box (under stairs)": 2475,
     "dD Defection: 1F CMP150 (on right of front desk)": 2605,
     "dD Defection: 1F CMP150 (on left of front desk)": 2606,
-    "dD Defection: 1F Shield - (Agent)": 2607,
+    "dD Defection (Agent): 1F Shield": 2607,
     "dD Investigation: ammo box (front of room above the K7 Avenger)": 4625,
     "dD Investigation: ammo box (back of room above the K7 Avenger)": 4626,
     "dD Investigation: ammo box (front of room with one scientist)": 4627,
@@ -615,15 +615,15 @@ LOCATION_NAME_TO_ID = {
     "dD Investigation: CMP150 (left of secret weapons compartment)": 4635,
     "dD Investigation: CMP150 (right of secret weapons compartment)": 4636,
     "dD Investigation: Proximity Mine (in radioactive room)": 4637,
-    "dD Investigation: Shield (on crate) - (Agent)": 4638,
-    "dD Investigation: Shield (behind the glass) - (Agent/Special)": 4639,
+    "dD Investigation (Agent): Shield (on crate)": 4638,
+    "dD Investigation (Agent/Special): Shield (behind the glass)": 4639,
     "dD Extraction: 1F DY357 Magnum (from fifth guard)": 6005,
-    "dD Extraction: 2F Shield - (Agent)": 6120,
+    "dD Extraction (Agent): 2F Shield": 6120,
     "dD Extraction: 4F Rocket Launcher": 6452,
     "dD Extraction: 4F Grenade (on Cassandra's desk)": 6466,
     "dD Extraction: 4F Dragon (in hidden room in Cassandra's office)": 6467,
-    "dD Extraction: Roof ammo box (on left) - (Agent)": 6516,
-    "dD Extraction: Roof ammo box (on right) - (Agent)": 6519,
+    "dD Extraction (Agent): Roof ammo box (on left)": 6516,
+    "dD Extraction (Agent): Roof ammo box (on right)": 6519,
     "Carrington Villa: Devastator (in helipad crate)": 8000,
     "Carrington Villa: 1st ammo box (in crate on observatory path)": 8001,
     "Carrington Villa: 2nd ammo box (in crate on observatory path)": 8002,
@@ -634,64 +634,64 @@ LOCATION_NAME_TO_ID = {
     "Carrington Villa: 7th ammo box (in crate on observatory path)": 8007,
     "Carrington Villa: 8th ammo box (in crate on observatory path)": 8008,
     "Carrington Villa: 9th ammo box (in crate on observatory path)": 8009,
-    "Carrington Villa: Sniper Rifle (in the bathroom) - (Perfect Agent)": 8085,
+    "Carrington Villa (Perfect Agent): Sniper Rifle (in the bathroom)": 8085,
     "Carrington Villa: double CMP150 (from sniper near the helipad)": 8410,
-    "Carrington Villa: Shield (on helipad crate) - (Agent)": 8568,
-    "Carrington Villa: Shield (in the bathroom) - (Agent)": 8569,
+    "Carrington Villa (Agent): Shield (on helipad crate)": 8568,
+    "Carrington Villa (Agent): Shield (in the bathroom)": 8569,
     "Chicago: BombSpy (in the dumpster)": 10000,
     "Chicago: double Falcon 2 (scope) (in the Pond Punk)": 10287,
-    "Chicago: Shield (near the taxi) - (Agent)": 10289,
-    "Chicago: Shield (under stairs near Pond Punk) - (Agent/Special)": 10290,
+    "Chicago (Agent): Shield (near the taxi)": 10289,
+    "Chicago (Agent/Special): Shield (under stairs near Pond Punk)": 10290,
     "G5 Building: Crossbow (after knocking out first two guards)": 12000,
-    "G5 Building: Shield (on stairs to the upper exit) - (Agent/Special)": 12086,
+    "G5 Building (Agent/Special): Shield (on stairs to the upper exit)": 12086,
     "G5 Building: N-Bomb (near the upper exit)": 12149,
-    "G5 Building: Shield (in room before the laser grids) - (Agent)": 12150,
+    "G5 Building (Agent): Shield (in room before the laser grids)": 12150,
     "A51 Infiltration: Rocket Launcher (in mine field)": 14052,
     "A51 Infiltration: double MagSec 4 (after placing comms rider)": 14053,
-    "A51 Infiltration: Shield (near hoverbike) - (Agent)": 14150,
-    "A51 Infiltration: Shield (in the crawl space) - (Agent/Special)": 15381,
-    "A51 Rescue: Shield (guard past first elevator) - (Agent)": 16004,
+    "A51 Infiltration (Agent): Shield (near hoverbike)": 14150,
+    "A51 Infiltration (Agent/Special): Shield (in the crawl space)": 15381,
+    "A51 Rescue (Agent): Shield (guard past first elevator)": 16004,
     "A51 Rescue: Phoenix (past locked hangar door)": 16905,
     "A51 Rescue: double Falcon 2 (silencer) (hidden in barrel)": 16987,
-    "A51 Rescue: Shield (on desk near computer) - (Agent/Special)": 17140,
+    "A51 Rescue (Agent/Special): Shield (on desk near computer)": 17140,
     "A51 Escape: double Falcon 2 (scope) (behind you at the start)": 18036,
-    "A51 Escape: Shield (dropped by biotechnician) - (Agent)": 18040,
-    "A51 Escape: Shield (behind locked medical containment doors) - (Agent/Special)": 18895,
+    "A51 Escape (Agent): Shield (dropped by biotechnician)": 18040,
+    "A51 Escape (Agent/Special): Shield (behind locked medical containment doors)": 18895,
     "A51 Escape: Remote Mine (in first room with guards)": 19383,
-    "Air Base: Shield (dropped by NSA Lackey) - (Agent)": 20017,
+    "Air Base (Agent): Shield (dropped by NSA Lackey)": 20017,
     "Air Base: double DY357 Magnum (after knocking out all NSA Lackeys)": 20018,
     "Air Base: Proximity Mine (past the cave)": 20181,
-    "Air Base: Shield (in the safe) - (Agent/Special)": 20214,
+    "Air Base (Agent/Special): Shield (in the safe)": 20214,
     "Air Force One: Cyclone (in room right of stairs)": 22203,
     "Air Force One: Cyclone (in room left of stairs)": 22204,
-    "Air Force One: Shield (in piano room) - (Agent/Special)": 22363,
-    "Air Force One: Shield (in small kitchen) - (Agent)": 22364,
+    "Air Force One (Agent/Special): Shield (in piano room)": 22363,
+    "Air Force One (Agent): Shield (in small kitchen)": 22364,
     "Crash Site: DY357-LX (from disarming Trent)": 24001,
-    "Crash Site: Shield (behind President's clone) - (Agent/Special)": 24144,
-    "Crash Site: Shield (near the crashed UFO) - (Agent)": 24262, 
+    "Crash Site (Agent/Special): Shield (behind President's clone)": 24144,
+    "Crash Site (Agent): Shield (near the crashed UFO)": 24262, 
     "Crash Site: Proximity Mine (from Elvis before doing any objective)": 24263, # Shares same pad as Shield (need to add one for the location)
     "Pelagic II: double Falcon 2 (silencer) (from guard and no alarm)": 26052,
-    "Pelagic II: Shield (on the helipad) - (Agent)": 26541,
-    "Pelagic II: Shield (on the sub hangar crate) - (Agent/Special)": 26542,
+    "Pelagic II (Agent): Shield (on the helipad)": 26541,
+    "Pelagic II (Agent/Special): Shield (on the sub hangar crate)": 26542,
     "Deep Sea: Proximity Mine (from guard in 2nd room with cloaked guards)": 28008,
-    "Deep Sea: Shield (on the left path) - (Agent/Special)": 28018,
-    # "Deep Sea: Shield (dropped from guard) - (Agent)": 28026,
+    "Deep Sea (Agent/Special): Shield (on the left path)": 28018,
+    # "Deep Sea (Agent): Shield (dropped from guard)": 28026,
     # "Deep Sea: Shotgun (near Shield on the left path)": 28063,
     "CI Defense: Devastator (dropped after saving most of the hostages)": 30000,
-    "CI Defense: Basement Shield - (Agent/Special)": 30146,
-    "CI Defense: 2F Shield - (Agent)": 30648,
+    "CI Defense (Agent/Special): Basement Shield": 30146,
+    "CI Defense (Agent): 2F Shield": 30648,
     "Attack Ship: double Mauler (dropped from Skedar in final room)": 32045,
-    "Attack Ship: De Vries' necklace - (Perfect Agent)": 32051,
+    "Attack Ship (Perfect Agent): De Vries' Necklace": 32051,
     "Attack Ship: Slayer (in the room past green chambers)": 32466,
-    "Attack Ship: Shield (on table) - (Agent/Special)": 32499,
+    "Attack Ship (Agent/Special): Shield (on table)": 32499,
     "Skedar Ruins: double Phoenix (near the gap)": 34050,
-    "Skedar Ruins: Shield (area past the gap to the right) - (Agent/Special)": 34186,
-    "Skedar Ruins: Shield (behind the fallen pillar) - (Agent)": 34337,
-    "Mr. Blonde's Revenge: 3F Shield - (Agent/Special)": 36010,
+    "Skedar Ruins (Agent/Special): Shield (area past the gap to the right)": 34186,
+    "Skedar Ruins (Agent): Shield (behind the fallen pillar)": 34337,
+    "Mr. Blonde's Revenge (Agent/Special): 3F Shield": 36010,
     "Mr. Blonde's Revenge: 1F double CMP150 (from guard near bottom elevator)": 36015,
     "Mr. Blonde's Revenge: 2F Laptop Gun": 36466,
-    "Mr. Blonde's Revenge: 2F Falcon 2 (right side)": 36468,
-    "Mr. Blonde's Revenge: 2F Falcon 2 (left side)": 36469,
+    "Mr. Blonde's Revenge: 2F Falcon 2 (on right side)": 36468,
+    "Mr. Blonde's Revenge: 2F Falcon 2 (on left side)": 36469,
     "Mr. Blonde's Revenge: 3F tiny ammo box (on corner desk)": 36470,
     "Mr. Blonde's Revenge: 3F tiny ammo box (on table near couch)": 36471,
     "Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the stairs)": 36472,
@@ -700,7 +700,7 @@ LOCATION_NAME_TO_ID = {
     "Mr. Blonde's Revenge: 2F tiny ammo box (under stairs)": 36475,
     "Mr. Blonde's Revenge: 1F CMP150 (on right of front desk)": 36605,
     "Mr. Blonde's Revenge: 1F CMP150 (on left of front desk)": 36606,
-    "Mr. Blonde's Revenge: 1F Shield - (Agent)": 36607,
+    "Mr. Blonde's Revenge (Agent): 1F Shield": 36607,
     "Maian SOS: double DY357-LX (from dual-wielding guard)": 38011,
     "Maian SOS: Psychosis Gun (on desk near the start)": 38919,
 }
@@ -1507,7 +1507,6 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         chicago_locations_list.append("Chicago: double Falcon 2 (scope) (in the Pond Punk)")
 
         g5_locations_list.append("G5 Building: Crossbow (after knocking out first two guards)")
-        g5_locations_list.append("G5 Building: N-Bomb (near the upper exit)")
 
         infiltration_locations_list.append("A51 Infiltration: Rocket Launcher (in mine field)")
 
@@ -1552,76 +1551,76 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         maiansos_locations_list.append("Maian SOS: Psychosis Gun (on desk near the start)")
 
         if world.options.agent:
-            defection_locations_list.append("dD Defection: 1F Shield - (Agent)")
+            defection_locations_list.append("dD Defection (Agent): 1F Shield")
 
-            investigation_locations_list.append("dD Investigation: Shield (on crate) - (Agent)")
+            investigation_locations_list.append("dD Investigation (Agent): Shield (on crate)")
 
-            extraction_locations_list.append("dD Extraction: 2F Shield - (Agent)")
-            extraction_locations_list.append("dD Extraction: Roof ammo box (on left) - (Agent)")
-            extraction_locations_list.append("dD Extraction: Roof ammo box (on right) - (Agent)")
+            extraction_locations_list.append("dD Extraction (Agent): 2F Shield")
+            extraction_locations_list.append("dD Extraction (Agent): Roof ammo box (on left)")
+            extraction_locations_list.append("dD Extraction (Agent): Roof ammo box (on right)")
 
-            villa_locations_list.append("Carrington Villa: Shield (on helipad crate) - (Agent)")
-            villa_locations_list.append("Carrington Villa: Shield (in the bathroom) - (Agent)")
+            villa_locations_list.append("Carrington Villa (Agent): Shield (on helipad crate)")
+            villa_locations_list.append("Carrington Villa (Agent): Shield (in the bathroom)")
 
-            chicago_locations_list.append("Chicago: Shield (near the taxi) - (Agent)")
+            chicago_locations_list.append("Chicago (Agent): Shield (near the taxi)")
 
-            g5_locations_list.append("G5 Building: Shield (in room before the laser grids) - (Agent)")
+            g5_locations_list.append("G5 Building (Agent): Shield (in room before the laser grids)")
 
-            infiltration_locations_list.append("A51 Infiltration: Shield (near hoverbike) - (Agent)")
+            infiltration_locations_list.append("A51 Infiltration (Agent): Shield (near hoverbike)")
 
-            rescue_locations_list.append("A51 Rescue: Shield (guard past first elevator) - (Agent)")
+            rescue_locations_list.append("A51 Rescue (Agent): Shield (guard past first elevator)")
 
-            escape_locations_list.append("A51 Escape: Shield (dropped by biotechnician) - (Agent)")
+            escape_locations_list.append("A51 Escape (Agent): Shield (dropped by biotechnician)")
 
-            airbase_locations_list.append("Air Base: Shield (dropped by NSA Lackey) - (Agent)")
+            airbase_locations_list.append("Air Base (Agent): Shield (dropped by NSA Lackey)")
 
-            afo_locations_list.append("Air Force One: Shield (in small kitchen) - (Agent)")
+            afo_locations_list.append("Air Force One (Agent): Shield (in small kitchen)")
 
-            crashsite_locations_list.append("Crash Site: Shield (near the crashed UFO) - (Agent)")
+            crashsite_locations_list.append("Crash Site (Agent): Shield (near the crashed UFO)")
 
-            pelagic_locations_list.append("Pelagic II: Shield (on the helipad) - (Agent)")
+            pelagic_locations_list.append("Pelagic II (Agent): Shield (on the helipad)")
 
             # deepsea_locations_list.append("Deep Sea (Agent): Pick up Shield dropped from Sniper guard")
 
-            defense_locations_list.append("CI Defense: 2F Shield - (Agent)")
+            defense_locations_list.append("CI Defense (Agent): 2F Shield")
 
-            skedarruins_locations_list.append("Skedar Ruins: Shield (behind the fallen pillar) - (Agent)")
+            skedarruins_locations_list.append("Skedar Ruins (Agent): Shield (behind the fallen pillar)")
 
-            mbr_locations_list.append("Mr. Blonde's Revenge: 1F Shield - (Agent)")
+            mbr_locations_list.append("Mr. Blonde's Revenge (Agent): 1F Shield")
 
 
         if world.options.agent or world.options.special_agent:
-            defection_locations_list.append("dD Defection: 3F Shield - (Agent/Special)")
+            defection_locations_list.append("dD Defection (Agent/Special): 3F Shield")
 
-            investigation_locations_list.append("dD Investigation: Shield (behind the glass) - (Agent/Special)")
+            investigation_locations_list.append("dD Investigation (Agent/Special): Shield (behind the glass)")
 
-            chicago_locations_list.append("Chicago: Shield (under stairs near Pond Punk) - (Agent/Special)")
+            chicago_locations_list.append("Chicago (Agent/Special): Shield (under stairs near Pond Punk)")
 
-            g5_locations_list.append("G5 Building: Shield (on stairs to the upper exit) - (Agent/Special)")
+            g5_locations_list.append("G5 Building (Agent/Special): Shield (on stairs to the upper exit)")
 
-            infiltration_locations_list.append("A51 Infiltration: Shield (in the crawl space) - (Agent/Special)")
+            infiltration_locations_list.append("A51 Infiltration (Agent/Special): Shield (in the crawl space)")
 
-            rescue_locations_list.append("A51 Rescue: Shield (on desk near computer) - (Agent/Special)")
+            rescue_locations_list.append("A51 Rescue (Agent/Special): Shield (on desk near computer)")
 
-            escape_locations_list.append("A51 Escape: Shield (behind locked medical containment doors) - (Agent/Special)")
+            escape_locations_list.append("A51 Escape (Agent/Special): Shield (behind locked medical containment doors)")
 
-            airbase_locations_list.append("Air Base: Shield (in the safe) - (Agent/Special)")
+            airbase_locations_list.append("Air Base (Agent/Special): Shield (in the safe)")
 
-            afo_locations_list.append("Air Force One: Shield (in piano room) - (Agent/Special)")
+            afo_locations_list.append("Air Force One (Agent/Special): Shield (in piano room)")
 
-            crashsite_locations_list.append("Crash Site: Shield (behind President's clone) - (Agent/Special)")
+            crashsite_locations_list.append("Crash Site (Agent/Special): Shield (behind President's clone)")
 
-            pelagic_locations_list.append("Pelagic II: Shield (on the sub hangar crate) - (Agent/Special)")
+            pelagic_locations_list.append("Pelagic II (Agent/Special): Shield (on the sub hangar crate)")
 
-            deepsea_locations_list.append("Deep Sea: Shield (on the left path) - (Agent/Special)")
+            deepsea_locations_list.append("Deep Sea (Agent/Special): Shield (on the left path)")
 
-            defense_locations_list.append("CI Defense: Basement Shield - (Agent/Special)")
+            defense_locations_list.append("CI Defense (Agent/Special): Basement Shield")
 
-            attackship_locations_list.append("Attack Ship: Shield (on table) - (Agent/Special)")
+            attackship_locations_list.append("Attack Ship (Agent/Special): Shield (on table)")
 
-            skedarruins_locations_list.append("Skedar Ruins: Shield (area past the gap to the right) - (Agent/Special)")
+            skedarruins_locations_list.append("Skedar Ruins (Agent/Special): Shield (area past the gap to the right)")
 
-            mbr_locations_list.append("Mr. Blonde's Revenge: 3F Shield - (Agent/Special)")
+            mbr_locations_list.append("Mr. Blonde's Revenge (Agent/Special): 3F Shield")
 
 
         if world.options.special_agent or world.options.perfect_agent:
@@ -1630,26 +1629,28 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             investigation_locations_list.append("dD Investigation: ammo box (front of room near two scientists)")
             investigation_locations_list.append("dD Investigation: ammo box (back of room near two scientists)")
 
+            g5_locations_list.append("G5 Building: N-Bomb (near the upper exit)")
+
             infiltration_locations_list.append("A51 Infiltration: double MagSec 4 (after placing comms rider)")
 
 
         if world.options.perfect_agent:
-            villa_locations_list.append("Carrington Villa: Sniper Rifle (in the bathroom) - (Perfect Agent)")
+            villa_locations_list.append("Carrington Villa (Perfect Agent): Sniper Rifle (in the bathroom)")
 
-            attackship_locations_list.append("Attack Ship: De Vries' necklace - (Perfect Agent)")
+            attackship_locations_list.append("Attack Ship (Perfect Agent): De Vries' Necklace")
 
 
         if world.options.mission_logic.value == MissionLogic.option_perfect:
             mbr_locations_list.append("Mr. Blonde's Revenge: 2F Laptop Gun")
-            mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (right side)")
-            mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (left side)")
+            mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (on right side)")
+            mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (on left side)")
 
 
         if world.options.perfect_agent \
                 or world.options.mission_logic.value == MissionLogic.option_perfect:
             defection_locations_list.append("dD Defection: 2F Laptop Gun")
-            defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (right side)")
-            defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (left side)")
+            defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on right side)")
+            defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on left side)")
 
 
     institute_locations = get_location_names_with_ids(institute_locations_list)
