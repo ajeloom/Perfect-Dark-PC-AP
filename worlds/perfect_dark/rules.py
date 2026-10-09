@@ -606,7 +606,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     has_rcp120 = (Has("RC-P120")
                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"])
-                 | Has("Progressive Other Weapon", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]))
+                 | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]))
 
     has_laser = (Has("Laser")
                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Laser"])
