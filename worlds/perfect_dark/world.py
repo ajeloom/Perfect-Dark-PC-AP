@@ -38,6 +38,7 @@ class PerfectDarkWorld(World):
                 self.options.challenges.value = passthrough["options"]["challenges"]
                 self.options.required_challenge_stars.value = passthrough["options"]["required_challenge_stars"]
                 self.options.challenge_logic.value = passthrough["options"]["challenge_logic"]
+                self.options.challenges_in_item_pool.value = passthrough["options"]["challenges_in_item_pool"]
                 self.options.weapon_training.value = passthrough["options"]["weapon_training"]
                 self.options.device_training.value = passthrough["options"]["device_training"]
                 self.options.holotraining.value = passthrough["options"]["holotraining"]
@@ -83,6 +84,7 @@ class PerfectDarkWorld(World):
                 "challenges": self.options.challenges.value,
                 "required_challenge_stars": self.options.required_challenge_stars.value,
                 "challenge_logic": self.options.challenge_logic.value,
+                "challenges_in_item_pool": self.options.challenges_in_item_pool.value,
                 "shorter_challenges": self.options.shorter_challenges.value,
                 "weapon_training": self.options.weapon_training.value,
                 "device_training": self.options.device_training.value,

@@ -342,6 +342,19 @@ class ChallengeLogic(Choice):
     default = option_normal
 
 
+class ChallengesInItemPool(Toggle):
+    """
+    Adds each challenge to the item pool.
+    You cannot start a challenge until you find it.
+    This option only matters if challenges are enabled.
+    Recommend disabling this if there are not enough locations in your multiworld.
+    """
+
+    display_name = "Challenges in Item Pool"
+
+    default = True
+
+
 class ShorterChallenges(Toggle):
     """
     Shortens each challenge's time limit and score limit.
@@ -350,16 +363,6 @@ class ShorterChallenges(Toggle):
     display_name = "Shorter Challenges"
 
     default = True
-
-
-class StartWithAllChallenges(Toggle):
-    """
-    Start with all combat simulator challenges in your inventory.
-    This option will only work if challenges are enabled.
-    Recommend enabling this if there are not enough locations in your multiworld.
-    """
-
-    display_name = "Start with All Challenges"
 
 
 class WeaponTraining(Toggle):
@@ -558,9 +561,9 @@ class PerfectDarkOptions(PerGameCommonOptions):
     challenges: Challenges
     required_challenge_stars: RequiredChallengeStars
     challenge_logic: ChallengeLogic
+    challenges_in_item_pool: ChallengesInItemPool
     excluded_challenges: ExcludedChallenges
     shorter_challenges: ShorterChallenges
-    start_with_all_challenges: StartWithAllChallenges
     weapon_training: WeaponTraining
     device_training: DeviceTraining
     holotraining: Holotraining
@@ -599,9 +602,9 @@ option_groups = [
             Challenges,
             RequiredChallengeStars,
             ChallengeLogic,
+            ChallengesInItemPool,
             ExcludedChallenges,
             ShorterChallenges,
-            StartWithAllChallenges,
             WeaponTraining,
             DeviceTraining,
             Holotraining,
@@ -640,8 +643,8 @@ option_presets = {
         "challenges": False,
         "required_challenge_stars": 15,
         "challenge_logic": ChallengeLogic.option_normal,
+        "challenges_in_item_pool": False,
         "shorter_challenges": False,
-        "start_with_all_challenges": False,
         "weapon_training": False,
         "device_training": False,
         "holotraining": False,
@@ -675,8 +678,8 @@ option_presets = {
         "challenges": True,
         "required_challenge_stars": 30,
         "challenge_logic": ChallengeLogic.option_hard,
+        "challenges_in_item_pool": False,
         "shorter_challenges": False,
-        "start_with_all_challenges": False,
         "weapon_training": True,
         "device_training": True,
         "holotraining": True,

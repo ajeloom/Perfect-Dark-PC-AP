@@ -964,13 +964,11 @@ def create_all_items(world:PerfectDarkWorld) -> None:
                 and not world.options.perfect_agent:
             itempool.append(world.create_item("Cloaking Device"))
 
-        for x in range(1, 31):
-            challenge_name = f"Challenge {x}"
-            if (world.options.excluded_challenges.__contains__(challenge_name) == False):
-                itempool.append(world.create_item(challenge_name))
-    
-                if world.options.start_with_all_challenges:
-                    remove_starting_item_from_pool(world, challenge_name, itempool)
+        if world.options.challenges_in_item_pool:
+            for x in range(1, 31):
+                challenge_name = f"Challenge {x}"
+                if (world.options.excluded_challenges.__contains__(challenge_name) == False):
+                    itempool.append(world.create_item(challenge_name))
 
 
     # Place items based on the goal
