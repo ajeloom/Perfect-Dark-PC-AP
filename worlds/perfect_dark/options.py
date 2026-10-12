@@ -494,6 +494,7 @@ class TrapChance(Range):
         - Perfect Darkness Trap: turns the map dark
         - Fast Animations Trap: makes enemies move fast
         - Skedar Trap: spawns Skedars on the map
+        - N-Bomb Trap: spawns an N-Bomb on the player
     """
 
     display_name = "Trap Chance"
@@ -515,6 +516,7 @@ class ExcludedTraps(OptionSet):
         - Perfect Darkness Trap
         - Fast Animations Trap
         - Skedar Trap
+        - N-Bomb Trap
     Ex: ['DK Mode Trap', 'Slow Motion Trap', 'Skedar Trap']
     """
     display_name = "Excluded Traps"
@@ -526,7 +528,8 @@ class ExcludedTraps(OptionSet):
         "Enemy Rockets Trap",
         "Perfect Darkness Trap",
         "Fast Animations Trap",
-        "Skedar Trap"
+        "Skedar Trap",
+        "N-Bomb Trap"
     })
     default = frozenset({})
 

@@ -269,10 +269,11 @@ ITEM_NAME_TO_ID = {
     "Perfect Darkness Trap": 257,
     "Fast Animations Trap": 258,
     "Skedar Trap": 259,
-    "Ammo Refill": 260,
-    "Shield Refill": 261,
-    "Health Refill": 262,
-    "Buddy": 263,
+    "N-Bomb Trap": 260,
+    "Ammo Refill": 261,
+    "Shield Refill": 262,
+    "Health Refill": 263,
+    "Buddy": 264,
 }
 
 
@@ -536,6 +537,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Perfect Darkness Trap": ItemClassification.trap,
     "Fast Animations Trap": ItemClassification.trap,
     "Skedar Trap": ItemClassification.trap,
+    "N-Bomb Trap": ItemClassification.trap,
     "Ammo Refill": ItemClassification.filler | ItemClassification.useful,
     "Shield Refill": ItemClassification.filler | ItemClassification.useful,
     "Health Refill": ItemClassification.filler | ItemClassification.useful,
@@ -558,6 +560,7 @@ def get_random_filler_item_name(world: PerfectDarkWorld) -> str:
             "Perfect Darkness Trap",
             "Fast Animations Trap",
             "Skedar Trap",
+            "N-Bomb Trap",
         ]
 
         available_traps = [
