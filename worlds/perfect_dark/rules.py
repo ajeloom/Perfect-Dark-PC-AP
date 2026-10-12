@@ -2509,6 +2509,20 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                            & (has_extraction_explosive
                                                                            | Has("Grenade")),
 
+        "dD Extraction: Rocket ammo box (on left)": (Has("dD Extraction - Agent")
+                                                    | (HasAny("dD Extraction - Special Agent", "dD Extraction - Perfect Agent")
+                                                        & HAS_CASS_OFFICE_KEY))
+                                                    & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
+                                                    & has_rocket_launcher 
+                                                    & complete_extraction_weapons,
+
+        "dD Extraction: Rocket ammo box (on right)": (Has("dD Extraction - Agent")
+                                                     | (HasAny("dD Extraction - Special Agent", "dD Extraction - Perfect Agent")
+                                                        & HAS_CASS_OFFICE_KEY))
+                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
+                                                     & has_rocket_launcher 
+                                                     & complete_extraction_weapons,
+
         "Carrington Villa: Devastator (in helipad crate)": has_villa
                                                            & has_devastator
                                                            & villa_pickupsanity_weapon,
@@ -2552,7 +2566,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                & has_falcon2_scope 
                                                                & has_cmp150,
 
-        "G5 Building: Crossbow (after knocking out first two guards)": has_g5 
+        "G5 Building: Crossbow (after knocking out the second guard)": has_g5 
                                                                        & has_crossbow,
 
         # "G5 Building: N-Bomb (near the upper exit)": has_g5
@@ -2615,8 +2629,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                               & (has_crash_site_weapon
                                                                               | perfect_logic),
 
-        "Pelagic II: double Falcon 2 (silencer) (from guard and no alarm)": has_pelagic
-                                                                            & has_falcon2_silencer,
+        "Pelagic II: double Falcon 2 (silencer) (without triggering the alarm)": has_pelagic
+                                                                                 & has_falcon2_silencer,
 
         "Deep Sea: Proximity Mine (from guard in 2nd room with cloaked guards)": has_deep_sea
                                                                                  & has_proxy_mine
@@ -2711,16 +2725,6 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                             & Has("Shield")
                                             & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                             & has_extraction_weapon,
-
-        "dD Extraction (Agent): Roof ammo box (on left)": Has("dD Extraction - Agent") 
-                                                          & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
-                                                          & has_rocket_launcher 
-                                                          & complete_extraction_weapons,
-
-        "dD Extraction (Agent): Roof ammo box (on right)": Has("dD Extraction - Agent") 
-                                                           & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
-                                                           & has_rocket_launcher 
-                                                           & complete_extraction_weapons,
 
         "Carrington Villa (Agent): Shield (on helipad crate)": Has("Carrington Villa - Agent") 
                                                                & Has("Shield")
@@ -2984,7 +2988,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                     & has_laptop_gun 
                                                     & complete_defection_weapons))
 
-            defection_right_falcon2 = world.get_location("dD Defection: 2F Falcon 2 (silencer) (on right side)")
+            defection_right_falcon2 = world.get_location("dD Defection: 2F Falcon 2 (silencer) (on right)")
             world.set_rule(defection_right_falcon2, (Has("dD Defection - Perfect Agent") 
                                                         & has_falcon2_silencer 
                                                         & complete_defection_weapons)
@@ -2992,7 +2996,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                         & has_defection 
                                                         & has_falcon2_silencer))
 
-            defection_left_falcon2 = world.get_location("dD Defection: 2F Falcon 2 (silencer) (on left side)")
+            defection_left_falcon2 = world.get_location("dD Defection: 2F Falcon 2 (silencer) (on left)")
             world.set_rule(defection_left_falcon2, (Has("dD Defection - Perfect Agent") 
                                                         & has_falcon2_silencer 
                                                         & complete_defection_weapons)
@@ -3007,12 +3011,12 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                            & complete_mbr_weapons
                                            & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True))
             
-            mbr_falcon2_1 = world.get_location("Mr. Blonde's Revenge: 2F Falcon 2 (on right side)")
+            mbr_falcon2_1 = world.get_location("Mr. Blonde's Revenge: 2F Falcon 2 (on right)")
             world.set_rule(mbr_falcon2_1, has_mbr
                                           & has_falcon2 
                                           & complete_mbr_weapons)
 
-            mbr_falcon2_2 = world.get_location("Mr. Blonde's Revenge: 2F Falcon 2 (on left side)")
+            mbr_falcon2_2 = world.get_location("Mr. Blonde's Revenge: 2F Falcon 2 (on left)")
             world.set_rule(mbr_falcon2_2, has_mbr
                                           & has_falcon2 
                                           & complete_mbr_weapons)

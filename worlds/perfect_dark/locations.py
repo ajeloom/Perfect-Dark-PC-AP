@@ -591,8 +591,8 @@ LOCATION_NAME_TO_ID = {
     "dD Defection (Agent/Special): 3F Shield": 2010,
     "dD Defection: 2F double Falcon 2 (silencer)": 2033,
     "dD Defection: 2F Laptop Gun": 2466,
-    "dD Defection: 2F Falcon 2 (silencer) (on right side)": 2468,
-    "dD Defection: 2F Falcon 2 (silencer) (on left side)": 2469,
+    "dD Defection: 2F Falcon 2 (silencer) (on right)": 2468,
+    "dD Defection: 2F Falcon 2 (silencer) (on left)": 2469,
     "dD Defection: 3F tiny ammo box (on corner desk)": 2470,
     "dD Defection: 3F tiny ammo box (on table near couch)": 2471,
     "dD Defection: 2F tiny ammo box (on desk across the stairs)": 2472,
@@ -622,8 +622,8 @@ LOCATION_NAME_TO_ID = {
     "dD Extraction: 4F Rocket Launcher": 6452,
     "dD Extraction: 4F Grenade (on Cassandra's desk)": 6466,
     "dD Extraction: 4F Dragon (in hidden room in Cassandra's office)": 6467,
-    "dD Extraction (Agent): Roof ammo box (on left)": 6516,
-    "dD Extraction (Agent): Roof ammo box (on right)": 6519,
+    "dD Extraction: Rocket ammo box (on left)": 6516,
+    "dD Extraction: Rocket ammo box (on right)": 6519,
     "Carrington Villa: Devastator (in helipad crate)": 8000,
     "Carrington Villa: 1st ammo box (in crate on observatory path)": 8001,
     "Carrington Villa: 2nd ammo box (in crate on observatory path)": 8002,
@@ -642,7 +642,7 @@ LOCATION_NAME_TO_ID = {
     "Chicago: double Falcon 2 (scope) (in the Pond Punk)": 10287,
     "Chicago (Agent): Shield (near the taxi)": 10289,
     "Chicago (Agent/Special): Shield (under stairs near Pond Punk)": 10290,
-    "G5 Building: Crossbow (after knocking out first two guards)": 12000,
+    "G5 Building: Crossbow (after knocking out the second guard)": 12000,
     "G5 Building (Agent/Special): Shield (on stairs to the upper exit)": 12086,
     "G5 Building: N-Bomb (near the upper exit)": 12149,
     "G5 Building (Agent): Shield (in room before the laser grids)": 12150,
@@ -670,7 +670,7 @@ LOCATION_NAME_TO_ID = {
     "Crash Site (Agent/Special): Shield (behind President's clone)": 24144,
     "Crash Site (Agent): Shield (near the crashed UFO)": 24262, 
     "Crash Site: Proximity Mine (from Elvis before doing any objective)": 24263, # Shares same pad as Shield (need to add one for the location)
-    "Pelagic II: double Falcon 2 (silencer) (from guard and no alarm)": 26052,
+    "Pelagic II: double Falcon 2 (silencer) (without triggering the alarm)": 26052,
     "Pelagic II (Agent): Shield (on the helipad)": 26541,
     "Pelagic II (Agent/Special): Shield (on the sub hangar crate)": 26542,
     "Deep Sea: Proximity Mine (from guard in 2nd room with cloaked guards)": 28008,
@@ -690,8 +690,8 @@ LOCATION_NAME_TO_ID = {
     "Mr. Blonde's Revenge (Agent/Special): 3F Shield": 36010,
     "Mr. Blonde's Revenge: 1F double CMP150 (from guard near bottom elevator)": 36015,
     "Mr. Blonde's Revenge: 2F Laptop Gun": 36466,
-    "Mr. Blonde's Revenge: 2F Falcon 2 (on right side)": 36468,
-    "Mr. Blonde's Revenge: 2F Falcon 2 (on left side)": 36469,
+    "Mr. Blonde's Revenge: 2F Falcon 2 (on right)": 36468,
+    "Mr. Blonde's Revenge: 2F Falcon 2 (on left)": 36469,
     "Mr. Blonde's Revenge: 3F tiny ammo box (on corner desk)": 36470,
     "Mr. Blonde's Revenge: 3F tiny ammo box (on table near couch)": 36471,
     "Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the stairs)": 36472,
@@ -1490,6 +1490,8 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         extraction_locations_list.append("dD Extraction: 4F Rocket Launcher")
         extraction_locations_list.append("dD Extraction: 4F Grenade (on Cassandra's desk)")
         extraction_locations_list.append("dD Extraction: 4F Dragon (in hidden room in Cassandra's office)")
+        extraction_locations_list.append("dD Extraction: Rocket ammo box (on left)")
+        extraction_locations_list.append("dD Extraction: Rocket ammo box (on right)")
 
         villa_locations_list.append("Carrington Villa: Devastator (in helipad crate)")
         villa_locations_list.append("Carrington Villa: 1st ammo box (in crate on observatory path)")
@@ -1506,7 +1508,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         chicago_locations_list.append("Chicago: BombSpy (in the dumpster)")
         chicago_locations_list.append("Chicago: double Falcon 2 (scope) (in the Pond Punk)")
 
-        g5_locations_list.append("G5 Building: Crossbow (after knocking out first two guards)")
+        g5_locations_list.append("G5 Building: Crossbow (after knocking out the second guard)")
 
         infiltration_locations_list.append("A51 Infiltration: Rocket Launcher (in mine field)")
 
@@ -1525,7 +1527,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         crashsite_locations_list.append("Crash Site: DY357-LX (from disarming Trent)")
         crashsite_locations_list.append("Crash Site: Proximity Mine (from Elvis before doing any objective)")
 
-        pelagic_locations_list.append("Pelagic II: double Falcon 2 (silencer) (from guard and no alarm)")
+        pelagic_locations_list.append("Pelagic II: double Falcon 2 (silencer) (without triggering the alarm)")
 
         deepsea_locations_list.append("Deep Sea: Proximity Mine (from guard in 2nd room with cloaked guards)")
         # deepsea_locations_list.append("Deep Sea: Shotgun (near Shield on the left path)")
@@ -1556,8 +1558,6 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             investigation_locations_list.append("dD Investigation (Agent): Shield (on crate)")
 
             extraction_locations_list.append("dD Extraction (Agent): 2F Shield")
-            extraction_locations_list.append("dD Extraction (Agent): Roof ammo box (on left)")
-            extraction_locations_list.append("dD Extraction (Agent): Roof ammo box (on right)")
 
             villa_locations_list.append("Carrington Villa (Agent): Shield (on helipad crate)")
             villa_locations_list.append("Carrington Villa (Agent): Shield (in the bathroom)")
@@ -1642,15 +1642,15 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
         if world.options.mission_logic.value == MissionLogic.option_perfect:
             mbr_locations_list.append("Mr. Blonde's Revenge: 2F Laptop Gun")
-            mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (on right side)")
-            mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (on left side)")
+            mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (on right)")
+            mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (on left)")
 
 
         if world.options.perfect_agent \
                 or world.options.mission_logic.value == MissionLogic.option_perfect:
             defection_locations_list.append("dD Defection: 2F Laptop Gun")
-            defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on right side)")
-            defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on left side)")
+            defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on right)")
+            defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on left)")
 
 
     institute_locations = get_location_names_with_ids(institute_locations_list)
