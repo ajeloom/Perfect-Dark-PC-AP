@@ -175,6 +175,27 @@ class StartWithMission(Toggle):
     display_name = "Start with a Mission"
 
 
+class MissionsInItemPool(Choice):
+    """
+    Choose whether missions are in the item pool.
+
+    - Disabled: You start with every mission.
+
+    - Enabled: You must get the mission to play it. Once you get
+               a mission, every difficulty enabled is unlocked.
+    
+    - Enabled (per difficulty): You must get the mission on a specific difficulty to play it.
+    """
+
+    option_disabled = 0
+    option_enabled = 1
+    option_enabled_per_difficulty = 2
+
+    display_name = "Missions In Item Pool"
+
+    default = option_enabled_per_difficulty
+
+
 class WeaponProgression(Choice):
     """
     Choose how weapon progression will work in your game.
@@ -557,6 +578,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     perfect_agent: IncludePerfectAgent
     required_perfect_agent_mission_stars: RequiredPerfectAgentMissionStars
     start_with_mission: StartWithMission
+    missions_in_item_pool: MissionsInItemPool
     weapon_progression: WeaponProgression
     allow_progressive_weapon_in_challenges: ProgressiveWeaponsInChallenges
     start_with_weapon: StartWithWeapon
@@ -598,6 +620,7 @@ option_groups = [
             IncludePerfectAgent,
             RequiredPerfectAgentMissionStars,
             StartWithMission,
+            MissionsInItemPool,
             WeaponProgression,
             ProgressiveWeaponsInChallenges,
             StartWithWeapon,
@@ -639,6 +662,7 @@ option_presets = {
         "perfect_agent": True,
         "required_perfect_agent_mission_stars": 7,
         "start_with_mission": True,
+        "missions_in_item_pool": MissionsInItemPool.option_enabled,
         "weapon_progression": WeaponProgression.option_normal,
         "allow_progressive_weapon_in_challenges": False,
         "start_with_weapon": True,
@@ -674,6 +698,7 @@ option_presets = {
         "perfect_agent": True,
         "required_perfect_agent_mission_stars": 21,
         "start_with_mission": True,
+        "missions_in_item_pool": MissionsInItemPool.option_enabled_per_difficulty,
         "weapon_progression": WeaponProgression.option_progressive_weapon,
         "allow_progressive_weapon_in_challenges": False,
         "start_with_weapon": True,

@@ -34,6 +34,7 @@ class PerfectDarkWorld(World):
                 self.options.required_special_agent_mission_stars.value = passthrough["options"]["required_special_agent_mission_stars"]
                 self.options.perfect_agent.value = passthrough["options"]["perfect_agent"]
                 self.options.required_perfect_agent_mission_stars.value = passthrough["options"]["required_perfect_agent_mission_stars"]
+                self.options.missions_in_item_pool.value = passthrough["options"]["missions_in_item_pool"]
                 self.options.weapon_progression.value = passthrough["options"]["weapon_progression"]
                 self.options.challenges.value = passthrough["options"]["challenges"]
                 self.options.required_challenge_stars.value = passthrough["options"]["required_challenge_stars"]
@@ -78,6 +79,7 @@ class PerfectDarkWorld(World):
                 "required_special_agent_mission_stars": self.options.required_special_agent_mission_stars.value,
                 "perfect_agent": self.options.perfect_agent.value,
                 "required_perfect_agent_mission_stars": self.options.required_perfect_agent_mission_stars.value,
+                "missions_in_item_pool": self.options.missions_in_item_pool.value,
                 "weapon_progression": self.options.weapon_progression.value,
                 "allow_progressive_weapon_in_challenges": self.options.allow_progressive_weapon_in_challenges.value,
                 "master_key": self.options.master_key.value,

@@ -7,7 +7,14 @@ from BaseClasses import Item, ItemClassification
 if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
-from .options import Goal, SkedarRuinsRequirements, MissionLogic, WeaponProgression, ChallengeLogic
+from .options import (
+    Goal, 
+    SkedarRuinsRequirements, 
+    MissionLogic, 
+    MissionsInItemPool, 
+    WeaponProgression, 
+    ChallengeLogic,
+)
 
 ITEM_NAME_TO_ID = {
     # "NONE": 1,
@@ -248,7 +255,6 @@ ITEM_NAME_TO_ID = {
     # "Trap": 236,
     "Mission Star": 237,
     "Challenge Star": 238,
-    "Skedar Ruins": 239,
     "Victory": 240,
     "Progressive Pistol": 241,
     "Progressive SMG": 242,
@@ -274,6 +280,27 @@ ITEM_NAME_TO_ID = {
     "Shield Refill": 262,
     "Health Refill": 263,
     "Buddy": 264,
+    "dD Defection": 265,
+    "dD Investigation": 266,
+    "dD Extraction": 267,
+    "Carrington Villa": 268,
+    "Chicago": 269,
+    "G5 Building": 270,
+    "A51 Infiltration": 271,
+    "A51 Rescue": 272,
+    "A51 Escape": 273,
+    "Air Base": 274,
+    "Air Force One": 275,
+    "Crash Site": 276,
+    "Pelagic II": 277,
+    "Deep Sea": 278,
+    "CI Defense": 279,
+    "Attack Ship": 280,
+    "Skedar Ruins": 281,
+    "Mr. Blonde's Revenge": 282,
+    "Maian SOS": 283,
+    "WAR!": 284,
+    "The Duel": 285,
 }
 
 
@@ -516,7 +543,6 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     # "Trap": ItemClassification.trap,
     "Mission Star": ItemClassification.progression | ItemClassification.useful,
     "Challenge Star": ItemClassification.progression | ItemClassification.useful,
-    "Skedar Ruins": ItemClassification.progression | ItemClassification.useful,
     "Victory": ItemClassification.progression | ItemClassification.useful,
     "Progressive Pistol": ItemClassification.progression | ItemClassification.useful,
     "Progressive SMG": ItemClassification.progression | ItemClassification.useful,
@@ -542,6 +568,27 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Shield Refill": ItemClassification.filler | ItemClassification.useful,
     "Health Refill": ItemClassification.filler | ItemClassification.useful,
     "Buddy": ItemClassification.filler | ItemClassification.useful,
+    "dD Defection": ItemClassification.progression | ItemClassification.useful,
+    "dD Investigation": ItemClassification.progression | ItemClassification.useful,
+    "dD Extraction": ItemClassification.progression | ItemClassification.useful,
+    "Carrington Villa": ItemClassification.progression | ItemClassification.useful,
+    "Chicago": ItemClassification.progression | ItemClassification.useful,
+    "G5 Building": ItemClassification.progression | ItemClassification.useful,
+    "A51 Infiltration": ItemClassification.progression | ItemClassification.useful,
+    "A51 Rescue": ItemClassification.progression | ItemClassification.useful,
+    "A51 Escape": ItemClassification.progression | ItemClassification.useful,
+    "Air Base": ItemClassification.progression | ItemClassification.useful,
+    "Air Force One": ItemClassification.progression | ItemClassification.useful,
+    "Crash Site": ItemClassification.progression | ItemClassification.useful,
+    "Pelagic II": ItemClassification.progression | ItemClassification.useful,
+    "Deep Sea": ItemClassification.progression | ItemClassification.useful,
+    "CI Defense": ItemClassification.progression | ItemClassification.useful,
+    "Attack Ship": ItemClassification.progression | ItemClassification.useful,
+    "Skedar Ruins": ItemClassification.progression | ItemClassification.useful,
+    "Mr. Blonde's Revenge": ItemClassification.progression | ItemClassification.useful,
+    "Maian SOS": ItemClassification.progression | ItemClassification.useful,
+    "WAR!": ItemClassification.progression | ItemClassification.useful,
+    "The Duel": ItemClassification.progression | ItemClassification.useful,
 }
 
 
@@ -586,6 +633,13 @@ def get_random_filler_item_name(world: PerfectDarkWorld) -> str:
 
 def create_item_with_correct_classification(world: PerfectDarkWorld, name: str) -> PerfectDarkItem:
     classification = DEFAULT_ITEM_CLASSIFICATIONS[name]
+
+    if world.options.mission_logic >= MissionLogic.option_veteran \
+                and world.options.agent \
+                and not world.options.special_agent \
+                and not world.options.perfect_agent \
+                and name == "President Scanner":
+            classification = ItemClassification.filler
 
     if world.options.mission_logic >= MissionLogic.option_hard \
             and not world.options.device_training \
@@ -781,96 +835,123 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         itempool.append(world.create_item("Shield"))
 
 
-    # Items only in Agent
-    if world.options.agent:
-        itempool.append(world.create_item("dD Defection - Agent"))
-        itempool.append(world.create_item("dD Investigation - Agent"))
-        itempool.append(world.create_item("dD Extraction - Agent"))
-        itempool.append(world.create_item("Carrington Villa - Agent"))
-        itempool.append(world.create_item("Chicago - Agent"))
-        itempool.append(world.create_item("G5 Building - Agent"))
-        itempool.append(world.create_item("A51 Infiltration - Agent"))
-        itempool.append(world.create_item("A51 Rescue - Agent"))
-        itempool.append(world.create_item("A51 Escape - Agent"))
-        itempool.append(world.create_item("Air Base - Agent"))
-        itempool.append(world.create_item("Air Force One - Agent"))
-        itempool.append(world.create_item("Crash Site - Agent"))
-        itempool.append(world.create_item("Pelagic II - Agent"))
-        itempool.append(world.create_item("Deep Sea - Agent"))
-        itempool.append(world.create_item("CI Defense - Agent"))
-        itempool.append(world.create_item("Attack Ship - Agent"))
-        itempool.append(world.create_item("Mr. Blonde's Revenge - Agent"))
-        itempool.append(world.create_item("Maian SOS - Agent"))
-        itempool.append(world.create_item("WAR! - Agent"))
-        itempool.append(world.create_item("The Duel - Agent"))
-
+    # Missions
+    if world.options.missions_in_item_pool.value == MissionsInItemPool.option_disabled:
         if (is_skedar_ruins_in_itempool(world)):
-            itempool.append(world.create_item("Skedar Ruins - Agent"))
+            itempool.append(world.create_item("Skedar Ruins"))
+            
+    elif world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled:
+        if (world.options.agent or world.options.special_agent or world.options.perfect_agent):
+            itempool.append(world.create_item("dD Defection"))
+            itempool.append(world.create_item("dD Investigation"))
+            itempool.append(world.create_item("dD Extraction"))
+            itempool.append(world.create_item("Carrington Villa"))
+            itempool.append(world.create_item("Chicago"))
+            itempool.append(world.create_item("G5 Building"))
+            itempool.append(world.create_item("A51 Infiltration"))
+            itempool.append(world.create_item("A51 Rescue"))
+            itempool.append(world.create_item("A51 Escape"))
+            itempool.append(world.create_item("Air Base"))
+            itempool.append(world.create_item("Air Force One"))
+            itempool.append(world.create_item("Crash Site"))
+            itempool.append(world.create_item("Pelagic II"))
+            itempool.append(world.create_item("Deep Sea"))
+            itempool.append(world.create_item("CI Defense"))
+            itempool.append(world.create_item("Attack Ship"))
+            itempool.append(world.create_item("Mr. Blonde's Revenge"))
+            itempool.append(world.create_item("Maian SOS"))
+            itempool.append(world.create_item("WAR!"))
+            itempool.append(world.create_item("The Duel"))
 
+            if (is_skedar_ruins_in_itempool(world)):
+                itempool.append(world.create_item("Skedar Ruins"))
 
-    # Items in both Special and Perfect Agent
-    if world.options.special_agent or world.options.perfect_agent:
-        itempool.append(world.create_item("Skedar Bomb"))
-        itempool.append(world.create_item("Comms Rider"))
+    elif world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled_per_difficulty:
+        if world.options.agent:
+            itempool.append(world.create_item("dD Defection - Agent"))
+            itempool.append(world.create_item("dD Investigation - Agent"))
+            itempool.append(world.create_item("dD Extraction - Agent"))
+            itempool.append(world.create_item("Carrington Villa - Agent"))
+            itempool.append(world.create_item("Chicago - Agent"))
+            itempool.append(world.create_item("G5 Building - Agent"))
+            itempool.append(world.create_item("A51 Infiltration - Agent"))
+            itempool.append(world.create_item("A51 Rescue - Agent"))
+            itempool.append(world.create_item("A51 Escape - Agent"))
+            itempool.append(world.create_item("Air Base - Agent"))
+            itempool.append(world.create_item("Air Force One - Agent"))
+            itempool.append(world.create_item("Crash Site - Agent"))
+            itempool.append(world.create_item("Pelagic II - Agent"))
+            itempool.append(world.create_item("Deep Sea - Agent"))
+            itempool.append(world.create_item("CI Defense - Agent"))
+            itempool.append(world.create_item("Attack Ship - Agent"))
+            itempool.append(world.create_item("Mr. Blonde's Revenge - Agent"))
+            itempool.append(world.create_item("Maian SOS - Agent"))
+            itempool.append(world.create_item("WAR! - Agent"))
+            itempool.append(world.create_item("The Duel - Agent"))
 
+            if (is_skedar_ruins_in_itempool(world)):
+                itempool.append(world.create_item("Skedar Ruins - Agent"))
 
-    # Items only in Special Agent
-    if world.options.special_agent:
-        itempool.append(world.create_item("dD Defection - Special Agent"))
-        itempool.append(world.create_item("dD Investigation - Special Agent"))
-        itempool.append(world.create_item("dD Extraction - Special Agent"))
-        itempool.append(world.create_item("Carrington Villa - Special Agent"))
-        itempool.append(world.create_item("Chicago - Special Agent"))
-        itempool.append(world.create_item("G5 Building - Special Agent"))
-        itempool.append(world.create_item("A51 Infiltration - Special Agent"))
-        itempool.append(world.create_item("A51 Rescue - Special Agent"))
-        itempool.append(world.create_item("A51 Escape - Special Agent"))
-        itempool.append(world.create_item("Air Base - Special Agent"))
-        itempool.append(world.create_item("Air Force One - Special Agent"))
-        itempool.append(world.create_item("Crash Site - Special Agent"))
-        itempool.append(world.create_item("Pelagic II - Special Agent"))
-        itempool.append(world.create_item("Deep Sea - Special Agent"))
-        itempool.append(world.create_item("CI Defense - Special Agent"))
-        itempool.append(world.create_item("Attack Ship - Special Agent"))
-        itempool.append(world.create_item("Mr. Blonde's Revenge - Special Agent"))
-        itempool.append(world.create_item("Maian SOS - Special Agent"))
-        itempool.append(world.create_item("WAR! - Special Agent"))
-        itempool.append(world.create_item("The Duel - Special Agent"))
+        if world.options.special_agent:
+            itempool.append(world.create_item("dD Defection - Special Agent"))
+            itempool.append(world.create_item("dD Investigation - Special Agent"))
+            itempool.append(world.create_item("dD Extraction - Special Agent"))
+            itempool.append(world.create_item("Carrington Villa - Special Agent"))
+            itempool.append(world.create_item("Chicago - Special Agent"))
+            itempool.append(world.create_item("G5 Building - Special Agent"))
+            itempool.append(world.create_item("A51 Infiltration - Special Agent"))
+            itempool.append(world.create_item("A51 Rescue - Special Agent"))
+            itempool.append(world.create_item("A51 Escape - Special Agent"))
+            itempool.append(world.create_item("Air Base - Special Agent"))
+            itempool.append(world.create_item("Air Force One - Special Agent"))
+            itempool.append(world.create_item("Crash Site - Special Agent"))
+            itempool.append(world.create_item("Pelagic II - Special Agent"))
+            itempool.append(world.create_item("Deep Sea - Special Agent"))
+            itempool.append(world.create_item("CI Defense - Special Agent"))
+            itempool.append(world.create_item("Attack Ship - Special Agent"))
+            itempool.append(world.create_item("Mr. Blonde's Revenge - Special Agent"))
+            itempool.append(world.create_item("Maian SOS - Special Agent"))
+            itempool.append(world.create_item("WAR! - Special Agent"))
+            itempool.append(world.create_item("The Duel - Special Agent"))
+    
+            if (is_skedar_ruins_in_itempool(world)):
+                itempool.append(world.create_item("Skedar Ruins - Special Agent"))
 
-        if (is_skedar_ruins_in_itempool(world)):
-            itempool.append(world.create_item("Skedar Ruins - Special Agent"))
+        if world.options.perfect_agent:
+            itempool.append(world.create_item("dD Defection - Perfect Agent"))
+            itempool.append(world.create_item("dD Investigation - Perfect Agent"))
+            itempool.append(world.create_item("dD Extraction - Perfect Agent"))
+            itempool.append(world.create_item("Carrington Villa - Perfect Agent"))
+            itempool.append(world.create_item("Chicago - Perfect Agent"))
+            itempool.append(world.create_item("G5 Building - Perfect Agent"))
+            itempool.append(world.create_item("A51 Infiltration - Perfect Agent"))
+            itempool.append(world.create_item("A51 Rescue - Perfect Agent"))
+            itempool.append(world.create_item("A51 Escape - Perfect Agent"))
+            itempool.append(world.create_item("Air Base - Perfect Agent"))
+            itempool.append(world.create_item("Air Force One - Perfect Agent"))
+            itempool.append(world.create_item("Crash Site - Perfect Agent"))
+            itempool.append(world.create_item("Pelagic II - Perfect Agent"))
+            itempool.append(world.create_item("Deep Sea - Perfect Agent"))
+            itempool.append(world.create_item("CI Defense - Perfect Agent"))
+            itempool.append(world.create_item("Attack Ship - Perfect Agent"))
+            itempool.append(world.create_item("Mr. Blonde's Revenge - Perfect Agent"))
+            itempool.append(world.create_item("Maian SOS - Perfect Agent"))
+            itempool.append(world.create_item("WAR! - Perfect Agent"))
+            itempool.append(world.create_item("The Duel - Perfect Agent"))
+    
+            if (is_skedar_ruins_in_itempool(world)):
+                itempool.append(world.create_item("Skedar Ruins - Perfect Agent"))
 
-
-    # Items only in Perfect Agent
     if world.options.perfect_agent:
         itempool.append(world.create_item("Tracer Bug"))
         itempool.append(world.create_item("Flight Plans"))
         itempool.append(world.create_item("Research Tape"))
         itempool.append(world.create_item("Shield Tech Item"))
-        itempool.append(world.create_item("dD Defection - Perfect Agent"))
-        itempool.append(world.create_item("dD Investigation - Perfect Agent"))
-        itempool.append(world.create_item("dD Extraction - Perfect Agent"))
-        itempool.append(world.create_item("Carrington Villa - Perfect Agent"))
-        itempool.append(world.create_item("Chicago - Perfect Agent"))
-        itempool.append(world.create_item("G5 Building - Perfect Agent"))
-        itempool.append(world.create_item("A51 Infiltration - Perfect Agent"))
-        itempool.append(world.create_item("A51 Rescue - Perfect Agent"))
-        itempool.append(world.create_item("A51 Escape - Perfect Agent"))
-        itempool.append(world.create_item("Air Base - Perfect Agent"))
-        itempool.append(world.create_item("Air Force One - Perfect Agent"))
-        itempool.append(world.create_item("Crash Site - Perfect Agent"))
-        itempool.append(world.create_item("Pelagic II - Perfect Agent"))
-        itempool.append(world.create_item("Deep Sea - Perfect Agent"))
-        itempool.append(world.create_item("CI Defense - Perfect Agent"))
-        itempool.append(world.create_item("Attack Ship - Perfect Agent"))
-        itempool.append(world.create_item("Mr. Blonde's Revenge - Perfect Agent"))
-        itempool.append(world.create_item("Maian SOS - Perfect Agent"))
-        itempool.append(world.create_item("WAR! - Perfect Agent"))
-        itempool.append(world.create_item("The Duel - Perfect Agent"))
 
-        if (is_skedar_ruins_in_itempool(world)):
-            itempool.append(world.create_item("Skedar Ruins - Perfect Agent"))
-
+    # Items in both Special and Perfect Agent
+    if world.options.special_agent or world.options.perfect_agent:
+        itempool.append(world.create_item("Skedar Bomb"))
+        itempool.append(world.create_item("Comms Rider"))
 
     # Weapons
     if (world.options.weapon_progression.value == WeaponProgression.option_normal
@@ -1092,84 +1173,116 @@ def create_all_items(world:PerfectDarkWorld) -> None:
 
     # Start with a random mission
     if world.options.start_with_mission:
-        missions = []
+        if world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled:
+            missions = []
 
-        if world.options.agent:
-            missions.append("dD Defection - Agent")
-            missions.append("dD Investigation - Agent")
-            missions.append("dD Extraction - Agent")
-            missions.append("Carrington Villa - Agent")
-            missions.append("Chicago - Agent")
-            missions.append("G5 Building - Agent")
-            missions.append("A51 Infiltration - Agent")
-            missions.append("A51 Rescue - Agent")
-            missions.append("A51 Escape - Agent")
-            missions.append("Air Base - Agent")
-            missions.append("Air Force One - Agent")
-            missions.append("Crash Site - Agent")
-            missions.append("Pelagic II - Agent")
-            missions.append("Deep Sea - Agent")
-            missions.append("CI Defense - Agent")
-            missions.append("Attack Ship - Agent")
-            missions.append("Mr. Blonde's Revenge - Agent")
-            missions.append("Maian SOS - Agent")
-            missions.append("WAR! - Agent")
-            missions.append("The Duel - Agent")
+            if world.options.agent or world.options.special_agent or world.options.perfect_agent:
+                missions.append("dD Defection")
+                missions.append("dD Investigation")
+                missions.append("dD Extraction")
+                missions.append("Carrington Villa")
+                missions.append("Chicago")
+                missions.append("G5 Building")
+                missions.append("A51 Infiltration")
+                missions.append("A51 Rescue")
+                missions.append("A51 Escape")
+                missions.append("Air Base")
+                missions.append("Air Force One")
+                missions.append("Crash Site")
+                missions.append("Pelagic II")
+                missions.append("Deep Sea")
+                missions.append("CI Defense")
+                missions.append("Attack Ship")
+                missions.append("Mr. Blonde's Revenge")
+                missions.append("Maian SOS")
+                missions.append("WAR!")
+                missions.append("The Duel")
 
-        if world.options.special_agent:
-            missions.append("dD Defection - Special Agent")
-            missions.append("dD Investigation - Special Agent")
-            missions.append("dD Extraction - Special Agent")
-            missions.append("Carrington Villa - Special Agent")
-            missions.append("Chicago - Special Agent")
-            missions.append("G5 Building - Special Agent")
-            missions.append("A51 Infiltration - Special Agent")
-            missions.append("A51 Rescue - Special Agent")
-            missions.append("A51 Escape - Special Agent")
-            missions.append("Air Base - Special Agent")
-            missions.append("Air Force One - Special Agent")
-            missions.append("Crash Site - Special Agent")
-            missions.append("Pelagic II - Special Agent")
-            missions.append("Deep Sea - Special Agent")
-            missions.append("CI Defense - Special Agent")
-            missions.append("Attack Ship - Special Agent")
-            missions.append("Mr. Blonde's Revenge - Special Agent")
-            missions.append("Maian SOS - Special Agent")
-            missions.append("WAR! - Special Agent")
-            missions.append("The Duel - Special Agent")
+            if (is_skedar_ruins_in_itempool(world)):
+                missions.append("Skedar Ruins")
 
-        if world.options.perfect_agent:
-            missions.append("dD Defection - Perfect Agent")
-            missions.append("dD Investigation - Perfect Agent")
-            missions.append("dD Extraction - Perfect Agent")
-            missions.append("Carrington Villa - Perfect Agent")
-            missions.append("Chicago - Perfect Agent")
-            missions.append("G5 Building - Perfect Agent")
-            missions.append("A51 Infiltration - Perfect Agent")
-            missions.append("A51 Rescue - Perfect Agent")
-            missions.append("A51 Escape - Perfect Agent")
-            missions.append("Air Base - Perfect Agent")
-            missions.append("Air Force One - Perfect Agent")
-            missions.append("Crash Site - Perfect Agent")
-            missions.append("Pelagic II - Perfect Agent")
-            missions.append("Deep Sea - Perfect Agent")
-            missions.append("CI Defense - Perfect Agent")
-            missions.append("Attack Ship - Perfect Agent")
-            missions.append("Mr. Blonde's Revenge - Perfect Agent")
-            missions.append("Maian SOS - Perfect Agent")
-            missions.append("WAR! - Perfect Agent")
-            missions.append("The Duel - Perfect Agent")
+            item = world.random.choice(missions)
+            remove_starting_item_from_pool(world, item, itempool)
+        
+        elif world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled_per_difficulty:
+            missions = []
 
-        if (is_skedar_ruins_in_itempool(world)):
             if world.options.agent:
-                missions.append("Skedar Ruins - Agent")
-            if world.options.special_agent:
-                missions.append("Skedar Ruins - Special Agent")
-            if world.options.perfect_agent:
-                missions.append("Skedar Ruins - Perfect Agent")
+                missions.append("dD Defection - Agent")
+                missions.append("dD Investigation - Agent")
+                missions.append("dD Extraction - Agent")
+                missions.append("Carrington Villa - Agent")
+                missions.append("Chicago - Agent")
+                missions.append("G5 Building - Agent")
+                missions.append("A51 Infiltration - Agent")
+                missions.append("A51 Rescue - Agent")
+                missions.append("A51 Escape - Agent")
+                missions.append("Air Base - Agent")
+                missions.append("Air Force One - Agent")
+                missions.append("Crash Site - Agent")
+                missions.append("Pelagic II - Agent")
+                missions.append("Deep Sea - Agent")
+                missions.append("CI Defense - Agent")
+                missions.append("Attack Ship - Agent")
+                missions.append("Mr. Blonde's Revenge - Agent")
+                missions.append("Maian SOS - Agent")
+                missions.append("WAR! - Agent")
+                missions.append("The Duel - Agent")
 
-        item = world.random.choice(missions)
-        remove_starting_item_from_pool(world, item, itempool)
+            if world.options.special_agent:
+                missions.append("dD Defection - Special Agent")
+                missions.append("dD Investigation - Special Agent")
+                missions.append("dD Extraction - Special Agent")
+                missions.append("Carrington Villa - Special Agent")
+                missions.append("Chicago - Special Agent")
+                missions.append("G5 Building - Special Agent")
+                missions.append("A51 Infiltration - Special Agent")
+                missions.append("A51 Rescue - Special Agent")
+                missions.append("A51 Escape - Special Agent")
+                missions.append("Air Base - Special Agent")
+                missions.append("Air Force One - Special Agent")
+                missions.append("Crash Site - Special Agent")
+                missions.append("Pelagic II - Special Agent")
+                missions.append("Deep Sea - Special Agent")
+                missions.append("CI Defense - Special Agent")
+                missions.append("Attack Ship - Special Agent")
+                missions.append("Mr. Blonde's Revenge - Special Agent")
+                missions.append("Maian SOS - Special Agent")
+                missions.append("WAR! - Special Agent")
+                missions.append("The Duel - Special Agent")
+
+            if world.options.perfect_agent:
+                missions.append("dD Defection - Perfect Agent")
+                missions.append("dD Investigation - Perfect Agent")
+                missions.append("dD Extraction - Perfect Agent")
+                missions.append("Carrington Villa - Perfect Agent")
+                missions.append("Chicago - Perfect Agent")
+                missions.append("G5 Building - Perfect Agent")
+                missions.append("A51 Infiltration - Perfect Agent")
+                missions.append("A51 Rescue - Perfect Agent")
+                missions.append("A51 Escape - Perfect Agent")
+                missions.append("Air Base - Perfect Agent")
+                missions.append("Air Force One - Perfect Agent")
+                missions.append("Crash Site - Perfect Agent")
+                missions.append("Pelagic II - Perfect Agent")
+                missions.append("Deep Sea - Perfect Agent")
+                missions.append("CI Defense - Perfect Agent")
+                missions.append("Attack Ship - Perfect Agent")
+                missions.append("Mr. Blonde's Revenge - Perfect Agent")
+                missions.append("Maian SOS - Perfect Agent")
+                missions.append("WAR! - Perfect Agent")
+                missions.append("The Duel - Perfect Agent")
+
+            if (is_skedar_ruins_in_itempool(world)):
+                if world.options.agent:
+                    missions.append("Skedar Ruins - Agent")
+                if world.options.special_agent:
+                    missions.append("Skedar Ruins - Special Agent")
+                if world.options.perfect_agent:
+                    missions.append("Skedar Ruins - Perfect Agent")
+
+            item = world.random.choice(missions)
+            remove_starting_item_from_pool(world, item, itempool)
 
 
     # Start with a random weapon

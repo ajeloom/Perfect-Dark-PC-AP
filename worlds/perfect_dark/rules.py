@@ -9,11 +9,28 @@ from rule_builder.rules import Has, HasAll, HasAny, HasFromList
 if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
-from .options import Goal, SkedarRuinsRequirements, MissionLogic, WeaponProgression, ChallengeLogic, ChallengesInItemPool, NPCs, AlternateExits
+from .options import (
+    Goal, 
+    SkedarRuinsRequirements, 
+    MissionLogic, 
+    IncludeAgent,
+    IncludeSpecialAgent, 
+    IncludePerfectAgent, 
+    MissionsInItemPool,     
+    WeaponProgression, 
+    ChallengeLogic, 
+    ChallengesInItemPool, 
+    NPCs, 
+    AlternateExits,
+)
 from .items import has_challenges
 
 npc_filter = OptionFilter(NPCs, True)
 challenge_item_pool_filter = OptionFilter(ChallengesInItemPool, True)
+mission_item_pool_filter = OptionFilter(MissionsInItemPool, MissionsInItemPool.option_enabled, operator="ge")
+has_agent = OptionFilter(IncludeAgent, True)
+has_special_agent = OptionFilter(IncludeSpecialAgent, True)
+has_perfect_agent = OptionFilter(IncludePerfectAgent, True)
 
 HAS_DD_KEYS = HasAny("De Vries' Necklace", "dataDyne Master Key") & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
 HAS_CASS_OFFICE_KEY = HasAny("Cassandra's Office Key Card", "dataDyne Master Key")
@@ -26,9 +43,89 @@ HAS_AFO_EXTRA_KEYS = HasAny("Air Force One Left Room Key Card", "Air Force One R
 HAS_AFO_LEFT_KEY = HasAny("Air Force One Left Room Key Card", "Air Force One Master Key")
 HAS_AFO_RIGHT_KEY = HasAny("Air Force One Right Room Key Card", "Air Force One Master Key")
 
-HAS_SKEDAR_RUINS_AGENT = HasAny("Skedar Ruins - Agent", "Skedar Ruins")
-HAS_SKEDAR_RUINS_SP_AGENT = HasAny("Skedar Ruins - Special Agent", "Skedar Ruins")
-HAS_SKEDAR_RUINS_PF_AGENT = HasAny("Skedar Ruins - Perfect Agent", "Skedar Ruins")
+HAS_DEFECTION_AGENT = HasAny("dD Defection - Agent", "dD Defection", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEFECTION_SP_AGENT = HasAny("dD Defection - Special Agent", "dD Defection", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEFECTION_PF_AGENT = HasAny("dD Defection - Perfect Agent", "dD Defection", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_INVESTIGATION_AGENT = HasAny("dD Investigation - Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_INVESTIGATION_SP_AGENT = HasAny("dD Investigation - Special Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_INVESTIGATION_PF_AGENT = HasAny("dD Investigation - Perfect Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_EXTRACTION_AGENT = HasAny("dD Extraction - Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_EXTRACTION_SP_AGENT = HasAny("dD Extraction - Special Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_EXTRACTION_PF_AGENT = HasAny("dD Extraction - Perfect Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_VILLA_AGENT = HasAny("Carrington Villa - Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_VILLA_SP_AGENT = HasAny("Carrington Villa - Special Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_VILLA_PF_AGENT = HasAny("Carrington Villa - Perfect Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_CHICAGO_AGENT = HasAny("Chicago - Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_CHICAGO_SP_AGENT = HasAny("Chicago - Special Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_CHICAGO_PF_AGENT = HasAny("Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_G5_AGENT = HasAny("G5 Building - Agent", "G5 Building", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_G5_SP_AGENT = HasAny("G5 Building - Special Agent", "G5 Building", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_G5_PF_AGENT = HasAny("G5 Building - Perfect Agent", "G5 Building", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_INFILTRATION_AGENT = HasAny("A51 Infiltration - Agent", "A51 Infiltration", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_INFILTRATION_SP_AGENT = HasAny("A51 Infiltration - Special Agent", "A51 Infiltration", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_INFILTRATION_PF_AGENT = HasAny("A51 Infiltration - Perfect Agent", "A51 Infiltration", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_RESCUE_AGENT = HasAny("A51 Rescue - Agent", "A51 Rescue", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_RESCUE_SP_AGENT = HasAny("A51 Rescue - Special Agent", "A51 Rescue", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_RESCUE_PF_AGENT = HasAny("A51 Rescue - Perfect Agent", "A51 Rescue", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_ESCAPE_AGENT = HasAny("A51 Escape - Agent", "A51 Escape", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_ESCAPE_SP_AGENT = HasAny("A51 Escape - Special Agent", "A51 Escape", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_ESCAPE_PF_AGENT = HasAny("A51 Escape - Perfect Agent", "A51 Escape", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_AIR_BASE_AGENT = HasAny("Air Base - Agent", "Air Base", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_AIR_BASE_SP_AGENT = HasAny("Air Base - Special Agent", "Air Base", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_AIR_BASE_PF_AGENT = HasAny("Air Base - Perfect Agent", "Air Base", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_AFO_AGENT = HasAny("Air Force One - Agent", "Air Force One", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_AFO_SP_AGENT = HasAny("Air Force One - Special Agent", "Air Force One", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_AFO_PF_AGENT = HasAny("Air Force One - Perfect Agent", "Air Force One", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_CRASH_SITE_AGENT = HasAny("Crash Site - Agent", "Crash Site", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_CRASH_SITE_SP_AGENT = HasAny("Crash Site - Special Agent", "Crash Site", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_CRASH_SITE_PF_AGENT = HasAny("Crash Site - Perfect Agent", "Crash Site", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_PELAGIC_AGENT = HasAny("Pelagic II - Agent", "Pelagic II", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_PELAGIC_SP_AGENT = HasAny("Pelagic II - Special Agent", "Pelagic II", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_PELAGIC_PF_AGENT = HasAny("Pelagic II - Perfect Agent", "Pelagic II", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_DEEP_SEA_AGENT = HasAny("Deep Sea - Agent", "Deep Sea", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEEP_SEA_SP_AGENT = HasAny("Deep Sea - Special Agent", "Deep Sea", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEEP_SEA_PF_AGENT = HasAny("Deep Sea - Perfect Agent", "Deep Sea", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_DEFENSE_AGENT = HasAny("CI Defense - Agent", "CI Defense", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEFENSE_SP_AGENT = HasAny("CI Defense - Special Agent", "CI Defense", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEFENSE_PF_AGENT = HasAny("CI Defense - Perfect Agent", "CI Defense", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_ATTACK_SHIP_AGENT = HasAny("Attack Ship - Agent", "Attack Ship", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_ATTACK_SHIP_SP_AGENT = HasAny("Attack Ship - Special Agent", "Attack Ship", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_ATTACK_SHIP_PF_AGENT = HasAny("Attack Ship - Perfect Agent", "Attack Ship", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_SKEDAR_RUINS_AGENT = HasAny("Skedar Ruins - Agent", "Skedar Ruins", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_SKEDAR_RUINS_SP_AGENT = HasAny("Skedar Ruins - Special Agent", "Skedar Ruins", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_SKEDAR_RUINS_PF_AGENT = HasAny("Skedar Ruins - Perfect Agent", "Skedar Ruins", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_MBR_AGENT = HasAny("Mr. Blonde's Revenge - Agent", "Mr. Blonde's Revenge", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_MBR_SP_AGENT = HasAny("Mr. Blonde's Revenge - Special Agent", "Mr. Blonde's Revenge", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_MBR_PF_AGENT = HasAny("Mr. Blonde's Revenge - Perfect Agent", "Mr. Blonde's Revenge", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_MAIAN_SOS_AGENT = HasAny("Maian SOS - Agent", "Maian SOS", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_MAIAN_SOS_SP_AGENT = HasAny("Maian SOS - Special Agent", "Maian SOS", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_MAIAN_SOS_PF_AGENT = HasAny("Maian SOS - Perfect Agent", "Maian SOS", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_WAR_AGENT = HasAny("WAR! - Agent", "WAR!", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_WAR_SP_AGENT = HasAny("WAR! - Special Agent", "WAR!", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_WAR_PF_AGENT = HasAny("WAR! - Perfect Agent", "WAR!", options=[mission_item_pool_filter], filtered_resolution=True) 
+
+HAS_DUEL_AGENT = HasAny("The Duel - Agent", "The Duel", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DUEL_SP_AGENT = HasAny("The Duel - Special Agent", "The Duel", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DUEL_PF_AGENT = HasAny("The Duel - Perfect Agent", "The Duel", options=[mission_item_pool_filter], filtered_resolution=True) 
 
 normal_weapon_filter = OptionFilter(WeaponProgression, WeaponProgression.option_normal)
 all_guns_filter = OptionFilter(WeaponProgression, WeaponProgression.option_all_guns)
@@ -243,27 +340,27 @@ weapon_types = ("Progressive Pistol", "Progressive SMG", "Progressive Rifle", "P
 HAS_ANY_WEAPON_TYPE = ((Has("Progressive Other Weapon", count=4) & HasFromList(*weapon_types, count=1)) | HasFromList(*weapon_types, count=2))
 HAS_ANY_WEAPON_TYPE_ATTACKSHIP = (HasAll("Progressive SMG", "Progressive Rifle", "Progressive Pistol"))
 
-has_defection = HasAny("dD Defection - Agent", "dD Defection - Special Agent", "dD Defection - Perfect Agent")
-has_investigation = HasAny("dD Investigation - Agent", "dD Investigation - Special Agent", "dD Investigation - Perfect Agent")
-has_extraction = HasAny("dD Extraction - Agent", "dD Extraction - Special Agent", "dD Extraction - Perfect Agent")
-has_villa = HasAny("Carrington Villa - Agent", "Carrington Villa - Special Agent", "Carrington Villa - Perfect Agent")
-has_chicago = HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
-has_g5 = HasAny("G5 Building - Agent", "G5 Building - Special Agent", "G5 Building - Perfect Agent")
-has_infiltration = HasAny("A51 Infiltration - Agent", "A51 Infiltration - Special Agent", "A51 Infiltration - Perfect Agent")
-has_rescue = HasAny("A51 Rescue - Agent", "A51 Rescue - Special Agent", "A51 Rescue - Perfect Agent")
-has_escape = HasAny("A51 Escape - Agent", "A51 Escape - Special Agent", "A51 Escape - Perfect Agent")
-has_air_base = HasAny("Air Base - Agent", "Air Base - Special Agent", "Air Base - Perfect Agent")
-has_air_force_one = HasAny("Air Force One - Agent", "Air Force One - Special Agent", "Air Force One - Perfect Agent")
-has_crash_site = HasAny("Crash Site - Agent", "Crash Site - Special Agent", "Crash Site - Perfect Agent")
-has_pelagic = HasAny("Pelagic II - Agent", "Pelagic II - Special Agent", "Pelagic II - Perfect Agent")
-has_deep_sea = HasAny("Deep Sea - Agent", "Deep Sea - Special Agent", "Deep Sea - Perfect Agent")
-has_defense = HasAny("CI Defense - Agent", "CI Defense - Special Agent", "CI Defense - Perfect Agent")
-has_attack_ship = HasAny("Attack Ship - Agent", "Attack Ship - Special Agent", "Attack Ship - Perfect Agent")
-has_skedar_ruins = HasAny("Skedar Ruins - Agent", "Skedar Ruins - Special Agent", "Skedar Ruins - Perfect Agent", "Skedar Ruins")
-has_mbr = HasAny("Mr. Blonde's Revenge - Agent", "Mr. Blonde's Revenge - Special Agent", "Mr. Blonde's Revenge - Perfect Agent")
-has_maian_sos = HasAny("Maian SOS - Agent", "Maian SOS - Special Agent", "Maian SOS - Perfect Agent")
-has_war = HasAny("WAR! - Agent", "WAR! - Special Agent", "WAR! - Perfect Agent")
-has_duel = HasAny("The Duel - Agent", "The Duel - Special Agent", "The Duel - Perfect Agent")
+has_defection = HasAny("dD Defection - Agent", "dD Defection - Special Agent", "dD Defection - Perfect Agent", "dD Defection", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_investigation = HasAny("dD Investigation - Agent", "dD Investigation - Special Agent", "dD Investigation - Perfect Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_extraction = HasAny("dD Extraction - Agent", "dD Extraction - Special Agent", "dD Extraction - Perfect Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_villa = HasAny("Carrington Villa - Agent", "Carrington Villa - Special Agent", "Carrington Villa - Perfect Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_chicago = HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_g5 = HasAny("G5 Building - Agent", "G5 Building - Special Agent", "G5 Building - Perfect Agent", "G5 Building", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_infiltration = HasAny("A51 Infiltration - Agent", "A51 Infiltration - Special Agent", "A51 Infiltration - Perfect Agent", "A51 Infiltration", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_rescue = HasAny("A51 Rescue - Agent", "A51 Rescue - Special Agent", "A51 Rescue - Perfect Agent", "A51 Rescue", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_escape = HasAny("A51 Escape - Agent", "A51 Escape - Special Agent", "A51 Escape - Perfect Agent", "A51 Escape", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_air_base = HasAny("Air Base - Agent", "Air Base - Special Agent", "Air Base - Perfect Agent", "Air Base", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_air_force_one = HasAny("Air Force One - Agent", "Air Force One - Special Agent", "Air Force One - Perfect Agent", "Air Force One", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_crash_site = HasAny("Crash Site - Agent", "Crash Site - Special Agent", "Crash Site - Perfect Agent", "Crash Site", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_pelagic = HasAny("Pelagic II - Agent", "Pelagic II - Special Agent", "Pelagic II - Perfect Agent", "Pelagic II", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_deep_sea = HasAny("Deep Sea - Agent", "Deep Sea - Special Agent", "Deep Sea - Perfect Agent", "Deep Sea", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_defense = HasAny("CI Defense - Agent", "CI Defense - Special Agent", "CI Defense - Perfect Agent", "CI Defense", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_attack_ship = HasAny("Attack Ship - Agent", "Attack Ship - Special Agent", "Attack Ship - Perfect Agent", "Attack Ship", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_skedar_ruins = HasAny("Skedar Ruins - Agent", "Skedar Ruins - Special Agent", "Skedar Ruins - Perfect Agent", "Skedar Ruins", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_mbr = HasAny("Mr. Blonde's Revenge - Agent", "Mr. Blonde's Revenge - Special Agent", "Mr. Blonde's Revenge - Perfect Agent", "Mr. Blonde's Revenge", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_maian_sos = HasAny("Maian SOS - Agent", "Maian SOS - Special Agent", "Maian SOS - Perfect Agent", "Maian SOS", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_war = HasAny("WAR! - Agent", "WAR! - Special Agent", "WAR! - Perfect Agent", "WAR!", options=[mission_item_pool_filter], filtered_resolution=True) 
+has_duel = HasAny("The Duel - Agent", "The Duel - Special Agent", "The Duel - Perfect Agent", "The Duel", options=[mission_item_pool_filter], filtered_resolution=True) 
 
 def set_all_rules(world: PerfectDarkWorld) -> None:
     set_all_entrance_rules(world)
@@ -695,46 +792,49 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     agent_rules = {
         # Stage 1 - Defection
-        "dD Defection - Agent Objective 1": Has("dD Defection - Agent")
+        "dD Defection - Agent Objective 1": HAS_DEFECTION_AGENT
                                             & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                             & (complete_defection_weapons
                                             | perfect_logic),
 
-        "Complete: dD Defection - Agent": Has("dD Defection - Agent")
+        "Complete: dD Defection - Agent": HAS_DEFECTION_AGENT
                                           & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                           & (complete_defection_weapons
                                           | perfect_logic),
 
 
         # Stage 2 - Investigation
-        "dD Investigation - Agent Objective 1": HasAll("dD Investigation - Agent", "CamSpy")
+        "dD Investigation - Agent Objective 1": HAS_INVESTIGATION_AGENT
+                                                & Has("CamSpy")
                                                 & has_investigation_weapon,
 
-        "dD Investigation - Agent Objective 2": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink")
+        "dD Investigation - Agent Objective 2": HAS_INVESTIGATION_AGENT
+                                                & HasAll("CamSpy", "Data Uplink")
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & complete_investigation_weapons,
 
-        "Complete: dD Investigation - Agent": HasAll("dD Investigation - Agent", "CamSpy", "Data Uplink")
+        "Complete: dD Investigation - Agent": HAS_INVESTIGATION_AGENT
+                                              & HasAll("CamSpy", "Data Uplink")
                                               & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                               & complete_investigation_weapons,
 
 
         # Stage 3 - Extraction
-        "dD Extraction - Agent Objective 1": Has("dD Extraction - Agent")
+        "dD Extraction - Agent Objective 1": HAS_EXTRACTION_AGENT
                                              & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                              & has_extraction_weapon,
 
-        "dD Extraction - Agent Objective 2": Has("dD Extraction - Agent")
+        "dD Extraction - Agent Objective 2": HAS_EXTRACTION_AGENT
                                              & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                              & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                              & complete_extraction_weapons,
 
-        "dD Extraction - Agent Objective 3": Has("dD Extraction - Agent")
+        "dD Extraction - Agent Objective 3": HAS_EXTRACTION_AGENT
                                              & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                              & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                              & complete_extraction_weapons,
 
-        "Complete: dD Extraction - Agent": Has("dD Extraction - Agent")
+        "Complete: dD Extraction - Agent": HAS_EXTRACTION_AGENT
                                            & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                            & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
@@ -742,94 +842,112 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 4 - Carrington Villa
-        "Carrington Villa - Agent Objective 1": Has("Carrington Villa - Agent")
+        "Carrington Villa - Agent Objective 1": HAS_VILLA_AGENT
                                                 & has_villa_weapon,
 
-        "Carrington Villa - Agent Objective 2": Has("Carrington Villa - Agent")
+        "Carrington Villa - Agent Objective 2": HAS_VILLA_AGENT
                                                 & complete_villa_weapons,
 
-        "Carrington Villa - Agent Objective 3": HasAll("Carrington Villa - Agent", "Cellar Key Card")
+        "Carrington Villa - Agent Objective 3": HAS_VILLA_AGENT
+                                                & Has("Cellar Key Card")
                                                 & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & complete_villa_weapons,
 
-        "Complete: Carrington Villa - Agent": HasAll("Carrington Villa - Agent", "Cellar Key Card")
+        "Complete: Carrington Villa - Agent": HAS_VILLA_AGENT
+                                              & Has("Cellar Key Card")
                                               & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                               & complete_villa_weapons,
 
 
         # Stage 5 - Chicago
-        "Chicago - Agent Objective 1": HasAll("Chicago - Agent", "Data Uplink")
+        "Chicago - Agent Objective 1": HAS_CHICAGO_AGENT
+                                       & Has("Data Uplink")
                                        & has_chicago_weapon
                                        & has_remote_mine,
 
-        "Chicago - Agent Objective 2": HasAll("Chicago - Agent", "Data Uplink")
+        "Chicago - Agent Objective 2": HAS_CHICAGO_AGENT
+                                       & (Has("Data Uplink")
+                                       | Has("CamSpy", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge")]))
                                        & has_chicago_weapon,
 
-        "Chicago - Agent Objective 3": HasAll("Chicago - Agent", "Data Uplink")
+        "Chicago - Agent Objective 3": HAS_CHICAGO_AGENT
+                                       & Has("Data Uplink")
                                        & complete_chicago_weapons
                                        & has_remote_mine,
 
-        "Complete: Chicago - Agent": HasAll("Chicago - Agent", "Data Uplink")
+        "Complete: Chicago - Agent": HAS_CHICAGO_AGENT
+                                     & Has("Data Uplink")
                                      & complete_chicago_weapons
                                      & has_remote_mine,
 
 
         # Stage 6 - G5 Building
-        "G5 Building - Agent Objective 1": HasAll("G5 Building - Agent", "CamSpy")
+        "G5 Building - Agent Objective 1": HAS_G5_AGENT
+                                           & Has("CamSpy")
                                            & HAS_G5_KEYS
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                            & has_g5_weapon,
 
-        "G5 Building - Agent Objective 2": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk")
+        "G5 Building - Agent Objective 2": HAS_G5_AGENT
+                                           & HasAll("Door Decoder", "Backup Disk")
                                            & HAS_G5_KEYS
                                            & complete_g5_weapons,
 
-        "G5 Building - Agent Objective 3": HasAll("G5 Building - Agent", "Door Decoder", "Backup Disk")
+        "G5 Building - Agent Objective 3": HAS_G5_AGENT
+                                           & HasAll("Door Decoder", "Backup Disk")
                                            & HAS_G5_KEYS
                                            & complete_g5_weapons,
 
-        "Complete: G5 Building - Agent": HasAll("G5 Building - Agent", "CamSpy", "Door Decoder", "Backup Disk")
+        "Complete: G5 Building - Agent": HAS_G5_AGENT
+                                         & HasAll("CamSpy", "Door Decoder", "Backup Disk")
                                          & HAS_G5_KEYS
                                          & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                          & complete_g5_weapons,
 
 
         # Stage 7 - A51 Infiltration
-        "A51 Infiltration - Agent Objective 1": HasAll("A51 Infiltration - Agent", "Explosives")
+        "A51 Infiltration - Agent Objective 1": HAS_INFILTRATION_AGENT
+                                                & Has("Explosives")
                                                 & has_infiltration_weapon,
 
-        "A51 Infiltration - Agent Objective 2": Has("A51 Infiltration - Agent")
+        "A51 Infiltration - Agent Objective 2": HAS_INFILTRATION_AGENT
                                                 & HAS_A51_INFIL_KEYS
                                                 & has_infiltration_weapon,
 
-        "A51 Infiltration - Agent Objective 3": HasAll("A51 Infiltration - Agent", "Explosives")
+        "A51 Infiltration - Agent Objective 3": HAS_INFILTRATION_AGENT
+                                                & Has("Explosives")
                                                 & HAS_A51_INFIL_KEYS
                                                 & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                 & complete_infiltration_weapons,
 
-        "Complete: A51 Infiltration - Agent": HasAll("A51 Infiltration - Agent", "Explosives")
+        "Complete: A51 Infiltration - Agent": HAS_INFILTRATION_AGENT
+                                              & Has("Explosives")
                                               & HAS_A51_INFIL_KEYS
                                               & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                               & complete_infiltration_weapons,
 
 
         # Stage 8 - A51 Rescue
-        "A51 Rescue - Agent Objective 1": HasAll("A51 Rescue - Agent", "Lab Clothes")
+        "A51 Rescue - Agent Objective 1": HAS_RESCUE_AGENT
+                                          & Has("Lab Clothes")
                                           & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                           & has_rescue_weapon,
 
-        "A51 Rescue - Agent Objective 2": HasAll("A51 Rescue - Agent", "Lab Clothes")
+        "A51 Rescue - Agent Objective 2": HAS_RESCUE_AGENT
+                                          & Has("Lab Clothes")
                                           & HAS_A51_RESCUE_FIRST_KEY
                                           & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                           & has_rescue_weapon,
 
-        "A51 Rescue - Agent Objective 3": HasAll("A51 Rescue - Agent", "Lab Clothes")
+        "A51 Rescue - Agent Objective 3": HAS_RESCUE_AGENT
+                                          & Has("Lab Clothes")
                                           & HAS_A51_RESCUE_ALL_KEYS
                                           & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & complete_rescue_weapons,
 
-        "Complete: A51 Rescue - Agent": HasAll("A51 Rescue - Agent", "Lab Clothes")
+        "Complete: A51 Rescue - Agent": HAS_RESCUE_AGENT
+                                        & Has("Lab Clothes")
                                         & HAS_A51_RESCUE_ALL_KEYS
                                         & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
@@ -837,58 +955,68 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 9 - A51 Escape
-        "A51 Escape - Agent Objective 1": Has("A51 Escape - Agent")
+        "A51 Escape - Agent Objective 1": HAS_ESCAPE_AGENT
                                           & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & has_escape_weapon,
 
-        "A51 Escape - Agent Objective 2": Has("A51 Escape - Agent")
+        "A51 Escape - Agent Objective 2": HAS_ESCAPE_AGENT
                                           & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & complete_escape_weapons,
 
-        "A51 Escape - Agent Objective 3": HasAll("A51 Escape - Agent", "Alien Medpack")
+        "A51 Escape - Agent Objective 3": HAS_ESCAPE_AGENT
+                                          & Has("Alien Medpack")
                                           & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & complete_escape_weapons,
 
-        "Complete: A51 Escape - Agent": HasAll("A51 Escape - Agent", "Alien Medpack")
+        "Complete: A51 Escape - Agent": HAS_ESCAPE_AGENT
+                                        & Has("Alien Medpack")
                                         & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & complete_escape_weapons,
 
 
         # Stage 10 - Air Base
-        "Air Base - Agent Objective 1": HasAll("Air Base - Agent", "Stewardess Disguise")
+        "Air Base - Agent Objective 1": HAS_AIR_BASE_AGENT
+                                        & Has("Stewardess Disguise")
                                         & has_sedate,
 
-        "Air Base - Agent Objective 2": HasAll("Air Base - Agent", "Stewardess Disguise")
+        "Air Base - Agent Objective 2": HAS_AIR_BASE_AGENT
+                                        & Has("Stewardess Disguise")
                                         & has_sedate,
 
-        "Air Base - Agent Objective 3": HasAll("Air Base - Agent", "Stewardess Disguise")
+        "Air Base - Agent Objective 3": HAS_AIR_BASE_AGENT
+                                        & Has("Stewardess Disguise")
                                         & has_sedate
                                         & complete_air_base_weapons,
 
-        "Complete: Air Base - Agent": HasAll("Air Base - Agent", "Stewardess Disguise")
+        "Complete: Air Base - Agent": HAS_AIR_BASE_AGENT
+                                      & Has("Stewardess Disguise")
                                       & has_sedate
                                       & complete_air_base_weapons,
 
 
         # Stage 11 - Air Force One
-        "Air Force One - Agent Objective 1": HasAll("Air Force One - Agent", "Suitcase")
+        "Air Force One - Agent Objective 1": HAS_AFO_AGENT
+                                             & Has("Suitcase")
                                              & Has("President", options=[npc_filter], filtered_resolution=True),
 
-        "Air Force One - Agent Objective 2": HasAll("Air Force One - Agent", "Suitcase")
+        "Air Force One - Agent Objective 2": HAS_AFO_AGENT
+                                             & Has("Suitcase")
                                              & Has("President", options=[npc_filter], filtered_resolution=True)
                                              & complete_afo_weapons,
 
-        "Air Force One - Agent Objective 3": HasAll("Air Force One - Agent", "Suitcase")
+        "Air Force One - Agent Objective 3": HAS_AFO_AGENT
+                                             & Has("Suitcase")
                                              & Has("President", options=[npc_filter], filtered_resolution=True)
                                              & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                              & has_afo_weapon
                                              & has_timed_mine,
 
-        "Complete: Air Force One - Agent": HasAll("Air Force One - Agent", "Suitcase")
+        "Complete: Air Force One - Agent": HAS_AFO_AGENT
+                                           & Has("Suitcase")
                                            & Has("President", options=[npc_filter], filtered_resolution=True)
                                            & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                            & complete_afo_weapons
@@ -896,48 +1024,54 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 12 - Crash Site
-        "Crash Site - Agent Objective 1": Has("Crash Site - Agent")
+        "Crash Site - Agent Objective 1": HAS_CRASH_SITE_AGENT
                                           & (has_crash_site_weapon
                                           | hard_logic
                                           | perfect_logic),
 
-        "Crash Site - Agent Objective 2": HasAll("Crash Site - Agent", "President Scanner")
+        "Crash Site - Agent Objective 2": HAS_CRASH_SITE_AGENT
+                                          & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
                                           & complete_crash_site_weapons,
 
-        "Crash Site - Agent Objective 3": HasAll("Crash Site - Agent", "President Scanner")
+        "Crash Site - Agent Objective 3": HAS_CRASH_SITE_AGENT
+                                          & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
                                           & Has("President", options=[npc_filter], filtered_resolution=True)
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & complete_crash_site_weapons,
 
-        "Complete: Crash Site - Agent": HasAll("Crash Site - Agent", "President Scanner")
+        "Complete: Crash Site - Agent": HAS_CRASH_SITE_AGENT
+                                        & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
                                         & Has("President", options=[npc_filter], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & complete_crash_site_weapons,
 
 
         # Stage 13 - Pelagic II
-        "Pelagic II - Agent Objective 1": HasAll("Pelagic II - Agent", "X-Ray Scanner")
+        "Pelagic II - Agent Objective 1": HAS_PELAGIC_AGENT
+                                          & Has("X-Ray Scanner")
                                           & has_pelagic_weapon,
 
-        "Pelagic II - Agent Objective 2": Has("Pelagic II - Agent")
+        "Pelagic II - Agent Objective 2": HAS_PELAGIC_AGENT
                                           & has_pelagic_weapon,
 
-        "Pelagic II - Agent Objective 3": HasAll("Pelagic II - Agent", "X-Ray Scanner")
+        "Pelagic II - Agent Objective 3": HAS_PELAGIC_AGENT
+                                          & Has("X-Ray Scanner")
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & complete_pelagic_weapons,
 
-        "Complete: Pelagic II - Agent": HasAll("Pelagic II - Agent", "X-Ray Scanner")
+        "Complete: Pelagic II - Agent": HAS_PELAGIC_AGENT
+                                        & Has("X-Ray Scanner")
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & complete_pelagic_weapons,
 
 
         # Stage 14 - Deep Sea
-        "Deep Sea - Agent Objective 1": Has("Deep Sea - Agent")
+        "Deep Sea - Agent Objective 1": HAS_DEEP_SEA_AGENT
                                         & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & has_deep_sea_weapon,
 
-        "Deep Sea - Agent Objective 2": Has("Deep Sea - Agent")
+        "Deep Sea - Agent Objective 2": HAS_DEEP_SEA_AGENT
                                         & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & complete_deep_sea_weapons 
@@ -945,7 +1079,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                         | hard_logic
                                         | perfect_logic),
 
-        "Deep Sea - Agent Objective 3": Has("Deep Sea - Agent")
+        "Deep Sea - Agent Objective 3": HAS_DEEP_SEA_AGENT
                                         & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                         & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
@@ -954,7 +1088,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                         | hard_logic
                                         | perfect_logic),
 
-        "Complete: Deep Sea - Agent": Has("Deep Sea - Agent")
+        "Complete: Deep Sea - Agent": HAS_DEEP_SEA_AGENT
                                       & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                       & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                       & Has("Elvis", options=[npc_filter], filtered_resolution=True)
@@ -965,42 +1099,44 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 15 - CI Defense
-        "CI Defense - Agent Objective 1": Has("CI Defense - Agent")
+        "CI Defense - Agent Objective 1": HAS_DEFENSE_AGENT
                                           & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & complete_defense_weapons,
 
-        "CI Defense - Agent Objective 2": Has("CI Defense - Agent")
+        "CI Defense - Agent Objective 2": HAS_DEFENSE_AGENT
                                           & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & complete_defense_weapons
                                           & has_rcp120,
 
-        "CI Defense - Agent Objective 3": HasAll("CI Defense - Agent", "Data Uplink")
+        "CI Defense - Agent Objective 3": HAS_DEFENSE_AGENT
+                                          & Has("Data Uplink")
                                           & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                           & complete_defense_weapons
                                           & has_rcp120,
 
-        "Complete: CI Defense - Agent": HasAll("CI Defense - Agent", "Data Uplink")
+        "Complete: CI Defense - Agent": HAS_DEFENSE_AGENT
+                                        & Has("Data Uplink")
                                         & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                         & complete_defense_weapons
                                         & has_rcp120,
 
 
         # Stage 16 - Attack Ship
-        "Attack Ship - Agent Objective 1": Has("Attack Ship - Agent")
+        "Attack Ship - Agent Objective 1": HAS_ATTACK_SHIP_AGENT
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                            & has_attack_ship_weapon,
 
-        "Attack Ship - Agent Objective 2": Has("Attack Ship - Agent")
+        "Attack Ship - Agent Objective 2": HAS_ATTACK_SHIP_AGENT
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                            & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                            & complete_attack_ship_weapons,
 
-        "Attack Ship - Agent Objective 3": Has("Attack Ship - Agent")
+        "Attack Ship - Agent Objective 3": HAS_ATTACK_SHIP_AGENT
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                            & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                            & complete_attack_ship_weapons,
 
-        "Complete: Attack Ship - Agent": Has("Attack Ship - Agent")
+        "Complete: Attack Ship - Agent": HAS_ATTACK_SHIP_AGENT
                                          & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                          & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                          & complete_attack_ship_weapons,
@@ -1030,41 +1166,41 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 18 - Mr. Blonde's Revenge
-        "Mr. Blonde's Revenge - Agent Objective 1": Has("Mr. Blonde's Revenge - Agent")
+        "Mr. Blonde's Revenge - Agent Objective 1": HAS_MBR_AGENT
                                                     & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                     & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                     & complete_mbr_weapons,
 
-        "Complete: Mr. Blonde's Revenge - Agent": Has("Mr. Blonde's Revenge - Agent")
+        "Complete: Mr. Blonde's Revenge - Agent": HAS_MBR_AGENT
                                                   & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                   & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                   & complete_mbr_weapons,
 
 
         # Stage 19 - Maian SOS
-        "Maian SOS - Agent Objective 1": Has("Maian SOS - Agent")
+        "Maian SOS - Agent Objective 1": HAS_MAIAN_SOS_AGENT
                                          & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                          & complete_maian_sos_weapons,
 
-        "Complete: Maian SOS - Agent": Has("Maian SOS - Agent")
+        "Complete: Maian SOS - Agent": HAS_MAIAN_SOS_AGENT
                                        & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                        & complete_maian_sos_weapons,
 
 
         # Stage 20 - WAR!
-        "WAR! - Agent Objective 1": Has("WAR! - Agent")
+        "WAR! - Agent Objective 1": HAS_WAR_AGENT
                                     & complete_war_weapons,
 
-        "Complete: WAR! - Agent": Has("WAR! - Agent")
+        "Complete: WAR! - Agent": HAS_WAR_AGENT
                                   & complete_war_weapons,
 
 
         # Stage 21 - The Duel
-        "The Duel - Agent Objective 1": Has("The Duel - Agent")
+        "The Duel - Agent Objective 1": HAS_DUEL_AGENT
                                         & (complete_duel_weapons
                                         | perfect_logic),
 
-        "Complete: The Duel - Agent": Has("The Duel - Agent")
+        "Complete: The Duel - Agent": HAS_DUEL_AGENT
                                       & (complete_duel_weapons
                                       | perfect_logic),
     }
@@ -1072,68 +1208,74 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     special_agent_rules = {
         # Stage 1 - Defection
-        "dD Defection - Special Agent Objective 1": HasAll("dD Defection - Special Agent", "ECM Mine")
+        "dD Defection - Special Agent Objective 1": HAS_DEFECTION_SP_AGENT
+                                                    & Has("ECM Mine")
                                                     & (has_defection_weapon
                                                     | perfect_logic),
 
-        "dD Defection - Special Agent Objective 2": Has("dD Defection - Special Agent")
+        "dD Defection - Special Agent Objective 2": HAS_DEFECTION_SP_AGENT
                                                     & HAS_DD_KEYS
                                                     & (has_defection_weapon
                                                     | perfect_logic),
 
-        "dD Defection - Special Agent Objective 3": HasAll("dD Defection - Special Agent", "ECM Mine")
+        "dD Defection - Special Agent Objective 3": HAS_DEFECTION_SP_AGENT
+                                                    & Has("ECM Mine")
                                                     & complete_defection_weapons,
 
-        "dD Defection - Special Agent Objective 4": Has("dD Defection - Special Agent")
+        "dD Defection - Special Agent Objective 4": HAS_DEFECTION_SP_AGENT
                                                     & HAS_DD_KEYS
                                                     & complete_defection_weapons,
 
-        "Complete: dD Defection - Special Agent": HasAll("dD Defection - Special Agent", "ECM Mine")
-                                                & HAS_DD_KEYS
-                                                & complete_defection_weapons,
+        "Complete: dD Defection - Special Agent": HAS_DEFECTION_SP_AGENT
+                                                  & Has("ECM Mine")
+                                                  & HAS_DD_KEYS
+                                                  & complete_defection_weapons,
 
 
         # Stage 2 - Investigation
-        "dD Investigation - Special Agent Objective 1": HasAll("dD Investigation - Special Agent", "CamSpy")
+        "dD Investigation - Special Agent Objective 1": HAS_INVESTIGATION_SP_AGENT 
+                                                        & Has("CamSpy")
                                                         & has_investigation_weapon,
 
-        "dD Investigation - Special Agent Objective 2": Has("dD Investigation - Special Agent")
+        "dD Investigation - Special Agent Objective 2": HAS_INVESTIGATION_SP_AGENT
                                                         & has_investigation_weapon,
 
-        "dD Investigation - Special Agent Objective 3": Has("dD Investigation - Special Agent")
+        "dD Investigation - Special Agent Objective 3": HAS_INVESTIGATION_SP_AGENT
                                                         & has_investigation_weapon,
 
-        "dD Investigation - Special Agent Objective 4": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink")
+        "dD Investigation - Special Agent Objective 4": HAS_INVESTIGATION_SP_AGENT
+                                                        & HasAll("CamSpy", "Data Uplink")
                                                         & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                         & complete_investigation_weapons,
 
-        "Complete: dD Investigation - Special Agent": HasAll("dD Investigation - Special Agent", "CamSpy", "Data Uplink")
+        "Complete: dD Investigation - Special Agent": HAS_INVESTIGATION_SP_AGENT
+                                                      & HasAll("CamSpy", "Data Uplink")
                                                       & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                       & complete_investigation_weapons,
 
 
         # Stage 3 - Extraction
-        "dD Extraction - Special Agent Objective 1": Has("dD Extraction - Special Agent")
+        "dD Extraction - Special Agent Objective 1": HAS_EXTRACTION_SP_AGENT
                                                      & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                      & has_extraction_weapon,
 
-        "dD Extraction - Special Agent Objective 2": Has("dD Extraction - Special Agent")
+        "dD Extraction - Special Agent Objective 2": HAS_EXTRACTION_SP_AGENT
                                                      & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                      & complete_extraction_weapons
                                                      & (has_extraction_explosive
                                                      | perfect_logic),
 
-        "dD Extraction - Special Agent Objective 3": Has("dD Extraction - Special Agent")
+        "dD Extraction - Special Agent Objective 3": HAS_EXTRACTION_SP_AGENT
                                                      & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                      & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                      & complete_extraction_weapons,
 
-        "dD Extraction - Special Agent Objective 4": Has("dD Extraction - Special Agent")
+        "dD Extraction - Special Agent Objective 4": HAS_EXTRACTION_SP_AGENT
                                                      & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                      & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                      & complete_extraction_weapons,
 
-        "Complete: dD Extraction - Special Agent": Has("dD Extraction - Special Agent")
+        "Complete: dD Extraction - Special Agent": HAS_EXTRACTION_SP_AGENT
                                                    & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
@@ -1143,65 +1285,75 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 4 - Carrington Villa
-        "Carrington Villa - Special Agent Objective 1": Has("Carrington Villa - Special Agent")
+        "Carrington Villa - Special Agent Objective 1": HAS_VILLA_SP_AGENT
                                                         & has_villa_weapon,
 
-        "Carrington Villa - Special Agent Objective 2": Has("Carrington Villa - Special Agent")
+        "Carrington Villa - Special Agent Objective 2": HAS_VILLA_SP_AGENT
                                                         & has_villa_weapon,
 
-        "Carrington Villa - Special Agent Objective 3": Has("Carrington Villa - Special Agent")
+        "Carrington Villa - Special Agent Objective 3": HAS_VILLA_SP_AGENT
                                                         & complete_villa_weapons,
 
-        "Carrington Villa - Special Agent Objective 4": HasAll("Carrington Villa - Special Agent", "Cellar Key Card")
+        "Carrington Villa - Special Agent Objective 4": HAS_VILLA_SP_AGENT 
+                                                        & Has("Cellar Key Card")
                                                         & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                         & complete_villa_weapons,
 
-        "Complete: Carrington Villa - Special Agent": HasAll("Carrington Villa - Special Agent", "Cellar Key Card")
+        "Complete: Carrington Villa - Special Agent": HAS_VILLA_SP_AGENT 
+                                                      & Has("Cellar Key Card")
                                                       & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                       & complete_villa_weapons,
 
 
         # Stage 5 - Chicago
-        "Chicago - Special Agent Objective 1": HasAll("Chicago - Special Agent", "Data Uplink")
+        "Chicago - Special Agent Objective 1": HAS_CHICAGO_SP_AGENT
+                                               & Has("Data Uplink")
                                                & has_chicago_weapon
                                                & has_remote_mine,
 
-        "Chicago - Special Agent Objective 2": Has("Chicago - Special Agent")
+        "Chicago - Special Agent Objective 2": HAS_CHICAGO_SP_AGENT
                                                & has_chicago_weapon
                                                & has_remote_mine,
 
-        "Chicago - Special Agent Objective 3": HasAll("Chicago - Special Agent", "Data Uplink")
+        "Chicago - Special Agent Objective 3": HAS_CHICAGO_SP_AGENT
+                                               & (Has("Data Uplink")
+                                               | Has("CamSpy", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge")]))
                                                & has_chicago_weapon,
 
-        "Chicago - Special Agent Objective 4": HasAll("Chicago - Special Agent", "Data Uplink")
+        "Chicago - Special Agent Objective 4": HAS_CHICAGO_SP_AGENT
+                                               & Has("Data Uplink")
                                                & complete_chicago_weapons
                                                & has_remote_mine,
 
-        "Complete: Chicago - Special Agent": HasAll("Chicago - Special Agent", "Data Uplink")
+        "Complete: Chicago - Special Agent": HAS_CHICAGO_SP_AGENT
+                                             & Has("Data Uplink")
                                              & complete_chicago_weapons
                                              & has_remote_mine,
 
 
         # Stage 6 - G5 Building
-        "G5 Building - Special Agent Objective 1": Has("G5 Building - Special Agent")
+        "G5 Building - Special Agent Objective 1": HAS_G5_SP_AGENT
                                                    & HAS_G5_KEYS
                                                    & has_g5_weapon,
 
-        "G5 Building - Special Agent Objective 2": HasAll("G5 Building - Special Agent", "CamSpy")
+        "G5 Building - Special Agent Objective 2": HAS_G5_SP_AGENT
+                                                   & Has("CamSpy")
                                                    & HAS_G5_KEYS
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & has_g5_weapon,
 
-        "G5 Building - Special Agent Objective 3": HasAll("G5 Building - Special Agent", "Door Decoder", "Backup Disk")
+        "G5 Building - Special Agent Objective 3": HAS_G5_SP_AGENT
+                                                   & HasAll("Door Decoder", "Backup Disk")
                                                    & HAS_G5_KEYS
                                                    & complete_g5_weapons,
 
-        "G5 Building - Special Agent Objective 4": Has("G5 Building - Special Agent")
+        "G5 Building - Special Agent Objective 4": HAS_G5_SP_AGENT
                                                    & HAS_G5_KEYS
                                                    & complete_g5_weapons
                                                    & has_remote_mine,
 
-        "Complete: G5 Building - Special Agent": HasAll("G5 Building - Special Agent", "CamSpy", "Door Decoder", "Backup Disk")
+        "Complete: G5 Building - Special Agent": HAS_G5_SP_AGENT
+                                                 & HasAll("CamSpy", "Door Decoder", "Backup Disk")
                                                  & HAS_G5_KEYS
                                                  & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                  & complete_g5_weapons
@@ -1209,48 +1361,57 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 7 - A51 Infiltration
-        "A51 Infiltration - Special Agent Objective 1": HasAll("A51 Infiltration - Special Agent", "Explosives")
+        "A51 Infiltration - Special Agent Objective 1": HAS_INFILTRATION_SP_AGENT
+                                                        & Has("Explosives")
                                                         & has_infiltration_weapon,
 
-        "A51 Infiltration - Special Agent Objective 2": HasAll("A51 Infiltration - Special Agent", "Comms Rider")
+        "A51 Infiltration - Special Agent Objective 2": HAS_INFILTRATION_SP_AGENT
+                                                        & Has("Comms Rider")
                                                         & has_infiltration_weapon,
 
-        "A51 Infiltration - Special Agent Objective 3": Has("A51 Infiltration - Special Agent")
+        "A51 Infiltration - Special Agent Objective 3": HAS_INFILTRATION_SP_AGENT
                                                         & HAS_A51_INFIL_KEYS
                                                         & has_infiltration_weapon,
 
-        "A51 Infiltration - Special Agent Objective 4": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider")
+        "A51 Infiltration - Special Agent Objective 4": HAS_INFILTRATION_SP_AGENT
+                                                        & HasAll("Explosives", "Comms Rider")
                                                         & HAS_A51_INFIL_KEYS
                                                         & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                         & complete_infiltration_weapons,
 
-        "Complete: A51 Infiltration - Special Agent": HasAll("A51 Infiltration - Special Agent", "Explosives", "Comms Rider")
+        "Complete: A51 Infiltration - Special Agent": HAS_INFILTRATION_SP_AGENT
+                                                      & HasAll("Explosives", "Comms Rider")
                                                       & HAS_A51_INFIL_KEYS
                                                       & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                       & complete_infiltration_weapons,
 
 
         # Stage 8 - A51 Rescue
-        "A51 Rescue - Special Agent Objective 1": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner")
+        "A51 Rescue - Special Agent Objective 1": HAS_RESCUE_SP_AGENT
+                                                  & Has("X-Ray Scanner")
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & has_rescue_weapon,
 
-        "A51 Rescue - Special Agent Objective 2": HasAll("A51 Rescue - Special Agent", "Lab Clothes")
+        "A51 Rescue - Special Agent Objective 2": HAS_RESCUE_SP_AGENT
+                                                  & Has("Lab Clothes")
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & has_rescue_weapon,
 
-        "A51 Rescue - Special Agent Objective 3": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes")
+        "A51 Rescue - Special Agent Objective 3": HAS_RESCUE_SP_AGENT
+                                                  & HasAll("X-Ray Scanner", "Lab Clothes")
                                                   & HAS_A51_RESCUE_FIRST_KEY
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & complete_rescue_weapons,
 
-        "A51 Rescue - Special Agent Objective 4": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes")
+        "A51 Rescue - Special Agent Objective 4": HAS_RESCUE_SP_AGENT
+                                                  & HasAll("X-Ray Scanner", "Lab Clothes")
                                                   & HAS_A51_RESCUE_ALL_KEYS
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_rescue_weapons,
 
-        "Complete: A51 Rescue - Special Agent": HasAll("A51 Rescue - Special Agent", "X-Ray Scanner", "Lab Clothes")
+        "Complete: A51 Rescue - Special Agent": HAS_RESCUE_SP_AGENT
+                                                & HasAll("X-Ray Scanner", "Lab Clothes")
                                                 & HAS_A51_RESCUE_ALL_KEYS
                                                 & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
@@ -1258,72 +1419,85 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 9 - A51 Escape
-        "A51 Escape - Special Agent Objective 1": Has("A51 Escape - Special Agent")
+        "A51 Escape - Special Agent Objective 1": HAS_ESCAPE_SP_AGENT
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & has_escape_weapon,
 
-        "A51 Escape - Special Agent Objective 2": Has("A51 Escape - Special Agent")
+        "A51 Escape - Special Agent Objective 2": HAS_ESCAPE_SP_AGENT
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_escape_weapons,
 
-        "A51 Escape - Special Agent Objective 3": HasAll("A51 Escape - Special Agent", "Alien Medpack")
+        "A51 Escape - Special Agent Objective 3": HAS_ESCAPE_SP_AGENT
+                                                  & Has("Alien Medpack")
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_escape_weapons,
 
-        "A51 Escape - Special Agent Objective 4": HasAll("A51 Escape - Special Agent", "Alien Medpack")
+        "A51 Escape - Special Agent Objective 4": HAS_ESCAPE_SP_AGENT
+                                                  & Has("Alien Medpack")
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_escape_weapons,
 
-        "Complete: A51 Escape - Special Agent": HasAll("A51 Escape - Special Agent", "Alien Medpack")
+        "Complete: A51 Escape - Special Agent": HAS_ESCAPE_SP_AGENT
+                                                & Has("Alien Medpack")
                                                 & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_escape_weapons,
 
 
         # Stage 10 - Air Base
-        "Air Base - Special Agent Objective 1": HasAll("Air Base - Special Agent", "Stewardess Disguise")
+        "Air Base - Special Agent Objective 1": HAS_AIR_BASE_SP_AGENT
+                                                & Has("Stewardess Disguise")
                                                 & has_sedate,
 
-        "Air Base - Special Agent Objective 2": HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase")
+        "Air Base - Special Agent Objective 2": HAS_AIR_BASE_SP_AGENT
+                                                & HasAll("Stewardess Disguise", "Suitcase")
                                                 & has_sedate,
 
-        "Air Base - Special Agent Objective 3": HasAll("Air Base - Special Agent", "Stewardess Disguise")
+        "Air Base - Special Agent Objective 3": HAS_AIR_BASE_SP_AGENT
+                                                & Has("Stewardess Disguise")
                                                 & has_sedate,
 
-        "Air Base - Special Agent Objective 4": HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase")
+        "Air Base - Special Agent Objective 4": HAS_AIR_BASE_SP_AGENT
+                                                & HasAll("Stewardess Disguise", "Suitcase")
                                                 & has_sedate
                                                 & complete_air_base_weapons,
 
-        "Complete: Air Base - Special Agent": HasAll("Air Base - Special Agent", "Stewardess Disguise", "Suitcase")
+        "Complete: Air Base - Special Agent": HAS_AIR_BASE_SP_AGENT
+                                              & HasAll("Stewardess Disguise", "Suitcase")
                                               & has_sedate
                                               & complete_air_base_weapons,
 
 
         # Stage 11 - Air Force One
-        "Air Force One - Special Agent Objective 1": HasAll("Air Force One - Special Agent", "Suitcase")
+        "Air Force One - Special Agent Objective 1": HAS_AFO_SP_AGENT
+                                                     & Has("Suitcase")
                                                      & HAS_AFO_LIFT_KEY,
 
-        "Air Force One - Special Agent Objective 2": HasAll("Air Force One - Special Agent", "Suitcase")
+        "Air Force One - Special Agent Objective 2": HAS_AFO_SP_AGENT
+                                                     & Has("Suitcase")
                                                      & HAS_AFO_LIFT_KEY
                                                      & Has("President", options=[npc_filter], filtered_resolution=True),
 
-        "Air Force One - Special Agent Objective 3": HasAll("Air Force One - Special Agent", "Suitcase")
+        "Air Force One - Special Agent Objective 3": HAS_AFO_SP_AGENT
+                                                     & Has("Suitcase")
                                                      & HAS_AFO_LIFT_KEY
                                                      & Has("President", options=[npc_filter], filtered_resolution=True)
                                                      & complete_afo_weapons,
 
-        "Air Force One - Special Agent Objective 4": HasAll("Air Force One - Special Agent", "Suitcase")
+        "Air Force One - Special Agent Objective 4": HAS_AFO_SP_AGENT
+                                                     & Has("Suitcase")
                                                      & HAS_AFO_LIFT_KEY
                                                      & Has("President", options=[npc_filter], filtered_resolution=True)
                                                      & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                      & has_afo_weapon
                                                      & has_timed_mine,
 
-        "Complete: Air Force One - Special Agent": HasAll("Air Force One - Special Agent", "Suitcase")
+        "Complete: Air Force One - Special Agent": HAS_AFO_SP_AGENT
+                                                   & Has("Suitcase")
                                                    & HAS_AFO_LIFT_KEY
                                                    & Has("President", options=[npc_filter], filtered_resolution=True)
                                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
@@ -1332,56 +1506,63 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 12 - Crash Site
-        "Crash Site - Special Agent Objective 1": HasAll("Crash Site - Special Agent", "President Scanner")
+        "Crash Site - Special Agent Objective 1": HAS_CRASH_SITE_SP_AGENT
+                                                  & Has("President Scanner")
                                                   & (has_crash_site_weapon
                                                   | hard_logic
                                                   | perfect_logic),
 
-        "Crash Site - Special Agent Objective 2": Has("Crash Site - Special Agent")
+        "Crash Site - Special Agent Objective 2": HAS_CRASH_SITE_SP_AGENT
                                                   & (has_crash_site_weapon
                                                   | hard_logic
                                                   | perfect_logic),
 
-        "Crash Site - Special Agent Objective 3": HasAll("Crash Site - Special Agent", "President Scanner")
+        "Crash Site - Special Agent Objective 3": HAS_CRASH_SITE_SP_AGENT
+                                                  & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
                                                   & complete_crash_site_weapons,
 
-        "Crash Site - Special Agent Objective 4": HasAll("Crash Site - Special Agent", "President Scanner")
+        "Crash Site - Special Agent Objective 4": HAS_CRASH_SITE_SP_AGENT
+                                                  & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
                                                   & Has("President", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_crash_site_weapons,
 
-        "Complete: Crash Site - Special Agent": HasAll("Crash Site - Special Agent", "President Scanner")
+        "Complete: Crash Site - Special Agent": HAS_CRASH_SITE_SP_AGENT
+                                                & Has("President Scanner")
                                                 & Has("President", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_crash_site_weapons,
 
 
         # Stage 13 - Pelagic II
-        "Pelagic II - Special Agent Objective 1": HasAll("Pelagic II - Special Agent", "X-Ray Scanner")
+        "Pelagic II - Special Agent Objective 1": HAS_PELAGIC_SP_AGENT
+                                                  & Has("X-Ray Scanner")
                                                   & has_pelagic_weapon,
 
-        "Pelagic II - Special Agent Objective 2": Has("Pelagic II - Special Agent")
+        "Pelagic II - Special Agent Objective 2": HAS_PELAGIC_SP_AGENT
                                                   & has_pelagic_weapon,
 
-        "Pelagic II - Special Agent Objective 3": Has("Pelagic II - Special Agent")
+        "Pelagic II - Special Agent Objective 3": HAS_PELAGIC_SP_AGENT
                                                   & has_pelagic_weapon,
 
-        "Pelagic II - Special Agent Objective 4": HasAll("Pelagic II - Special Agent", "X-Ray Scanner")
+        "Pelagic II - Special Agent Objective 4": HAS_PELAGIC_SP_AGENT
+                                                  & Has("X-Ray Scanner")
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_pelagic_weapons,
 
-        "Complete: Pelagic II - Special Agent": HasAll("Pelagic II - Special Agent", "X-Ray Scanner")
+        "Complete: Pelagic II - Special Agent": HAS_PELAGIC_SP_AGENT
+                                                & Has("X-Ray Scanner")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_pelagic_weapons,
 
 
         # Stage 14 - Deep Sea
-        "Deep Sea - Special Agent Objective 1": Has("Deep Sea - Special Agent")
+        "Deep Sea - Special Agent Objective 1": HAS_DEEP_SEA_SP_AGENT
                                                 & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & has_deep_sea_weapon,
 
-        "Deep Sea - Special Agent Objective 2": Has("Deep Sea - Special Agent")
+        "Deep Sea - Special Agent Objective 2": HAS_DEEP_SEA_SP_AGENT
                                                 & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_deep_sea_weapons
@@ -1389,7 +1570,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                 | hard_logic
                                                 | perfect_logic),
 
-        "Deep Sea - Special Agent Objective 3": Has("Deep Sea - Special Agent")
+        "Deep Sea - Special Agent Objective 3": HAS_DEEP_SEA_SP_AGENT
                                                 & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_deep_sea_weapons
@@ -1397,7 +1578,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                 | hard_logic
                                                 | perfect_logic),
 
-        "Deep Sea - Special Agent Objective 4": Has("Deep Sea - Special Agent")
+        "Deep Sea - Special Agent Objective 4": HAS_DEEP_SEA_SP_AGENT
                                                 & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
@@ -1406,7 +1587,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                 | hard_logic
                                                 | perfect_logic),
 
-        "Complete: Deep Sea - Special Agent": Has("Deep Sea - Special Agent")
+        "Complete: Deep Sea - Special Agent": HAS_DEEP_SEA_SP_AGENT
                                               & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                               & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                               & Has("Elvis", options=[npc_filter], filtered_resolution=True)
@@ -1417,51 +1598,53 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 15 - CI Defense
-        "CI Defense - Special Agent Objective 1": Has("CI Defense - Special Agent")
+        "CI Defense - Special Agent Objective 1": HAS_DEFENSE_SP_AGENT
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                   & complete_defense_weapons,
 
-        "CI Defense - Special Agent Objective 2": Has("CI Defense - Special Agent")
+        "CI Defense - Special Agent Objective 2": HAS_DEFENSE_SP_AGENT
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                   & complete_defense_weapons,
 
-        "CI Defense - Special Agent Objective 3": Has("CI Defense - Special Agent")
+        "CI Defense - Special Agent Objective 3": HAS_DEFENSE_SP_AGENT
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                   & complete_defense_weapons
                                                   & has_rcp120,
 
-        "CI Defense - Special Agent Objective 4": HasAll("CI Defense - Special Agent", "Data Uplink")
+        "CI Defense - Special Agent Objective 4": HAS_DEFENSE_SP_AGENT
+                                                  & Has("Data Uplink")
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                   & complete_defense_weapons
                                                   & has_rcp120,
 
-        "Complete: CI Defense - Special Agent": HasAll("CI Defense - Special Agent", "Data Uplink")
+        "Complete: CI Defense - Special Agent": HAS_DEFENSE_SP_AGENT
+                                                & Has("Data Uplink")
                                                 & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & complete_defense_weapons
                                                 & has_rcp120,
 
 
         # Stage 16 - Attack Ship
-        "Attack Ship - Special Agent Objective 1": Has("Attack Ship - Special Agent")
+        "Attack Ship - Special Agent Objective 1": HAS_ATTACK_SHIP_SP_AGENT
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & has_attack_ship_weapon,
 
-        "Attack Ship - Special Agent Objective 2": Has("Attack Ship - Special Agent")
+        "Attack Ship - Special Agent Objective 2": HAS_ATTACK_SHIP_SP_AGENT
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                    & complete_attack_ship_weapons,
 
-        "Attack Ship - Special Agent Objective 3": Has("Attack Ship - Special Agent")
+        "Attack Ship - Special Agent Objective 3": HAS_ATTACK_SHIP_SP_AGENT
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                    & complete_attack_ship_weapons,
 
-        "Attack Ship - Special Agent Objective 4": Has("Attack Ship - Special Agent")
+        "Attack Ship - Special Agent Objective 4": HAS_ATTACK_SHIP_SP_AGENT
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                    & complete_attack_ship_weapons,
 
-        "Complete: Attack Ship - Special Agent": Has("Attack Ship - Special Agent")
+        "Complete: Attack Ship - Special Agent": HAS_ATTACK_SHIP_SP_AGENT
                                                  & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                  & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                  & complete_attack_ship_weapons,
@@ -1488,65 +1671,67 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                     & complete_skedar_ruins_weapons,
 
         "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT
-                                                & HasAll("R-Tracker", "Target Amplifier")
-                                                & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
-                                                & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                & complete_skedar_ruins_weapons,
+                                                  & HasAll("R-Tracker", "Target Amplifier")
+                                                  & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                  & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                  & complete_skedar_ruins_weapons,
 
 
         # Stage 18 - Mr. Blonde's Revenge
-        "Mr. Blonde's Revenge - Special Agent Objective 1": HasAll("Mr. Blonde's Revenge - Special Agent", "Skedar Bomb")
+        "Mr. Blonde's Revenge - Special Agent Objective 1": HAS_MBR_SP_AGENT
+                                                            & Has("Skedar Bomb")
                                                             & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                             & (complete_mbr_weapons
                                                             | Has("Cloaking Device")),
 
-        "Mr. Blonde's Revenge - Special Agent Objective 2": Has("Mr. Blonde's Revenge - Special Agent")
+        "Mr. Blonde's Revenge - Special Agent Objective 2": HAS_MBR_SP_AGENT
                                                             & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                             & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                             & complete_mbr_weapons,
 
-        "Complete: Mr. Blonde's Revenge - Special Agent": HasAll("Mr. Blonde's Revenge - Special Agent", "Skedar Bomb")
+        "Complete: Mr. Blonde's Revenge - Special Agent": HAS_MBR_SP_AGENT
+                                                          & Has("Skedar Bomb")
                                                           & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                           & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                           & complete_mbr_weapons,
 
 
         # Stage 19 - Maian SOS
-        "Maian SOS - Special Agent Objective 1": Has("Maian SOS - Special Agent")
+        "Maian SOS - Special Agent Objective 1": HAS_MAIAN_SOS_SP_AGENT
                                                  & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                  & complete_maian_sos_weapons,
 
-        "Maian SOS - Special Agent Objective 2": Has("Maian SOS - Special Agent")
+        "Maian SOS - Special Agent Objective 2": HAS_MAIAN_SOS_SP_AGENT
                                                  & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                  & complete_maian_sos_weapons,
 
-        "Complete: Maian SOS - Special Agent": Has("Maian SOS - Special Agent")
+        "Complete: Maian SOS - Special Agent": HAS_MAIAN_SOS_SP_AGENT
                                                & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                & complete_maian_sos_weapons,
 
 
         # Stage 20 - WAR!
-        "WAR! - Special Agent Objective 1": Has("WAR! - Special Agent")
+        "WAR! - Special Agent Objective 1": HAS_WAR_SP_AGENT
                                             & complete_war_weapons,
 
-        "WAR! - Special Agent Objective 2": Has("WAR! - Special Agent")
+        "WAR! - Special Agent Objective 2": HAS_WAR_SP_AGENT
                                             & complete_war_weapons,
 
-        "Complete: WAR! - Special Agent": Has("WAR! - Special Agent")
+        "Complete: WAR! - Special Agent": HAS_WAR_SP_AGENT
                                           & complete_war_weapons,
 
 
         # Stage 21 - The Duel
-        "The Duel - Special Agent Objective 1": Has("The Duel - Special Agent")
+        "The Duel - Special Agent Objective 1": HAS_DUEL_SP_AGENT
                                                 & (complete_duel_weapons
                                                 | perfect_logic),
 
-        "The Duel - Special Agent Objective 2": Has("The Duel - Special Agent")
+        "The Duel - Special Agent Objective 2": HAS_DUEL_SP_AGENT
                                                 & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                 & (complete_duel_weapons
                                                 | perfect_logic),
 
-        "Complete: The Duel - Special Agent": Has("The Duel - Special Agent")
+        "Complete: The Duel - Special Agent": HAS_DUEL_SP_AGENT
                                               & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                               & (complete_duel_weapons
                                               | perfect_logic),
@@ -1555,81 +1740,89 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     perfect_agent_rules = {
         # Stage 1 - Defection
-        "dD Defection - Perfect Agent Objective 1": HasAll("dD Defection - Perfect Agent", "ECM Mine")
+        "dD Defection - Perfect Agent Objective 1": HAS_DEFECTION_PF_AGENT
+                                                    & Has("ECM Mine")
                                                     & (has_defection_weapon
                                                     | perfect_logic),
 
-        "dD Defection - Perfect Agent Objective 2": Has("dD Defection - Perfect Agent")
+        "dD Defection - Perfect Agent Objective 2": HAS_DEFECTION_PF_AGENT
                                                     & HAS_DD_KEYS
                                                     & (has_defection_weapon
                                                     | perfect_logic),
 
-        "dD Defection - Perfect Agent Objective 3": HasAll("dD Defection - Perfect Agent", "Data Uplink")
+        "dD Defection - Perfect Agent Objective 3": HAS_DEFECTION_PF_AGENT
+                                                    & Has("Data Uplink")
                                                     & complete_defection_weapons,
 
-        "dD Defection - Perfect Agent Objective 4": HasAll("dD Defection - Perfect Agent", "ECM Mine")
+        "dD Defection - Perfect Agent Objective 4": HAS_DEFECTION_PF_AGENT
+                                                    & Has("ECM Mine")
                                                     & complete_defection_weapons,
 
-        "dD Defection - Perfect Agent Objective 5": Has("dD Defection - Perfect Agent")
+        "dD Defection - Perfect Agent Objective 5": HAS_DEFECTION_PF_AGENT
                                                     & HAS_DD_KEYS
                                                     & complete_defection_weapons,
 
-        "Complete: dD Defection - Perfect Agent": HasAll("dD Defection - Perfect Agent", "ECM Mine", "Data Uplink")
+        "Complete: dD Defection - Perfect Agent": HAS_DEFECTION_PF_AGENT
+                                                  & HasAll("ECM Mine", "Data Uplink")
                                                   & HAS_DD_KEYS
                                                   & complete_defection_weapons,
 
 
         # Stage 2 - Investigation
-        "dD Investigation - Perfect Agent Objective 1": HasAll("dD Investigation - Perfect Agent", "CamSpy")
+        "dD Investigation - Perfect Agent Objective 1": HAS_INVESTIGATION_PF_AGENT
+                                                        & Has("CamSpy")
                                                         & has_investigation_weapon,
 
-        "dD Investigation - Perfect Agent Objective 2": Has("dD Investigation - Perfect Agent")
+        "dD Investigation - Perfect Agent Objective 2": HAS_INVESTIGATION_PF_AGENT
                                                         & has_investigation_weapon,
 
-        "dD Investigation - Perfect Agent Objective 3": Has("dD Investigation - Perfect Agent")
+        "dD Investigation - Perfect Agent Objective 3": HAS_INVESTIGATION_PF_AGENT
                                                         & has_investigation_weapon,
 
-        "dD Investigation - Perfect Agent Objective 4": HasAll("dD Investigation - Perfect Agent", "Data Uplink", "Night Vision", "Shield Tech Item")
+        "dD Investigation - Perfect Agent Objective 4": HAS_INVESTIGATION_PF_AGENT
+                                                        & HasAll("Data Uplink", "Night Vision", "Shield Tech Item")
                                                         & complete_investigation_weapons
                                                         & has_k7,
 
-        "dD Investigation - Perfect Agent Objective 5": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Data Uplink", "Night Vision", "Shield Tech Item")
+        "dD Investigation - Perfect Agent Objective 5": HAS_INVESTIGATION_PF_AGENT
+                                                        & HasAll("CamSpy", "Data Uplink", "Night Vision", "Shield Tech Item")
                                                         & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                         & complete_investigation_weapons
                                                         & has_k7,
 
-        "Complete: dD Investigation - Perfect Agent": HasAll("dD Investigation - Perfect Agent", "CamSpy", "Data Uplink", "Night Vision", "Shield Tech Item")
+        "Complete: dD Investigation - Perfect Agent": HAS_INVESTIGATION_PF_AGENT
+                                                      & HasAll("CamSpy", "Data Uplink", "Night Vision", "Shield Tech Item")
                                                       & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                       & complete_investigation_weapons
                                                       & has_k7,
 
 
         # Stage 3 - Extraction
-        "dD Extraction - Perfect Agent Objective 1": Has("dD Extraction - Perfect Agent")
+        "dD Extraction - Perfect Agent Objective 1": HAS_EXTRACTION_PF_AGENT
                                                      & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                      & has_extraction_weapon,
 
-        "dD Extraction - Perfect Agent Objective 2": Has("dD Extraction - Perfect Agent")
+        "dD Extraction - Perfect Agent Objective 2": HAS_EXTRACTION_PF_AGENT
                                                      & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                      & has_extraction_weapon,
 
-        "dD Extraction - Perfect Agent Objective 3": Has("dD Extraction - Perfect Agent")
+        "dD Extraction - Perfect Agent Objective 3": HAS_EXTRACTION_PF_AGENT
                                                      & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                      & complete_extraction_weapons
                                                      & (has_extraction_explosive
                                                      | perfect_logic),
 
-        "dD Extraction - Perfect Agent Objective 4": Has("dD Extraction - Perfect Agent")
+        "dD Extraction - Perfect Agent Objective 4": HAS_EXTRACTION_PF_AGENT
                                                      & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                      & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                      & complete_extraction_weapons,
 
-        "dD Extraction - Perfect Agent Objective 5": Has("dD Extraction - Perfect Agent")
+        "dD Extraction - Perfect Agent Objective 5": HAS_EXTRACTION_PF_AGENT
                                                      & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                      & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                      & complete_extraction_weapons,
 
-        "Complete: dD Extraction - Perfect Agent": Has("dD Extraction - Perfect Agent")
+        "Complete: dD Extraction - Perfect Agent": HAS_EXTRACTION_PF_AGENT
                                                    & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
@@ -1639,74 +1832,85 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 4 - Carrington Villa
-        "Carrington Villa - Perfect Agent Objective 1": Has("Carrington Villa - Perfect Agent")
+        "Carrington Villa - Perfect Agent Objective 1": HAS_VILLA_PF_AGENT
                                                         & has_villa_weapon_perfect,
 
-        "Carrington Villa - Perfect Agent Objective 2": Has("Carrington Villa - Perfect Agent")
+        "Carrington Villa - Perfect Agent Objective 2": HAS_VILLA_PF_AGENT
                                                         & has_villa_weapon_perfect,
 
-        "Carrington Villa - Perfect Agent Objective 3": Has("Carrington Villa - Perfect Agent")
+        "Carrington Villa - Perfect Agent Objective 3": HAS_VILLA_PF_AGENT
                                                         & complete_villa_weapons_perfect,
 
-        "Carrington Villa - Perfect Agent Objective 4": Has("Carrington Villa - Perfect Agent"),
+        "Carrington Villa - Perfect Agent Objective 4": HAS_VILLA_PF_AGENT,
 
-        "Carrington Villa - Perfect Agent Objective 5": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card")
+        "Carrington Villa - Perfect Agent Objective 5": HAS_VILLA_PF_AGENT
+                                                        & Has("Cellar Key Card")
                                                         & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                         & complete_villa_weapons_perfect,
 
-        "Complete: Carrington Villa - Perfect Agent": HasAll("Carrington Villa - Perfect Agent", "Cellar Key Card")
+        "Complete: Carrington Villa - Perfect Agent": HAS_VILLA_PF_AGENT
+                                                      & Has("Cellar Key Card")
                                                       & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                       & complete_villa_weapons_perfect,
 
 
         # Stage 5 - Chicago
-        "Chicago - Perfect Agent Objective 1": HasAll("Chicago - Perfect Agent", "Data Uplink")
+        "Chicago - Perfect Agent Objective 1": HAS_CHICAGO_PF_AGENT
+                                               & Has("Data Uplink")
                                                & has_chicago_weapon
                                                & has_remote_mine,
 
-        "Chicago - Perfect Agent Objective 2": HasAll("Chicago - Perfect Agent", "Tracer Bug")
+        "Chicago - Perfect Agent Objective 2": HAS_CHICAGO_PF_AGENT
+                                               & Has("Tracer Bug")
                                                & has_chicago_weapon,
 
-        "Chicago - Perfect Agent Objective 3": Has("Chicago - Perfect Agent")
+        "Chicago - Perfect Agent Objective 3": HAS_CHICAGO_PF_AGENT
                                                & has_chicago_weapon
                                                & has_remote_mine,
 
-        "Chicago - Perfect Agent Objective 4": HasAll("Chicago - Perfect Agent", "Data Uplink")
+        "Chicago - Perfect Agent Objective 4": HAS_CHICAGO_PF_AGENT
+                                               & (Has("Data Uplink")
+                                               | Has("CamSpy", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge")]))
                                                & has_chicago_weapon,
 
-        "Chicago - Perfect Agent Objective 5": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug")
+        "Chicago - Perfect Agent Objective 5": HAS_CHICAGO_PF_AGENT
+                                               & HasAll("Data Uplink", "Tracer Bug")
                                                & complete_chicago_weapons
                                                & has_remote_mine,
 
-        "Complete: Chicago - Perfect Agent": HasAll("Chicago - Perfect Agent", "Data Uplink", "Tracer Bug")
+        "Complete: Chicago - Perfect Agent": HAS_CHICAGO_PF_AGENT
+                                             & HasAll("Data Uplink", "Tracer Bug")
                                              & complete_chicago_weapons
                                              & has_remote_mine,
 
 
         # Stage 6 - G5 Building
-        "G5 Building - Perfect Agent Objective 1": Has("G5 Building - Perfect Agent")
+        "G5 Building - Perfect Agent Objective 1": HAS_G5_PF_AGENT
                                                    & HAS_G5_KEYS
                                                    & has_g5_weapon,
 
-        "G5 Building - Perfect Agent Objective 2": Has("G5 Building - Perfect Agent")
+        "G5 Building - Perfect Agent Objective 2": HAS_G5_PF_AGENT
                                                    & HAS_G5_KEYS
                                                    & has_g5_weapon,
 
-        "G5 Building - Perfect Agent Objective 3": HasAll("G5 Building - Perfect Agent", "CamSpy")
+        "G5 Building - Perfect Agent Objective 3": HAS_G5_PF_AGENT
+                                                   & Has("CamSpy")
                                                    & HAS_G5_KEYS
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & has_g5_weapon,
 
-        "G5 Building - Perfect Agent Objective 4": HasAll("G5 Building - Perfect Agent", "Door Decoder", "Backup Disk")
+        "G5 Building - Perfect Agent Objective 4": HAS_G5_PF_AGENT
+                                                   & HasAll("Door Decoder", "Backup Disk")
                                                    & HAS_G5_KEYS
                                                    & complete_g5_weapons,
 
-        "G5 Building - Perfect Agent Objective 5": Has("G5 Building - Perfect Agent")
+        "G5 Building - Perfect Agent Objective 5": HAS_G5_PF_AGENT
                                                    & HAS_G5_KEYS
                                                    & complete_g5_weapons
                                                    & has_remote_mine,
 
-        "Complete: G5 Building - Perfect Agent": HasAll("G5 Building - Perfect Agent", "CamSpy", "Door Decoder", "Backup Disk")
+        "Complete: G5 Building - Perfect Agent": HAS_G5_PF_AGENT
+                                                 & HasAll("CamSpy", "Door Decoder", "Backup Disk")
                                                  & HAS_G5_KEYS
                                                  & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                  & complete_g5_weapons
@@ -1714,55 +1918,65 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 7 - A51 Infiltration
-        "A51 Infiltration - Perfect Agent Objective 1": HasAll("A51 Infiltration - Perfect Agent", "Explosives")
+        "A51 Infiltration - Perfect Agent Objective 1": HAS_INFILTRATION_PF_AGENT
+                                                        & Has("Explosives")
                                                         & has_infiltration_weapon,
 
-        "A51 Infiltration - Perfect Agent Objective 2": HasAll("A51 Infiltration - Perfect Agent", "Comms Rider")
+        "A51 Infiltration - Perfect Agent Objective 2": HAS_INFILTRATION_PF_AGENT
+                                                        & Has("Comms Rider")
                                                         & has_infiltration_weapon,
 
-        "A51 Infiltration - Perfect Agent Objective 3": Has("A51 Infiltration - Perfect Agent")
+        "A51 Infiltration - Perfect Agent Objective 3": HAS_INFILTRATION_PF_AGENT
                                                         & has_infiltration_weapon,
 
-        "A51 Infiltration - Perfect Agent Objective 4": Has("A51 Infiltration - Perfect Agent")
+        "A51 Infiltration - Perfect Agent Objective 4": HAS_INFILTRATION_PF_AGENT
                                                         & HAS_A51_INFIL_KEYS
                                                         & has_infiltration_weapon,
 
-        "A51 Infiltration - Perfect Agent Objective 5": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider")
+        "A51 Infiltration - Perfect Agent Objective 5": HAS_INFILTRATION_PF_AGENT
+                                                        & HasAll("Explosives", "Comms Rider")
                                                         & HAS_A51_INFIL_KEYS
                                                         & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                         & complete_infiltration_weapons,
 
-        "Complete: A51 Infiltration - Perfect Agent": HasAll("A51 Infiltration - Perfect Agent", "Explosives", "Comms Rider")
+        "Complete: A51 Infiltration - Perfect Agent": HAS_INFILTRATION_PF_AGENT
+                                                      & HasAll("Explosives", "Comms Rider")
                                                       & HAS_A51_INFIL_KEYS
                                                       & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                       & complete_infiltration_weapons,
 
 
         # Stage 8 - A51 Rescue
-        "A51 Rescue - Perfect Agent Objective 1": HasAll("A51 Rescue - Perfect Agent", "Data Uplink")
+        "A51 Rescue - Perfect Agent Objective 1": HAS_RESCUE_PF_AGENT
+                                                  & Has("Data Uplink")
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & has_rescue_weapon,
 
-        "A51 Rescue - Perfect Agent Objective 2": HasAll("A51 Rescue - Perfect Agent", "X-Ray Scanner")
+        "A51 Rescue - Perfect Agent Objective 2": HAS_RESCUE_PF_AGENT
+                                                  & Has("X-Ray Scanner")
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & has_rescue_weapon,
 
-        "A51 Rescue - Perfect Agent Objective 3": HasAll("A51 Rescue - Perfect Agent", "Lab Clothes")
+        "A51 Rescue - Perfect Agent Objective 3": HAS_RESCUE_PF_AGENT
+                                                  & Has("Lab Clothes")
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & has_rescue_weapon,
 
-        "A51 Rescue - Perfect Agent Objective 4": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes")
+        "A51 Rescue - Perfect Agent Objective 4": HAS_RESCUE_PF_AGENT
+                                                  & HasAll("Data Uplink", "X-Ray Scanner", "Lab Clothes")
                                                   & HAS_A51_RESCUE_FIRST_KEY
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & complete_rescue_weapons,
 
-        "A51 Rescue - Perfect Agent Objective 5": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes")
+        "A51 Rescue - Perfect Agent Objective 5": HAS_RESCUE_PF_AGENT
+                                                  & HasAll("Data Uplink", "X-Ray Scanner", "Lab Clothes")
                                                   & HAS_A51_RESCUE_ALL_KEYS
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_rescue_weapons,
 
-        "Complete: A51 Rescue - Perfect Agent": HasAll("A51 Rescue - Perfect Agent", "Data Uplink", "X-Ray Scanner", "Lab Clothes")
+        "Complete: A51 Rescue - Perfect Agent": HAS_RESCUE_PF_AGENT
+                                                & HasAll("Data Uplink", "X-Ray Scanner", "Lab Clothes")
                                                 & HAS_A51_RESCUE_ALL_KEYS
                                                 & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
@@ -1770,87 +1984,103 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 9 - A51 Escape
-        "A51 Escape - Perfect Agent Objective 1": HasAll("A51 Escape - Perfect Agent", "Alien Medpack")
+        "A51 Escape - Perfect Agent Objective 1": HAS_ESCAPE_PF_AGENT
+                                                  & Has("Alien Medpack")
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & has_escape_weapon,
 
-        "A51 Escape - Perfect Agent Objective 2": Has("A51 Escape - Perfect Agent")
+        "A51 Escape - Perfect Agent Objective 2": HAS_ESCAPE_PF_AGENT
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & has_escape_weapon,
 
-        "A51 Escape - Perfect Agent Objective 3": Has("A51 Escape - Perfect Agent")
+        "A51 Escape - Perfect Agent Objective 3": HAS_ESCAPE_PF_AGENT
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_escape_weapons,
 
-        "A51 Escape - Perfect Agent Objective 4": HasAll("A51 Escape - Perfect Agent", "Alien Medpack")
+        "A51 Escape - Perfect Agent Objective 4": HAS_ESCAPE_PF_AGENT
+                                                  & Has("Alien Medpack")
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_escape_weapons,
 
-        "A51 Escape - Perfect Agent Objective 5": HasAll("A51 Escape - Perfect Agent", "Alien Medpack")
+        "A51 Escape - Perfect Agent Objective 5": HAS_ESCAPE_PF_AGENT
+                                                  & Has("Alien Medpack")
                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_escape_weapons,
 
-        "Complete: A51 Escape - Perfect Agent": HasAll("A51 Escape - Perfect Agent", "Alien Medpack")
+        "Complete: A51 Escape - Perfect Agent": HAS_ESCAPE_PF_AGENT
+                                                & Has("Alien Medpack")
                                                 & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_escape_weapons,
 
 
         # Stage 10 - Air Base
-        "Air Base - Perfect Agent Objective 1": HasAll("Air Base - Perfect Agent", "Stewardess Disguise")
+        "Air Base - Perfect Agent Objective 1": HAS_AIR_BASE_PF_AGENT
+                                                & Has("Stewardess Disguise")
                                                 & has_sedate,
 
-        "Air Base - Perfect Agent Objective 2": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase")
+        "Air Base - Perfect Agent Objective 2": HAS_AIR_BASE_PF_AGENT
+                                                & HasAll("Stewardess Disguise", "Suitcase")
                                                 & has_sedate,
 
-        "Air Base - Perfect Agent Objective 3": HasAll("Air Base - Perfect Agent", "Stewardess Disguise")
+        "Air Base - Perfect Agent Objective 3": HAS_AIR_BASE_PF_AGENT
+                                                & Has("Stewardess Disguise")
                                                 & has_sedate,
 
-        "Air Base - Perfect Agent Objective 4": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Flight Plans")
+        "Air Base - Perfect Agent Objective 4": HAS_AIR_BASE_PF_AGENT
+                                                & HasAll("Stewardess Disguise", "Flight Plans")
                                                 & has_sedate
                                                 & (complete_air_base_weapons
                                                 | has_air_base_explosive),
 
-        "Air Base - Perfect Agent Objective 5": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
+        "Air Base - Perfect Agent Objective 5": HAS_AIR_BASE_PF_AGENT
+                                                & HasAll("Stewardess Disguise", "Suitcase", "Flight Plans")
                                                 & has_sedate
                                                 & complete_air_base_weapons,
 
-        "Complete: Air Base - Perfect Agent": HasAll("Air Base - Perfect Agent", "Stewardess Disguise", "Suitcase", "Flight Plans")
+        "Complete: Air Base - Perfect Agent": HAS_AIR_BASE_PF_AGENT
+                                              & HasAll("Stewardess Disguise", "Suitcase", "Flight Plans")
                                               & has_sedate
                                               & complete_air_base_weapons,
 
 
         # Stage 11 - Air Force One
-        "Air Force One - Perfect Agent Objective 1": HasAll("Air Force One - Perfect Agent", "Suitcase")
+        "Air Force One - Perfect Agent Objective 1": HAS_AFO_PF_AGENT
+                                                     & Has("Suitcase")
                                                      & HAS_AFO_LIFT_KEY,
 
-        "Air Force One - Perfect Agent Objective 2": HasAll("Air Force One - Perfect Agent", "Suitcase")
+        "Air Force One - Perfect Agent Objective 2": HAS_AFO_PF_AGENT
+                                                     & Has("Suitcase")
                                                      & HAS_AFO_LIFT_KEY
                                                      & Has("President", options=[npc_filter], filtered_resolution=True),
 
-        "Air Force One - Perfect Agent Objective 3": HasAll("Air Force One - Perfect Agent", "Suitcase")
+        "Air Force One - Perfect Agent Objective 3": HAS_AFO_PF_AGENT
+                                                     & Has("Suitcase")
                                                      & HAS_AFO_LIFT_KEY
                                                      & Has("President", options=[npc_filter], filtered_resolution=True)
                                                      & complete_afo_weapons,
 
-        "Air Force One - Perfect Agent Objective 4": HasAll("Air Force One - Perfect Agent", "Suitcase")
+        "Air Force One - Perfect Agent Objective 4": HAS_AFO_PF_AGENT
+                                                     & Has("Suitcase")
                                                      & HAS_AFO_LIFT_KEY
                                                      & Has("President", options=[npc_filter], filtered_resolution=True)
                                                      & has_afo_weapon
                                                      & has_timed_mine,
 
-        "Air Force One - Perfect Agent Objective 5": HasAll("Air Force One - Perfect Agent", "Suitcase")
+        "Air Force One - Perfect Agent Objective 5": HAS_AFO_PF_AGENT
+                                                     & Has("Suitcase")
                                                      & HAS_AFO_LIFT_KEY
                                                      & Has("President", options=[npc_filter], filtered_resolution=True)
                                                      & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                      & has_afo_weapon
                                                      & has_timed_mine,
 
-        "Complete: Air Force One - Perfect Agent": HasAll("Air Force One - Perfect Agent", "Suitcase")
+        "Complete: Air Force One - Perfect Agent": HAS_AFO_PF_AGENT
+                                                   & Has("Suitcase")
                                                    & HAS_AFO_LIFT_KEY
                                                    & Has("President", options=[npc_filter], filtered_resolution=True)
                                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
@@ -1859,31 +2089,35 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 12 - Crash Site
-        "Crash Site - Perfect Agent Objective 1": HasAll("Crash Site - Perfect Agent", "President Scanner")
+        "Crash Site - Perfect Agent Objective 1": HAS_CRASH_SITE_PF_AGENT
+                                                  & Has("President Scanner")
                                                   & (has_crash_site_weapon
                                                   | hard_logic
                                                   | perfect_logic),
 
-        "Crash Site - Perfect Agent Objective 2": Has("Crash Site - Perfect Agent")
+        "Crash Site - Perfect Agent Objective 2": HAS_CRASH_SITE_PF_AGENT
                                                   & (has_crash_site_weapon
                                                   | hard_logic
                                                   | perfect_logic),
 
-        "Crash Site - Perfect Agent Objective 3": Has("Crash Site - Perfect Agent")
+        "Crash Site - Perfect Agent Objective 3": HAS_CRASH_SITE_PF_AGENT
                                                   & complete_crash_site_weapons
                                                   & (has_crash_site_explosive
                                                   | has_dy357lx
                                                   | perfect_logic),
 
-        "Crash Site - Perfect Agent Objective 4": HasAll("Crash Site - Perfect Agent", "President Scanner")
+        "Crash Site - Perfect Agent Objective 4": HAS_CRASH_SITE_PF_AGENT
+                                                  & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
                                                   & complete_crash_site_weapons,
 
-        "Crash Site - Perfect Agent Objective 5": HasAll("Crash Site - Perfect Agent", "President Scanner")
+        "Crash Site - Perfect Agent Objective 5": HAS_CRASH_SITE_PF_AGENT
+                                                  & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
                                                   & Has("President", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_crash_site_weapons,
 
-        "Complete: Crash Site - Perfect Agent": HasAll("Crash Site - Perfect Agent", "President Scanner")
+        "Complete: Crash Site - Perfect Agent": HAS_CRASH_SITE_PF_AGENT
+                                                & Has("President Scanner")
                                                 & Has("President", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_crash_site_weapons
@@ -1893,60 +2127,67 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 13 - Pelagic II
-        "Pelagic II - Perfect Agent Objective 1": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner")
+        "Pelagic II - Perfect Agent Objective 1": HAS_PELAGIC_PF_AGENT
+                                                  & Has("X-Ray Scanner")
                                                   & has_pelagic_weapon,
 
-        "Pelagic II - Perfect Agent Objective 2": HasAll("Pelagic II - Perfect Agent", "Research Tape")
+        "Pelagic II - Perfect Agent Objective 2": HAS_PELAGIC_PF_AGENT
+                                                  & Has("Research Tape")
                                                   & has_pelagic_weapon,
 
-        "Pelagic II - Perfect Agent Objective 3": Has("Pelagic II - Perfect Agent")
+        "Pelagic II - Perfect Agent Objective 3": HAS_PELAGIC_PF_AGENT
                                                   & has_pelagic_weapon,
 
-        "Pelagic II - Perfect Agent Objective 4": Has("Pelagic II - Perfect Agent")
+        "Pelagic II - Perfect Agent Objective 4": HAS_PELAGIC_PF_AGENT
                                                   & has_pelagic_weapon,
 
-        "Pelagic II - Perfect Agent Objective 5": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape")
+        "Pelagic II - Perfect Agent Objective 5": HAS_PELAGIC_PF_AGENT
+                                                  & HasAll("X-Ray Scanner", "Research Tape")
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_pelagic_weapons,
 
-        "Complete: Pelagic II - Perfect Agent": HasAll("Pelagic II - Perfect Agent", "X-Ray Scanner", "Research Tape")
+        "Complete: Pelagic II - Perfect Agent": HAS_PELAGIC_PF_AGENT
+                                                & HasAll("X-Ray Scanner", "Research Tape")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_pelagic_weapons,
 
 
         # Stage 14 - Deep Sea
-        "Deep Sea - Perfect Agent Objective 1": Has("Deep Sea - Perfect Agent")
+        "Deep Sea - Perfect Agent Objective 1": HAS_DEEP_SEA_PF_AGENT
                                                 & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & has_deep_sea_weapon,
 
-        "Deep Sea - Perfect Agent Objective 2": Has("Deep Sea - Perfect Agent")
+        "Deep Sea - Perfect Agent Objective 2": HAS_DEEP_SEA_PF_AGENT
                                                 & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_deep_sea_weapons
                                                 & has_farsight,
 
-        "Deep Sea - Perfect Agent Objective 3": Has("Deep Sea - Perfect Agent")
+        "Deep Sea - Perfect Agent Objective 3": HAS_DEEP_SEA_PF_AGENT
                                                 & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_deep_sea_weapons
                                                 & has_farsight,
 
-        "Deep Sea - Perfect Agent Objective 4": HasAll("Deep Sea - Perfect Agent", "Backup Disk")
-                                                & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
-                                                & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
-                                                & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                & complete_deep_sea_weapons
-                                                & has_farsight,
-
-        "Deep Sea - Perfect Agent Objective 5": HasAll("Deep Sea - Perfect Agent", "Backup Disk")
+        "Deep Sea - Perfect Agent Objective 4": HAS_DEEP_SEA_PF_AGENT
+                                                & Has("Backup Disk")
                                                 & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_deep_sea_weapons
                                                 & has_farsight,
 
-        "Complete: Deep Sea - Perfect Agent": HasAll("Deep Sea - Perfect Agent", "Backup Disk")
+        "Deep Sea - Perfect Agent Objective 5": HAS_DEEP_SEA_PF_AGENT
+                                                & Has("Backup Disk")
+                                                & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
+                                                & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                & complete_deep_sea_weapons
+                                                & has_farsight,
+
+        "Complete: Deep Sea - Perfect Agent": HAS_DEEP_SEA_PF_AGENT
+                                              & Has("Backup Disk")
                                               & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                               & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                               & Has("Elvis", options=[npc_filter], filtered_resolution=True)
@@ -1955,32 +2196,34 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 15 - CI Defense
-        "CI Defense - Perfect Agent Objective 1": Has("CI Defense - Perfect Agent")
+        "CI Defense - Perfect Agent Objective 1": HAS_DEFENSE_PF_AGENT
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                   & complete_defense_weapons,
 
-        "CI Defense - Perfect Agent Objective 2": Has("CI Defense - Perfect Agent")
+        "CI Defense - Perfect Agent Objective 2": HAS_DEFENSE_PF_AGENT
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                   & complete_defense_weapons,
 
-        "CI Defense - Perfect Agent Objective 3": Has("CI Defense - Perfect Agent")
+        "CI Defense - Perfect Agent Objective 3": HAS_DEFENSE_PF_AGENT
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                   & complete_defense_weapons
                                                   & has_rcp120,
 
-        "CI Defense - Perfect Agent Objective 4": Has("CI Defense - Perfect Agent")
+        "CI Defense - Perfect Agent Objective 4": HAS_DEFENSE_PF_AGENT
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                   & complete_defense_weapons
                                                   & ((has_rcp120 & has_laser)
                                                   | (OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge") & has_defense_explosive)),
 
-        "CI Defense - Perfect Agent Objective 5": HasAll("CI Defense - Perfect Agent", "Data Uplink")
+        "CI Defense - Perfect Agent Objective 5": HAS_DEFENSE_PF_AGENT
+                                                  & Has("Data Uplink")
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                   & complete_defense_weapons
                                                   & has_rcp120
                                                   & has_defense_destroy_weapon,
 
-        "Complete: CI Defense - Perfect Agent": HasAll("CI Defense - Perfect Agent", "Data Uplink")
+        "Complete: CI Defense - Perfect Agent": HAS_DEFENSE_PF_AGENT
+                                                & Has("Data Uplink")
                                                 & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                 & complete_defense_weapons
                                                 & has_rcp120
@@ -1988,30 +2231,30 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 16 - Attack Ship
-        "Attack Ship - Perfect Agent Objective 1": Has("Attack Ship - Perfect Agent")
+        "Attack Ship - Perfect Agent Objective 1": HAS_ATTACK_SHIP_PF_AGENT
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & has_attack_ship_weapon,
 
-        "Attack Ship - Perfect Agent Objective 2": Has("Attack Ship - Perfect Agent")
+        "Attack Ship - Perfect Agent Objective 2": HAS_ATTACK_SHIP_PF_AGENT
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & has_attack_ship_weapon,
 
-        "Attack Ship - Perfect Agent Objective 3": Has("Attack Ship - Perfect Agent")
+        "Attack Ship - Perfect Agent Objective 3": HAS_ATTACK_SHIP_PF_AGENT
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                    & complete_attack_ship_weapons,
 
-        "Attack Ship - Perfect Agent Objective 4": Has("Attack Ship - Perfect Agent")
+        "Attack Ship - Perfect Agent Objective 4": HAS_ATTACK_SHIP_PF_AGENT
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                    & complete_attack_ship_weapons,
 
-        "Attack Ship - Perfect Agent Objective 5": Has("Attack Ship - Perfect Agent")
+        "Attack Ship - Perfect Agent Objective 5": HAS_ATTACK_SHIP_PF_AGENT
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                    & complete_attack_ship_weapons,
 
-        "Complete: Attack Ship - Perfect Agent": Has("Attack Ship - Perfect Agent")
+        "Complete: Attack Ship - Perfect Agent": HAS_ATTACK_SHIP_PF_AGENT
                                                  & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                  & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                  & complete_attack_ship_weapons,
@@ -2050,77 +2293,79 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
         # Stage 18 - Mr. Blonde's Revenge
-        "Mr. Blonde's Revenge - Perfect Agent Objective 1": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Skedar Bomb")
+        "Mr. Blonde's Revenge - Perfect Agent Objective 1": HAS_MBR_PF_AGENT
+                                                            & Has("Skedar Bomb")
                                                             & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                             & (complete_mbr_weapons
                                                             | Has("Cloaking Device")),
 
-        "Mr. Blonde's Revenge - Perfect Agent Objective 2": Has("Mr. Blonde's Revenge - Perfect Agent")
+        "Mr. Blonde's Revenge - Perfect Agent Objective 2": HAS_MBR_PF_AGENT
                                                             & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                             & (complete_mbr_weapons
                                                             | (hard_logic & Has("CamSpy"))
                                                             | (perfect_logic & Has("CamSpy"))),
 
-        "Mr. Blonde's Revenge - Perfect Agent Objective 3": Has("Mr. Blonde's Revenge - Perfect Agent")
+        "Mr. Blonde's Revenge - Perfect Agent Objective 3": HAS_MBR_PF_AGENT
                                                             & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                             & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                             & complete_mbr_weapons,
 
-        "Complete: Mr. Blonde's Revenge - Perfect Agent": HasAll("Mr. Blonde's Revenge - Perfect Agent", "Skedar Bomb")
+        "Complete: Mr. Blonde's Revenge - Perfect Agent": HAS_MBR_PF_AGENT
+                                                          & Has("Skedar Bomb")
                                                           & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                           & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                           & complete_mbr_weapons,
 
 
         # Stage 19 - Maian SOS
-        "Maian SOS - Perfect Agent Objective 1": Has("Maian SOS - Perfect Agent")
+        "Maian SOS - Perfect Agent Objective 1": HAS_MAIAN_SOS_PF_AGENT
                                                  & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                  & complete_maian_sos_weapons,
 
-        "Maian SOS - Perfect Agent Objective 2": Has("Maian SOS - Perfect Agent")
+        "Maian SOS - Perfect Agent Objective 2": HAS_MAIAN_SOS_PF_AGENT
                                                  & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                  & complete_maian_sos_weapons
                                                  & has_dy357lx,
 
-        "Maian SOS - Perfect Agent Objective 3": Has("Maian SOS - Perfect Agent")
+        "Maian SOS - Perfect Agent Objective 3": HAS_MAIAN_SOS_PF_AGENT
                                                  & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                  & complete_maian_sos_weapons,
 
-        "Complete: Maian SOS - Perfect Agent": Has("Maian SOS - Perfect Agent")
+        "Complete: Maian SOS - Perfect Agent": HAS_MAIAN_SOS_PF_AGENT
                                                & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                & complete_maian_sos_weapons
                                                & has_dy357lx,
 
 
         # Stage 20 - WAR!
-        "WAR! - Perfect Agent Objective 1": Has("WAR! - Perfect Agent")
+        "WAR! - Perfect Agent Objective 1": HAS_WAR_PF_AGENT
                                             & complete_war_weapons,
 
-        "WAR! - Perfect Agent Objective 2": Has("WAR! - Perfect Agent")
+        "WAR! - Perfect Agent Objective 2": HAS_WAR_PF_AGENT
                                             & complete_war_weapons,
 
-        "WAR! - Perfect Agent Objective 3": Has("WAR! - Perfect Agent")
+        "WAR! - Perfect Agent Objective 3": HAS_WAR_PF_AGENT
                                             & complete_war_weapons,
 
-        "Complete: WAR! - Perfect Agent": Has("WAR! - Perfect Agent")
+        "Complete: WAR! - Perfect Agent": HAS_WAR_PF_AGENT
                                           & complete_war_weapons,
 
 
         # Stage 21 - The Duel
-        "The Duel - Perfect Agent Objective 1": Has("The Duel - Perfect Agent")
+        "The Duel - Perfect Agent Objective 1": HAS_DUEL_PF_AGENT
                                                 & (complete_duel_weapons
                                                 | perfect_logic),
 
-        "The Duel - Perfect Agent Objective 2": Has("The Duel - Perfect Agent")
+        "The Duel - Perfect Agent Objective 2": HAS_DUEL_PF_AGENT
                                                 & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                 & (complete_duel_weapons
                                                 | perfect_logic),
 
-        "The Duel - Perfect Agent Objective 3": Has("The Duel - Perfect Agent")
+        "The Duel - Perfect Agent Objective 3": HAS_DUEL_PF_AGENT
                                                 & (complete_duel_weapons
                                                 | perfect_logic),
 
-        "Complete: The Duel - Perfect Agent": Has("The Duel - Perfect Agent")
+        "Complete: The Duel - Perfect Agent": HAS_DUEL_PF_AGENT
                                               & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                               & (complete_duel_weapons
                                               | perfect_logic),
@@ -2278,11 +2523,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     alternate_exits_rules = {
         "Complete G5 Building (Agent): Bottom Exit": agent_rules["Complete: G5 Building - Agent"]
-                                                     & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
+                                                     & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
                                                      & has_remote_mine
                                                      & has_chicago_weapon,
         "Complete G5 Building (Agent): Upper Exit": agent_rules["Complete: G5 Building - Agent"] 
-                                                    & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
+                                                    & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
                                                     & has_remote_mine
                                                     & has_chicago_weapon,
         "Complete A51 Escape (Agent): UFO Escape": agent_rules["Complete: A51 Escape - Agent"],
@@ -2290,11 +2535,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         "Complete Air Base (Agent): Shuttle Exit": agent_rules["Complete: Air Base - Agent"],
         "Complete Air Base (Agent): Ladder Exit": agent_rules["Complete: Air Base - Agent"],
         "Complete G5 Building (Special Agent): Bottom Exit": special_agent_rules["Complete: G5 Building - Special Agent"]
-                                                             & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
+                                                             & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
                                                              & has_remote_mine
                                                              & has_chicago_weapon,
         "Complete G5 Building (Special Agent): Upper Exit": special_agent_rules["Complete: G5 Building - Special Agent"] 
-                                                            & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
+                                                            & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
                                                             & has_remote_mine
                                                             & has_chicago_weapon,
         "Complete A51 Escape (Special Agent): UFO Escape": special_agent_rules["Complete: A51 Escape - Special Agent"],
@@ -2302,11 +2547,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         "Complete Air Base (Special Agent): Shuttle Exit": special_agent_rules["Complete: Air Base - Special Agent"],
         "Complete Air Base (Special Agent): Ladder Exit": special_agent_rules["Complete: Air Base - Special Agent"],
         "Complete G5 Building (Perfect Agent): Bottom Exit": perfect_agent_rules["Complete: G5 Building - Perfect Agent"]
-                                                             & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
+                                                             & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
                                                              & has_remote_mine
                                                              & has_chicago_weapon,
         "Complete G5 Building (Perfect Agent): Upper Exit": perfect_agent_rules["Complete: G5 Building - Perfect Agent"]
-                                                            & HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago - Perfect Agent")
+                                                            & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
                                                             & has_remote_mine
                                                             & has_chicago_weapon,
         "Complete A51 Escape (Perfect Agent): UFO Escape": perfect_agent_rules["Complete: A51 Escape - Perfect Agent"],
@@ -2509,15 +2754,23 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                            & (has_extraction_explosive
                                                                            | Has("Grenade")),
 
-        "dD Extraction: Rocket ammo box (on left)": (Has("dD Extraction - Agent")
-                                                    | (HasAny("dD Extraction - Special Agent", "dD Extraction - Perfect Agent")
+        "dD Extraction: Rocket ammo box (on left)": ((has_agent & HAS_EXTRACTION_AGENT)
+                                                    | (has_special_agent 
+                                                        & HasAny("dD Extraction - Special Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True)
+                                                        & HAS_CASS_OFFICE_KEY)
+                                                    | (has_perfect_agent
+                                                        & HasAny("dD Extraction - Perfect Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True)
                                                         & HAS_CASS_OFFICE_KEY))
                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
                                                     & has_rocket_launcher 
                                                     & complete_extraction_weapons,
 
-        "dD Extraction: Rocket ammo box (on right)": (Has("dD Extraction - Agent")
-                                                     | (HasAny("dD Extraction - Special Agent", "dD Extraction - Perfect Agent")
+        "dD Extraction: Rocket ammo box (on right)": ((has_agent & HAS_EXTRACTION_AGENT)
+                                                     | (has_special_agent 
+                                                        & HasAny("dD Extraction - Special Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True)
+                                                        & HAS_CASS_OFFICE_KEY)
+                                                     | (has_perfect_agent
+                                                        & HasAny("dD Extraction - Perfect Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True)
                                                         & HAS_CASS_OFFICE_KEY))
                                                      & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
                                                      & has_rocket_launcher 
@@ -2568,14 +2821,6 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "G5 Building: Crossbow (after knocking out the second guard)": has_g5 
                                                                        & has_crossbow,
-
-        # "G5 Building: N-Bomb (near the upper exit)": has_g5
-        #                                              & HAS_G5_KEYS
-        #                                              & has_nbomb
-        #                                              & has_g5_weapon
-        #                                              & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent")
-        #                                              & has_remote_mine
-        #                                              & has_chicago_weapon,
 
         "A51 Infiltration: Rocket Launcher (in mine field)": has_infiltration 
                                                              & has_rocket_launcher 
@@ -2711,75 +2956,75 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
     }
 
     pickupsanity_rules_agent_only = {
-        "dD Defection (Agent): 1F Shield": Has("dD Defection - Agent") 
+        "dD Defection (Agent): 1F Shield": HAS_DEFECTION_AGENT 
                                            & Has("Shield")
                                            & (has_defection_weapon
                                            | perfect_logic),
 
-        "dD Investigation (Agent): Shield (on crate)": Has("dD Investigation - Agent") 
+        "dD Investigation (Agent): Shield (on crate)": HAS_INVESTIGATION_AGENT
                                                        & Has("Shield")
                                                        & (has_investigation_weapon
                                                        | perfect_logic),
 
-        "dD Extraction (Agent): 2F Shield": Has("dD Extraction - Agent") 
+        "dD Extraction (Agent): 2F Shield": HAS_EXTRACTION_AGENT 
                                             & Has("Shield")
                                             & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                             & has_extraction_weapon,
 
-        "Carrington Villa (Agent): Shield (on helipad crate)": Has("Carrington Villa - Agent") 
+        "Carrington Villa (Agent): Shield (on helipad crate)": HAS_VILLA_AGENT
                                                                & Has("Shield")
                                                                & villa_pickupsanity_weapon,
 
-        "Carrington Villa (Agent): Shield (in the bathroom)": Has("Carrington Villa - Agent") 
+        "Carrington Villa (Agent): Shield (in the bathroom)": HAS_VILLA_AGENT
                                                               & Has("Shield")
                                                               & villa_pickupsanity_weapon,
 
-        "Chicago (Agent): Shield (near the taxi)": Has("Chicago - Agent") 
+        "Chicago (Agent): Shield (near the taxi)": HAS_CHICAGO_AGENT
                                                    & Has("Shield"),
 
-        "G5 Building (Agent): Shield (in room before the laser grids)": Has("G5 Building - Agent") 
+        "G5 Building (Agent): Shield (in room before the laser grids)": HAS_G5_AGENT
                                                                         & Has("Shield")
                                                                         & HAS_G5_KEYS
                                                                         & has_g5_weapon,
 
-        "A51 Infiltration (Agent): Shield (near hoverbike)": Has("A51 Infiltration - Agent") 
+        "A51 Infiltration (Agent): Shield (near hoverbike)": HAS_INFILTRATION_AGENT
                                                              & Has("Shield")
                                                              & has_infiltration_weapon,
 
-        "A51 Rescue (Agent): Shield (guard past first elevator)": Has("A51 Rescue - Agent")
+        "A51 Rescue (Agent): Shield (guard past first elevator)": HAS_RESCUE_AGENT
                                                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True) 
                                                                   & Has("Shield")
                                                                   & has_rescue_weapon,
 
-        "A51 Escape (Agent): Shield (dropped by biotechnician)": Has("A51 Escape - Agent") 
+        "A51 Escape (Agent): Shield (dropped by biotechnician)": HAS_ESCAPE_AGENT
                                                                  & Has("Shield")
                                                                  & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                                  & (has_escape_weapon
                                                                  | hard_logic
                                                                  | perfect_logic),
 
-        "Air Base (Agent): Shield (dropped by NSA Lackey)": Has("Air Base - Agent") 
+        "Air Base (Agent): Shield (dropped by NSA Lackey)": HAS_AIR_BASE_AGENT
                                                             & Has("Shield")
                                                             & Has("Stewardess Disguise")
                                                             & has_sedate,
 
-        "Air Force One (Agent): Shield (in small kitchen)": Has("Air Force One - Agent") 
+        "Air Force One (Agent): Shield (in small kitchen)": HAS_AFO_AGENT
                                                             & Has("Shield"),
 
-        "Crash Site (Agent): Shield (near the crashed UFO)": Has("Crash Site - Agent") 
+        "Crash Site (Agent): Shield (near the crashed UFO)": HAS_CRASH_SITE_AGENT
                                                              & Has("Shield")
                                                              & (has_crash_site_weapon
                                                              | perfect_logic), 
 
-        "Pelagic II (Agent): Shield (on the helipad)": Has("Pelagic II - Agent") 
+        "Pelagic II (Agent): Shield (on the helipad)": HAS_PELAGIC_AGENT
                                                        & Has("Shield")
                                                        & has_pelagic_weapon,
 
-        # "Deep Sea (Agent): Shield (dropped from guard)": Has("Deep Sea - Agent") 
+        # "Deep Sea (Agent): Shield (dropped from guard)": HAS_DEEP_SEA_AGENT
         #                                                  & Has("Shield")
         #                                                  & has_deep_sea_weapon,
 
-        "CI Defense (Agent): 2F Shield": Has("CI Defense - Agent") 
+        "CI Defense (Agent): 2F Shield": HAS_DEFENSE_AGENT
                                          & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                          & Has("Shield"),
 
@@ -2788,106 +3033,106 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                                    & has_skedar_ruins_weapon,
 
-        "Mr. Blonde's Revenge (Agent): 1F Shield": Has("Mr. Blonde's Revenge - Agent") 
+        "Mr. Blonde's Revenge (Agent): 1F Shield": HAS_MBR_AGENT
                                                    & Has("Shield")
                                                    & (complete_mbr_weapons
                                                    | Has("Cloaking Device")),
     }
 
     pickupsanity_rules_agent_or_special = {
-        "dD Defection (Agent/Special): 3F Shield": HasAny("dD Defection - Agent", "dD Defection - Special Agent")
+        "dD Defection (Agent/Special): 3F Shield": HasAny("dD Defection - Agent", "dD Defection - Special Agent", "dD Defection", options=[mission_item_pool_filter], filtered_resolution=True)
                                                    & Has("Shield")
                                                    & (has_defection_weapon
                                                    | (perfect_logic & complete_defection_weapons)),
 
-        "dD Investigation (Agent/Special): Shield (behind the glass)": HasAny("dD Investigation - Agent", "dD Investigation - Special Agent") 
+        "dD Investigation (Agent/Special): Shield (behind the glass)": HasAny("dD Investigation - Agent", "dD Investigation - Special Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                        & Has("Shield")
                                                                        & has_investigation_weapon,
 
-        "Chicago (Agent/Special): Shield (under stairs near Pond Punk)": HasAny("Chicago - Agent", "Chicago - Special Agent") 
+        "Chicago (Agent/Special): Shield (under stairs near Pond Punk)": HasAny("Chicago - Agent", "Chicago - Special Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                          & Has("Shield")
                                                                          & (has_chicago_weapon
                                                                          | perfect_logic),
 
-        "G5 Building (Agent/Special): Shield (on stairs to the upper exit)": HasAny("G5 Building - Agent", "G5 Building - Special Agent")
+        "G5 Building (Agent/Special): Shield (on stairs to the upper exit)": HasAny("G5 Building - Agent", "G5 Building - Special Agent", "G5 Building", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                              & Has("Shield")
                                                                              & HAS_G5_KEYS
                                                                              & has_g5_weapon,
 
-        "A51 Infiltration (Agent/Special): Shield (in the crawl space)": HasAny("A51 Infiltration - Agent", "A51 Infiltration - Special Agent")
+        "A51 Infiltration (Agent/Special): Shield (in the crawl space)": HasAny("A51 Infiltration - Agent", "A51 Infiltration - Special Agent", "A51 Infiltration", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                          & Has("Shield")
                                                                          & has_infiltration_weapon,
 
-        "A51 Rescue (Agent/Special): Shield (on desk near computer)": HasAny("A51 Rescue - Agent", "A51 Rescue - Special Agent")
+        "A51 Rescue (Agent/Special): Shield (on desk near computer)": HasAny("A51 Rescue - Agent", "A51 Rescue - Special Agent", "A51 Rescue", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                       & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                                                       & Has("Shield")
                                                                       & has_rescue_weapon,
 
-        "A51 Escape (Agent/Special): Shield (behind locked medical containment doors)": HasAny("A51 Escape - Agent", "A51 Escape - Special Agent")
+        "A51 Escape (Agent/Special): Shield (behind locked medical containment doors)": HasAny("A51 Escape - Agent", "A51 Escape - Special Agent", "A51 Escape", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                                                         & Has("Shield")
                                                                                         & has_escape_weapon,
 
-        "Air Base (Agent/Special): Shield (in the safe)": HasAny("Air Base - Agent", "Air Base - Special Agent") 
+        "Air Base (Agent/Special): Shield (in the safe)": HasAny("Air Base - Agent", "Air Base - Special Agent", "Air Base", options=[mission_item_pool_filter], filtered_resolution=True)
                                                           & Has("Shield")
                                                           & Has("Stewardess Disguise")
                                                           & has_sedate
                                                           & complete_air_base_weapons,
 
-        "Air Force One (Agent/Special): Shield (in piano room)": HasAny("Air Force One - Agent", "Air Force One - Special Agent")
+        "Air Force One (Agent/Special): Shield (in piano room)": HasAny("Air Force One - Agent", "Air Force One - Special Agent", "Air Force One", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                  & Has("Shield"),
 
-        "Crash Site (Agent/Special): Shield (behind President's clone)": HasAny("Crash Site - Agent", "Crash Site - Special Agent")
+        "Crash Site (Agent/Special): Shield (behind President's clone)": HasAny("Crash Site - Agent", "Crash Site - Special Agent", "Crash Site", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                          & Has("Shield")
                                                                          & Has("Night Vision")
                                                                          & has_crash_site_weapon,
 
-        "Pelagic II (Agent/Special): Shield (on the sub hangar crate)": HasAny("Pelagic II - Agent", "Pelagic II - Special Agent")
+        "Pelagic II (Agent/Special): Shield (on the sub hangar crate)": HasAny("Pelagic II - Agent", "Pelagic II - Special Agent", "Pelagic II", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                         & Has("Shield")
                                                                         & has_pelagic_weapon,
 
-        "Deep Sea (Agent/Special): Shield (on the left path)": HasAny("Deep Sea - Agent", "Deep Sea - Special Agent")
+        "Deep Sea (Agent/Special): Shield (on the left path)": HasAny("Deep Sea - Agent", "Deep Sea - Special Agent", "Deep Sea", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                & Has("Shield")
                                                                & has_deep_sea_weapon,
 
-        "CI Defense (Agent/Special): Basement Shield": HasAny("CI Defense - Agent", "CI Defense - Special Agent")
+        "CI Defense (Agent/Special): Basement Shield": HasAny("CI Defense - Agent", "CI Defense - Special Agent", "CI Defense", options=[mission_item_pool_filter], filtered_resolution=True)
                                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                        & Has("Shield")
                                                        & (complete_defense_weapons
                                                        | perfect_logic),
 
-        "Attack Ship (Agent/Special): Shield (on table)": HasAny("Attack Ship - Agent", "Attack Ship - Special Agent")
+        "Attack Ship (Agent/Special): Shield (on table)": HasAny("Attack Ship - Agent", "Attack Ship - Special Agent", "Attack Ship", options=[mission_item_pool_filter], filtered_resolution=True)
                                                           & Has("Shield")
                                                           & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                           & has_attack_ship_weapon,
 
-        "Skedar Ruins (Agent/Special): Shield (area past the gap to the right)": HasAny("Skedar Ruins - Agent", "Skedar Ruins - Special Agent", "Skedar Ruins")
+        "Skedar Ruins (Agent/Special): Shield (area past the gap to the right)": HasAny("Skedar Ruins - Agent", "Skedar Ruins - Special Agent", "Skedar Ruins", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                                  & Has("Shield")
                                                                                  & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                                                  & has_skedar_ruins_weapon
                                                                                  & has_skedar_ruins_explosive,
 
-        "Mr. Blonde's Revenge (Agent/Special): 3F Shield": HasAny("Mr. Blonde's Revenge - Agent", "Mr. Blonde's Revenge - Special Agent")
+        "Mr. Blonde's Revenge (Agent/Special): 3F Shield": HasAny("Mr. Blonde's Revenge - Agent", "Mr. Blonde's Revenge - Special Agent", "Mr. Blonde's Revenge", options=[mission_item_pool_filter], filtered_resolution=True)
                                                            & Has("Shield")
                                                            & complete_mbr_weapons
                                                            & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
     }
 
     pickupsanity_rules_special_or_perfect = {
-        "dD Investigation: ammo box (front of room with one scientist)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent")
+        "dD Investigation: ammo box (front of room with one scientist)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                          & (has_investigation_weapon
                                                                          | perfect_logic),
         
-        "dD Investigation: ammo box (back of room with one scientist)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent")
+        "dD Investigation: ammo box (back of room with one scientist)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                         & (has_investigation_weapon
                                                                         | perfect_logic),
 
-        "dD Investigation: ammo box (front of room near two scientists)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent")
+        "dD Investigation: ammo box (front of room near two scientists)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                           & (has_investigation_weapon
                                                                           | perfect_logic),
         
-        "dD Investigation: ammo box (back of room near two scientists)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent") 
+        "dD Investigation: ammo box (back of room near two scientists)": HasAny("dD Investigation - Special Agent", "dD Investigation - Perfect Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                          & (has_investigation_weapon
                                                                          | perfect_logic),
 
@@ -2895,11 +3140,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                      & HAS_G5_KEYS
                                                      & has_nbomb
                                                      & has_g5_weapon
-                                                     & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent")
+                                                     & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
                                                      & has_remote_mine
                                                      & has_chicago_weapon,
 
-        "A51 Infiltration: double MagSec 4 (after placing comms rider)": HasAny("A51 Infiltration - Special Agent", "A51 Infiltration - Perfect Agent")
+        "A51 Infiltration: double MagSec 4 (after placing comms rider)": HasAny("A51 Infiltration - Special Agent", "A51 Infiltration - Perfect Agent", "A51 Infiltration", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                          & Has("Comms Rider")
                                                                          & has_magsec4
                                                                          & has_infiltration_weapon,
@@ -2965,12 +3210,12 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         if world.options.perfect_agent:
             villa_sniper_rifle = world.get_location("Carrington Villa (Perfect Agent): Sniper Rifle (in the bathroom)")
-            world.set_rule(villa_sniper_rifle, Has("Carrington Villa - Perfect Agent")
+            world.set_rule(villa_sniper_rifle, HasAny("Carrington Villa - Perfect Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True)
                                                & has_sniper_rifle
                                                & has_villa_weapon_perfect)
 
             attack_ship_necklace = world.get_location("Attack Ship (Perfect Agent): De Vries' Necklace")
-            world.set_rule(attack_ship_necklace, Has("Attack Ship - Perfect Agent")
+            world.set_rule(attack_ship_necklace, HasAny("Attack Ship - Perfect Agent", "Attack Ship", options=[mission_item_pool_filter], filtered_resolution=True)
                                                  & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                  & HAS_DD_KEYS)
 
@@ -2980,7 +3225,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         if world.options.perfect_agent \
                 or world.options.mission_logic.value == MissionLogic.option_perfect:
             defection_laptop_gun = world.get_location("dD Defection: 2F Laptop Gun")
-            world.set_rule(defection_laptop_gun, (Has("dD Defection - Perfect Agent") 
+            world.set_rule(defection_laptop_gun, (HAS_DEFECTION_PF_AGENT
                                                     & has_laptop_gun 
                                                     & complete_defection_weapons)
                                                  | (perfect_logic 
@@ -2989,7 +3234,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                     & complete_defection_weapons))
 
             defection_right_falcon2 = world.get_location("dD Defection: 2F Falcon 2 (silencer) (on right)")
-            world.set_rule(defection_right_falcon2, (Has("dD Defection - Perfect Agent") 
+            world.set_rule(defection_right_falcon2, (HAS_DEFECTION_PF_AGENT
                                                         & has_falcon2_silencer 
                                                         & complete_defection_weapons)
                                                     | (perfect_logic 
@@ -2997,7 +3242,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                         & has_falcon2_silencer))
 
             defection_left_falcon2 = world.get_location("dD Defection: 2F Falcon 2 (silencer) (on left)")
-            world.set_rule(defection_left_falcon2, (Has("dD Defection - Perfect Agent") 
+            world.set_rule(defection_left_falcon2, (HAS_DEFECTION_PF_AGENT
                                                         & has_falcon2_silencer 
                                                         & complete_defection_weapons)
                                                    | (perfect_logic 
@@ -3008,8 +3253,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             mbr_laptop_gun = world.get_location("Mr. Blonde's Revenge: 2F Laptop Gun")
             world.set_rule(mbr_laptop_gun, has_mbr 
                                            & has_laptop_gun
-                                           & complete_mbr_weapons
-                                           & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True))
+                                           & complete_mbr_weapons)
             
             mbr_falcon2_1 = world.get_location("Mr. Blonde's Revenge: 2F Falcon 2 (on right)")
             world.set_rule(mbr_falcon2_1, has_mbr
