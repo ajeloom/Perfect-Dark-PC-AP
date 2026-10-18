@@ -1196,92 +1196,143 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
 
     if has_challenges(world):
+        challenge_total = 0
+
         for x in range(1, 31):
             challenge_name = f"Challenge {x}"
             if (world.options.excluded_challenges.__contains__(challenge_name) == False):
+                challenge_total += 1
                 challenge_location = f"Complete: Challenge {x}"
                 institute_locations_list.append(challenge_location)
 
         if world.options.multiplayer_unlocks:
+            if challenge_total >= 1:
+                institute_locations_list.append("Complete 1 Challenge: FarSight XR-20 Unlock")
+                institute_locations_list.append("Complete 1 Challenge: Complex Unlock")
+                institute_locations_list.append("Complete 1 Challenge: dataDyne Female Guard Unlock")
+
+            if challenge_total >= 2:
+                institute_locations_list.append("Complete 2 Challenges: Shotgun Unlock")
+                institute_locations_list.append("Complete 2 Challenges: Hold the Briefcase Unlock")
+                institute_locations_list.append("Complete 2 Challenges: Office Suit and Office Casual Unlock")
+
+            if challenge_total >= 3:
+                institute_locations_list.append("Complete 3 Challenges: Falcon 2 (Silencer) Unlock")
+                institute_locations_list.append("Complete 3 Challenges: One-Hit Kills Unlock")
+                institute_locations_list.append("Complete 3 Challenges: Warehouse Unlock")
+            
+            if challenge_total >= 4:
+                institute_locations_list.append("Complete 4 Challenges: SuperDragon Unlock")
+                institute_locations_list.append("Complete 4 Challenges: Capture the Case Unlock")
+                institute_locations_list.append("Complete 4 Challenges: Carrington Villa Outfits Unlock")
+
+            if challenge_total >= 5:
+                institute_locations_list.append("Complete 5 Challenges: Laptop Gun Unlock")
+                institute_locations_list.append("Complete 5 Challenges: Ravine Unlock")
+                institute_locations_list.append("Complete 5 Challenges: Trent Unlock")
+                institute_locations_list.append("Complete 5 Challenges: NSA Lackey Unlock")
+
+            if challenge_total >= 6:
+                institute_locations_list.append("Complete 6 Challenges: Remote Mine Unlock")
+                institute_locations_list.append("Complete 6 Challenges: Temple Unlock")
+                institute_locations_list.append("Complete 6 Challenges: G5 Building Outfits Unlock")
+                institute_locations_list.append("Complete 6 Challenges: Hacker Central Unlock")
+            
+            if challenge_total >= 7:
+                institute_locations_list.append("Complete 7 Challenges: Tranquilizer Unlock")
+                institute_locations_list.append("Complete 7 Challenges: Hard Bot Difficulty Unlock")
+                institute_locations_list.append("Complete 7 Challenges: Mr. Blonde Unlock")
+                institute_locations_list.append("Complete 7 Challenges: 8 Bots and Dinner Jacket Outfits Unlock")
+
+            if challenge_total >= 8:
+                institute_locations_list.append("Complete 8 Challenges: Falcon 2 (Scope) Unlock")
+                institute_locations_list.append("Complete 8 Challenges: Slow Motion Unlock")
+                institute_locations_list.append("Complete 8 Challenges: Joanna Trench Unlock")
+
+            if challenge_total >= 9:
+                institute_locations_list.append("Complete 9 Challenges: Reaper Unlock")
+                institute_locations_list.append("Complete 9 Challenges: G5 Building Unlock")
+                institute_locations_list.append("Complete 9 Challenges: CIA Agent and FBI Agent Unlock")
+
+
+            if challenge_total >= 10:
+                institute_locations_list.append("Complete 10 Challenges: Cloaking Device Unlock")
+                institute_locations_list.append("Complete 10 Challenges: A51 Infiltration Outfits Unlock")
+
+
+            if challenge_total >= 11:
+                institute_locations_list.append("Complete 11 Challenges: Devastator Unlock")
+                institute_locations_list.append("Complete 11 Challenges: Grid Unlock")
+                institute_locations_list.append("Complete 11 Challenges: Lab Technician Outfits Unlock")
+
+            if challenge_total >= 12:
+                institute_locations_list.append("Complete 12 Challenges: Proximity Mine Unlock")
+                institute_locations_list.append("Complete 12 Challenges: Perfect Bot Difficulty Unlock")
+                institute_locations_list.append("Complete 12 Challenges: Felicity Unlock")
+                institute_locations_list.append("Complete 12 Challenges: Biotechnician Unlock")
+                institute_locations_list.append("Complete 12 Challenges: Pop a Cap Unlock")
+
+            if challenge_total >= 13:
+                institute_locations_list.append("Complete 13 Challenges: Slayer Unlock")
+
+            if challenge_total >= 14:
+                institute_locations_list.append("Complete 14 Challenges: Phoenix Unlock")
+                institute_locations_list.append("Complete 14 Challenges: Villa Unlock")
+                institute_locations_list.append("Complete 14 Challenges: Elvis and Maian Soldier Unlock")
+
+            if challenge_total >= 15:
+                institute_locations_list.append("Complete 15 Challenges: Combat Boost Unlock")
+
+            if challenge_total >= 16:
+                institute_locations_list.append("Complete 16 Challenges: Mauler Unlock")
+                institute_locations_list.append("Complete 16 Challenges: Sewers Unlock")
+                institute_locations_list.append("Complete 16 Challenges: Air Force One Outfits Unlock")
+
+            if challenge_total >= 17:
+                institute_locations_list.append("Complete 17 Challenges: Callisto NTG Unlock")
+                institute_locations_list.append("Complete 17 Challenges: Car Park Unlock")
+                institute_locations_list.append("Complete 17 Challenges: Alaskan Guard Unlock")
+                institute_locations_list.append("Complete 17 Challenges: Joanna Arctic Unlock")
+
+            if challenge_total >= 18:
+                institute_locations_list.append("Complete 18 Challenges: Crossbow Unlock")
+                institute_locations_list.append("Complete 18 Challenges: Base Unlock")
+                institute_locations_list.append("Complete 18 Challenges: Formal Outfits and President Unlock")
+                institute_locations_list.append("Complete 18 Challenges: Presidential Security Unlock")
+
+            if challenge_total >= 19:
+                institute_locations_list.append("Complete 19 Challenges: RC-P120 Unlock")
+                institute_locations_list.append("Complete 19 Challenges: President's Clone Unlock")
+                institute_locations_list.append("Complete 19 Challenges: NSA Bodyguard Unlock")
+
+            if challenge_total >= 20:
+                institute_locations_list.append("Complete 20 Challenges: DY357-LX Unlock")
+                institute_locations_list.append("Complete 20 Challenges: Fortress Unlock")
+
+            if challenge_total >= 21:
+                institute_locations_list.append("Complete 21 Challenges: N-Bomb Unlock")
+
+            if challenge_total >= 22:
+                institute_locations_list.append("Complete 22 Challenges: Dark Bot Difficulty Unlock")
+                institute_locations_list.append("Complete 22 Challenges: Ruins Unlock")
+
+            if challenge_total >= 24:
+                institute_locations_list.append("Complete 24 Challenges: Pelagic II Outfits Unlock")
+
             # institute_locations_list.append("Complete Challenges: Unused First Unlock")
-            institute_locations_list.append("Complete 1 Challenge: FarSight XR-20 Unlock")
-            institute_locations_list.append("Complete 7 Challenges: Tranquilizer Unlock")
-            institute_locations_list.append("Complete 4 Challenges: SuperDragon Unlock")
-            institute_locations_list.append("Complete 13 Challenges: Slayer Unlock")
-            institute_locations_list.append("Complete 3 Challenges: Falcon 2 (Silencer) Unlock")
-            institute_locations_list.append("Complete 8 Challenges: Falcon 2 (Scope) Unlock")
-            institute_locations_list.append("Complete 16 Challenges: Mauler Unlock")
-            institute_locations_list.append("Complete 14 Challenges: Phoenix Unlock")
-            institute_locations_list.append("Complete 20 Challenges: DY357-LX Unlock")
-            institute_locations_list.append("Complete 17 Challenges: Callisto NTG Unlock")
-            institute_locations_list.append("Complete 5 Challenges: Laptop Gun Unlock")
             # institute_locations_list.append("Complete Challenges: K7 Avenger Unlock")
-            institute_locations_list.append("Complete 19 Challenges: RC-P120 Unlock")
-            institute_locations_list.append("Complete 2 Challenges: Shotgun Unlock")
-            institute_locations_list.append("Complete 9 Challenges: Reaper Unlock")
-            institute_locations_list.append("Complete 11 Challenges: Devastator Unlock")
-            institute_locations_list.append("Complete 18 Challenges: Crossbow Unlock")
-            institute_locations_list.append("Complete 21 Challenges: N-Bomb Unlock")
-            institute_locations_list.append("Complete 12 Challenges: Proximity Mine Unlock")
-            institute_locations_list.append("Complete 6 Challenges: Remote Mine Unlock")
             # institute_locations_list.append("Complete Challenges: X-Ray Scanner Unlock")
             # institute_locations_list.append("Complete Challenges: Shield Unlock")
-            institute_locations_list.append("Complete 10 Challenges: Cloaking Device Unlock")
-            institute_locations_list.append("Complete 15 Challenges: Combat Boost Unlock")
-            institute_locations_list.append("Complete 7 Challenges: Hard Bot Difficulty Unlock")
-            institute_locations_list.append("Complete 12 Challenges: Perfect Bot Difficulty Unlock")
             # institute_locations_list.append("Complete Challenges: Unused 1B Unlock")
-            institute_locations_list.append("Complete 22 Challenges: Dark Bot Difficulty Unlock")
-            institute_locations_list.append("Complete 8 Challenges: Slow Motion Unlock")
-            institute_locations_list.append("Complete 3 Challenges: One-Hit Kills Unlock")
             # institute_locations_list.append("Complete Challenges: King of the Hill Unlock")
-            institute_locations_list.append("Complete 2 Challenges: Hold the Briefcase Unlock")
-            institute_locations_list.append("Complete 4 Challenges: Capture the Case Unlock")
             # institute_locations_list.append("Complete Challenges: Unused 22 Unlock")
-            institute_locations_list.append("Complete 17 Challenges: Car Park Unlock")
-            institute_locations_list.append("Complete 1 Challenge: Complex Unlock")
-            institute_locations_list.append("Complete 3 Challenges: Warehouse Unlock")
-            institute_locations_list.append("Complete 5 Challenges: Ravine Unlock")
-            institute_locations_list.append("Complete 6 Challenges: Temple Unlock")
-            institute_locations_list.append("Complete 9 Challenges: G5 Building Unlock")
-            institute_locations_list.append("Complete 11 Challenges: Grid Unlock")
-            institute_locations_list.append("Complete 12 Challenges: Felicity Unlock")
-            institute_locations_list.append("Complete 14 Challenges: Villa Unlock")
-            institute_locations_list.append("Complete 16 Challenges: Sewers Unlock")
-            institute_locations_list.append("Complete 22 Challenges: Ruins Unlock")
-            institute_locations_list.append("Complete 18 Challenges: Base Unlock")
             # institute_locations_list.append("Complete Challenges: Unused 2F Unlock")
-            institute_locations_list.append("Complete 20 Challenges: Fortress Unlock")
             # institute_locations_list.append("Complete Challenges: Unused 31 Unlock")
-            institute_locations_list.append("Complete 1 Challenge: dataDyne Female Guard Unlock")
-            institute_locations_list.append("Complete 2 Challenges: Office Suit and Office Casual Unlock")
-            institute_locations_list.append("Complete 4 Challenges: Carrington Villa Outfits Unlock")
-            institute_locations_list.append("Complete 5 Challenges: Trent Unlock")
-            institute_locations_list.append("Complete 5 Challenges: NSA Lackey Unlock")
-            institute_locations_list.append("Complete 6 Challenges: G5 Building Outfits Unlock")
-            institute_locations_list.append("Complete 7 Challenges: Mr. Blonde Unlock")
-            institute_locations_list.append("Complete 9 Challenges: CIA Agent and FBI Agent Unlock")
-            institute_locations_list.append("Complete 10 Challenges: A51 Infiltration Outfits Unlock")
-            institute_locations_list.append("Complete 11 Challenges: Lab Technician Outfits Unlock")
-            institute_locations_list.append("Complete 12 Challenges: Biotechnician Unlock")
-            institute_locations_list.append("Complete 14 Challenges: Elvis and Maian Soldier Unlock")
-            institute_locations_list.append("Complete 17 Challenges: Alaskan Guard Unlock")
-            institute_locations_list.append("Complete 16 Challenges: Air Force One Outfits Unlock")
-            institute_locations_list.append("Complete 7 Challenges: 8 Bots and Dinner Jacket Outfits Unlock")
-            institute_locations_list.append("Complete 18 Challenges: Formal Outfits and President Unlock")
-            institute_locations_list.append("Complete 19 Challenges: President's Clone Unlock")
-            institute_locations_list.append("Complete 18 Challenges: Presidential Security Unlock")
-            institute_locations_list.append("Complete 19 Challenges: NSA Bodyguard Unlock")
-            institute_locations_list.append("Complete 24 Challenges: Pelagic II Outfits Unlock")
-            institute_locations_list.append("Complete 8 Challenges: Joanna Trench Unlock")
             # institute_locations_list.append("Complete Challenges: Unused Jo Snow Unlock")
             # institute_locations_list.append("Complete Challenges: Unused 48 Unlock")
             # institute_locations_list.append("Complete Challenges: Unused 49 Unlock")
-            institute_locations_list.append("Complete 17 Challenges: Joanna Arctic Unlock")
             # institute_locations_list.append("Complete Challenges: Unused 4B Unlock")
             # institute_locations_list.append("Complete Challenges: Jonathan Unlock")
-            institute_locations_list.append("Complete 12 Challenges: Pop a Cap Unlock")
-            institute_locations_list.append("Complete 6 Challenges: Hacker Central Unlock")
             # institute_locations_list.append("Complete Challenges: Laser Unlock")
 
 

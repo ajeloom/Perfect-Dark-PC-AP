@@ -4305,91 +4305,128 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
     can_complete_twenty_challenges = lambda state: (location_count(state) >= 20)
     can_complete_twenty_one_challenges = lambda state: (location_count(state) >= 21)
     can_complete_twenty_two_challenges = lambda state: (location_count(state) >= 22)
-    # can_complete_twenty_three_challenges = lambda state: (location_count(state) >= 23)
     can_complete_twenty_four_challenges = lambda state: (location_count(state) >= 24)
 
-    complete_challenge_unlock_rules = {
-        # "Complete Challenges: Unused First Unlock": can_complete_one_challenge,
-        "Complete 1 Challenge: FarSight XR-20 Unlock": can_complete_one_challenge,
-        "Complete 7 Challenges: Tranquilizer Unlock": can_complete_seven_challenges,
-        "Complete 4 Challenges: SuperDragon Unlock": can_complete_four_challenges,
-        "Complete 13 Challenges: Slayer Unlock": can_complete_thirteen_challenges,
-        "Complete 3 Challenges: Falcon 2 (Silencer) Unlock": can_complete_three_challenges,
-        "Complete 8 Challenges: Falcon 2 (Scope) Unlock": can_complete_eight_challenges,
-        "Complete 16 Challenges: Mauler Unlock": can_complete_sixteen_challenges,
-        "Complete 14 Challenges: Phoenix Unlock": can_complete_fourteen_challenges,
-        "Complete 20 Challenges: DY357-LX Unlock": can_complete_twenty_challenges,
-        "Complete 17 Challenges: Callisto NTG Unlock": can_complete_seventeen_challenges,
-        "Complete 5 Challenges: Laptop Gun Unlock": can_complete_five_challenges,
-        # "Complete Challenges: K7 Avenger Unlock": can_complete_one_challenge,
-        "Complete 19 Challenges: RC-P120 Unlock": can_complete_nineteen_challenges,
-        "Complete 2 Challenges: Shotgun Unlock": can_complete_two_challenges,
-        "Complete 9 Challenges: Reaper Unlock": can_complete_nine_challenges,
-        "Complete 11 Challenges: Devastator Unlock": can_complete_eleven_challenges,
-        "Complete 18 Challenges: Crossbow Unlock": can_complete_eighteen_challenges,
-        "Complete 21 Challenges: N-Bomb Unlock": can_complete_twenty_one_challenges,
-        "Complete 12 Challenges: Proximity Mine Unlock": can_complete_twelve_challenges,
-        "Complete 6 Challenges: Remote Mine Unlock": can_complete_six_challenges,
-        # "Complete Challenges: X-Ray Scanner Unlock": can_complete_one_challenge,
-        # "Complete Challenges: Shield Unlock": can_complete_one_challenge,
-        "Complete 10 Challenges: Cloaking Device Unlock": can_complete_ten_challenges,
-        "Complete 15 Challenges: Combat Boost Unlock": can_complete_fifteen_challenges,
-        "Complete 7 Challenges: Hard Bot Difficulty Unlock": can_complete_seven_challenges,
-        "Complete 12 Challenges: Perfect Bot Difficulty Unlock": can_complete_twelve_challenges,
-        # "Complete Challenges: Unused 1B Unlock": can_complete_one_challenge,
-        "Complete 22 Challenges: Dark Bot Difficulty Unlock": can_complete_twenty_two_challenges,
-        "Complete 8 Challenges: Slow Motion Unlock": can_complete_eight_challenges,
-        "Complete 3 Challenges: One-Hit Kills Unlock": can_complete_three_challenges,
-        # "Complete Challenges: King of the Hill Unlock": can_complete_one_challenge,
-        "Complete 2 Challenges: Hold the Briefcase Unlock": can_complete_two_challenges,
-        "Complete 4 Challenges: Capture the Case Unlock": can_complete_four_challenges,
-        # "Complete Challenges: Unused 22 Unlock": can_complete_one_challenge,
-        "Complete 17 Challenges: Car Park Unlock": can_complete_seventeen_challenges,
-        "Complete 1 Challenge: Complex Unlock": can_complete_one_challenge,
-        "Complete 3 Challenges: Warehouse Unlock": can_complete_three_challenges,
-        "Complete 5 Challenges: Ravine Unlock": can_complete_five_challenges,
-        "Complete 6 Challenges: Temple Unlock": can_complete_six_challenges,
-        "Complete 9 Challenges: G5 Building Unlock": can_complete_nine_challenges,
-        "Complete 11 Challenges: Grid Unlock": can_complete_eleven_challenges,
-        "Complete 12 Challenges: Felicity Unlock": can_complete_twelve_challenges,
-        "Complete 14 Challenges: Villa Unlock": can_complete_fourteen_challenges,
-        "Complete 16 Challenges: Sewers Unlock": can_complete_sixteen_challenges,
-        "Complete 22 Challenges: Ruins Unlock": can_complete_twenty_two_challenges,
-        "Complete 18 Challenges: Base Unlock": can_complete_eighteen_challenges,
-        # "Complete Challenges: Unused 2F Unlock": can_complete_one_challenge,
-        "Complete 20 Challenges: Fortress Unlock": can_complete_twenty_challenges,
-        # "Complete Challenges: Unused 31 Unlock": can_complete_one_challenge,
-        "Complete 1 Challenge: dataDyne Female Guard Unlock": can_complete_one_challenge,
-        "Complete 2 Challenges: Office Suit and Office Casual Unlock": can_complete_two_challenges,
-        "Complete 4 Challenges: Carrington Villa Outfits Unlock": can_complete_four_challenges,
-        "Complete 5 Challenges: Trent Unlock": can_complete_five_challenges,
-        "Complete 5 Challenges: NSA Lackey Unlock": can_complete_five_challenges,
-        "Complete 6 Challenges: G5 Building Outfits Unlock": can_complete_six_challenges,
-        "Complete 7 Challenges: Mr. Blonde Unlock": can_complete_seven_challenges,
-        "Complete 9 Challenges: CIA Agent and FBI Agent Unlock": can_complete_nine_challenges,
-        "Complete 10 Challenges: A51 Infiltration Outfits Unlock": can_complete_ten_challenges,
-        "Complete 11 Challenges: Lab Technician Outfits Unlock": can_complete_eleven_challenges,
-        "Complete 12 Challenges: Biotechnician Unlock": can_complete_twelve_challenges,
-        "Complete 14 Challenges: Elvis and Maian Soldier Unlock": can_complete_fourteen_challenges,
-        "Complete 17 Challenges: Alaskan Guard Unlock": can_complete_seventeen_challenges,
-        "Complete 16 Challenges: Air Force One Outfits Unlock": can_complete_sixteen_challenges,
-        "Complete 7 Challenges: 8 Bots and Dinner Jacket Outfits Unlock": can_complete_seven_challenges,
-        "Complete 18 Challenges: Formal Outfits and President Unlock": can_complete_eighteen_challenges,
-        "Complete 19 Challenges: President's Clone Unlock": can_complete_nineteen_challenges,
-        "Complete 18 Challenges: Presidential Security Unlock": can_complete_eighteen_challenges,
-        "Complete 19 Challenges: NSA Bodyguard Unlock": can_complete_nineteen_challenges,
-        "Complete 24 Challenges: Pelagic II Outfits Unlock": can_complete_twenty_four_challenges,
-        "Complete 8 Challenges: Joanna Trench Unlock": can_complete_eight_challenges,
-        # "Complete Challenges: Unused Jo Snow Unlock": can_complete_one_challenge,
-        # "Complete Challenges: Unused 48 Unlock": can_complete_one_challenge,
-        # "Complete Challenges: Unused 49 Unlock": can_complete_one_challenge,
-        "Complete 17 Challenges: Joanna Arctic Unlock": can_complete_seventeen_challenges,
-        # "Complete Challenges: Unused 4B Unlock": can_complete_one_challenge,
-        # "Complete Challenges: Jonathan Unlock": can_complete_one_challenge,
-        "Complete 12 Challenges: Pop a Cap Unlock": can_complete_twelve_challenges,
-        "Complete 6 Challenges: Hacker Central Unlock": can_complete_six_challenges,
-        # "Complete Challenges: Laser Unlock": can_complete_one_challenge,
-    }
+    complete_challenge_unlock_rules = {}
+
+    if has_challenges(world) and world.options.multiplayer_unlocks:
+        challenge_total = 0
+
+        for x in range(1, 31):
+            challenge_name = f"Challenge {x}"
+            if challenge_name not in world.options.excluded_challenges:
+                challenge_total += 1
+
+        if challenge_total >= 1:
+            complete_challenge_unlock_rules["Complete 1 Challenge: FarSight XR-20 Unlock"] = can_complete_one_challenge
+            complete_challenge_unlock_rules["Complete 1 Challenge: Complex Unlock"] = can_complete_one_challenge
+            complete_challenge_unlock_rules["Complete 1 Challenge: dataDyne Female Guard Unlock"] = can_complete_one_challenge
+
+        if challenge_total >= 2:
+            complete_challenge_unlock_rules["Complete 2 Challenges: Shotgun Unlock"] = can_complete_two_challenges
+            complete_challenge_unlock_rules["Complete 2 Challenges: Hold the Briefcase Unlock"] = can_complete_two_challenges
+            complete_challenge_unlock_rules["Complete 2 Challenges: Office Suit and Office Casual Unlock"] = can_complete_two_challenges
+
+        if challenge_total >= 3:
+            complete_challenge_unlock_rules["Complete 3 Challenges: Falcon 2 (Silencer) Unlock"] = can_complete_three_challenges
+            complete_challenge_unlock_rules["Complete 3 Challenges: One-Hit Kills Unlock"] = can_complete_three_challenges
+            complete_challenge_unlock_rules["Complete 3 Challenges: Warehouse Unlock"] = can_complete_three_challenges
+
+        if challenge_total >= 4:
+            complete_challenge_unlock_rules["Complete 4 Challenges: SuperDragon Unlock"] = can_complete_four_challenges
+            complete_challenge_unlock_rules["Complete 4 Challenges: Capture the Case Unlock"] = can_complete_four_challenges
+            complete_challenge_unlock_rules["Complete 4 Challenges: Carrington Villa Outfits Unlock"] = can_complete_four_challenges
+
+        if challenge_total >= 5:
+            complete_challenge_unlock_rules["Complete 5 Challenges: Laptop Gun Unlock"] = can_complete_five_challenges
+            complete_challenge_unlock_rules["Complete 5 Challenges: Ravine Unlock"] = can_complete_five_challenges
+            complete_challenge_unlock_rules["Complete 5 Challenges: Trent Unlock"] = can_complete_five_challenges
+            complete_challenge_unlock_rules["Complete 5 Challenges: NSA Lackey Unlock"] = can_complete_five_challenges
+
+        if challenge_total >= 6:
+            complete_challenge_unlock_rules["Complete 6 Challenges: Remote Mine Unlock"] = can_complete_six_challenges
+            complete_challenge_unlock_rules["Complete 6 Challenges: Temple Unlock"] = can_complete_six_challenges
+            complete_challenge_unlock_rules["Complete 6 Challenges: G5 Building Outfits Unlock"] = can_complete_six_challenges
+            complete_challenge_unlock_rules["Complete 6 Challenges: Hacker Central Unlock"] = can_complete_six_challenges
+
+        if challenge_total >= 7:
+            complete_challenge_unlock_rules["Complete 7 Challenges: Tranquilizer Unlock"] = can_complete_seven_challenges
+            complete_challenge_unlock_rules["Complete 7 Challenges: Hard Bot Difficulty Unlock"] = can_complete_seven_challenges
+            complete_challenge_unlock_rules["Complete 7 Challenges: Mr. Blonde Unlock"] = can_complete_seven_challenges
+            complete_challenge_unlock_rules["Complete 7 Challenges: 8 Bots and Dinner Jacket Outfits Unlock"] = can_complete_seven_challenges
+
+        if challenge_total >= 8:
+            complete_challenge_unlock_rules["Complete 8 Challenges: Falcon 2 (Scope) Unlock"] = can_complete_eight_challenges
+            complete_challenge_unlock_rules["Complete 8 Challenges: Slow Motion Unlock"] = can_complete_eight_challenges
+            complete_challenge_unlock_rules["Complete 8 Challenges: Joanna Trench Unlock"] = can_complete_eight_challenges
+
+        if challenge_total >= 9:
+            complete_challenge_unlock_rules["Complete 9 Challenges: Reaper Unlock"] = can_complete_nine_challenges
+            complete_challenge_unlock_rules["Complete 9 Challenges: G5 Building Unlock"] = can_complete_nine_challenges
+            complete_challenge_unlock_rules["Complete 9 Challenges: CIA Agent and FBI Agent Unlock"] = can_complete_nine_challenges
+
+        if challenge_total >= 10:
+            complete_challenge_unlock_rules["Complete 10 Challenges: Cloaking Device Unlock"] = can_complete_ten_challenges
+            complete_challenge_unlock_rules["Complete 10 Challenges: A51 Infiltration Outfits Unlock"] = can_complete_ten_challenges
+
+        if challenge_total >= 11:
+            complete_challenge_unlock_rules["Complete 11 Challenges: Devastator Unlock"] = can_complete_eleven_challenges
+            complete_challenge_unlock_rules["Complete 11 Challenges: Grid Unlock"] = can_complete_eleven_challenges
+            complete_challenge_unlock_rules["Complete 11 Challenges: Lab Technician Outfits Unlock"] = can_complete_eleven_challenges
+
+        if challenge_total >= 12:
+            complete_challenge_unlock_rules["Complete 12 Challenges: Proximity Mine Unlock"] = can_complete_twelve_challenges
+            complete_challenge_unlock_rules["Complete 12 Challenges: Perfect Bot Difficulty Unlock"] = can_complete_twelve_challenges
+            complete_challenge_unlock_rules["Complete 12 Challenges: Felicity Unlock"] = can_complete_twelve_challenges
+            complete_challenge_unlock_rules["Complete 12 Challenges: Biotechnician Unlock"] = can_complete_twelve_challenges
+            complete_challenge_unlock_rules["Complete 12 Challenges: Pop a Cap Unlock"] = can_complete_twelve_challenges
+
+        if challenge_total >= 13:
+            complete_challenge_unlock_rules["Complete 13 Challenges: Slayer Unlock"] = can_complete_thirteen_challenges
+
+        if challenge_total >= 14:
+            complete_challenge_unlock_rules["Complete 14 Challenges: Phoenix Unlock"] = can_complete_fourteen_challenges
+            complete_challenge_unlock_rules["Complete 14 Challenges: Villa Unlock"] = can_complete_fourteen_challenges
+            complete_challenge_unlock_rules["Complete 14 Challenges: Elvis and Maian Soldier Unlock"] = can_complete_fourteen_challenges
+
+        if challenge_total >= 15:
+            complete_challenge_unlock_rules["Complete 15 Challenges: Combat Boost Unlock"] = can_complete_fifteen_challenges
+
+        if challenge_total >= 16:
+            complete_challenge_unlock_rules["Complete 16 Challenges: Mauler Unlock"] = can_complete_sixteen_challenges
+            complete_challenge_unlock_rules["Complete 16 Challenges: Sewers Unlock"] = can_complete_sixteen_challenges
+            complete_challenge_unlock_rules["Complete 16 Challenges: Air Force One Outfits Unlock"] = can_complete_sixteen_challenges
+
+        if challenge_total >= 17:
+            complete_challenge_unlock_rules["Complete 17 Challenges: Callisto NTG Unlock"] = can_complete_seventeen_challenges
+            complete_challenge_unlock_rules["Complete 17 Challenges: Car Park Unlock"] = can_complete_seventeen_challenges
+            complete_challenge_unlock_rules["Complete 17 Challenges: Alaskan Guard Unlock"] = can_complete_seventeen_challenges
+            complete_challenge_unlock_rules["Complete 17 Challenges: Joanna Arctic Unlock"] = can_complete_seventeen_challenges
+
+        if challenge_total >= 18:
+            complete_challenge_unlock_rules["Complete 18 Challenges: Crossbow Unlock"] = can_complete_eighteen_challenges
+            complete_challenge_unlock_rules["Complete 18 Challenges: Base Unlock"] = can_complete_eighteen_challenges
+            complete_challenge_unlock_rules["Complete 18 Challenges: Formal Outfits and President Unlock"] = can_complete_eighteen_challenges
+            complete_challenge_unlock_rules["Complete 18 Challenges: Presidential Security Unlock"] = can_complete_eighteen_challenges
+
+        if challenge_total >= 19:
+            complete_challenge_unlock_rules["Complete 19 Challenges: RC-P120 Unlock"] = can_complete_nineteen_challenges
+            complete_challenge_unlock_rules["Complete 19 Challenges: President's Clone Unlock"] = can_complete_nineteen_challenges
+            complete_challenge_unlock_rules["Complete 19 Challenges: NSA Bodyguard Unlock"] = can_complete_nineteen_challenges
+
+        if challenge_total >= 20:
+            complete_challenge_unlock_rules["Complete 20 Challenges: DY357-LX Unlock"] = can_complete_twenty_challenges
+            complete_challenge_unlock_rules["Complete 20 Challenges: Fortress Unlock"] = can_complete_twenty_challenges
+
+        if challenge_total >= 21:
+            complete_challenge_unlock_rules["Complete 21 Challenges: N-Bomb Unlock"] = can_complete_twenty_one_challenges
+
+        if challenge_total >= 22:
+            complete_challenge_unlock_rules["Complete 22 Challenges: Dark Bot Difficulty Unlock"] = can_complete_twenty_two_challenges
+            complete_challenge_unlock_rules["Complete 22 Challenges: Ruins Unlock"] = can_complete_twenty_two_challenges
+
+        if challenge_total >= 24:
+            complete_challenge_unlock_rules["Complete 24 Challenges: Pelagic II Outfits Unlock"] = can_complete_twenty_four_challenges
 
 
     if world.options.weapon_training:
