@@ -95,7 +95,7 @@ ITEM_NAME_TO_ID = {
 	"Area 51 Lift Key Card": 76,
 	"Cassandra's Office Key Card": 77,
 	"Suitcase": 78,
-	"WEAPON_BRIEFCASE": 79,
+	# "WEAPON_BRIEFCASE": 79,
 	"Shield Tech Item": 80,
 	"De Vries' Necklace": 81,
     "Air Force One Left Room Key Card": 82,     # "HAMMER": 82,
@@ -383,7 +383,7 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
 	"Area 51 Lift Key Card": ItemClassification.progression | ItemClassification.useful,
 	"Cassandra's Office Key Card": ItemClassification.filler,
 	"Suitcase": ItemClassification.progression | ItemClassification.useful,
-	"WEAPON_BRIEFCASE": ItemClassification.filler,
+	# "WEAPON_BRIEFCASE": ItemClassification.filler,
 	"Shield Tech Item": ItemClassification.progression | ItemClassification.useful,
 	"De Vries' Necklace": ItemClassification.progression | ItemClassification.useful,
     "Air Force One Left Room Key Card": ItemClassification.filler,                      # "HAMMER": ItemClassification.filler,
@@ -635,31 +635,26 @@ def create_item_with_correct_classification(world: PerfectDarkWorld, name: str) 
     classification = DEFAULT_ITEM_CLASSIFICATIONS[name]
 
     if world.options.mission_logic >= MissionLogic.option_veteran \
-                and world.options.agent \
-                and not world.options.special_agent \
-                and not world.options.perfect_agent \
-                and name == "President Scanner":
-            classification = ItemClassification.filler
+            and world.options.agent \
+            and not world.options.special_agent \
+            and not world.options.perfect_agent \
+            and name == "President Scanner":
+        classification = ItemClassification.useful
 
     if world.options.mission_logic >= MissionLogic.option_hard \
             and not world.options.device_training \
             and not world.options.perfect_agent \
             and not world.options.pickupsanity \
             and name == "Night Vision":
-        classification = ItemClassification.filler
+        classification = ItemClassification.useful
 
-    if world.options.mission_logic == MissionLogic.option_perfect \
-                and not world.options.device_training \
-                and name == "IR Scanner":
-            classification = ItemClassification.filler
+    if world.options.mission_logic >= MissionLogic.option_hard \
+            and not world.options.device_training \
+            and name == "IR Scanner":
+        classification = ItemClassification.useful
 
-    if (world.options.challenge_logic.value == ChallengeLogic.option_strict
-            and has_challenges(world)
-            and (name == "Combat Boost" or name == "Shield")):
-        classification = ItemClassification.progression | ItemClassification.useful
-
-    if (world.options.challenge_logic.value == ChallengeLogic.option_normal
-            and has_challenges(world)
+    if (((has_challenges(world) and world.options.challenge_logic.value <= ChallengeLogic.option_normal)
+            or world.options.pickupsanity)
             and name == "Shield"):
         classification = ItemClassification.progression | ItemClassification.useful
 
@@ -669,18 +664,26 @@ def create_item_with_correct_classification(world: PerfectDarkWorld, name: str) 
         if name == "Air Force One Left Room Key Card" or name == "Air Force One Right Room Key Card":
             classification = ItemClassification.progression | ItemClassification.useful
 
-    if (world.options.pickupsanity 
-            and (world.options.agent
-            or world.options.special_agent
-            or world.options.perfect_agent)):
-        if name == "Air Force One Left Room Key Card" \
-                or name == "Air Force One Right Room Key Card" \
-                or name == "Cassandra's Office Key Card" \
-                or name == "Shield":
-            classification = ItemClassification.progression | ItemClassification.useful
+    if world.options.pickupsanity \
+            and (name == "Air Force One Left Room Key Card" 
+            or name == "Air Force One Right Room Key Card" 
+            or name == "Cassandra's Office Key Card" 
+            or name == "Psychosis Gun"):
+        classification = ItemClassification.progression | ItemClassification.useful
 
-        if name == "Psychosis Gun":
-            classification = ItemClassification.progression
+    if has_challenges(world) \
+            and world.options.challenge_logic.value == ChallengeLogic.option_strict \
+            and name == "Combat Boost":
+        classification = ItemClassification.progression | ItemClassification.useful
+
+    if (has_challenges(world) and world.options.challenge_logic.value == ChallengeLogic.option_hard) \
+            and not (world.options.pickupsanity and world.options.agent) \
+            and not world.options.device_training \
+            and not world.options.special_agent \
+            and not world.options.perfect_agent \
+            and world.options.mission_logic.value >= MissionLogic.option_hard \
+            and name == "Cloaking Device":
+        classification = ItemClassification.useful
 
     return PerfectDarkItem(name, classification, ITEM_NAME_TO_ID[name], world.player)
 
@@ -688,72 +691,139 @@ def create_item_with_correct_classification(world: PerfectDarkWorld, name: str) 
 def create_all_items(world:PerfectDarkWorld) -> None:
     itempool: list[Item] = []
     
-    # Create items found in any difficulty
-    if world.options.agent \
-            or world.options.special_agent \
-            or world.options.perfect_agent:
-        itempool.append(world.create_item("Combat Boost"))
-        itempool.append(world.create_item("Night Vision"))
-        itempool.append(world.create_item("CamSpy"))
-        itempool.append(world.create_item("X-Ray Scanner"))
-        itempool.append(world.create_item("IR Scanner"))
-        itempool.append(world.create_item("Cloaking Device"))
+    # Create items needed for missions
+    if has_any_difficulty(world):
         itempool.append(world.create_item("Horizon Scanner"))
-        itempool.append(world.create_item("Data Uplink"))
-        itempool.append(world.create_item("R-Tracker"))
         itempool.append(world.create_item("President Scanner"))
-        itempool.append(world.create_item("Door Decoder"))
         itempool.append(world.create_item("Alien Medpack"))
         itempool.append(world.create_item("Explosives"))
-        itempool.append(world.create_item("Target Amplifier"))
         itempool.append(world.create_item("Lab Clothes"))
-        itempool.append(world.create_item("Stewardess Disguise"))
         itempool.append(world.create_item("Backup Disk"))
         itempool.append(world.create_item("Cellar Key Card"))
         itempool.append(world.create_item("Suitcase"))
+        
+    if has_challenges(world) or has_any_difficulty(world):
+        itempool.append(world.create_item("Combat Boost"))
 
-        if world.options.npcs:
-            itempool.append(world.create_item("Carrington"))
-            itempool.append(world.create_item("Cassandra"))
-            itempool.append(world.create_item("Dr. Caroll"))
-            itempool.append(world.create_item("Jonathan"))
-            itempool.append(world.create_item("Elvis"))
-            itempool.append(world.create_item("President"))
-
-    # Create ECM Mine
-    if world.options.special_agent \
-            or world.options.perfect_agent \
-            or world.options.device_training:
-        itempool.append(world.create_item("ECM Mine"))
-
-    # Device Training only items
-    if world.options.device_training \
-            and not world.options.agent \
-            and not world.options.special_agent \
-            and not world.options.perfect_agent:
-        itempool.append(world.create_item("Data Uplink"))
-        itempool.append(world.create_item("CamSpy"))
-        itempool.append(world.create_item("Night Vision"))
-        itempool.append(world.create_item("Door Decoder"))
-        itempool.append(world.create_item("R-Tracker"))
-        itempool.append(world.create_item("IR Scanner"))
-        itempool.append(world.create_item("X-Ray Scanner"))
-        itempool.append(world.create_item("Stewardess Disguise"))
+    if has_challenges(world) \
+            or world.options.device_training \
+            or world.options.pickupsanity \
+            or has_any_difficulty(world):
         itempool.append(world.create_item("Cloaking Device"))
 
-    # Create items needed for Skedar Ruins
-    if world.options.goal.value == Goal.option_complete_skedar_ruins:
-        if not world.options.device_training:
-            itempool.append(world.create_item("IR Scanner"))
-            itempool.append(world.create_item("R-Tracker"))
+    if has_challenges(world) \
+            or world.options.device_training \
+            or has_any_difficulty(world):
+        itempool.append(world.create_item("Data Uplink"))
 
-        if not world.options.agent \
-                and not world.options.special_agent \
-                and not world.options.perfect_agent:
-            itempool.append(world.create_item("Target Amplifier"))
+    if world.options.device_training \
+            or world.options.pickupsanity \
+            or has_any_difficulty(world):
+        itempool.append(world.create_item("Night Vision"))
+        itempool.append(world.create_item("CamSpy"))
+        itempool.append(world.create_item("Stewardess Disguise"))
 
-            if world.options.npcs:
-                itempool.append(world.create_item("Elvis"))
+    if world.options.device_training \
+            or has_any_difficulty(world):
+        itempool.append(world.create_item("X-Ray Scanner"))
+        itempool.append(world.create_item("Door Decoder"))
+
+    if world.options.perfect_agent:
+        itempool.append(world.create_item("Tracer Bug"))
+        itempool.append(world.create_item("Flight Plans"))
+        itempool.append(world.create_item("Research Tape"))
+        itempool.append(world.create_item("Shield Tech Item"))
+
+    # Items in both Special and Perfect Agent
+    if world.options.special_agent or world.options.perfect_agent:
+        itempool.append(world.create_item("Skedar Bomb"))
+
+    if world.options.pickupsanity \
+            or world.options.special_agent \
+            or world.options.perfect_agent:
+        itempool.append(world.create_item("Comms Rider"))
+
+    # Create ECM Mine
+    if world.options.device_training \
+            or world.options.special_agent \
+            or world.options.perfect_agent:
+        itempool.append(world.create_item("ECM Mine"))
+
+    if (has_challenges(world)):
+        itempool.append(world.create_item("Briefcase"))
+
+    # Shield
+    if world.options.agent \
+            or world.options.special_agent \
+            or world.options.pickupsanity \
+            or has_challenges(world):
+        itempool.append(world.create_item("Shield"))
+
+    # Create items needed to beat Skedar Ruins
+    if world.options.device_training \
+            or world.options.pickupsanity \
+            or has_any_difficulty(world) \
+            or world.options.goal.value == Goal.option_complete_skedar_ruins:
+        itempool.append(world.create_item("IR Scanner"))
+        itempool.append(world.create_item("R-Tracker"))
+
+    if world.options.pickupsanity \
+            or has_any_difficulty(world) \
+            or world.options.goal.value == Goal.option_complete_skedar_ruins:
+        itempool.append(world.create_item("Target Amplifier"))
+
+
+    # Create key cards
+    if world.options.master_key:
+        if world.options.special_agent \
+                or world.options.perfect_agent \
+                or world.options.pickupsanity:
+            itempool.append(world.create_item("dataDyne Master Key"))
+
+        if has_any_difficulty(world):
+            itempool.append(world.create_item("Area 51 Master Key"))
+
+        if has_any_difficulty(world) \
+                or world.options.pickupsanity:
+            itempool.append(world.create_item("G5 Building Master Key"))
+            itempool.append(world.create_item("Air Force One Master Key"))
+
+    else:
+        if world.options.pickupsanity:
+            itempool.append(world.create_item("Cassandra's Office Key Card"))
+
+        if has_any_difficulty(world):
+            itempool.append(world.create_item("Medlab 2 Key Card"))
+            itempool.append(world.create_item("Op Room Key Card"))
+            itempool.append(world.create_item("Area 51 Lift Key Card"))
+
+
+        if world.options.pickupsanity \
+                or world.options.special_agent \
+                or world.options.perfect_agent:
+            itempool.append(world.create_item("De Vries' Necklace"))
+
+        if has_any_difficulty(world) \
+                or world.options.pickupsanity:
+            itempool.append(world.create_item("G5 Building Level 1 Key Card"))
+            itempool.append(world.create_item("G5 Building Level 2 Key Card"))
+            itempool.append(world.create_item("Air Force One Left Room Key Card"))
+            itempool.append(world.create_item("Air Force One Right Room Key Card"))
+
+        if world.options.special_agent \
+                or world.options.perfect_agent:
+            itempool.append(world.create_item("Air Force One Lift Key Card"))
+
+
+    # Create NPCs
+    if world.options.npcs:
+        itempool.append(world.create_item("Carrington"))
+        itempool.append(world.create_item("Cassandra"))
+        itempool.append(world.create_item("Dr. Caroll"))
+        itempool.append(world.create_item("Jonathan"))
+        itempool.append(world.create_item("Elvis"))
+        itempool.append(world.create_item("President"))
+
 
     # Cheats
     if world.options.include_cheats_in_item_pool:
@@ -800,48 +870,10 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         itempool.append(world.create_item("Cheat: Hit and Run"))
         itempool.append(world.create_item("Cheat: Alien"))
 
-    # Key Cards
-    if world.options.agent or world.options.special_agent or world.options.perfect_agent:
-        if world.options.master_key:
-            itempool.append(world.create_item("G5 Building Master Key"))
-            itempool.append(world.create_item("Area 51 Master Key"))
-
-            if world.options.special_agent or world.options.perfect_agent:
-                itempool.append(world.create_item("dataDyne Master Key"))
-
-            if (world.options.mission_logic.value == MissionLogic.option_veteran
-                    or world.options.mission_logic.value == MissionLogic.option_hard
-                    or world.options.special_agent
-                    or world.options.perfect_agent):
-                itempool.append(world.create_item("Air Force One Master Key"))
-
-        else:
-            itempool.append(world.create_item("G5 Building Level 1 Key Card"))
-            itempool.append(world.create_item("G5 Building Level 2 Key Card"))
-            itempool.append(world.create_item("Medlab 2 Key Card"))
-            itempool.append(world.create_item("Op Room Key Card"))
-            itempool.append(world.create_item("Area 51 Lift Key Card"))
-            itempool.append(world.create_item("Cassandra's Office Key Card"))
-            itempool.append(world.create_item("Air Force One Left Room Key Card"))
-            itempool.append(world.create_item("Air Force One Right Room Key Card"))
-
-            if world.options.special_agent or world.options.perfect_agent:
-                itempool.append(world.create_item("Air Force One Lift Key Card"))
-                itempool.append(world.create_item("De Vries' Necklace"))
-
-
-    # Shield
-    if world.options.agent or world.options.special_agent or has_challenges(world):
-        itempool.append(world.create_item("Shield"))
-
-
-    # Missions
-    if world.options.missions_in_item_pool.value == MissionsInItemPool.option_disabled:
-        if (is_skedar_ruins_in_itempool(world)):
-            itempool.append(world.create_item("Skedar Ruins"))
-            
-    elif world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled:
-        if (world.options.agent or world.options.special_agent or world.options.perfect_agent):
+    # Missions 
+    if world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled:
+        if has_any_difficulty(world) \
+                or world.options.pickupsanity:
             itempool.append(world.create_item("dD Defection"))
             itempool.append(world.create_item("dD Investigation"))
             itempool.append(world.create_item("dD Extraction"))
@@ -860,14 +892,17 @@ def create_all_items(world:PerfectDarkWorld) -> None:
             itempool.append(world.create_item("Attack Ship"))
             itempool.append(world.create_item("Mr. Blonde's Revenge"))
             itempool.append(world.create_item("Maian SOS"))
-            itempool.append(world.create_item("WAR!"))
-            itempool.append(world.create_item("The Duel"))
 
-            if (is_skedar_ruins_in_itempool(world)):
-                itempool.append(world.create_item("Skedar Ruins"))
+            if has_any_difficulty(world):
+                itempool.append(world.create_item("WAR!"))
+                itempool.append(world.create_item("The Duel"))
+
+        if (is_skedar_ruins_in_itempool(world)):
+            itempool.append(world.create_item("Skedar Ruins"))
 
     elif world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled_per_difficulty:
-        if world.options.agent:
+        if world.options.agent \
+                or world.options.pickupsanity:
             itempool.append(world.create_item("dD Defection - Agent"))
             itempool.append(world.create_item("dD Investigation - Agent"))
             itempool.append(world.create_item("dD Extraction - Agent"))
@@ -886,13 +921,16 @@ def create_all_items(world:PerfectDarkWorld) -> None:
             itempool.append(world.create_item("Attack Ship - Agent"))
             itempool.append(world.create_item("Mr. Blonde's Revenge - Agent"))
             itempool.append(world.create_item("Maian SOS - Agent"))
-            itempool.append(world.create_item("WAR! - Agent"))
-            itempool.append(world.create_item("The Duel - Agent"))
+
+            if world.options.agent:
+                itempool.append(world.create_item("WAR! - Agent"))
+                itempool.append(world.create_item("The Duel - Agent"))
 
             if (is_skedar_ruins_in_itempool(world)):
                 itempool.append(world.create_item("Skedar Ruins - Agent"))
 
-        if world.options.special_agent:
+        if world.options.special_agent \
+                or world.options.pickupsanity:
             itempool.append(world.create_item("dD Defection - Special Agent"))
             itempool.append(world.create_item("dD Investigation - Special Agent"))
             itempool.append(world.create_item("dD Extraction - Special Agent"))
@@ -911,13 +949,16 @@ def create_all_items(world:PerfectDarkWorld) -> None:
             itempool.append(world.create_item("Attack Ship - Special Agent"))
             itempool.append(world.create_item("Mr. Blonde's Revenge - Special Agent"))
             itempool.append(world.create_item("Maian SOS - Special Agent"))
-            itempool.append(world.create_item("WAR! - Special Agent"))
-            itempool.append(world.create_item("The Duel - Special Agent"))
+
+            if world.options.special_agent:
+                itempool.append(world.create_item("WAR! - Special Agent"))
+                itempool.append(world.create_item("The Duel - Special Agent"))
     
             if (is_skedar_ruins_in_itempool(world)):
                 itempool.append(world.create_item("Skedar Ruins - Special Agent"))
 
-        if world.options.perfect_agent:
+        if world.options.perfect_agent \
+                or world.options.pickupsanity:
             itempool.append(world.create_item("dD Defection - Perfect Agent"))
             itempool.append(world.create_item("dD Investigation - Perfect Agent"))
             itempool.append(world.create_item("dD Extraction - Perfect Agent"))
@@ -936,22 +977,21 @@ def create_all_items(world:PerfectDarkWorld) -> None:
             itempool.append(world.create_item("Attack Ship - Perfect Agent"))
             itempool.append(world.create_item("Mr. Blonde's Revenge - Perfect Agent"))
             itempool.append(world.create_item("Maian SOS - Perfect Agent"))
-            itempool.append(world.create_item("WAR! - Perfect Agent"))
-            itempool.append(world.create_item("The Duel - Perfect Agent"))
+
+            if world.options.perfect_agent:
+                itempool.append(world.create_item("WAR! - Perfect Agent"))
+                itempool.append(world.create_item("The Duel - Perfect Agent"))
     
             if (is_skedar_ruins_in_itempool(world)):
                 itempool.append(world.create_item("Skedar Ruins - Perfect Agent"))
 
-    if world.options.perfect_agent:
-        itempool.append(world.create_item("Tracer Bug"))
-        itempool.append(world.create_item("Flight Plans"))
-        itempool.append(world.create_item("Research Tape"))
-        itempool.append(world.create_item("Shield Tech Item"))
+        if (is_skedar_ruins_in_itempool(world) 
+                and not has_any_difficulty(world)
+                and not world.options.pickupsanity):
+            itempool.append(world.create_item("Skedar Ruins - Agent"))
+            itempool.append(world.create_item("Skedar Ruins - Special Agent"))
+            itempool.append(world.create_item("Skedar Ruins - Perfect Agent"))
 
-    # Items in both Special and Perfect Agent
-    if world.options.special_agent or world.options.perfect_agent:
-        itempool.append(world.create_item("Skedar Bomb"))
-        itempool.append(world.create_item("Comms Rider"))
 
     # Weapons
     if (world.options.weapon_progression.value == WeaponProgression.option_normal
@@ -1026,33 +1066,11 @@ def create_all_items(world:PerfectDarkWorld) -> None:
 
 
     # Challenges
-    if (has_challenges(world)):
-        itempool.append(world.create_item("Briefcase"))
-
-        if not world.options.device_training \
-                and not world.options.agent \
-                and not world.options.special_agent \
-                and not world.options.perfect_agent:
-            itempool.append(world.create_item("Data Uplink"))
-
-        if world.options.challenge_logic.value == ChallengeLogic.option_strict \
-                and not world.options.agent \
-                and not world.options.special_agent \
-                and not world.options.perfect_agent:
-            itempool.append(world.create_item("Combat Boost"))
-
-        if world.options.challenge_logic.value < ChallengeLogic.option_hard \
-                and not world.options.device_training \
-                and not world.options.agent \
-                and not world.options.special_agent \
-                and not world.options.perfect_agent:
-            itempool.append(world.create_item("Cloaking Device"))
-
-        if world.options.challenges_in_item_pool:
-            for x in range(1, 31):
-                challenge_name = f"Challenge {x}"
-                if (world.options.excluded_challenges.__contains__(challenge_name) == False):
-                    itempool.append(world.create_item(challenge_name))
+    if has_challenges(world) and world.options.challenges_in_item_pool:
+        for x in range(1, 31):
+            challenge_name = f"Challenge {x}"
+            if (world.options.excluded_challenges.__contains__(challenge_name) == False):
+                itempool.append(world.create_item(challenge_name))
 
 
     # Place items based on the goal
@@ -1425,3 +1443,9 @@ def has_challenges(world: PerfectDarkWorld) -> bool:
         return True
     else:
         return False
+
+def has_any_difficulty(world: PerfectDarkWorld) -> bool:
+    if (world.options.agent or world.options.special_agent or world.options.perfect_agent):
+        return True
+
+    return False

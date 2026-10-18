@@ -2879,7 +2879,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Deep Sea: Proximity Mine (from guard in 2nd room with cloaked guards)": has_deep_sea
                                                                                  & has_proxy_mine
-                                                                                 & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+                                                                                 & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                                                  & has_deep_sea_weapon,
         
         # "Deep Sea: Shotgun (near Shield on the left path)": has_deep_sea
