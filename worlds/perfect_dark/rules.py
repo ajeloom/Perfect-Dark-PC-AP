@@ -527,12 +527,18 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                      | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
                                      | HAS_ANY_WEAPON_TYPE)
 
-    has_villa_agent_or_special = (HasAny("Carrington Villa - Agent", "Carrington Villa - Special Agent"))
+
+    has_villa_agent_or_special = ((has_agent & HasAny("Carrington Villa - Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True))
+                                 | (has_special_agent & HasAny("Carrington Villa - Special Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True)))
     
     villa_pickupsanity_weapon = (has_villa_agent_or_special & Has("Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
                                 | (has_villa_agent_or_special & HasAny("Sniper Rifle", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
-                                | (Has("Carrington Villa - Perfect Agent") & Has("Laptop Gun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False))
-                                | (Has("Carrington Villa - Perfect Agent") & HasAny("Laptop Gun", "CMP150", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
+                                | (has_perfect_agent 
+                                    & HasAny("Carrington Villa - Perfect Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
+                                    & Has("Laptop Gun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False))
+                                | (has_perfect_agent 
+                                    & HasAny("Carrington Villa - Perfect Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
+                                    & HasAny("Laptop Gun", "CMP150", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                 | HAS_ANY_WEAPON_TYPE)
