@@ -23,7 +23,6 @@ from .options import (
     NPCs, 
     AlternateExits,
 )
-from .items import has_challenges
 
 npc_filter = OptionFilter(NPCs, True)
 challenge_item_pool_filter = OptionFilter(ChallengesInItemPool, True)
@@ -4003,8 +4002,8 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"], options=[normal_and_hard_logic])
                         | (strict_logic
                             & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Scope)"])
-                            & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"])
-                            & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]))
+                            & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"])
+                            & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]))
                         | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Scope)"], options=[normal_and_hard_logic])
                         | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"], options=[normal_and_hard_logic])
                         | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"], options=[normal_and_hard_logic])),
@@ -4597,3 +4596,12 @@ def exclude_weapons_from_list(excluded_weapons: list[str]) -> list[str]:
             new_list.append(weapon)
 
     return new_list
+
+def has_challenges(world: PerfectDarkWorld) -> bool:
+    if (world.options.challenges
+        or (world.options.goal >= Goal.option_complete_challenges)
+        or (world.options.goal == Goal.option_complete_skedar_ruins
+            and (world.options.skedar_ruins_requirements.value >= SkedarRuinsRequirements.option_collect_challenge_stars))):
+        return True
+    else:
+        return False

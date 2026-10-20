@@ -16,6 +16,16 @@ from .options import (
     ChallengeLogic,
 )
 
+from .rules import (
+    PROGRESSIVE_WEAPON_NAME_TO_ID, 
+    PROGRESSIVE_PISTOL_NAME_TO_ID, 
+    PROGRESSIVE_SMG_NAME_TO_ID, 
+    PROGRESSIVE_RIFLE_NAME_TO_ID, 
+    PROGRESSIVE_EXPLOSIVE_NAME_TO_ID,
+    PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID,
+    has_challenges,
+)
+
 ITEM_NAME_TO_ID = {
     # "NONE": 1,
     # "UNARMED": 2,
@@ -591,6 +601,44 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "The Duel": ItemClassification.progression | ItemClassification.useful,
 }
 
+mission_list = []
+challenge_list = []
+
+FIRING_RANGE_LIST = [
+    "Falcon 2",
+    "Falcon 2 (Silencer)",
+    "Falcon 2 (Scope)",
+    "MagSec 4",
+    "Mauler",
+    "Phoenix",
+    "DY357 Magnum",
+    "DY357-LX",
+    "CMP150",
+    "Cyclone",
+    "Callisto NTG",
+    "RC-P120",
+    "Laptop Gun",
+    "Dragon",
+    "K7 Avenger",
+    "AR34",
+    "SuperDragon",
+    "Shotgun",
+    "Reaper",
+    "Sniper Rifle",
+    "FarSight XR-20",
+    "Devastator",
+    "Rocket Launcher",
+    "Slayer",
+    "Combat Knife",
+    "Crossbow",
+    "Tranquilizer",
+    "Laser",
+    "Grenade",
+    "Timed Mine",
+    "Proximity Mine",
+    "Remote Mine",
+]
+
 
 class PerfectDarkItem(Item):
     game = "Perfect Dark"
@@ -874,123 +922,123 @@ def create_all_items(world:PerfectDarkWorld) -> None:
     if world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled:
         if has_any_difficulty(world) \
                 or world.options.pickupsanity:
-            itempool.append(world.create_item("dD Defection"))
-            itempool.append(world.create_item("dD Investigation"))
-            itempool.append(world.create_item("dD Extraction"))
-            itempool.append(world.create_item("Carrington Villa"))
-            itempool.append(world.create_item("Chicago"))
-            itempool.append(world.create_item("G5 Building"))
-            itempool.append(world.create_item("A51 Infiltration"))
-            itempool.append(world.create_item("A51 Rescue"))
-            itempool.append(world.create_item("A51 Escape"))
-            itempool.append(world.create_item("Air Base"))
-            itempool.append(world.create_item("Air Force One"))
-            itempool.append(world.create_item("Crash Site"))
-            itempool.append(world.create_item("Pelagic II"))
-            itempool.append(world.create_item("Deep Sea"))
-            itempool.append(world.create_item("CI Defense"))
-            itempool.append(world.create_item("Attack Ship"))
-            itempool.append(world.create_item("Mr. Blonde's Revenge"))
-            itempool.append(world.create_item("Maian SOS"))
+            add_mission(world, "dD Defection", itempool)
+            add_mission(world, "dD Investigation", itempool)
+            add_mission(world, "dD Extraction", itempool)
+            add_mission(world, "Carrington Villa", itempool)
+            add_mission(world, "Chicago", itempool)
+            add_mission(world, "G5 Building", itempool)
+            add_mission(world, "A51 Infiltration", itempool)
+            add_mission(world, "A51 Rescue", itempool)
+            add_mission(world, "A51 Escape", itempool)
+            add_mission(world, "Air Base", itempool)
+            add_mission(world, "Air Force One", itempool)
+            add_mission(world, "Crash Site", itempool)
+            add_mission(world, "Pelagic II", itempool)
+            add_mission(world, "Deep Sea", itempool)
+            add_mission(world, "CI Defense", itempool)
+            add_mission(world, "Attack Ship", itempool)
+            add_mission(world, "Mr. Blonde's Revenge", itempool)
+            add_mission(world, "Maian SOS", itempool)
 
             if has_any_difficulty(world):
-                itempool.append(world.create_item("WAR!"))
-                itempool.append(world.create_item("The Duel"))
+                add_mission(world, "WAR!", itempool)
+                add_mission(world, "The Duel", itempool)
 
         if (is_skedar_ruins_in_itempool(world)):
-            itempool.append(world.create_item("Skedar Ruins"))
+            add_mission(world, "Skedar Ruins", itempool)
 
     elif world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled_per_difficulty:
         if world.options.agent \
                 or world.options.pickupsanity:
-            itempool.append(world.create_item("dD Defection - Agent"))
-            itempool.append(world.create_item("dD Investigation - Agent"))
-            itempool.append(world.create_item("dD Extraction - Agent"))
-            itempool.append(world.create_item("Carrington Villa - Agent"))
-            itempool.append(world.create_item("Chicago - Agent"))
-            itempool.append(world.create_item("G5 Building - Agent"))
-            itempool.append(world.create_item("A51 Infiltration - Agent"))
-            itempool.append(world.create_item("A51 Rescue - Agent"))
-            itempool.append(world.create_item("A51 Escape - Agent"))
-            itempool.append(world.create_item("Air Base - Agent"))
-            itempool.append(world.create_item("Air Force One - Agent"))
-            itempool.append(world.create_item("Crash Site - Agent"))
-            itempool.append(world.create_item("Pelagic II - Agent"))
-            itempool.append(world.create_item("Deep Sea - Agent"))
-            itempool.append(world.create_item("CI Defense - Agent"))
-            itempool.append(world.create_item("Attack Ship - Agent"))
-            itempool.append(world.create_item("Mr. Blonde's Revenge - Agent"))
-            itempool.append(world.create_item("Maian SOS - Agent"))
+            add_mission(world, "dD Defection - Agent", itempool)
+            add_mission(world, "dD Investigation - Agent", itempool)
+            add_mission(world, "dD Extraction - Agent", itempool)
+            add_mission(world, "Carrington Villa - Agent", itempool)
+            add_mission(world, "Chicago - Agent", itempool)
+            add_mission(world, "G5 Building - Agent", itempool)
+            add_mission(world, "A51 Infiltration - Agent", itempool)
+            add_mission(world, "A51 Rescue - Agent", itempool)
+            add_mission(world, "A51 Escape - Agent", itempool)
+            add_mission(world, "Air Base - Agent", itempool)
+            add_mission(world, "Air Force One - Agent", itempool)
+            add_mission(world, "Crash Site - Agent", itempool)
+            add_mission(world, "Pelagic II - Agent", itempool)
+            add_mission(world, "Deep Sea - Agent", itempool)
+            add_mission(world, "CI Defense - Agent", itempool)
+            add_mission(world, "Attack Ship - Agent", itempool)
+            add_mission(world, "Mr. Blonde's Revenge - Agent", itempool)
+            add_mission(world, "Maian SOS - Agent", itempool)
 
             if world.options.agent:
-                itempool.append(world.create_item("WAR! - Agent"))
-                itempool.append(world.create_item("The Duel - Agent"))
+                add_mission(world, "WAR! - Agent", itempool)
+                add_mission(world, "The Duel - Agent", itempool)
 
             if (is_skedar_ruins_in_itempool(world)):
-                itempool.append(world.create_item("Skedar Ruins - Agent"))
+                add_mission(world, "Skedar Ruins - Agent", itempool)
 
         if world.options.special_agent \
                 or world.options.pickupsanity:
-            itempool.append(world.create_item("dD Defection - Special Agent"))
-            itempool.append(world.create_item("dD Investigation - Special Agent"))
-            itempool.append(world.create_item("dD Extraction - Special Agent"))
-            itempool.append(world.create_item("Carrington Villa - Special Agent"))
-            itempool.append(world.create_item("Chicago - Special Agent"))
-            itempool.append(world.create_item("G5 Building - Special Agent"))
-            itempool.append(world.create_item("A51 Infiltration - Special Agent"))
-            itempool.append(world.create_item("A51 Rescue - Special Agent"))
-            itempool.append(world.create_item("A51 Escape - Special Agent"))
-            itempool.append(world.create_item("Air Base - Special Agent"))
-            itempool.append(world.create_item("Air Force One - Special Agent"))
-            itempool.append(world.create_item("Crash Site - Special Agent"))
-            itempool.append(world.create_item("Pelagic II - Special Agent"))
-            itempool.append(world.create_item("Deep Sea - Special Agent"))
-            itempool.append(world.create_item("CI Defense - Special Agent"))
-            itempool.append(world.create_item("Attack Ship - Special Agent"))
-            itempool.append(world.create_item("Mr. Blonde's Revenge - Special Agent"))
-            itempool.append(world.create_item("Maian SOS - Special Agent"))
+            add_mission(world, "dD Defection - Special Agent", itempool)
+            add_mission(world, "dD Investigation - Special Agent", itempool)
+            add_mission(world, "dD Extraction - Special Agent", itempool)
+            add_mission(world, "Carrington Villa - Special Agent", itempool)
+            add_mission(world, "Chicago - Special Agent", itempool)
+            add_mission(world, "G5 Building - Special Agent", itempool)
+            add_mission(world, "A51 Infiltration - Special Agent", itempool)
+            add_mission(world, "A51 Rescue - Special Agent", itempool)
+            add_mission(world, "A51 Escape - Special Agent", itempool)
+            add_mission(world, "Air Base - Special Agent", itempool)
+            add_mission(world, "Air Force One - Special Agent", itempool)
+            add_mission(world, "Crash Site - Special Agent", itempool)
+            add_mission(world, "Pelagic II - Special Agent", itempool)
+            add_mission(world, "Deep Sea - Special Agent", itempool)
+            add_mission(world, "CI Defense - Special Agent", itempool)
+            add_mission(world, "Attack Ship - Special Agent", itempool)
+            add_mission(world, "Mr. Blonde's Revenge - Special Agent", itempool)
+            add_mission(world, "Maian SOS - Special Agent", itempool)
 
             if world.options.special_agent:
-                itempool.append(world.create_item("WAR! - Special Agent"))
-                itempool.append(world.create_item("The Duel - Special Agent"))
+                add_mission(world, "WAR! - Special Agent", itempool)
+                add_mission(world, "The Duel - Special Agent", itempool)
     
             if (is_skedar_ruins_in_itempool(world)):
-                itempool.append(world.create_item("Skedar Ruins - Special Agent"))
+                add_mission(world, "Skedar Ruins - Special Agent", itempool)
 
         if world.options.perfect_agent \
                 or world.options.pickupsanity:
-            itempool.append(world.create_item("dD Defection - Perfect Agent"))
-            itempool.append(world.create_item("dD Investigation - Perfect Agent"))
-            itempool.append(world.create_item("dD Extraction - Perfect Agent"))
-            itempool.append(world.create_item("Carrington Villa - Perfect Agent"))
-            itempool.append(world.create_item("Chicago - Perfect Agent"))
-            itempool.append(world.create_item("G5 Building - Perfect Agent"))
-            itempool.append(world.create_item("A51 Infiltration - Perfect Agent"))
-            itempool.append(world.create_item("A51 Rescue - Perfect Agent"))
-            itempool.append(world.create_item("A51 Escape - Perfect Agent"))
-            itempool.append(world.create_item("Air Base - Perfect Agent"))
-            itempool.append(world.create_item("Air Force One - Perfect Agent"))
-            itempool.append(world.create_item("Crash Site - Perfect Agent"))
-            itempool.append(world.create_item("Pelagic II - Perfect Agent"))
-            itempool.append(world.create_item("Deep Sea - Perfect Agent"))
-            itempool.append(world.create_item("CI Defense - Perfect Agent"))
-            itempool.append(world.create_item("Attack Ship - Perfect Agent"))
-            itempool.append(world.create_item("Mr. Blonde's Revenge - Perfect Agent"))
-            itempool.append(world.create_item("Maian SOS - Perfect Agent"))
+            add_mission(world, "dD Defection - Perfect Agent", itempool)
+            add_mission(world, "dD Investigation - Perfect Agent", itempool)
+            add_mission(world, "dD Extraction - Perfect Agent", itempool)
+            add_mission(world, "Carrington Villa - Perfect Agent", itempool)
+            add_mission(world, "Chicago - Perfect Agent", itempool)
+            add_mission(world, "G5 Building - Perfect Agent", itempool)
+            add_mission(world, "A51 Infiltration - Perfect Agent", itempool)
+            add_mission(world, "A51 Rescue - Perfect Agent", itempool)
+            add_mission(world, "A51 Escape - Perfect Agent", itempool)
+            add_mission(world, "Air Base - Perfect Agent", itempool)
+            add_mission(world, "Air Force One - Perfect Agent", itempool)
+            add_mission(world, "Crash Site - Perfect Agent", itempool)
+            add_mission(world, "Pelagic II - Perfect Agent", itempool)
+            add_mission(world, "Deep Sea - Perfect Agent", itempool)
+            add_mission(world, "CI Defense - Perfect Agent", itempool)
+            add_mission(world, "Attack Ship - Perfect Agent", itempool)
+            add_mission(world, "Mr. Blonde's Revenge - Perfect Agent", itempool)
+            add_mission(world, "Maian SOS - Perfect Agent", itempool)
 
             if world.options.perfect_agent:
-                itempool.append(world.create_item("WAR! - Perfect Agent"))
-                itempool.append(world.create_item("The Duel - Perfect Agent"))
+                add_mission(world, "WAR! - Perfect Agent", itempool)
+                add_mission(world, "The Duel - Perfect Agent", itempool)
     
             if (is_skedar_ruins_in_itempool(world)):
-                itempool.append(world.create_item("Skedar Ruins - Perfect Agent"))
+                add_mission(world, "Skedar Ruins - Perfect Agent", itempool)
 
         if (is_skedar_ruins_in_itempool(world) 
                 and not has_any_difficulty(world)
                 and not world.options.pickupsanity):
-            itempool.append(world.create_item("Skedar Ruins - Agent"))
-            itempool.append(world.create_item("Skedar Ruins - Special Agent"))
-            itempool.append(world.create_item("Skedar Ruins - Perfect Agent"))
+            add_mission(world, "Skedar Ruins - Agent", itempool)
+            add_mission(world, "Skedar Ruins - Special Agent", itempool)
+            add_mission(world, "Skedar Ruins - Perfect Agent", itempool)
 
 
     # Weapons
@@ -1066,11 +1114,14 @@ def create_all_items(world:PerfectDarkWorld) -> None:
 
 
     # Challenges
-    if has_challenges(world) and world.options.challenges_in_item_pool:
+    if has_challenges(world):
         for x in range(1, 31):
             challenge_name = f"Challenge {x}"
             if (world.options.excluded_challenges.__contains__(challenge_name) == False):
-                itempool.append(world.create_item(challenge_name))
+                challenge_list.append(challenge_name)
+                    
+                if world.options.challenges_in_item_pool:
+                    itempool.append(world.create_item(challenge_name))
 
 
     # Place items based on the goal
@@ -1189,136 +1240,347 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         world.get_location("Collect All Stars").place_locked_item(world.create_item("Victory"))
 
 
-    # Start with a random mission
-    if world.options.start_with_mission:
-        if world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled:
-            missions = []
+    option_list = []
+    
+    if has_any_difficulty(world) or world.options.pickupsanity:
+        option_list.append("Missions")
+    
+    if world.options.weapon_training:
+        option_list.append("Weapon Training")
 
-            if world.options.agent or world.options.special_agent or world.options.perfect_agent:
-                missions.append("dD Defection")
-                missions.append("dD Investigation")
-                missions.append("dD Extraction")
-                missions.append("Carrington Villa")
-                missions.append("Chicago")
-                missions.append("G5 Building")
-                missions.append("A51 Infiltration")
-                missions.append("A51 Rescue")
-                missions.append("A51 Escape")
-                missions.append("Air Base")
-                missions.append("Air Force One")
-                missions.append("Crash Site")
-                missions.append("Pelagic II")
-                missions.append("Deep Sea")
-                missions.append("CI Defense")
-                missions.append("Attack Ship")
-                missions.append("Mr. Blonde's Revenge")
-                missions.append("Maian SOS")
-                missions.append("WAR!")
-                missions.append("The Duel")
+    if world.options.device_training:
+        option_list.append("Device Training")
 
-            if (is_skedar_ruins_in_itempool(world)):
-                missions.append("Skedar Ruins")
+    if has_challenges(world):
+        option_list.append("Challenges")
 
-            item = world.random.choice(missions)
-            remove_starting_item_from_pool(world, item, itempool)
-        
-        elif world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled_per_difficulty:
-            missions = []
+    if world.options.starting_items and option_list:
+        option = world.random.choice(option_list)
 
-            if world.options.agent:
-                missions.append("dD Defection - Agent")
-                missions.append("dD Investigation - Agent")
-                missions.append("dD Extraction - Agent")
-                missions.append("Carrington Villa - Agent")
-                missions.append("Chicago - Agent")
-                missions.append("G5 Building - Agent")
-                missions.append("A51 Infiltration - Agent")
-                missions.append("A51 Rescue - Agent")
-                missions.append("A51 Escape - Agent")
-                missions.append("Air Base - Agent")
-                missions.append("Air Force One - Agent")
-                missions.append("Crash Site - Agent")
-                missions.append("Pelagic II - Agent")
-                missions.append("Deep Sea - Agent")
-                missions.append("CI Defense - Agent")
-                missions.append("Attack Ship - Agent")
-                missions.append("Mr. Blonde's Revenge - Agent")
-                missions.append("Maian SOS - Agent")
-                missions.append("WAR! - Agent")
-                missions.append("The Duel - Agent")
+        # Mission
+        if option == "Missions":
+            if world.options.missions_in_item_pool.value == MissionsInItemPool.option_disabled:
+                if world.options.weapon_progression.value <= WeaponProgression.option_all_guns:
+                    starting_weapons_list = [
+                        "Falcon 2",
+                        "Falcon 2 (Silencer)",
+                        "Falcon 2 (Scope)",
+                        "Mauler",
+                        "Phoenix",
+                        # "Callisto NTG",
+                        "Laptop Gun",
+                        "AR34",
+                        "Shotgun",
+                        # "Sniper Rifle",
+                        "Crossbow",
+                    ]
 
-            if world.options.special_agent:
-                missions.append("dD Defection - Special Agent")
-                missions.append("dD Investigation - Special Agent")
-                missions.append("dD Extraction - Special Agent")
-                missions.append("Carrington Villa - Special Agent")
-                missions.append("Chicago - Special Agent")
-                missions.append("G5 Building - Special Agent")
-                missions.append("A51 Infiltration - Special Agent")
-                missions.append("A51 Rescue - Special Agent")
-                missions.append("A51 Escape - Special Agent")
-                missions.append("Air Base - Special Agent")
-                missions.append("Air Force One - Special Agent")
-                missions.append("Crash Site - Special Agent")
-                missions.append("Pelagic II - Special Agent")
-                missions.append("Deep Sea - Special Agent")
-                missions.append("CI Defense - Special Agent")
-                missions.append("Attack Ship - Special Agent")
-                missions.append("Mr. Blonde's Revenge - Special Agent")
-                missions.append("Maian SOS - Special Agent")
-                missions.append("WAR! - Special Agent")
-                missions.append("The Duel - Special Agent")
+                    if world.options.agent or world.options.special_agent \
+                            or (world.options.pickupsanity and not has_any_difficulty(world)):
+                        starting_weapons_list.append("Sniper Rifle")
 
-            if world.options.perfect_agent:
-                missions.append("dD Defection - Perfect Agent")
-                missions.append("dD Investigation - Perfect Agent")
-                missions.append("dD Extraction - Perfect Agent")
-                missions.append("Carrington Villa - Perfect Agent")
-                missions.append("Chicago - Perfect Agent")
-                missions.append("G5 Building - Perfect Agent")
-                missions.append("A51 Infiltration - Perfect Agent")
-                missions.append("A51 Rescue - Perfect Agent")
-                missions.append("A51 Escape - Perfect Agent")
-                missions.append("Air Base - Perfect Agent")
-                missions.append("Air Force One - Perfect Agent")
-                missions.append("Crash Site - Perfect Agent")
-                missions.append("Pelagic II - Perfect Agent")
-                missions.append("Deep Sea - Perfect Agent")
-                missions.append("CI Defense - Perfect Agent")
-                missions.append("Attack Ship - Perfect Agent")
-                missions.append("Mr. Blonde's Revenge - Perfect Agent")
-                missions.append("Maian SOS - Perfect Agent")
-                missions.append("WAR! - Perfect Agent")
-                missions.append("The Duel - Perfect Agent")
+                    weapon = world.random.choice(starting_weapons_list)
+                    remove_starting_item_from_pool(world, weapon, itempool)
 
-            if (is_skedar_ruins_in_itempool(world)):
-                if world.options.agent:
-                    missions.append("Skedar Ruins - Agent")
-                if world.options.special_agent:
-                    missions.append("Skedar Ruins - Special Agent")
-                if world.options.perfect_agent:
-                    missions.append("Skedar Ruins - Perfect Agent")
+                elif (world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon
+                        or world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun):
+                    for _ in range(PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]):
+                        remove_starting_item_from_pool(world, "Progressive Weapon", itempool)
 
-            item = world.random.choice(missions)
-            remove_starting_item_from_pool(world, item, itempool)
+                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+                    progressive_types_list = [
+                        "Progressive Pistol",
+                        "Progressive SMG",
+                        "Progressive Rifle",
+                        "Progressive Explosive",
+                        "Progressive Other Weapon"
+                    ]
+
+                    selected_types = world.random.sample(progressive_types_list, 2)
+
+                    for weapon in selected_types:
+                        if weapon == "Progressive Other Weapon":
+                            for _ in range(4):
+                                remove_starting_item_from_pool(world, "Progressive Other Weapon", itempool)
+                        else:
+                            remove_starting_item_from_pool(world, weapon, itempool)
+
+            elif world.options.missions_in_item_pool.value >= MissionsInItemPool.option_enabled:
+                mission = world.random.choice(mission_list)
+                # print(f"Picked {mission} to start with")
+                remove_starting_item_from_pool(world, mission, itempool)
+
+                if world.options.weapon_progression.value <= WeaponProgression.option_all_guns:
+                    # Weapon for mission
+                    if any(name in mission for name in 
+                            ("dD Defection", 
+                            "G5 Building",
+                            "A51 Rescue")):
+                        remove_starting_item_from_pool(world, "Falcon 2 (Silencer)", itempool)
+
+                    elif any(name in mission for name in 
+                            ("dD Investigation", 
+                            "A51 Infiltration",
+                            "Maian SOS")):
+                        remove_starting_item_from_pool(world, "Falcon 2", itempool)
+
+                    elif any(name in mission for name in 
+                            ("dD Extraction", 
+                            "Chicago",
+                            "A51 Escape",
+                            "Crash Site",
+                            "The Duel")):
+                        remove_starting_item_from_pool(world, "Falcon 2 (Scope)", itempool)
+
+                    elif any(name in mission for name in 
+                            ("Carrington Villa - Agent", 
+                            "Carrington Villa - Special Agent")):
+                        remove_starting_item_from_pool(world, "Sniper Rifle", itempool)
+
+                    elif any(name in mission for name in 
+                            ("Carrington Villa - Perfect Agent",
+                            "Air Force One")):
+                        remove_starting_item_from_pool(world, "Laptop Gun", itempool)
+
+                    elif "Carrington Villa" in mission:
+                        weapons = []
+
+                        if world.options.agent or world.options.special_agent:
+                            weapons.append("Sniper Rifle")
+
+                        if world.options.perfect_agent:
+                            weapons.append("Laptop Gun")
+
+                        if world.options.pickupsanity and not has_any_difficulty(world):
+                            weapons.append("Sniper Rifle")
+                            weapons.append("Laptop Gun")
+
+                        item = world.random.choice(weapons)
+                        remove_starting_item_from_pool(world, item, itempool)
+
+                    elif "Air Base" in mission:
+                        remove_starting_item_from_pool(world, "Crossbow", itempool)
+
+                    elif "Pelagic II" in mission:
+                        weapons = [
+                            "Falcon 2 (Silencer)",
+                            "Laptop Gun"
+                        ]
+
+                        item = world.random.choice(weapons)
+                        remove_starting_item_from_pool(world, item, itempool)
+
+                    elif "Deep Sea" in mission:
+                        weapons = [
+                            "Falcon 2 (Scope)",
+                            "Shotgun"
+                        ]
+
+                        item = world.random.choice(weapons)
+                        remove_starting_item_from_pool(world, item, itempool)
+
+                    elif "CI Defense" in mission:
+                        remove_starting_item_from_pool(world, "AR34", itempool)
+
+                    elif "Attack Ship" in mission:
+                        if world.options.mission_logic.value <= MissionLogic.option_hard:
+                            remove_starting_item_from_pool(world, "Combat Knife", itempool)
+
+                        remove_starting_item_from_pool(world, "Mauler", itempool)
+
+                    elif "Skedar Ruins" in mission:
+                        weapons = [
+                            "Falcon 2 (Scope)",
+                            "Callisto NTG"
+                        ]
+
+                        item = world.random.choice(weapons)
+                        remove_starting_item_from_pool(world, item, itempool)
+
+                    elif "Mr. Blonde's Revenge" in mission:
+                        remove_starting_item_from_pool(world, "Mauler", itempool)
+
+                    elif "WAR!" in mission:
+                        remove_starting_item_from_pool(world, "Phoenix", itempool)
 
 
-    # Start with a random weapon
-    if world.options.start_with_weapon:
-        if world.options.weapon_progression.value == WeaponProgression.option_normal:
-            itemID = world.random.randint(3, 35)
-            remove_starting_item_from_pool(world, list(ITEM_NAME_TO_ID.keys())[list(ITEM_NAME_TO_ID.values()).index(itemID)], itempool)
-        elif world.options.weapon_progression.value == WeaponProgression.option_all_guns:
-            itemID = world.random.randint(3, 44)
-            while itemID == 36:
-                itemID = world.random.randint(3, 44)
-            remove_starting_item_from_pool(world, list(ITEM_NAME_TO_ID.keys())[list(ITEM_NAME_TO_ID.values()).index(itemID)], itempool)
-        elif (world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon
-                or world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun):
-            remove_starting_item_from_pool(world, "Progressive Weapon", itempool)
-        elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
-            itemID = world.random.randint(241, 245)
-            remove_starting_item_from_pool(world, list(ITEM_NAME_TO_ID.keys())[list(ITEM_NAME_TO_ID.values()).index(itemID)], itempool)
+                elif (world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon
+                        or world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun):
+                    count = 0
+
+                    if "Carrington Villa" in mission:
+                        count = PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"]
+
+                    elif any(name in mission for name in 
+                            ("G5 Building",
+                            "A51 Infiltration",
+                            "A51 Rescue",
+                            "A51 Escape",
+                            "Air Base",
+                            "Air Force One",
+                            "Crash Site",
+                            "Pelagic II",
+                            "Mr. Blonde's Revenge",
+                            "Maian SOS")):
+                        count = PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]
+
+                    elif any(name in mission for name in 
+                            ("Deep Sea",
+                            "Attack Ship",
+                            "Skedar Ruins",
+                            "WAR!")):
+                        count = PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]
+
+                    elif "CI Defense" in mission:
+                        count = PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"]
+
+                    else:
+                        count = PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"]
+
+                    for _ in range(count):
+                        remove_starting_item_from_pool(world, "Progressive Weapon", itempool)
+
+
+                elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+                    progressive_types_list = [
+                        "Progressive Pistol",
+                        "Progressive SMG",
+                        "Progressive Rifle",
+                        "Progressive Explosive",
+                        "Progressive Other Weapon"
+                    ]
+
+                    selected_types = world.random.sample(progressive_types_list, 2)
+
+                    for weapon in selected_types:
+                        if weapon == "Progressive Other Weapon":
+                            for _ in range(4):
+                                remove_starting_item_from_pool(world, "Progressive Other Weapon", itempool)
+                        else:
+                            remove_starting_item_from_pool(world, weapon, itempool)
+
+
+        # Weapon Training
+        elif option == "Weapon Training":
+            if world.options.weapon_progression.value <= WeaponProgression.option_all_guns:
+                weapon1, weapon2 = world.random.sample(FIRING_RANGE_LIST, 2)
+                remove_starting_item_from_pool(world, weapon1, itempool)
+                remove_starting_item_from_pool(world, weapon2, itempool)
+
+            elif (world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon
+                    or world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun):
+                for _ in range(3):
+                    remove_starting_item_from_pool(world, "Progressive Weapon", itempool)
+
+            elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+                progressive_types_list = [
+                    "Progressive Pistol",
+                    # "Progressive SMG",
+                    "Progressive Rifle",
+                    "Progressive Explosive",
+                    "Progressive Other Weapon",
+                ]
+                weapon = world.random.choice(progressive_types_list)
+
+                if weapon in ("Progressive Pistol", "Progressive Rifle"):
+                    remove_starting_item_from_pool(world, weapon, itempool)
+                    remove_starting_item_from_pool(world, weapon, itempool)
+                else:
+                    remove_starting_item_from_pool(world, weapon, itempool)
+
+        # Device Training
+        elif option == "Device Training":
+            devices_list = [
+                "Data Uplink",
+                "ECM Mine",
+                "CamSpy",
+                "Night Vision",
+                "Door Decoder",
+                # "R-Tracker",
+                "IR Scanner",
+                "X-Ray Scanner",
+                "Stewardess Disguise",
+                # "Cloaking Device",
+            ]
+
+            if not world.options.npcs:
+                devices_list.append("Cloaking Device")
+
+            device = world.random.choice(devices_list)
+            remove_starting_item_from_pool(world, device, itempool)
+
+
+        # Challenges
+        elif option == "Challenges":
+            challenge = world.random.choice(challenge_list)
+
+            if world.options.challenges_in_item_pool:
+                remove_starting_item_from_pool(world, challenge, itempool)
+
+            challenge_weapons_list = {
+                "Challenge 1": ["Falcon 2", "CMP150", "Sniper Rifle", "DY357 Magnum", "Dragon"],
+
+                "Challenge 2": ["Combat Knife", "Falcon 2", "Cyclone", "Dragon", "Rocket Launcher"],
+
+                "Challenge 3": ["MagSec 4", "CMP150", "Timed Mine", "Dragon", "AR34"],
+
+                "Challenge 4": ["MagSec 4", "CMP150", "Dragon", "K7 Avenger"],
+
+                "Challenge 5": ["Cyclone", "Grenade", "AR34", "FarSight XR-20"],
+
+                "Challenge 6": ["CMP150", "DY357 Magnum", "Shotgun", "K7 Avenger"],
+
+                "Challenge 7": ["Falcon 2 (Silencer)", "MagSec 4", "Cyclone", "Grenade"],
+
+                "Challenge 8": ["MagSec 4", "K7 Avenger", "Shotgun", "SuperDragon"],
+
+                "Challenge 9": ["Falcon 2", "DY357 Magnum", "Timed Mine", "Laptop Gun", "FarSight XR-20"],
+
+                "Challenge 10": ["CMP150", "Cyclone", "Remote Mine", "AR34"],
+
+                "Challenge 11": ["MagSec 4", "Tranquilizer", "Shotgun", "K7 Avenger"],
+
+                "Challenge 12": ["Falcon 2 (Scope)", "Sniper Rifle", "Shotgun", "SuperDragon"],
+
+                "Challenge 13": ["Falcon 2 (Silencer)", "Tranquilizer", "Laptop Gun", "Grenade", "Reaper"],
+
+                "Challenge 14": ["Cyclone", "SuperDragon", "K7 Avenger", "FarSight XR-20"],
+
+                "Challenge 15": ["MagSec 4", "Dragon", "Shotgun", "Devastator"],
+
+                "Challenge 16": ["Falcon 2", "K7 Avenger", "SuperDragon", "Proximity Mine"],
+
+                "Challenge 17": ["DY357 Magnum", "AR34", "Reaper", "Slayer"],
+
+                "Challenge 18": ["Falcon 2", "Phoenix", "Tranquilizer", "Laptop Gun"],
+
+                "Challenge 19": ["CMP150", "Shotgun", "Rocket Launcher", "FarSight XR-20"],
+
+                "Challenge 20": ["Mauler", "Falcon 2", "MagSec 4", "DY357 Magnum"],
+
+                "Challenge 21": ["Mauler", "Reaper", "Shotgun", "Callisto NTG"],
+
+                "Challenge 22": ["Falcon 2", "Sniper Rifle", "Crossbow", "K7 Avenger"],
+
+                "Challenge 23": ["MagSec 4", "Grenade", "Laptop Gun", "RC-P120"],
+
+                "Challenge 24": ["CMP150", "Tranquilizer", "Devastator", "SuperDragon", "DY357-LX"],
+
+                "Challenge 25": ["Mauler", "N-Bomb", "K7 Avenger", "FarSight XR-20"],
+
+                "Challenge 26": ["Falcon 2", "Mauler", "Cyclone", "Laptop Gun", "Reaper"],
+
+                "Challenge 27": ["Falcon 2", "MagSec 4", "CMP150", "Rocket Launcher"],
+
+                "Challenge 28": ["Falcon 2", "Falcon 2 (Silencer)", "DY357 Magnum", "AR34", "Shotgun"],
+
+                "Challenge 29": ["Falcon 2", "Cyclone", "DY357 Magnum", "CMP150", "Dragon"],
+
+                "Challenge 30": ["Falcon 2", "Falcon 2 (Scope)", "MagSec 4", "Mauler", "DY357 Magnum"]
+            }
+
+            if challenge in [f"Challenge {i}" for i in range(1, 31)]:
+                get_challenge_items(world, challenge_weapons_list[challenge], itempool, challenge)
 
 
     # Fill with filler items if there is not enough items to locations
@@ -1345,6 +1607,7 @@ def is_skedar_ruins_in_itempool(world: PerfectDarkWorld) -> bool:
         return True
     else:
         return False
+
 
 def set_mission_stars(world: PerfectDarkWorld, itempool:list[Item]) -> None:
     mission_locations = []
@@ -1424,6 +1687,7 @@ def set_mission_stars(world: PerfectDarkWorld, itempool:list[Item]) -> None:
         else:
             world.get_location(location).place_locked_item(world.create_item("Mission Star"))
 
+
 def set_challenge_stars(world: PerfectDarkWorld, itempool:list[Item]) -> None:
     for x in range(1, 31):
         challenge_name = f"Challenge {x}"
@@ -1435,17 +1699,901 @@ def set_challenge_stars(world: PerfectDarkWorld, itempool:list[Item]) -> None:
             else:
                 world.get_location(challenge_location).place_locked_item(world.create_item("Challenge Star"))
 
-def has_challenges(world: PerfectDarkWorld) -> bool:
-    if (world.options.challenges
-        or (world.options.goal >= Goal.option_complete_challenges)
-        or (world.options.goal == Goal.option_complete_skedar_ruins
-            and (world.options.skedar_ruins_requirements.value >= SkedarRuinsRequirements.option_collect_challenge_stars))):
-        return True
-    else:
-        return False
 
 def has_any_difficulty(world: PerfectDarkWorld) -> bool:
     if (world.options.agent or world.options.special_agent or world.options.perfect_agent):
         return True
 
     return False
+
+
+def add_mission(world:PerfectDarkWorld, item:str, itempool:list[Item]) -> None:
+    itempool.append(world.create_item(item))
+    # print(f"Adding mission {item} to mission_list")
+    mission_list.append(item)
+
+
+def get_challenge_items(world:PerfectDarkWorld, weaponlist:list[str], itempool:list[Item], challenge:str) -> None:
+
+    def remove_weaponset_from_pool():
+        for weapon in weaponlist:
+            remove_starting_item_from_pool(world, weapon, itempool)
+
+    # Briefcase
+    briefcase_list = [
+        "Challenge 6",
+        "Challenge 8",
+        "Challenge 14",
+        "Challenge 15",
+        "Challenge 22",
+        "Challenge 24",
+        "Challenge 28",
+    ]
+
+    if challenge in briefcase_list:
+        remove_starting_item_from_pool(world, "Briefcase", itempool)
+
+    # Data Uplink
+    data_uplink_list = [
+        "Challenge 10",
+        "Challenge 21",
+        "Challenge 27",
+    ]
+
+    if challenge in data_uplink_list:
+        remove_starting_item_from_pool(world, "Data Uplink", itempool)
+
+    # Shield, Cloaking Device, Combat Boost
+    if world.options.challenge_logic.value <= ChallengeLogic.option_normal:
+        shield_list = [
+            "Challenge 16",
+            "Challenge 17",
+            "Challenge 18",
+            "Challenge 19",
+            "Challenge 20",
+            "Challenge 22",
+            "Challenge 23",
+            "Challenge 27",
+        ]
+
+        cloaking_device_list = [
+            "Challenge 14",
+            "Challenge 18",
+            "Challenge 21",
+            "Challenge 25",
+        ]
+
+        combat_boost_list = [
+            "Challenge 19",
+            "Challenge 23",
+        ]
+
+        if world.options.challenge_logic.value == ChallengeLogic.option_strict:
+            shield_list.append("Challenge 4")
+            shield_list.append("Challenge 5")
+            shield_list.append("Challenge 6")
+            shield_list.append("Challenge 7")
+            shield_list.append("Challenge 8")
+            shield_list.append("Challenge 10")
+            shield_list.append("Challenge 11")
+            shield_list.append("Challenge 12")
+            shield_list.append("Challenge 15")
+
+            if challenge in combat_boost_list:
+                remove_starting_item_from_pool(world, "Combat Boost", itempool)
+
+        if challenge in shield_list:
+            remove_starting_item_from_pool(world, "Shield", itempool)
+
+        if challenge in cloaking_device_list:
+            remove_starting_item_from_pool(world, "Cloaking Device", itempool)
+
+    # Weapons
+    if world.options.weapon_progression.value <= WeaponProgression.option_all_guns:
+        if world.options.challenge_logic.value == ChallengeLogic.option_strict:
+            remove_weaponset_from_pool()
+        elif world.options.challenge_logic.value == ChallengeLogic.option_normal:
+            if challenge in [
+                    "Challenge 1",
+                    "Challenge 6",
+                    "Challenge 7",
+                    "Challenge 8",
+                    "Challenge 10",
+                    "Challenge 12",
+                    "Challenge 14",
+                ]:
+                weapon = world.random.choice(weaponlist)
+                remove_starting_item_from_pool(world, weapon, itempool)
+            elif challenge == "Challenge 2":
+                remove_starting_item_from_pool(world, "Rocket Launcher", itempool)
+            elif challenge == "Challenge 3":
+                remove_starting_item_from_pool(world, "Timed Mine", itempool)
+                remove_starting_item_from_pool(world, "Dragon", itempool)
+                remove_starting_item_from_pool(world, "AR34", itempool)
+            elif challenge == "Challenge 4":
+                remove_starting_item_from_pool(world, "K7 Avenger", itempool)
+            elif challenge == "Challenge 5":
+                remove_starting_item_from_pool(world, "FarSight XR-20", itempool)
+            elif challenge == "Challenge 9":
+                remove_starting_item_from_pool(world, "FarSight XR-20", itempool)
+                remove_starting_item_from_pool(world, "Laptop Gun", itempool)
+            elif challenge == "Challenge 11":
+                remove_starting_item_from_pool(world, "Shotgun", itempool)
+                remove_starting_item_from_pool(world, "Tranquilizer", itempool)
+            elif challenge == "Challenge 13":
+                remove_starting_item_from_pool(world, "Tranquilizer", itempool)
+            elif challenge == "Challenge 15":
+                remove_starting_item_from_pool(world, "Devastator", itempool)
+            elif challenge in [
+                    "Challenge 16",
+                    "Challenge 17",
+                    "Challenge 18",
+                    "Challenge 19",
+                    "Challenge 20",
+                    "Challenge 21",
+                    "Challenge 22",
+                    "Challenge 23",
+                    "Challenge 24",
+                    "Challenge 25",
+                    "Challenge 26",
+                    "Challenge 27",
+                    "Challenge 28",
+                    "Challenge 29",
+                    "Challenge 30"
+                ]:
+                remove_weaponset_from_pool()       
+        elif world.options.challenge_logic.value == ChallengeLogic.option_hard:
+            weapon = world.random.choice(weaponlist)
+            remove_starting_item_from_pool(world, weapon, itempool)
+    
+    elif (world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon
+            or world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun):
+        count = 0
+
+        if world.options.challenge_logic.value == ChallengeLogic.option_strict:
+            if challenge == "Challenge 1":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Dragon"]
+            elif challenge == "Challenge 2":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Rocket Launcher"]
+            elif challenge == "Challenge 3":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]
+            elif challenge == "Challenge 4":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]
+            elif challenge == "Challenge 5":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]
+            elif challenge == "Challenge 6":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]
+            elif challenge == "Challenge 7":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Grenade"]
+            elif challenge == "Challenge 8":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["SuperDragon"]
+            elif challenge == "Challenge 9":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]
+            elif challenge == "Challenge 10":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"]
+            elif challenge == "Challenge 11":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]
+            elif challenge == "Challenge 12":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["SuperDragon"]
+            elif challenge == "Challenge 13":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Grenade"]
+            elif challenge == "Challenge 14":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]
+            elif challenge == "Challenge 15":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]
+            elif challenge == "Challenge 16":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["SuperDragon"]
+            elif challenge == "Challenge 17":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Slayer"]
+            elif challenge == "Challenge 18":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Phoenix"]
+            elif challenge == "Challenge 19":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]
+            elif challenge == "Challenge 20":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]
+            elif challenge == "Challenge 21":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]
+            elif challenge == "Challenge 22":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]
+            elif challenge == "Challenge 23":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"]
+            elif challenge == "Challenge 24":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["DY357-LX"]
+            elif challenge == "Challenge 25":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]
+            elif challenge == "Challenge 26":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]
+            elif challenge == "Challenge 27":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Rocket Launcher"]
+            elif challenge == "Challenge 28":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["AR34"]
+            elif challenge == "Challenge 29":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Cyclone"]
+            elif challenge == "Challenge 30":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]
+
+            for _ in range(count):
+                remove_starting_item_from_pool(world, "Progressive Weapon", itempool)
+
+        elif world.options.challenge_logic.value == ChallengeLogic.option_normal:
+            if challenge == "Challenge 1":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"]
+            elif challenge == "Challenge 2":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Rocket Launcher"]
+            elif challenge == "Challenge 3":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"]
+            elif challenge == "Challenge 4":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]
+            elif challenge == "Challenge 5":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]
+            elif challenge == "Challenge 6":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["DY357 Magnum"]
+            elif challenge == "Challenge 7":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2 (Silencer)"]
+            elif challenge == "Challenge 8":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"]
+            elif challenge == "Challenge 9":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]
+            elif challenge == "Challenge 10":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["CMP150"]
+            elif challenge == "Challenge 11":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]
+            elif challenge == "Challenge 12":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"]
+            elif challenge == "Challenge 13":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]
+            elif challenge == "Challenge 14":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Cyclone"]
+            elif challenge == "Challenge 15":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Devastator"]
+            elif challenge == "Challenge 16":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["SuperDragon"]
+            elif challenge == "Challenge 17":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Slayer"]
+            elif challenge == "Challenge 18":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Phoenix"]
+            elif challenge == "Challenge 19":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]
+            elif challenge == "Challenge 20":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]
+            elif challenge == "Challenge 21":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]
+            elif challenge == "Challenge 22":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"]
+            elif challenge == "Challenge 23":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"]
+            elif challenge == "Challenge 24":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["DY357-LX"]
+            elif challenge == "Challenge 25":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"]
+            elif challenge == "Challenge 26":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]
+            elif challenge == "Challenge 27":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Rocket Launcher"]
+            elif challenge == "Challenge 28":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["AR34"]
+            elif challenge == "Challenge 29":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Cyclone"]
+            elif challenge == "Challenge 30":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"]
+
+            for _ in range(count):
+                remove_starting_item_from_pool(world, "Progressive Weapon", itempool)
+                
+        elif world.options.challenge_logic.value == ChallengeLogic.option_hard:
+            if challenge == "Challenge 1":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"]
+            elif challenge == "Challenge 2":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Combat Knife"]
+            elif challenge == "Challenge 3":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"]
+            elif challenge == "Challenge 4":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"]
+            elif challenge == "Challenge 5":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["AR34"]
+            elif challenge == "Challenge 6":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["DY357 Magnum"]
+            elif challenge == "Challenge 7":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2 (Silencer)"]
+            elif challenge == "Challenge 8":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"]
+            elif challenge == "Challenge 9":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]
+            elif challenge == "Challenge 10":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["CMP150"]
+            elif challenge == "Challenge 11":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]
+            elif challenge == "Challenge 12":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"]
+            elif challenge == "Challenge 13":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]
+            elif challenge == "Challenge 14":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Cyclone"]
+            elif challenge == "Challenge 15":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"]
+            elif challenge == "Challenge 16":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]
+            elif challenge == "Challenge 17":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["DY357 Magnum"]
+            elif challenge == "Challenge 18":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]
+            elif challenge == "Challenge 19":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]
+            elif challenge == "Challenge 20":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]
+            elif challenge == "Challenge 21":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"]
+            elif challenge == "Challenge 22":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Crossbow"]
+            elif challenge == "Challenge 23":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"]
+            elif challenge == "Challenge 24":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"]
+            elif challenge == "Challenge 25":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["N-Bomb"]
+            elif challenge == "Challenge 26":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]
+            elif challenge == "Challenge 27":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]
+            elif challenge == "Challenge 28":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]
+            elif challenge == "Challenge 29":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]
+            elif challenge == "Challenge 30":
+                count = PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]
+
+            for _ in range(count):
+                remove_starting_item_from_pool(world, "Progressive Weapon", itempool)
+    
+    elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
+        pistol_count = 0
+        smg_count = 0
+        rifle_count = 0
+        explosive_count = 0
+        other_weapon_count = 0
+
+        def give_types() -> None:
+            for _ in range(pistol_count):
+                remove_starting_item_from_pool(world, "Progressive Pistol", itempool)
+
+            for _ in range(smg_count):
+                remove_starting_item_from_pool(world, "Progressive SMG", itempool)
+
+            for _ in range(rifle_count):
+                remove_starting_item_from_pool(world, "Progressive Rifle", itempool)
+
+            for _ in range(explosive_count):
+                remove_starting_item_from_pool(world, "Progressive Explosive", itempool)
+
+            for _ in range(other_weapon_count):
+                remove_starting_item_from_pool(world, "Progressive Other Weapon", itempool)
+
+        def select_one_type() -> None:
+            weapon_list = []
+            
+            if pistol_count > 0:
+                weapon_list.append("Progressive Pistol")
+
+            if smg_count > 0:
+                weapon_list.append("Progressive SMG")
+
+            if rifle_count > 0:
+                weapon_list.append("Progressive Rifle")
+
+            if explosive_count > 0:
+                weapon_list.append("Progressive Explosive")
+
+            if other_weapon_count > 0:
+                weapon_list.append("Progressive Other Weapon")
+
+            weapon = world.random.choice(weapon_list)
+            
+            count = 0
+
+            if weapon == "Progressive Pistol":
+                count = pistol_count
+            elif weapon == "Progressive SMG":
+                count = smg_count
+            elif weapon == "Progressive Rifle":
+                count = rifle_count
+            elif weapon == "Progressive Explosive":
+                count = explosive_count
+            elif weapon == "Progressive Other Weapon":
+                count = other_weapon_count
+
+            for _ in range(count):
+                remove_starting_item_from_pool(world, weapon, itempool)
+        
+        if world.options.challenge_logic.value == ChallengeLogic.option_strict:
+            if challenge == "Challenge 1":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]
+
+            elif challenge == "Challenge 2":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Combat Knife"]
+
+            elif challenge == "Challenge 3":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]
+
+            elif challenge == "Challenge 4":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+
+            elif challenge == "Challenge 5":
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+
+            elif challenge == "Challenge 6":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+
+            elif challenge == "Challenge 7":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]
+
+            elif challenge == "Challenge 8":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+
+            elif challenge == "Challenge 9":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+
+            elif challenge == "Challenge 10":
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]
+
+            elif challenge == "Challenge 11":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+
+            elif challenge == "Challenge 12":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Scope)"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+
+            elif challenge == "Challenge 13":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Silencer)"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]
+
+            elif challenge == "Challenge 14":
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+
+            elif challenge == "Challenge 15":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+
+            elif challenge == "Challenge 16":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Proximity Mine"]
+
+            elif challenge == "Challenge 17":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]
+
+            elif challenge == "Challenge 18":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Phoenix"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]
+
+            elif challenge == "Challenge 19":
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+
+            elif challenge == "Challenge 20":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]
+
+            elif challenge == "Challenge 21":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Callisto NTG"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]
+
+            elif challenge == "Challenge 22":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]
+
+            elif challenge == "Challenge 23":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]
+
+            elif challenge == "Challenge 24":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]
+
+            elif challenge == "Challenge 25":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["N-Bomb"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+
+            elif challenge == "Challenge 26":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]
+
+            elif challenge == "Challenge 27":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]
+
+            elif challenge == "Challenge 28":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+
+            elif challenge == "Challenge 29":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]
+
+            elif challenge == "Challenge 30":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]
+
+            give_types()
+
+        elif world.options.challenge_logic.value == ChallengeLogic.option_normal:
+            if challenge == "Challenge 1":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]
+                select_one_type()
+
+            elif challenge == "Challenge 2":
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]
+                give_types()
+
+            elif challenge == "Challenge 3":
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]
+                give_types()
+
+            elif challenge == "Challenge 4":
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                give_types()
+
+            elif challenge == "Challenge 5":
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+                give_types()
+
+            elif challenge == "Challenge 6":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+                select_one_type()
+
+            elif challenge == "Challenge 7":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Silencer)"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]
+                select_one_type()
+
+            elif challenge == "Challenge 8":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+                select_one_type()
+
+            elif challenge == "Challenge 9":
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+                give_types()
+
+            elif challenge == "Challenge 10":
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]
+                select_one_type()
+
+            elif challenge == "Challenge 11":
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+                give_types()
+
+            elif challenge == "Challenge 12":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Scope)"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]
+                select_one_type()
+
+            elif challenge == "Challenge 13":
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]
+                give_types()
+
+            elif challenge == "Challenge 14":
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+                select_one_type()
+
+            elif challenge == "Challenge 15":
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]
+                give_types()
+
+            elif challenge == "Challenge 16":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Proximity Mine"]
+                give_types()
+
+            elif challenge == "Challenge 17":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]
+                give_types()
+
+            elif challenge == "Challenge 18":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Phoenix"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]
+                give_types()
+
+            elif challenge == "Challenge 19":
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+                give_types()
+
+            elif challenge == "Challenge 20":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]
+                give_types()
+
+            elif challenge == "Challenge 21":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Callisto NTG"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]
+                give_types()
+
+            elif challenge == "Challenge 22":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]
+                give_types()
+
+            elif challenge == "Challenge 23":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]
+                give_types()
+
+            elif challenge == "Challenge 24":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]
+                give_types()
+
+            elif challenge == "Challenge 25":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["N-Bomb"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+                give_types()
+
+            elif challenge == "Challenge 26":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]
+                give_types()
+
+            elif challenge == "Challenge 27":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]
+                give_types()
+
+            elif challenge == "Challenge 28":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+                give_types()
+
+            elif challenge == "Challenge 29":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]
+                give_types()
+
+            elif challenge == "Challenge 30":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]
+                give_types()
+
+        elif world.options.challenge_logic.value == ChallengeLogic.option_hard:
+            if challenge == "Challenge 1":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]
+
+            elif challenge == "Challenge 2":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Combat Knife"]
+
+            elif challenge == "Challenge 3":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]
+
+            elif challenge == "Challenge 4":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]
+
+            elif challenge == "Challenge 5":
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+
+            elif challenge == "Challenge 6":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+
+            elif challenge == "Challenge 7":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Silencer)"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]
+
+            elif challenge == "Challenge 8":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+
+            elif challenge == "Challenge 9":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+
+            elif challenge == "Challenge 10":
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]
+
+            elif challenge == "Challenge 11":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]
+
+            elif challenge == "Challenge 12":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Scope)"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]
+
+            elif challenge == "Challenge 13":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2 (Silencer)"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]
+
+            elif challenge == "Challenge 14":
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+
+            elif challenge == "Challenge 15":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+
+            elif challenge == "Challenge 16":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Proximity Mine"]
+
+            elif challenge == "Challenge 17":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]
+
+            elif challenge == "Challenge 18":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]
+
+            elif challenge == "Challenge 19":
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+
+            elif challenge == "Challenge 20":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+
+            elif challenge == "Challenge 21":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Callisto NTG"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+
+            elif challenge == "Challenge 22":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Crossbow"]
+
+            elif challenge == "Challenge 23":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]
+
+            elif challenge == "Challenge 24":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]
+
+            elif challenge == "Challenge 25":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["N-Bomb"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]
+
+            elif challenge == "Challenge 26":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["Cyclone"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]
+
+            elif challenge == "Challenge 27":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                explosive_count = PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]
+
+            elif challenge == "Challenge 28":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"]
+                other_weapon_count = PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"]
+
+            elif challenge == "Challenge 29":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+                smg_count = PROGRESSIVE_SMG_NAME_TO_ID["CMP150"]
+                rifle_count = PROGRESSIVE_RIFLE_NAME_TO_ID["Dragon"]
+
+            elif challenge == "Challenge 30":
+                pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
+
+            select_one_type()
+    

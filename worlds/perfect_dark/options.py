@@ -167,14 +167,6 @@ class RequiredPerfectAgentMissionStars(Range):
     default = 7
 
 
-class StartWithMission(Toggle):
-    """
-    Start with a random mission in your inventory.
-    """
-
-    display_name = "Start with a Mission"
-
-
 class MissionsInItemPool(Choice):
     """
     Choose whether missions are in the item pool.
@@ -255,16 +247,12 @@ class ProgressiveWeaponsInChallenges(Toggle):
     display_name = "Progressive Weapons In Challenges"
 
 
-class StartWithWeapon(Toggle):
+class StartingItems(Toggle):
     """
-    Start with a weapon in your inventory.
-
-    - Normal and All Guns: You will start with a random weapon.
-    - Progressive Weapon and One Gun: You will start with the first progressive weapon.
-    - Progressive Types: You will start with a random weapon type.
+    Gives you items, so you have checks to do at the start.
     """
 
-    display_name = "Start with a Weapon"
+    display_name = "Starting Items"
 
 
 class MasterKey(Toggle):
@@ -577,11 +565,10 @@ class PerfectDarkOptions(PerGameCommonOptions):
     required_special_agent_mission_stars: RequiredSpecialAgentMissionStars
     perfect_agent: IncludePerfectAgent
     required_perfect_agent_mission_stars: RequiredPerfectAgentMissionStars
-    start_with_mission: StartWithMission
     missions_in_item_pool: MissionsInItemPool
     weapon_progression: WeaponProgression
     allow_progressive_weapon_in_challenges: ProgressiveWeaponsInChallenges
-    start_with_weapon: StartWithWeapon
+    starting_items: StartingItems
     master_key: MasterKey
     challenges: Challenges
     required_challenge_stars: RequiredChallengeStars
@@ -619,11 +606,10 @@ option_groups = [
             RequiredSpecialAgentMissionStars,
             IncludePerfectAgent,
             RequiredPerfectAgentMissionStars,
-            StartWithMission,
             MissionsInItemPool,
             WeaponProgression,
             ProgressiveWeaponsInChallenges,
-            StartWithWeapon,
+            StartingItems,
             MasterKey,
             Challenges,
             RequiredChallengeStars,
@@ -661,11 +647,10 @@ option_presets = {
         "required_special_agent_mission_stars": 7,
         "perfect_agent": True,
         "required_perfect_agent_mission_stars": 7,
-        "start_with_mission": True,
         "missions_in_item_pool": MissionsInItemPool.option_enabled,
         "weapon_progression": WeaponProgression.option_normal,
         "allow_progressive_weapon_in_challenges": False,
-        "start_with_weapon": True,
+        "starting_items": True,
         "master_key": False,
         "challenges": False,
         "required_challenge_stars": 15,
@@ -697,11 +682,10 @@ option_presets = {
         "required_special_agent_mission_stars": 7,
         "perfect_agent": True,
         "required_perfect_agent_mission_stars": 21,
-        "start_with_mission": True,
         "missions_in_item_pool": MissionsInItemPool.option_enabled_per_difficulty,
         "weapon_progression": WeaponProgression.option_progressive_weapon,
         "allow_progressive_weapon_in_challenges": False,
-        "start_with_weapon": True,
+        "starting_items": True,
         "master_key": False,
         "challenges": True,
         "required_challenge_stars": 30,

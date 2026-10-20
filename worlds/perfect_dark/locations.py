@@ -10,7 +10,7 @@ if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
 from .options import Goal, SkedarRuinsRequirements, MissionLogic, AlternateExits
-from .items import has_challenges
+from .rules import has_challenges
 
 LOCATION_NAME_TO_ID = {
     "dD Defection - Agent Objective 1": 1,
