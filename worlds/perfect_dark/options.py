@@ -7,17 +7,13 @@ class Goal(Choice):
     Sets the goal in order to beat the game.
 
     - Complete Skedar Ruins: The game ends after completing Skedar Ruins.
-    - Complete Missions: Complete missions until you get the set amount of mission stars.
-    - Complete Challenges: Complete challenges until you get the set amount of challenge stars.
-    - Complete Both: Complete both missions and challenges until you get the set amount of stars.
+    - Cheese Hunt: The game ends once you collect the set amount of cheese.
     """
 
     display_name = "Goal"
 
     option_complete_skedar_ruins = 0
-    option_complete_missions = 1
-    option_complete_challenges = 2
-    option_complete_both = 3
+    option_cheese_hunt = 1
 
     default = option_complete_skedar_ruins
 
@@ -28,33 +24,42 @@ class SkedarRuinsRequirements(Choice):
     This option only matters if goal is set to Complete Skedar Ruins.
 
     - Item: You can get Skedar Ruins as an item which could make the run shorter.
-    - Collect Mission Stars: Unlocks after you collect enough mission stars.
-    - Collect Challenge Stars: Unlocks after you collect enough challenge stars.
-    - Collect Both Stars: Unlocks after you collect enough mission and challenge stars.
+    - Complete Missions: Unlocks after completing enough missions.
+    - Complete Challenges: Unlocks after completing enough challenges.
+    - Complete Both: Unlocks after completing enough missions and challenges.
     """
 
     display_name = "Skedar Ruins Requirements"
 
     option_item = 0
-    option_collect_mission_stars = 1
-    option_collect_challenge_stars = 2
-    option_collect_both_stars = 3
+    option_complete_missions = 1
+    option_complete_challenges = 2
+    option_complete_both = 3
     
-    default = option_collect_mission_stars
+    default = option_complete_missions
 
 
-class PlaceStarsAnywhere(Toggle):
+class CheeseTotal(Range):
     """
-    Choose if you want mission stars and challenge stars to be placed in any location. 
-    This option only matters if you need to collect stars for the goal.
-
-    - False: Mission stars and challenge stars can only be acquired 
-             from completing missions and challenges in your game.
-    
-    - True: Mission stars and challenge stars can be found in anyone's game.
+    Sets the required amount of Cheese to add to the item pool.
+    This option only matters if the goal is Cheese Hunt.
     """
 
-    display_name = "Place Stars Anywhere"
+    display_name = "Total Cheese Required"
+
+    range_start = 1
+    range_end = 100
+    default = 25
+
+
+class RequiredCheesePercentage(Range):
+    """
+    The percentage of Cheese that will be required to complete the game.
+    """
+    display_name = "Cheese Required Percentage"
+    range_start = 1
+    range_end = 100
+    default = 60
 
 
 class MissionLogic(Choice):
@@ -82,9 +87,7 @@ class MissionLogic(Choice):
 
 class IncludeAgent(Toggle):
     """
-    Determines whether Agent sends location checks.
-    You must have one of the difficulties enabled if you have 
-    to do missions for the goal or Skedar Ruins requirements.
+    Adds Agent objectives and mission completions as checks. 
     """
 
     display_name = "Include Agent"
@@ -96,22 +99,18 @@ class RequiredAgentMissionStars(Range):
     This option only matters if you have to collect mission stars and Agent is enabled.
     If you are playing more than one difficulty, then the number of mission stars 
     you must collect for the goal is combined from each enabled difficulty.
-
-    The max is 20 if the goal is set to Complete Skedar Ruins.
     """
 
     display_name = "Required Agent Mission Stars"
 
     range_start = 1
-    range_end = 21
+    range_end = 20
     default = 7
 
 
 class IncludeSpecialAgent(Toggle):
     """
-    Determines whether Special Agent sends location checks.
-    You must have one of the difficulties enabled if you have 
-    to do missions for the goal or Skedar Ruins requirements.
+    Adds Special Agent objectives and mission completions as checks. 
     """
 
     display_name = "Include Special Agent"
@@ -124,22 +123,18 @@ class RequiredSpecialAgentMissionStars(Range):
     This option only matters if you have to collect mission stars and Special Agent is enabled.
     If you are playing more than one difficulty, then the number of mission stars 
     you must collect for the goal is combined from each enabled difficulty.
-
-    The max is 20 if the goal is set to Complete Skedar Ruins.
     """
 
     display_name = "Required Special Agent Mission Stars"
 
     range_start = 1
-    range_end = 21
+    range_end = 20
     default = 7
 
 
 class IncludePerfectAgent(Toggle):
     """
-    Determines whether Perfect Agent sends location checks.
-    You must have one of the difficulties enabled if you have 
-    to do missions for the goal or Skedar Ruins requirements.
+    Adds Perfect Agent objectives and mission completions as checks. 
 
     If Perfect Agent is too difficult, you can use Perfect Dark mode
     to lower enemies' health, damage, and accuracy to make it easier.
@@ -156,14 +151,12 @@ class RequiredPerfectAgentMissionStars(Range):
     This option only matters if you have to collect mission stars and Perfect Agent is enabled.
     If you are playing more than one difficulty, then the number of mission stars 
     you must collect for the goal is combined from each enabled difficulty.
-
-    The max is 20 if the goal is set to Complete Skedar Ruins.
     """
 
     display_name = "Required Perfect Agent Mission Stars"
 
     range_start = 1
-    range_end = 21
+    range_end = 20
     default = 7
 
 
@@ -276,7 +269,7 @@ class Challenges(Toggle):
 
 class RequiredChallengeStars(Range):
     """
-    Sets the required amount of challenge stars to beat the game.
+    Sets the required amount of challenge stars to unlock Skedar Ruins.
     This option only matters if you are required to collect challenge stars for the goal.
 
     If you exclude any challenges and set the required amount of challenge stars to a number
@@ -557,7 +550,8 @@ class DeathLink(Toggle):
 class PerfectDarkOptions(PerGameCommonOptions):
     goal: Goal
     skedar_ruins_requirements: SkedarRuinsRequirements
-    place_stars_anywhere: PlaceStarsAnywhere
+    cheese_total: CheeseTotal
+    required_cheese_percentage: RequiredCheesePercentage
     mission_logic: MissionLogic
     agent: IncludeAgent
     required_agent_mission_stars: RequiredAgentMissionStars
@@ -598,7 +592,8 @@ option_groups = [
         [
             Goal,
             SkedarRuinsRequirements,
-            PlaceStarsAnywhere,
+            CheeseTotal,
+            RequiredCheesePercentage,
             MissionLogic,
             IncludeAgent,
             RequiredAgentMissionStars,
@@ -639,7 +634,8 @@ option_presets = {
     "default": {
         "goal": Goal.option_complete_skedar_ruins,
         "skedar_ruins_requirements": SkedarRuinsRequirements.option_item,
-        "place_stars_anywhere:": False,
+        "cheese_total": 50,
+        "required_cheese_percentage": 50,
         "mission_logic": MissionLogic.option_normal,
         "agent": False,
         "required_agent_mission_stars": 7,
@@ -673,8 +669,9 @@ option_presets = {
     },
     "hard": {
         "goal": Goal.option_complete_skedar_ruins,
-        "skedar_ruins_requirements": SkedarRuinsRequirements.option_collect_mission_stars,
-        "place_stars_anywhere:": False,
+        "skedar_ruins_requirements": SkedarRuinsRequirements.option_complete_missions,
+        "cheese_total": 50,
+        "required_cheese_percentage": 50,
         "mission_logic": MissionLogic.option_hard,
         "agent": False,
         "required_agent_mission_stars": 7,

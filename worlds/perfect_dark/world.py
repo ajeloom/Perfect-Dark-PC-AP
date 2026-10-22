@@ -27,6 +27,8 @@ class PerfectDarkWorld(World):
                 # Sync options for weighted values
                 self.options.goal.value = passthrough["options"]["goal"]
                 self.options.skedar_ruins_requirements.value = passthrough["options"]["skedar_ruins_requirements"]
+                self.options.cheese_total.value = passthrough["options"]["cheese_total"]
+                self.options.required_cheese_percentage.value = passthrough["options"]["required_cheese_percentage"]
                 self.options.mission_logic.value = passthrough["options"]["mission_logic"]
                 self.options.agent.value = passthrough["options"]["agent"]
                 self.options.required_agent_mission_stars.value = passthrough["options"]["required_agent_mission_stars"]
@@ -68,10 +70,16 @@ class PerfectDarkWorld(World):
         return items.get_random_filler_item_name(self)
 
     def fill_slot_data(self) -> dict[str, Any]:
+        percent = float(self.options.required_cheese_percentage.value) / 100
+        required_cheese = int(round(self.options.cheese_total.value * percent, 0))
+
         slot_data: dict[str, Any] = {
             "options": {
                 "goal": self.options.goal.value,
                 "skedar_ruins_requirements": self.options.skedar_ruins_requirements.value,
+                "required_cheese": required_cheese,
+                "cheese_total": self.options.cheese_total.value,
+                "required_cheese_percentage": self.options.required_cheese_percentage.value,
                 "mission_logic": self.options.mission_logic.value,
                 "agent": self.options.agent.value,
                 "required_agent_mission_stars": self.options.required_agent_mission_stars.value,

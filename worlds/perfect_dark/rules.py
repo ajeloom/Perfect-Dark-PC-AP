@@ -364,31 +364,148 @@ has_duel = HasAny("The Duel - Agent", "The Duel - Special Agent", "The Duel - Pe
 def set_all_rules(world: PerfectDarkWorld) -> None:
     set_all_entrance_rules(world)
     set_all_location_rules(world)
+
+    required_mission_stars = get_mission_stars(world)
+    required_challenge_stars = get_challenge_stars(world)
+
+    def get_completable_missions(state: CollectionState) -> int:
+        completable_missions = 0
+
+        mission_locations = [
+            "Complete: dD Defection - Agent",
+            "Complete: dD Defection - Special Agent",
+            "Complete: dD Defection - Perfect Agent",
+            "Complete: dD Investigation - Agent",
+            "Complete: dD Investigation - Special Agent",
+            "Complete: dD Investigation - Perfect Agent",
+            "Complete: dD Extraction - Agent",
+            "Complete: dD Extraction - Special Agent",
+            "Complete: dD Extraction - Perfect Agent",
+            "Complete: Carrington Villa - Agent",
+            "Complete: Carrington Villa - Special Agent",
+            "Complete: Carrington Villa - Perfect Agent",
+            "Complete: Chicago - Agent",
+            "Complete: Chicago - Special Agent",
+            "Complete: Chicago - Perfect Agent",
+            "Complete: G5 Building - Agent",
+            "Complete: G5 Building - Special Agent",
+            "Complete: G5 Building - Perfect Agent",
+            "Complete: A51 Infiltration - Agent",
+            "Complete: A51 Infiltration - Special Agent",
+            "Complete: A51 Infiltration - Perfect Agent",
+            "Complete: A51 Rescue - Agent",
+            "Complete: A51 Rescue - Special Agent",
+            "Complete: A51 Rescue - Perfect Agent",
+            "Complete: A51 Escape - Agent",
+            "Complete: A51 Escape - Special Agent",
+            "Complete: A51 Escape - Perfect Agent",
+            "Complete: Air Base - Agent",
+            "Complete: Air Base - Special Agent",
+            "Complete: Air Base - Perfect Agent",
+            "Complete: Air Force One - Agent",
+            "Complete: Air Force One - Special Agent",
+            "Complete: Air Force One - Perfect Agent",
+            "Complete: Crash Site - Agent",
+            "Complete: Crash Site - Special Agent",
+            "Complete: Crash Site - Perfect Agent",
+            "Complete: Pelagic II - Agent",
+            "Complete: Pelagic II - Special Agent",
+            "Complete: Pelagic II - Perfect Agent",
+            "Complete: Deep Sea - Agent",
+            "Complete: Deep Sea - Special Agent",
+            "Complete: Deep Sea - Perfect Agent",
+            "Complete: CI Defense - Agent",
+            "Complete: CI Defense - Special Agent",
+            "Complete: CI Defense - Perfect Agent",
+            "Complete: Attack Ship - Agent",
+            "Complete: Attack Ship - Special Agent",
+            "Complete: Attack Ship - Perfect Agent",
+            # "Complete: Skedar Ruins - Agent",
+            # "Complete: Skedar Ruins - Special Agent",
+            # "Complete: Skedar Ruins - Perfect Agent",
+            "Complete: Mr. Blonde's Revenge - Agent",
+            "Complete: Mr. Blonde's Revenge - Special Agent",
+            "Complete: Mr. Blonde's Revenge - Perfect Agent",
+            "Complete: Maian SOS - Agent",
+            "Complete: Maian SOS - Special Agent",
+            "Complete: Maian SOS - Perfect Agent",
+            "Complete: WAR! - Agent",
+            "Complete: WAR! - Special Agent",
+            "Complete: WAR! - Perfect Agent",
+            "Complete: The Duel - Agent",
+            "Complete: The Duel - Special Agent",
+            "Complete: The Duel - Perfect Agent",
+        ]
+
+        for location in world.multiworld.get_locations(world.player):
+            if location.name in mission_locations \
+                    and world.get_location(location.name).can_reach(state):
+                completable_missions += 1
+
+        return completable_missions
+
+    def get_completable_challenges(state: CollectionState) -> int:
+        completable_challenges = 0
+
+        challenge_locations = [
+            "Complete: Challenge 1",
+            "Complete: Challenge 2",
+            "Complete: Challenge 3",
+            "Complete: Challenge 4",
+            "Complete: Challenge 5",
+            "Complete: Challenge 6",
+            "Complete: Challenge 7",
+            "Complete: Challenge 8",
+            "Complete: Challenge 9",
+            "Complete: Challenge 10",
+            "Complete: Challenge 11",
+            "Complete: Challenge 12",
+            "Complete: Challenge 13",
+            "Complete: Challenge 14",
+            "Complete: Challenge 15",
+            "Complete: Challenge 16",
+            "Complete: Challenge 17",
+            "Complete: Challenge 18",
+            "Complete: Challenge 19",
+            "Complete: Challenge 20",
+            "Complete: Challenge 21",
+            "Complete: Challenge 22",
+            "Complete: Challenge 23",
+            "Complete: Challenge 24",
+            "Complete: Challenge 25",
+            "Complete: Challenge 26",
+            "Complete: Challenge 27",
+            "Complete: Challenge 28",
+            "Complete: Challenge 29",
+            "Complete: Challenge 30",
+        ]
+
+        for location in world.multiworld.get_locations(world.player):
+            if location.name in challenge_locations \
+                    and world.get_location(location.name).can_reach(state):
+                completable_challenges += 1
+        
+        return completable_challenges
+
+    can_complete_enough_missions = lambda state: (get_completable_missions(state) >= required_mission_stars)
+    can_complete_enough_challenges = lambda state: (get_completable_challenges(state) >= required_challenge_stars)
+    can_complete_both = lambda state: ((get_completable_missions(state) >= required_mission_stars) 
+                                      and (get_completable_challenges(state) >= required_challenge_stars))
  
-    if ((world.options.goal.value == Goal.option_complete_skedar_ruins
-            and world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_mission_stars)
-            or world.options.goal.value == Goal.option_complete_missions):
-        required_mission_stars = get_mission_stars(world)
-
+    if (world.options.goal.value == Goal.option_complete_skedar_ruins
+            and world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_complete_missions):
         collect_stars = world.get_location("Collect All Stars")
-        world.set_rule(collect_stars, Has("Mission Star", count=required_mission_stars))
-    
-    elif ((world.options.goal.value == Goal.option_complete_skedar_ruins
-            and world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_challenge_stars)
-            or world.options.goal.value == Goal.option_complete_challenges):
-        required_challenge_stars = get_challenge_stars(world)
+        world.set_rule(collect_stars, can_complete_enough_missions)
 
+    elif (world.options.goal.value == Goal.option_complete_skedar_ruins
+            and world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_complete_challenges):
         collect_stars = world.get_location("Collect All Stars")
-        world.set_rule(collect_stars, Has("Challenge Star", count=required_challenge_stars))
+        world.set_rule(collect_stars, can_complete_enough_challenges)
 
-    elif ((world.options.goal.value == Goal.option_complete_skedar_ruins
-            and world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_both_stars)
-            or world.options.goal.value == Goal.option_complete_both):
-        required_mission_stars = get_mission_stars(world)
-        required_challenge_stars = get_challenge_stars(world)
-
+    elif (world.options.goal.value == Goal.option_complete_skedar_ruins
+            and world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_complete_both):
         collect_stars = world.get_location("Collect All Stars")
-        world.set_rule(collect_stars, Has("Mission Star", count=required_mission_stars) & Has("Challenge Star", count=required_challenge_stars))
+        world.set_rule(collect_stars, can_complete_both)
 
     set_all_extra_location_rules(world)
     set_completion_condition(world)
@@ -4488,44 +4605,12 @@ def set_completion_condition(world: PerfectDarkWorld) -> None:
                                   | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                   | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE)))
 
-        if world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_item:
-            world.set_completion_rule(has_skedar_ruins & complete_skedar_weapons)             
+        world.set_completion_rule(has_skedar_ruins & complete_skedar_weapons)             
 
-        elif world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_mission_stars:
-            required_mission_stars = get_mission_stars(world)
-
-            world.set_completion_rule(has_skedar_ruins
-                                      & complete_skedar_weapons
-                                      & Has("Mission Star", count=required_mission_stars))
-
-        elif world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_challenge_stars:
-            required_challenge_stars = get_challenge_stars(world)
-
-            world.set_completion_rule(has_skedar_ruins
-                                      & complete_skedar_weapons
-                                      & Has("Challenge Star", count=required_challenge_stars))
-                    
-        elif world.options.skedar_ruins_requirements.value == SkedarRuinsRequirements.option_collect_both_stars:
-            required_mission_stars = get_mission_stars(world)
-            required_challenge_stars = get_challenge_stars(world)
-
-            world.set_completion_rule(has_skedar_ruins
-                                      & complete_skedar_weapons
-                                      & Has("Mission Star", count=required_mission_stars)
-                                      & Has("Challenge Star", count=required_challenge_stars))
-
-    elif world.options.goal.value == Goal.option_complete_missions:
-        required_mission_stars = get_mission_stars(world)
-        world.set_completion_rule(Has("Mission Star", count=required_mission_stars))
-
-    elif world.options.goal.value == Goal.option_complete_challenges:
-        required_challenge_stars = get_challenge_stars(world)
-        world.set_completion_rule(Has("Challenge Star", count=required_challenge_stars))
-
-    elif world.options.goal.value == Goal.option_complete_both:
-        required_mission_stars = get_mission_stars(world)
-        required_challenge_stars = get_challenge_stars(world)
-        world.set_completion_rule(Has("Mission Star", count=required_mission_stars) & Has("Challenge Star", count=required_challenge_stars))
+    elif world.options.goal.value == Goal.option_cheese_hunt:
+        percent = float(world.options.required_cheese_percentage.value) / 100
+        required_cheese = int(round(world.options.cheese_total.value * percent, 0))
+        world.set_completion_rule(Has("Cheese", count=required_cheese))
 
 
 def get_mission_stars(world: PerfectDarkWorld) -> int:
@@ -4599,9 +4684,8 @@ def exclude_weapons_from_list(excluded_weapons: list[str]) -> list[str]:
 
 def has_challenges(world: PerfectDarkWorld) -> bool:
     if (world.options.challenges
-        or (world.options.goal >= Goal.option_complete_challenges)
         or (world.options.goal == Goal.option_complete_skedar_ruins
-            and (world.options.skedar_ruins_requirements.value >= SkedarRuinsRequirements.option_collect_challenge_stars))):
+            and world.options.skedar_ruins_requirements.value >= SkedarRuinsRequirements.option_complete_challenges)):
         return True
     else:
         return False

@@ -1189,9 +1189,8 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             skedar_cheat_timed.progress_type = LocationProgressType.EXCLUDED
 
 
-    if ((world.options.goal.value == Goal.option_complete_skedar_ruins
-            and world.options.skedar_ruins_requirements.value >= SkedarRuinsRequirements.option_collect_mission_stars)
-            or world.options.goal.value >= Goal.option_complete_missions):
+    if (world.options.goal.value == Goal.option_complete_skedar_ruins
+            and world.options.skedar_ruins_requirements.value >= SkedarRuinsRequirements.option_complete_missions):
         institute_locations_list.append("Collect All Stars")
 
 
