@@ -2642,40 +2642,34 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31": perfect_agent_rules["Complete: Skedar Ruins - Perfect Agent"],
     }
 
+    has_g5_explosive = ((HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
+                            & has_remote_mine
+                            & has_chicago_weapon)
+                       | ((all_guns_filter & HasFromList(*EXPLOSIVE_LIST, count=1))
+                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                            | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"])))
 
     alternate_exits_rules = {
         "Complete G5 Building (Agent): Bottom Exit": agent_rules["Complete: G5 Building - Agent"]
-                                                     & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
-                                                     & has_remote_mine
-                                                     & has_chicago_weapon,
+                                                     & has_g5_explosive,
         "Complete G5 Building (Agent): Upper Exit": agent_rules["Complete: G5 Building - Agent"] 
-                                                    & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
-                                                    & has_remote_mine
-                                                    & has_chicago_weapon,
+                                                    & has_g5_explosive,
         "Complete A51 Escape (Agent): UFO Escape": agent_rules["Complete: A51 Escape - Agent"],
         "Complete A51 Escape (Agent): Alternate Escape": agent_rules["Complete: A51 Escape - Agent"],
         "Complete Air Base (Agent): Shuttle Exit": agent_rules["Complete: Air Base - Agent"],
         "Complete Air Base (Agent): Ladder Exit": agent_rules["Complete: Air Base - Agent"],
         "Complete G5 Building (Special Agent): Bottom Exit": special_agent_rules["Complete: G5 Building - Special Agent"]
-                                                             & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
-                                                             & has_remote_mine
-                                                             & has_chicago_weapon,
+                                                             & has_g5_explosive,
         "Complete G5 Building (Special Agent): Upper Exit": special_agent_rules["Complete: G5 Building - Special Agent"] 
-                                                            & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
-                                                            & has_remote_mine
-                                                            & has_chicago_weapon,
+                                                            & has_g5_explosive,
         "Complete A51 Escape (Special Agent): UFO Escape": special_agent_rules["Complete: A51 Escape - Special Agent"],
         "Complete A51 Escape (Special Agent): Alternate Escape": special_agent_rules["Complete: A51 Escape - Special Agent"],
         "Complete Air Base (Special Agent): Shuttle Exit": special_agent_rules["Complete: Air Base - Special Agent"],
         "Complete Air Base (Special Agent): Ladder Exit": special_agent_rules["Complete: Air Base - Special Agent"],
         "Complete G5 Building (Perfect Agent): Bottom Exit": perfect_agent_rules["Complete: G5 Building - Perfect Agent"]
-                                                             & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
-                                                             & has_remote_mine
-                                                             & has_chicago_weapon,
+                                                             & has_g5_explosive,
         "Complete G5 Building (Perfect Agent): Upper Exit": perfect_agent_rules["Complete: G5 Building - Perfect Agent"]
-                                                            & HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
-                                                            & has_remote_mine
-                                                            & has_chicago_weapon,
+                                                            & has_g5_explosive,
         "Complete A51 Escape (Perfect Agent): UFO Escape": perfect_agent_rules["Complete: A51 Escape - Perfect Agent"],
         "Complete A51 Escape (Perfect Agent): Alternate Escape": perfect_agent_rules["Complete: A51 Escape - Perfect Agent"],
         "Complete Air Base (Perfect Agent): Shuttle Exit": perfect_agent_rules["Complete: Air Base - Perfect Agent"],

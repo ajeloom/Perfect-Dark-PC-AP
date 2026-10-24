@@ -9,7 +9,7 @@ from . import items
 if TYPE_CHECKING:
     from .world import PerfectDarkWorld
 
-from .options import Goal, SkedarRuinsRequirements, MissionLogic, AlternateExits
+from .options import Goal, SkedarRuinsRequirements, MissionLogic, WeaponProgression, AlternateExits
 from .rules import has_challenges
 
 LOCATION_NAME_TO_ID = {
@@ -857,21 +857,29 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
                 "Complete Air Base (Agent): Ladder Exit"
             ]
 
-            g5_item = world.random.choice(g5_building_exits)
             escape_item = world.random.choice(escape_exits)
             air_base_item = world.random.choice(air_base_exits)
 
-            g5_locations_list.append(g5_item)
             escape_locations_list.append(escape_item)
             airbase_locations_list.append(air_base_item)
+
+            if world.options.special_agent \
+                    or world.options.perfect_agent \
+                    or world.options.weapon_progression.value >= WeaponProgression.option_all_guns:
+                g5_item = world.random.choice(g5_building_exits)
+                g5_locations_list.append(g5_item)
             
         elif world.options.alternate_exits.value == AlternateExits.option_all:
-            g5_locations_list.append("Complete G5 Building (Agent): Bottom Exit")
-            g5_locations_list.append("Complete G5 Building (Agent): Upper Exit")
             escape_locations_list.append("Complete A51 Escape (Agent): UFO Escape")
             escape_locations_list.append("Complete A51 Escape (Agent): Alternate Escape")
             airbase_locations_list.append("Complete Air Base (Agent): Shuttle Exit")
             airbase_locations_list.append("Complete Air Base (Agent): Ladder Exit")
+
+            if world.options.special_agent \
+                    or world.options.perfect_agent \
+                    or world.options.weapon_progression.value >= WeaponProgression.option_all_guns:
+                g5_locations_list.append("Complete G5 Building (Agent): Bottom Exit")
+                g5_locations_list.append("Complete G5 Building (Agent): Upper Exit")
 
 
     if world.options.special_agent:
