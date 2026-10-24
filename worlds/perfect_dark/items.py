@@ -745,11 +745,13 @@ def create_all_items(world:PerfectDarkWorld) -> None:
     if has_any_difficulty(world):
         itempool.append(world.create_item("Horizon Scanner"))
         itempool.append(world.create_item("President Scanner"))
-        itempool.append(world.create_item("Alien Medpack"))
         itempool.append(world.create_item("Explosives"))
         itempool.append(world.create_item("Lab Clothes"))
         itempool.append(world.create_item("Backup Disk"))
         itempool.append(world.create_item("Cellar Key Card"))
+
+    if world.options.special_agent or world.options.perfect_agent:
+        itempool.append(world.create_item("Alien Medpack"))
         itempool.append(world.create_item("Suitcase"))
         
     if has_challenges(world) or has_any_difficulty(world):
@@ -1093,25 +1095,18 @@ def create_all_items(world:PerfectDarkWorld) -> None:
 
     elif (world.options.weapon_progression.value == WeaponProgression.option_progressive_weapon
             or world.options.weapon_progression.value == WeaponProgression.option_progressive_one_gun):
-        itempool.append(world.create_item("RC-P120"))
-        itempool.append(world.create_item("Timed Mine"))
-        itempool.append(world.create_item("Remote Mine"))
-        if world.options.perfect_agent:
-            itempool.append(world.create_item("K7 Avenger"))
-            itempool.append(world.create_item("FarSight XR-20"))
-
-        for x in range(42):
+        for _ in range(42):
             itempool.append(world.create_item("Progressive Weapon"))
     elif world.options.weapon_progression.value == WeaponProgression.option_progressive_types:
-        for x in range(10):
+        for _ in range(10):
             itempool.append(world.create_item("Progressive Pistol"))
-        for x in range(9):
+        for _ in range(9):
             itempool.append(world.create_item("Progressive SMG"))
-        for x in range(6):
+        for _ in range(6):
             itempool.append(world.create_item("Progressive Rifle"))
-        for x in range(8):
+        for _ in range(8):
             itempool.append(world.create_item("Progressive Explosive"))
-        for x in range(9):
+        for _ in range(9):
             itempool.append(world.create_item("Progressive Other Weapon"))
 
 

@@ -128,10 +128,8 @@ HAS_DUEL_PF_AGENT = HasAny("The Duel - Perfect Agent", "The Duel", options=[miss
 
 normal_weapon_filter = OptionFilter(WeaponProgression, WeaponProgression.option_normal)
 all_guns_filter = OptionFilter(WeaponProgression, WeaponProgression.option_all_guns)
-progressive_weapon_filter = [
-                                OptionFilter(WeaponProgression, WeaponProgression.option_progressive_weapon),
-                                OptionFilter(WeaponProgression, WeaponProgression.option_progressive_one_gun),
-                            ]
+has_progressive_weapon = OptionFilter(WeaponProgression, WeaponProgression.option_progressive_weapon)
+has_progressive_one_gun = OptionFilter(WeaponProgression, WeaponProgression.option_progressive_one_gun)
 progressive_types_filter = OptionFilter(WeaponProgression, WeaponProgression.option_progressive_types)
 
 # All Guns Weapon Progression
@@ -593,7 +591,9 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     has_k7 = (Has("K7 Avenger")
              | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"])
-             | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"]))
+             | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])
+             | has_progressive_weapon
+             | has_progressive_one_gun)
 
 
     # Extraction
@@ -676,7 +676,9 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     has_remote_mine = (Has("Remote Mine")
                       | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])
-                      | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]))
+                      | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"])
+                      | has_progressive_weapon
+                      | has_progressive_one_gun)
 
 
     # G5 Building
@@ -770,7 +772,9 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     has_timed_mine = (Has("Timed Mine")
                      | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
-                     | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))
+                     | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"])
+                     | has_progressive_weapon
+                     | has_progressive_one_gun)
 
 
     # Crash Site
@@ -782,7 +786,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     complete_crash_site_weapons = (HasAll("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
                                   | HasFromList("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", count=2, options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
-                                  | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                  | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                   | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                   | HAS_ANY_WEAPON_TYPE)
 
@@ -825,7 +829,9 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     has_farsight = (Has("FarSight XR-20")
                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"])
-                   | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]))
+                   | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"])
+                   | has_progressive_weapon
+                   | has_progressive_one_gun)
 
 
     # CI Defense
@@ -836,7 +842,9 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     has_rcp120 = (Has("RC-P120")
                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"])
-                 | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"]))
+                 | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"])
+                 | has_progressive_weapon
+                 | has_progressive_one_gun)
 
     has_laser = (Has("Laser")
                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Laser"])
@@ -1088,13 +1096,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                           & complete_escape_weapons,
 
         "A51 Escape - Agent Objective 3": HAS_ESCAPE_AGENT
-                                          & Has("Alien Medpack")
                                           & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & complete_escape_weapons,
 
         "Complete: A51 Escape - Agent": HAS_ESCAPE_AGENT
-                                        & Has("Alien Medpack")
                                         & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & complete_escape_weapons,
@@ -1122,23 +1128,19 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 11 - Air Force One
         "Air Force One - Agent Objective 1": HAS_AFO_AGENT
-                                             & Has("Suitcase")
                                              & Has("President", options=[npc_filter], filtered_resolution=True),
 
         "Air Force One - Agent Objective 2": HAS_AFO_AGENT
-                                             & Has("Suitcase")
                                              & Has("President", options=[npc_filter], filtered_resolution=True)
                                              & complete_afo_weapons,
 
         "Air Force One - Agent Objective 3": HAS_AFO_AGENT
-                                             & Has("Suitcase")
                                              & Has("President", options=[npc_filter], filtered_resolution=True)
                                              & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                              & has_afo_weapon
                                              & has_timed_mine,
 
         "Complete: Air Force One - Agent": HAS_AFO_AGENT
-                                           & Has("Suitcase")
                                            & Has("President", options=[npc_filter], filtered_resolution=True)
                                            & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                            & complete_afo_weapons
@@ -2755,10 +2757,6 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
     has_proxy_mine = (Has("Proximity Mine")
                      | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Proximity Mine"])
                      | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Proximity Mine"]))
-
-    has_remote_mine = (Has("Remote Mine")
-                      | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Remote Mine"])
-                      | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Remote Mine"]))
 
     has_nbomb = (Has("N-Bomb")
                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["N-Bomb"])
