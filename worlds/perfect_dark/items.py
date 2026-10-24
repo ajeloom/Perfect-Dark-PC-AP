@@ -275,15 +275,6 @@ ITEM_NAME_TO_ID = {
     "Jonathan": 249,
     "Elvis": 250,
     "President": 251,
-    "DK Mode Trap": 252,
-    "Small Jo Trap": 253,
-    "Small Characters Trap": 254,
-    "Slow Motion Trap": 255,
-    "Enemy Rockets Trap": 256,
-    "Perfect Darkness Trap": 257,
-    "Fast Animations Trap": 258,
-    "Skedar Trap": 259,
-    "N-Bomb Trap": 260,
     "Ammo Refill": 261,
     "Shield Refill": 262,
     "Health Refill": 263,
@@ -309,6 +300,16 @@ ITEM_NAME_TO_ID = {
     "Maian SOS": 283,
     "WAR!": 284,
     "The Duel": 285,
+    "DK Mode Trap": 300,
+    "Small Jo Trap": 301,
+    "Small Characters Trap": 302,
+    "Slow Motion Trap": 303,
+    "Enemy Rockets Trap": 304,
+    "Perfect Darkness Trap": 305,
+    "Fast Animations Trap": 306,
+    "Skedar Trap": 307,
+    "N-Bomb Trap": 308,
+    "Cloak Trap": 309,
 }
 
 
@@ -561,15 +562,6 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Jonathan": ItemClassification.progression | ItemClassification.useful,
     "Elvis": ItemClassification.progression | ItemClassification.useful,
     "President": ItemClassification.progression | ItemClassification.useful,
-    "DK Mode Trap": ItemClassification.trap,
-    "Small Jo Trap": ItemClassification.trap,
-    "Small Characters Trap": ItemClassification.trap,
-    "Slow Motion Trap": ItemClassification.trap,
-    "Enemy Rockets Trap": ItemClassification.trap,
-    "Perfect Darkness Trap": ItemClassification.trap,
-    "Fast Animations Trap": ItemClassification.trap,
-    "Skedar Trap": ItemClassification.trap,
-    "N-Bomb Trap": ItemClassification.trap,
     "Ammo Refill": ItemClassification.filler | ItemClassification.useful,
     "Shield Refill": ItemClassification.filler | ItemClassification.useful,
     "Health Refill": ItemClassification.filler | ItemClassification.useful,
@@ -595,6 +587,16 @@ DEFAULT_ITEM_CLASSIFICATIONS = {
     "Maian SOS": ItemClassification.progression | ItemClassification.useful,
     "WAR!": ItemClassification.progression | ItemClassification.useful,
     "The Duel": ItemClassification.progression | ItemClassification.useful,
+    "DK Mode Trap": ItemClassification.trap,
+    "Small Jo Trap": ItemClassification.trap,
+    "Small Characters Trap": ItemClassification.trap,
+    "Slow Motion Trap": ItemClassification.trap,
+    "Enemy Rockets Trap": ItemClassification.trap,
+    "Perfect Darkness Trap": ItemClassification.trap,
+    "Fast Animations Trap": ItemClassification.trap,
+    "Skedar Trap": ItemClassification.trap,
+    "N-Bomb Trap": ItemClassification.trap,
+    "Cloak Trap": ItemClassification.trap,
 }
 
 mission_list = []
@@ -662,6 +664,7 @@ def get_random_filler_item_name(world: PerfectDarkWorld) -> str:
             "Fast Animations Trap",
             "Skedar Trap",
             "N-Bomb Trap",
+            "Cloak Trap",
         ]
 
         available_traps = [
