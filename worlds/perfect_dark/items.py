@@ -1156,9 +1156,6 @@ def create_all_items(world:PerfectDarkWorld) -> None:
     if world.options.weapon_training:
         option_list.append("Weapon Training")
 
-    if world.options.device_training:
-        option_list.append("Device Training")
-
     if has_challenges(world):
         option_list.append("Challenges")
 
@@ -1395,27 +1392,6 @@ def create_all_items(world:PerfectDarkWorld) -> None:
                     remove_starting_item_from_pool(world, weapon, itempool)
                 else:
                     remove_starting_item_from_pool(world, weapon, itempool)
-
-        # Device Training
-        elif option == "Device Training":
-            devices_list = [
-                "Data Uplink",
-                "ECM Mine",
-                "CamSpy",
-                "Night Vision",
-                "Door Decoder",
-                # "R-Tracker",
-                "IR Scanner",
-                "X-Ray Scanner",
-                "Stewardess Disguise",
-                # "Cloaking Device",
-            ]
-
-            if not world.options.npcs:
-                devices_list.append("Cloaking Device")
-
-            device = world.random.choice(devices_list)
-            remove_starting_item_from_pool(world, device, itempool)
 
 
         # Challenges
