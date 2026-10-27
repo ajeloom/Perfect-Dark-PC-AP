@@ -13,6 +13,8 @@ If you find any issues or want to suggest anything to add, please report them on
 
 You can view the code for the client and how to build it [here](https://github.com/ajeloom/perfect_dark/tree/port-aprandomizer).
 
+For a closer look at the current features, check out the [game info page](https://github.com/ajeloom/Perfect-Dark-PC-AP/blob/main/worlds/perfect_dark/docs/game_info.md).
+
 ## Current Features
 - Four goals:
   - Complete Skedar Ruins
