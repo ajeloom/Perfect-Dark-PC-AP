@@ -1476,14 +1476,14 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         "G5 Building - Special Agent Objective 4": HAS_G5_SP_AGENT
                                                    & HAS_G5_KEYS
                                                    & complete_g5_weapons
-                                                   & has_remote_mine,
+                                                   & (has_remote_mine | has_explosive),
 
         "Complete: G5 Building - Special Agent": HAS_G5_SP_AGENT
                                                  & HasAll("CamSpy", "Door Decoder", "Backup Disk")
                                                  & HAS_G5_KEYS
                                                  & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                  & complete_g5_weapons
-                                                 & has_remote_mine,
+                                                 & (has_remote_mine | has_explosive),
 
 
         # Stage 7 - A51 Infiltration
@@ -2033,14 +2033,14 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         "G5 Building - Perfect Agent Objective 5": HAS_G5_PF_AGENT
                                                    & HAS_G5_KEYS
                                                    & complete_g5_weapons
-                                                   & has_remote_mine,
+                                                   & (has_remote_mine | has_explosive),
 
         "Complete: G5 Building - Perfect Agent": HAS_G5_PF_AGENT
                                                  & HasAll("CamSpy", "Door Decoder", "Backup Disk")
                                                  & HAS_G5_KEYS
                                                  & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                  & complete_g5_weapons
-                                                 & has_remote_mine,
+                                                 & (has_remote_mine | has_explosive),
 
 
         # Stage 7 - A51 Infiltration
