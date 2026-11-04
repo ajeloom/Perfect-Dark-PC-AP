@@ -1174,19 +1174,19 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 13 - Pelagic II
         "Pelagic II - Agent Objective 1": HAS_PELAGIC_AGENT
-                                          & Has("X-Ray Scanner")
+                                          & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
                                           & has_pelagic_weapon,
 
         "Pelagic II - Agent Objective 2": HAS_PELAGIC_AGENT
                                           & has_pelagic_weapon,
 
         "Pelagic II - Agent Objective 3": HAS_PELAGIC_AGENT
-                                          & Has("X-Ray Scanner")
+                                          & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & complete_pelagic_weapons,
 
         "Complete: Pelagic II - Agent": HAS_PELAGIC_AGENT
-                                        & Has("X-Ray Scanner")
+                                        & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & complete_pelagic_weapons,
 
@@ -1662,7 +1662,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 13 - Pelagic II
         "Pelagic II - Special Agent Objective 1": HAS_PELAGIC_SP_AGENT
-                                                  & Has("X-Ray Scanner")
+                                                  & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
                                                   & has_pelagic_weapon,
 
         "Pelagic II - Special Agent Objective 2": HAS_PELAGIC_SP_AGENT
@@ -1672,12 +1672,12 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                   & has_pelagic_weapon,
 
         "Pelagic II - Special Agent Objective 4": HAS_PELAGIC_SP_AGENT
-                                                  & Has("X-Ray Scanner")
+                                                  & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_pelagic_weapons,
 
         "Complete: Pelagic II - Special Agent": HAS_PELAGIC_SP_AGENT
-                                                & Has("X-Ray Scanner")
+                                                & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_pelagic_weapons,
 
@@ -2254,7 +2254,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 13 - Pelagic II
         "Pelagic II - Perfect Agent Objective 1": HAS_PELAGIC_PF_AGENT
-                                                  & Has("X-Ray Scanner")
+                                                  & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
                                                   & has_pelagic_weapon,
 
         "Pelagic II - Perfect Agent Objective 2": HAS_PELAGIC_PF_AGENT
@@ -2268,12 +2268,14 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                   & has_pelagic_weapon,
 
         "Pelagic II - Perfect Agent Objective 5": HAS_PELAGIC_PF_AGENT
-                                                  & HasAll("X-Ray Scanner", "Research Tape")
+                                                  & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+                                                  & Has("Research Tape")
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_pelagic_weapons,
 
         "Complete: Pelagic II - Perfect Agent": HAS_PELAGIC_PF_AGENT
-                                                & HasAll("X-Ray Scanner", "Research Tape")
+                                                & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+                                                & Has("Research Tape")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_pelagic_weapons,
 
