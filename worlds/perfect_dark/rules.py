@@ -33,6 +33,7 @@ has_perfect_agent = OptionFilter(IncludePerfectAgent, True)
 
 HAS_DD_KEYS = HasAny("De Vries' Necklace", "dataDyne Master Key") & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
 HAS_CASS_OFFICE_KEY = HasAny("Cassandra's Office Key Card", "dataDyne Master Key")
+HAS_G5_FIRST_KEY = HasAny("G5 Building Level 1 Key Card", "G5 Building Master Key")
 HAS_G5_KEYS = HasAll("G5 Building Level 1 Key Card", "G5 Building Level 2 Key Card") | Has("G5 Building Master Key")
 HAS_A51_INFIL_KEYS = HasAny("Area 51 Lift Key Card", "Area 51 Master Key")
 HAS_A51_RESCUE_FIRST_KEY = HasAny("Medlab 2 Key Card", "Area 51 Master Key")
@@ -531,6 +532,8 @@ def set_all_entrance_rules(world: PerfectDarkWorld) -> None:
     ci_to_maian_sos = world.get_entrance("Carrington Institute to Maian SOS")
     ci_to_war = world.get_entrance("Carrington Institute to War!")
     ci_to_duel = world.get_entrance("Carrington Institute to The Duel")
+    ci_to_dd_central = world.get_entrance("Carrington Institute to dataDyne Central")
+    ci_to_inner_area_51 = world.get_entrance("Carrington Institute to Inner Area 51")
 
     world.set_rule(ci_to_defection, has_defection)
     world.set_rule(ci_to_investigation, has_investigation)
@@ -553,6 +556,8 @@ def set_all_entrance_rules(world: PerfectDarkWorld) -> None:
     world.set_rule(ci_to_maian_sos, has_maian_sos)
     world.set_rule(ci_to_war, has_war)
     world.set_rule(ci_to_duel, has_duel)
+    world.set_rule(ci_to_dd_central, (has_defection | has_extraction | has_mbr))
+    world.set_rule(ci_to_inner_area_51, (has_rescue | has_escape | has_maian_sos))
 
 
 def set_all_location_rules(world: PerfectDarkWorld) -> None:
@@ -561,6 +566,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
     hard_logic = OptionFilter(MissionLogic, MissionLogic.option_hard)
     perfect_logic = OptionFilter(MissionLogic, MissionLogic.option_perfect)
 
+
+    has_explosive = ((all_guns_filter & HasFromList(*EXPLOSIVE_LIST, count=1))
+                    | (all_guns_filter & Has("Dragon") & HasFromList(*exclude_weapons_from_list(["Dragon"]), count=1))
+                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
+                    | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))
 
     # Defection
     has_defection_weapon = (Has("Falcon 2 (Silencer)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
@@ -609,10 +619,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                   | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                   | HAS_ANY_WEAPON_TYPE)
 
-    has_extraction_explosive = (Has("Rocket Launcher")
-                               | (all_guns_filter & HasFromList(*EXPLOSIVE_LIST, count=1))
-                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
-                               | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))
+    has_extraction_explosive = (Has("Rocket Launcher") | has_explosive)
 
 
     # Villa
@@ -742,10 +749,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
     has_sedate = (HasAny("Crossbow", "CamSpy")
                  | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
 
-    has_air_base_explosive = (([OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge")] & Has("Dragon") & HasAny("K7 Avenger", "Proximity Mine"))
-                             | (all_guns_filter & HasFromList(*EXPLOSIVE_LIST, count=1))
-                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
-                             | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))
+    has_air_base_explosive = ((normal_logic & HasAll("Dragon", "K7 Avenger"))
+                             | (veteran_logic & HasAny("Dragon", "Proximity Mine") & Has("K7 Avenger"))
+                             | (hard_logic & (Has("Dragon") | (Has("Proximity Mine") & HasAny("Dragon", "K7 Avenger"))))
+                             | (perfect_logic & (Has("Dragon") | (Has("Proximity Mine") & HasAny("Dragon", "K7 Avenger"))))
+                             | has_explosive)
 
 
     # Air Force One
@@ -830,6 +838,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
     # CI Defense
+    has_defense_weapon = (HasAny("AR34", "Laser")
+                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
+                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
+                         | HAS_ANY_WEAPON_TYPE)
+
     complete_defense_weapons = (Has("AR34")
                                | (all_guns_filter & HAS_ANY_RIFLE)
                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DMC"])
@@ -845,10 +858,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Laser"])
                 | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Laser"]))
 
-    has_defense_explosive = (Has("Devastator")
-                            | (all_guns_filter & HasAny(*EXPLOSIVE_LIST))
-                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
-                            | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))
+    has_defense_explosive = (Has("Devastator") | has_explosive)
 
     has_defense_destroy_weapon = (has_laser
                                  | (OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge") & has_defense_explosive))
@@ -879,10 +889,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
                                     | (Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]) & HAS_ANY_WEAPON_TYPE))
 
-    has_skedar_ruins_explosive = (Has("Devastator")
-                                 | (all_guns_filter & HasAny(*EXPLOSIVE_LIST))
-                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
-                                 | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))
+    has_skedar_ruins_explosive = (Has("Devastator") | has_explosive)
 
 
     # Mr. Blonde's Revenge
@@ -2642,9 +2649,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
     has_g5_explosive = ((HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
                             & has_remote_mine
                             & has_chicago_weapon)
-                       | ((all_guns_filter & HasFromList(*EXPLOSIVE_LIST, count=1))
-                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Timed Mine"])
-                            | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"])))
+                       | has_explosive)
 
     alternate_exits_rules = {
         "Complete G5 Building (Agent): Bottom Exit": agent_rules["Complete: G5 Building - Agent"]
@@ -3251,6 +3256,1139 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                          & has_infiltration_weapon,
     }
 
+    # Glassanity Rules
+    can_break_strong_glass = ((all_guns_filter & HasAny("Slayer", "Rocket Launcher")) 
+                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Slayer"])
+                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Rocket Launcher"])
+                             | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"])
+                             | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"]))
+
+
+    # dD Central
+    can_break_defection_glass = has_defection & has_defection_weapon
+
+    can_break_mbr_glass = (has_mbr 
+                          & complete_mbr_weapons
+                          & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True))
+
+    can_break_dd_central_glass = can_break_defection_glass | can_break_extraction_glass | can_break_mbr_glass
+
+    can_break_extraction_glass = (has_extraction 
+                                 & has_extraction_weapon
+                                 & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True))
+
+
+    # dD Investigation
+    can_break_investigation_glass = has_investigation & has_investigation_weapon
+    
+    can_break_investigation_glass_special_perfect = ((HAS_INVESTIGATION_SP_AGENT
+                                                    | HAS_INVESTIGATION_PF_AGENT)
+                                                    & has_investigation_weapon)
+
+    can_break_investigation_sector3_glass = (has_investigation
+                                            & has_investigation_weapon
+                                            & Has("Data Uplink"))
+
+
+    # Carrington Villa
+    can_break_villa_glass = has_villa & villa_pickupsanity_weapon
+
+
+    # G5 Building
+    can_break_g5_glass = (has_g5
+                         & HAS_G5_FIRST_KEY
+                         & has_g5_weapon)
+
+
+    # Area 51
+    can_break_rescue_glass = (has_rescue 
+                             & has_rescue_weapon 
+                             & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
+                             & Has("Lab Clothes"))
+
+    can_break_escape_glass = has_escape & has_escape_weapon
+
+    can_complete_escape_any_diff = ((HAS_ESCAPE_AGENT 
+                                        | ((HAS_ESCAPE_SP_AGENT | HAS_ESCAPE_PF_AGENT) 
+                                        & Has("Alien Medpack")))
+                                   & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
+                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                   & complete_escape_weapons)
+
+    has_maian_sos_weapon = (Has("Falcon 2")
+                           | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
+                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
+                           | HAS_ANY_WEAPON_TYPE)
+
+    can_break_maian_sos_glass = (has_maian_sos 
+                                & ((Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                    & has_maian_sos_weapon)
+                                | has_explosive))
+
+    can_break_inner_a51_glass = (can_break_rescue_glass | can_break_escape_glass | can_break_maian_sos_glass)
+
+
+    # Air Base
+    can_break_air_base_glass = (has_air_base
+                               & Has("Stewardess Disguise")
+                               & has_sedate
+                               & has_air_base_explosive)
+
+
+    # Pelagic II
+    can_break_pelagic_glass = has_pelagic & has_pelagic_weapon
+
+
+    # Deep Sea
+    can_break_deep_sea_glass = (HAS_DEEP_SEA_PF_AGENT
+                               & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                               & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                               & complete_deep_sea_weapons)
+
+
+    # CI Defense
+    can_break_defense_glass = (has_defense
+                              & Has("Carrington", options=[npc_filter], filtered_resolution=True)
+                              & has_defense_weapon)
+
+    can_break_defense_strong_glass = ((HAS_DEFENSE_AGENT
+                                        | ((HAS_DEFENSE_SP_AGENT | HAS_DEFENSE_PF_AGENT) & complete_defense_weapons))
+                                     & Has("Carrington", options=[npc_filter], filtered_resolution=True)
+                                     & can_break_strong_glass)
+
+
+    # Attack Ship
+    can_break_attack_ship_glass = ((HAS_ATTACK_SHIP_SP_AGENT | HAS_ATTACK_SHIP_PF_AGENT)
+                                  & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
+                                  & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                  & complete_attack_ship_weapons)
+    
+
+    glassanity_rules = {
+        "dD Central: Top Glass Railing (stairs between roof and 4F)": can_break_dd_central_glass,
+        
+        "dD Central: Bottom Glass Railing (stairs between roof and 4F)": can_break_dd_central_glass,
+        
+        "dD Central: Top Window (stairs between roof and 4F)": can_break_dd_central_glass,
+        
+        "dD Central: Middle Window (stairs between roof and 4F)": can_break_dd_central_glass,
+        
+        "dD Central: Bottom Window (stairs between roof and 4F)": can_break_dd_central_glass,
+        
+        "dD Central: 4F Window 1": can_break_dd_central_glass,
+        
+        "dD Central: 4F Window 2": can_break_dd_central_glass,
+        
+        "dD Central: 4F Window 3": can_break_dd_central_glass,
+        
+        "dD Central: 4F Window 4": can_break_dd_central_glass,
+        
+        "dD Central: 4F Window 5": can_break_dd_central_glass,
+        
+        "dD Central: 4F Window 6": can_break_dd_central_glass,
+        
+        "dD Central: 4F Window 7": can_break_dd_central_glass,
+        
+        "dD Central: 4F Window 8": can_break_dd_central_glass,
+        
+        "dD Central: 4F Window 9": can_break_dd_central_glass,
+        
+        "dD Central: 4F Glass Railing 1": can_break_dd_central_glass,
+        
+        "dD Central: 4F Glass Railing 2": can_break_dd_central_glass,
+        
+        "dD Central: 4F Glass Railing 3": can_break_dd_central_glass,
+        
+        "dD Central: 4F Glass Railing 4": can_break_dd_central_glass,
+        
+        "dD Central: Cassandra's Office Window (left)": can_break_defection_glass
+                                                        | (can_break_extraction_glass & HAS_CASS_OFFICE_KEY) 
+                                                        | can_break_mbr_glass,
+        
+        "dD Central: Cassandra's Office Window (middle)": can_break_defection_glass
+                                                          | (can_break_extraction_glass & HAS_CASS_OFFICE_KEY) 
+                                                          | can_break_mbr_glass,
+        
+        "dD Central: Cassandra's Office Window (right)": can_break_defection_glass
+                                                         | (can_break_extraction_glass & HAS_CASS_OFFICE_KEY) 
+                                                         | can_break_mbr_glass,
+        
+        "dD Central: Cassandra's Office Window (top)": can_break_defection_glass 
+                                                       | (can_break_extraction_glass & HAS_CASS_OFFICE_KEY)
+                                                       | can_break_mbr_glass,
+        
+        "dD Central: Top Glass Railing (stairs between 4F and 2F)": can_break_dd_central_glass,
+        
+        "dD Central: Bottom Glass Railing (stairs between 4F and 2F)": can_break_dd_central_glass,
+        
+        "dD Central: Top Window (stairs between 4F and 2F)": can_break_dd_central_glass,
+        
+        "dD Central: Middle Window (stairs between 4F and 2F)": can_break_dd_central_glass,
+        
+        "dD Central: Bottom Window (stairs between 4F and 2F)": can_break_dd_central_glass,
+        
+        "dD Central: 3F Glass 1 (near elevator)": can_break_dd_central_glass,
+        
+        "dD Central: 3F Glass 2 (near elevator)": can_break_dd_central_glass,
+        
+        "dD Central: 3F Glass 3 (near elevator)": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 1": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 2": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 3": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 4": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 5": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 6": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 7": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 8": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 9": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 10": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 11": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 12": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 13": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 14": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 15": can_break_dd_central_glass,
+        
+        "dD Central: 3F Window 16": can_break_defection_glass | can_break_mbr_glass,
+        
+        "dD Central: 3F Window 17": can_break_defection_glass | can_break_mbr_glass,
+        
+        "dD Central: 3F Window 18": can_break_defection_glass | can_break_mbr_glass,
+
+        "dD Central: 2F Glass 1 (near elevator)": can_break_dd_central_glass,
+                
+        "dD Central: 2F Glass 2 (near elevator)": can_break_dd_central_glass,
+        
+        "dD Central: 2F Glass 3 (near elevator)": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 1": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 2": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 3": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 4": can_break_defection_glass | can_break_mbr_glass,
+        
+        "dD Central: 2F Window 5": can_break_defection_glass | can_break_mbr_glass,
+        
+        "dD Central: 2F Window 6": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 7": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 8": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 9": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 10": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 11": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 12": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 13": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 14": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 15": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 16": can_break_dd_central_glass,
+        
+        "dD Central: 2F Window 17": can_break_dd_central_glass,
+        
+        "dD Central: Left Elevator Glass 1": can_break_dd_central_glass,
+
+        "dD Central: Left Elevator Glass 2": can_break_dd_central_glass,
+
+        "dD Central: Right Elevator Glass 1": can_break_dd_central_glass,
+
+        "dD Central: Right Elevator Glass 2": can_break_dd_central_glass,
+    
+        "dD Central: 1F Left Elevator Glass 1": can_break_dd_central_glass,
+
+        "dD Central: 1F Left Elevator Glass 2": can_break_dd_central_glass,
+
+        "dD Central: 1F Left Elevator Glass 3": can_break_dd_central_glass,
+    
+        "dD Central: 1F Right Elevator Glass 1": can_break_dd_central_glass,
+
+        "dD Central: 1F Right Elevator Glass 2": can_break_dd_central_glass,
+
+        "dD Central: 1F Right Elevator Glass 3": can_break_dd_central_glass,
+    
+        "dD Central: 1F Glass Railing 1": can_break_dd_central_glass,
+
+        "dD Central: 1F Glass Railing 2": can_break_dd_central_glass,
+
+        "dD Central: 1F Glass Railing 3": can_break_dd_central_glass,
+
+        "dD Central: 1F Glass Railing 4": can_break_dd_central_glass,
+
+        "dD Central: 1F Glass Railing 5": can_break_dd_central_glass,
+        
+        "dD Investigation: Glass Railing (near cleaning bot)": has_investigation,
+    
+        "dD Investigation: Glass on door (near cleaning bot)": can_break_investigation_glass,
+    
+        "dD Investigation: Glass 1 (near computer)": has_investigation 
+                                                     & (has_proxy_mine | has_explosive),
+
+        "dD Investigation: Glass 2 (near computer)": has_investigation 
+                                                     & (has_proxy_mine | has_explosive),
+    
+        "dD Investigation: Glass 1 (room with one scientist)": can_break_investigation_glass_special_perfect,
+
+        "dD Investigation: Glass 2 (room with one scientist)": can_break_investigation_glass_special_perfect,
+
+        "dD Investigation: Glass 3 (room with one scientist)": can_break_investigation_glass_special_perfect,
+
+        "dD Investigation: Glass 4 (room with one scientist)": can_break_investigation_glass_special_perfect,
+
+        "dD Investigation: Glass 5 (room with one scientist)": can_break_investigation_glass_special_perfect,
+
+        "dD Investigation: Glass 6 (room with one scientist)": can_break_investigation_glass_special_perfect,
+
+        "dD Investigation: Glass 7 (room with one scientist)": can_break_investigation_glass_special_perfect,
+
+        "dD Investigation: Glass 8 (room with one scientist)": can_break_investigation_glass_special_perfect,
+
+        "dD Investigation: Glass 1 (room with night vision)": can_break_investigation_glass,
+
+        "dD Investigation: Glass 2 (room with night vision)": can_break_investigation_glass,
+
+        "dD Investigation: Glass 3 (room with night vision)": can_break_investigation_glass,
+
+        "dD Investigation: Glass 4 (room with night vision)": can_break_investigation_glass,
+
+        "dD Investigation: Glass 5 (room with night vision)": can_break_investigation_glass,
+
+        "dD Investigation: Glass 6 (room with night vision)": can_break_investigation_glass,
+
+        "dD Investigation: Glass 7 (room with night vision)": can_break_investigation_glass,
+
+        "dD Investigation: Glass 8 (room with night vision)": can_break_investigation_glass,
+
+        "dD Investigation: Glass 1 (room near two scientists)": can_break_investigation_glass_special_perfect,
+
+        "dD Investigation: Glass 2 (room near two scientists)": can_break_investigation_glass_special_perfect,
+
+        "dD Investigation: Glass 3 (room near two scientists)": can_break_investigation_glass_special_perfect,
+
+        "dD Investigation: Glass 4 (room near two scientists)": can_break_investigation_glass_special_perfect,
+    
+        "dD Investigation: Glass 1 (room with glass enclosure)": can_break_investigation_glass,
+
+        "dD Investigation: Glass 2 (room with glass enclosure)": can_break_investigation_glass
+                                                                 & can_break_strong_glass,
+    
+        "dD Investigation: Glass 3 (room with glass enclosure)": can_break_investigation_glass
+                                                                 & can_break_strong_glass,
+
+        "dD Investigation: Glass on door 1 (sector 3 door)": can_break_investigation_glass,
+
+        "dD Investigation: Glass on door 2 (sector 3 door)": (OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le") 
+                                                                & can_break_investigation_sector3_glass)
+                                                             | (OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")
+                                                                & can_break_investigation_glass),
+    
+        "dD Investigation: Glass 1 (big room near the end)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 2 (big room near the end)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 3 (big room near the end)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 4 (big room near the end)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 1 (right glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 2 (right glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 3 (right glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 4 (right glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 5 (right glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 6 (right glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 7 (right glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 8 (right glass pillar of big room)": can_break_investigation_sector3_glass,
+    
+        "dD Investigation: Glass 1 (front left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 2 (front left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 3 (front left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 4 (front left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 5 (front left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 6 (front left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 7 (front left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 8 (front left glass pillar of big room)": can_break_investigation_sector3_glass,
+    
+        "dD Investigation: Glass 1 (back left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 2 (back left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 3 (back left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 4 (back left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 5 (back left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 6 (back left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 7 (back left glass pillar of big room)": can_break_investigation_sector3_glass,
+
+        "dD Investigation: Glass 8 (back left glass pillar of big room)": can_break_investigation_sector3_glass,
+    
+        "Carrington Villa: Glass Bottle 1": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 2": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 3": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 4": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 5": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 6": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 7": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 8": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 9": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 10": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 11": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 12": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 13": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 14": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 15": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 16": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 17": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 18": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 19": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 20": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 21": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 22": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 23": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 24": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 25": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 26": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 27": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 28": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 29": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 30": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 31": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 32": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 33": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 34": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 35": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 36": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 37": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 38": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 39": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 40": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 41": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 42": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 43": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 44": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 45": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 46": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 47": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 48": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 49": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 50": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 51": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 52": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 53": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 54": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 55": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 56": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 57": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 58": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 59": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 60": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 61": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 62": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 63": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 64": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 65": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 66": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 67": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 68": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 69": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 70": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 71": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 72": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 73": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 74": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 75": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 76": can_break_villa_glass,
+
+        "Carrington Villa: Glass Bottle 77": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 78": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 79": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 80": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 81": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 82": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 83": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 84": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 85": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 86": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 87": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 88": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 89": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 90": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 91": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 92": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 93": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 94": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 95": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 96": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 97": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 98": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 99": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 100": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 101": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 102": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 103": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 104": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 105": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 106": can_break_villa_glass,
+        
+        "Carrington Villa: Glass Bottle 107": can_break_villa_glass,
+    
+        "Chicago: Glass 1 (above stacked barrels)": has_chicago & has_chicago_weapon,
+
+        "Chicago: Glass 2 (above stacked barrels)": has_chicago
+                                                    & has_chicago_weapon
+                                                    & (Has("CamSpy")
+                                                    | has_remote_mine
+                                                    | has_explosive),
+
+        "Chicago: Glass 3 (above stacked barrels)": has_chicago
+                                                    & has_chicago_weapon
+                                                    & (Has("CamSpy")
+                                                    | has_remote_mine
+                                                    | has_explosive),
+    
+        "G5 Building: Glass (first room)": has_g5 & has_explosive,
+    
+        "G5 Building: Glass 1 (2nd cloak guards room)": has_g5
+                                                        & ((HAS_G5_FIRST_KEY & has_g5_weapon)
+                                                        | has_explosive),
+
+        "G5 Building: Glass 2 (2nd cloak guards room)": has_g5
+                                                        & ((HAS_G5_FIRST_KEY & has_g5_weapon)
+                                                        | has_explosive),
+    
+        "G5 Building: Door Glass 1 (1st door with glass)": can_break_g5_glass,
+
+        "G5 Building: Door Glass 2 (1st door with glass)": can_break_g5_glass,
+    
+        "G5 Building: Door Glass 1 (2nd door with glass)": can_break_g5_glass,
+
+        "G5 Building: Door Glass 2 (2nd door with glass)": can_break_g5_glass,
+    
+        "G5 Building: Door Glass 1 (3rd door with glass)": can_break_g5_glass,
+
+        "G5 Building: Door Glass 2 (3rd door with glass)": can_break_g5_glass,
+    
+        "G5 Building: Door Glass 1 (4th door with glass)": can_break_g5_glass,
+    
+        "G5 Building: Door Glass 2 (4th door with glass)": can_break_g5_glass,
+    
+        "G5 Building: Door Glass 1 (5th door with glass)": can_break_g5_glass,
+    
+        "G5 Building: Door Glass 2 (5th door with glass)": can_break_g5_glass,
+    
+        "G5 Building: Door Glass 1 (6th door with glass)": can_break_g5_glass,
+    
+        "G5 Building: Door Glass 2 (6th door with glass)": can_break_g5_glass,
+    
+        "G5 Building: Door Glass 1 (7th door with glass)": can_break_g5_glass,
+    
+        "G5 Building: Door Glass 2 (7th door with glass)": can_break_g5_glass,
+    
+        "G5 Building: Door Glass 1 (8th door with glass)": can_break_g5_glass,
+    
+        "G5 Building: Door Glass 2 (8th door with glass)": can_break_g5_glass,
+    
+        "Rescue/Escape/Maian SOS: Glass on door 1": can_break_inner_a51_glass,
+    
+        "Rescue/Escape/Maian SOS: Glass on door 2": can_break_inner_a51_glass,
+    
+        "Rescue/Escape/Maian SOS: Glass on medlab door": can_break_rescue_glass
+                                                         | can_complete_escape_any_diff
+                                                         | can_break_maian_sos_glass,
+    
+        "Rescue/Maian SOS: Glass 1 (in medlab)": can_break_rescue_glass | can_break_maian_sos_glass,
+    
+        "Rescue/Maian SOS: Glass 2 (in medlab)": can_break_rescue_glass | can_break_maian_sos_glass,
+    
+        "Rescue/Maian SOS: Glass 3 (in medlab)": can_break_rescue_glass | can_break_maian_sos_glass,
+    
+        "Maian SOS: Glass 1 (first room)": can_break_maian_sos_glass,
+    
+        "Maian SOS: Glass 2 (first room)": can_break_maian_sos_glass,
+    
+        "Maian SOS: Glass 3 (first room)": can_break_maian_sos_glass,
+    
+        "A51 Escape: Glass (near locked medical containment door)": HAS_ESCAPE_AGENT
+                                                                    | (can_break_escape_glass
+                                                                    & Has("Elvis", options=[npc_filter], filtered_resolution=True)),
+    
+        "A51 Escape: Glass on door (locked medical containment door)": can_break_escape_glass
+                                                                       & Has("Elvis", options=[npc_filter], filtered_resolution=True),
+    
+        "Air Base: Window (suitcase room)": has_air_base,
+    
+        "Air Base: Window (near security monitor)": can_break_air_base_glass,
+    
+        "Air Base: Window (near escalator)": has_air_base
+                                             & Has("Stewardess Disguise")
+                                             & has_sedate
+                                             & can_break_strong_glass,
+    
+        "Air Base: Window 1 (next to flight plans room)": can_break_air_base_glass & complete_air_base_weapons,
+    
+        "Air Base: Window 2 (next to flight plans room)": can_break_air_base_glass & complete_air_base_weapons,
+    
+        "Air Base: Window (in front of plane)": has_air_base
+                                                & Has("Stewardess Disguise")
+                                                & has_sedate
+                                                & complete_air_base_weapons
+                                                & can_break_strong_glass,
+    
+        "Air Base: Window (near flight plans)": can_break_air_base_glass & complete_air_base_weapons,
+    
+        "Air Base: Window (near flight plans)": can_break_air_base_glass & complete_air_base_weapons,
+        
+        "Pelagic II: Glass on Door (1st door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (2nd door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (3rd door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (4th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (5th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (6th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (7th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (8th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (9th door)": can_break_pelagic_glass,
+    
+        "Pelagic II: Glass on Door (10th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (15th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (16th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (17th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (18th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (19th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (20th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (21th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (22nd door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (23rd door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (24th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (25th door)": can_break_pelagic_glass,
+    
+        "Pelagic II: Glass on Door (near the end)": can_break_pelagic_glass,
+    
+        "Pelagic II: Glass on Door (11th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (12th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (13th door)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door (14th door)": can_break_pelagic_glass,
+    
+        "Pelagic II: Glass on Door 1 (lower floors)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door 2 (lower floors)": can_break_pelagic_glass,
+
+        "Pelagic II: Glass on Door 3 (lower floors)": can_break_pelagic_glass,
+    
+        "Pelagic II: Glass on Door 4 (lower floors)": (HAS_PELAGIC_SP_AGENT | HAS_PELAGIC_PF_AGENT)
+                                                      & has_pelagic_weapon,
+
+        "Pelagic II: Glass on Door 5 (lower floors)": (HAS_PELAGIC_SP_AGENT | HAS_PELAGIC_PF_AGENT)
+                                                      & has_pelagic_weapon,
+
+        "Pelagic II: Glass on Door 6 (lower floors)": (HAS_PELAGIC_SP_AGENT | HAS_PELAGIC_PF_AGENT)
+                                                      & has_pelagic_weapon,
+
+        "Pelagic II: Glass on Door 7 (lower floors)": (HAS_PELAGIC_SP_AGENT | HAS_PELAGIC_PF_AGENT)
+                                                      & has_pelagic_weapon,
+    
+        "Pelagic II: Glass on Door 1 (near research tapes)": HAS_PELAGIC_PF_AGENT & has_pelagic_weapon,
+
+        "Pelagic II: Glass on Door 2 (near research tapes)": HAS_PELAGIC_PF_AGENT & has_pelagic_weapon,
+    
+        "Deep Sea: Glass 1 (1st power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 2 (1st power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 3 (1st power node)": can_break_deep_sea_glass,
+    
+        "Deep Sea: Glass 1 (2nd power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 2 (2nd power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 3 (2nd power node)": can_break_deep_sea_glass,
+    
+        "Deep Sea: Glass 1 (3rd power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 2 (3rd power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 3 (3rd power node)": can_break_deep_sea_glass,
+    
+        "Deep Sea: Glass 1 (4th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 2 (4th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 3 (4th power node)": can_break_deep_sea_glass,
+    
+        "Deep Sea: Glass 1 (5th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 2 (5th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 3 (5th power node)": can_break_deep_sea_glass,
+    
+        "Deep Sea: Glass 1 (6th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 2 (6th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 3 (6th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 4 (6th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 5 (6th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 6 (6th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 7 (6th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 8 (6th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 9 (6th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 10 (6th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 11 (6th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 12 (6th power node)": can_break_deep_sea_glass,
+    
+        "Deep Sea: Glass 1 (7th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 2 (7th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 3 (7th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 4 (7th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 5 (7th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 6 (7th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 7 (7th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 8 (7th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 9 (7th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 10 (7th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 11 (7th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 12 (7th power node)": can_break_deep_sea_glass,
+    
+        "Deep Sea: Glass 1 (8th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 2 (8th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 3 (8th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 4 (8th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 5 (8th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 6 (8th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 7 (8th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 8 (8th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 9 (8th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 10 (8th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 11 (8th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 12 (8th power node)": can_break_deep_sea_glass,
+    
+        "Deep Sea: Glass 1 (9th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 2 (9th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 3 (9th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 4 (9th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 5 (9th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 6 (9th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 7 (9th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 8 (9th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 9 (9th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 10 (9th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 11 (9th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 12 (9th power node)": can_break_deep_sea_glass,
+    
+        "Deep Sea: Glass 1 (10th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 2 (10th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 3 (10th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 4 (10th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 5 (10th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 6 (10th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 7 (10th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 8 (10th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 9 (10th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 10 (10th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 11 (10th power node)": can_break_deep_sea_glass,
+
+        "Deep Sea: Glass 12 (10th power node)": can_break_deep_sea_glass,
+    
+        "Deep Sea: Glass 1 (11th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 2 (11th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 3 (11th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 4 (11th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 5 (11th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 6 (11th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 7 (11th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 8 (11th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 9 (11th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 10 (11th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 11 (11th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 12 (11th power node)": can_break_deep_sea_glass & has_farsight,
+    
+        "Deep Sea: Glass 1 (12th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 2 (12th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 3 (12th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 4 (12th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 5 (12th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 6 (12th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 7 (12th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 8 (12th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 9 (12th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 10 (12th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 11 (12th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "Deep Sea: Glass 12 (12th power node)": can_break_deep_sea_glass & has_farsight,
+
+        "CI Defense: 1F Glass Railing": has_defense
+                                        & Has("Carrington", options=[npc_filter], filtered_resolution=True)
+                                        & ((normal_weapon_filter & complete_defense_weapons)
+                                            | OptionFilter(WeaponProgression, WeaponProgression.option_all_guns, operator="ge"))
+                                        & has_defense_explosive,
+
+        "CI Defense: Basement Glass on Door 1": can_break_defense_glass,
+
+        "CI Defense: Basement Glass on Door 2": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass Railing 1": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass Railing 2": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass Railing 3": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass Railing 4": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass Railing 5": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass Railing 6": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass Railing 7": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass Railing 8": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass Railing 9": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass Railing 10": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 1 (2nd door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 2 (2nd door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 1 (3rd door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 2 (3rd door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 1 (4th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 2 (4th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 1 (5th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 2 (5th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 1 (6th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 2 (6th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 1 (7th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 2 (7th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 1 (8th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 2 (8th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 1 (9th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 2 (9th door)": can_break_defense_glass,
+
+        "CI Defense: Basement Glass on Door 1 (10th door)": can_break_defense_glass,
+
+        "CI Defense: Basement Glass on Door 2 (10th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 1 (11th door)": can_break_defense_glass,
+
+        "CI Defense: Basement Glass on Door 2 (11th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 1 (12th door)": can_break_defense_glass,
+
+        "CI Defense: Basement Glass on Door 2 (12th door)": can_break_defense_glass,
+    
+        "CI Defense: Basement Glass on Door 1 (13th door)": can_break_defense_glass,
+
+        "CI Defense: Basement Glass on Door 2 (13th door)": can_break_defense_glass,
+    
+        "CI Defense: Firing Range Glass 1": (HAS_DEFENSE_AGENT
+                                            | ((HAS_DEFENSE_SP_AGENT | HAS_DEFENSE_PF_AGENT) & has_defense_weapon))
+                                            & Has("Carrington", options=[npc_filter], filtered_resolution=True),
+    
+        "CI Defense: Firing Range Glass 2": can_break_defense_strong_glass,
+
+        "CI Defense: Firing Range Glass 3": can_break_defense_strong_glass,
+
+        "CI Defense: Firing Range Glass 4": can_break_defense_strong_glass,
+
+        "CI Defense: Firing Range Glass 5": can_break_defense_strong_glass,
+
+        "CI Defense: Firing Range Glass 6": can_break_defense_strong_glass,
+
+        "CI Defense: Firing Range Glass 7": can_break_defense_strong_glass,
+
+        "CI Defense: Firing Range Glass 8": can_break_defense_strong_glass,
+    
+        "CI Defense: Firing Range RC-P120 Glass": has_defense
+                                                  & Has("Carrington", options=[npc_filter], filtered_resolution=True)
+                                                  & (complete_defense_weapons
+                                                    | can_break_strong_glass),
+
+        "CI Defense: Firing Range Ceiling Glass 1": can_break_defense_glass,
+
+        "CI Defense: Firing Range Ceiling Glass 2": can_break_defense_glass,
+        
+        "CI Defense: Firing Range Ceiling Glass 3": can_break_defense_glass,
+        
+        "CI Defense: Firing Range Ceiling Glass 4": can_break_defense_glass,
+        
+        "CI Defense: Device Lab Glass 1": can_break_defense_glass,
+    
+        "CI Defense: Device Lab Glass 2": can_break_defense_glass,
+    
+        "CI Defense: Info Room Glass 1": can_break_defense_glass,
+    
+        "CI Defense: Info Room Glass 2": can_break_defense_glass,
+    
+        "CI Defense: Joanna's Office Glass 1": can_break_defense_glass,
+    
+        "CI Defense: Joanna's Office Glass 2": can_break_defense_glass,
+    
+        "CI Defense: Carrington's Office Glass 1": can_break_defense_glass,
+    
+        "CI Defense: Carrington's Office Glass 2": can_break_defense_glass,
+    
+        "Attack Ship: Engine System Glass 1": can_break_attack_ship_glass,
+
+        "Attack Ship: Engine System Glass 2": can_break_attack_ship_glass,
+
+        "Attack Ship: Engine System Glass 3": can_break_attack_ship_glass,
+
+        "Attack Ship: Engine System Glass 4": can_break_attack_ship_glass,
+
+        "Attack Ship: Engine System Glass 5": can_break_attack_ship_glass,
+
+        "Attack Ship: Engine System Glass 6": can_break_attack_ship_glass,
+    }
 
     if world.options.agent:
         add_rule(world, agent_rules)
@@ -3262,7 +4400,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         add_rule(world, perfect_agent_rules)
 
     if world.options.alternate_exits.value >= AlternateExits.option_one:
-        add_exit_rules(world, alternate_exits_rules)
+        add_rules(world, alternate_exits_rules)
 
     if world.options.completion_cheats:
         if world.options.agent or world.options.special_agent or world.options.perfect_agent:
@@ -3365,6 +4503,9 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             world.set_rule(mbr_falcon2_2, has_mbr
                                           & has_falcon2 
                                           & complete_mbr_weapons)
+
+    if world.options.glassanity:
+        add_rules(world, glassanity_rules)
 
 
 def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
@@ -4645,11 +5786,11 @@ def add_challenge_rules(world: PerfectDarkWorld, challenge_rules: dict) -> None:
             world.set_rule(challenge_location, rule)
 
 
-def add_exit_rules(world: PerfectDarkWorld, exit_rules: dict) -> None:
+def add_rules(world: PerfectDarkWorld, rules: dict) -> None:
     for location in world.multiworld.get_locations(world.player):
-        if location.name in exit_rules:
-            exit_location = world.get_location(location.name)
-            world.set_rule(exit_location, exit_rules[location.name])
+        if location.name in rules:
+            spot = world.get_location(location.name)
+            world.set_rule(spot, rules[location.name])
 
 
 def exclude_weapons_from_list(excluded_weapons: list[str]) -> list[str]:

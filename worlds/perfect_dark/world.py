@@ -52,6 +52,7 @@ class PerfectDarkWorld(World):
                 self.options.multiplayer_unlocks.value = passthrough["options"]["multiplayer_unlocks"]
                 self.options.alternate_exits.value = passthrough["options"]["alternate_exits"]
                 self.options.pickupsanity.value = passthrough["options"]["pickupsanity"]
+                self.options.glassanity.value = passthrough["options"]["glassanity"]
 
     def create_regions(self) -> None:
         regions.create_and_connect_regions(self)
@@ -107,6 +108,7 @@ class PerfectDarkWorld(World):
                 "multiplayer_unlocks": self.options.multiplayer_unlocks.value,
                 "alternate_exits": self.options.alternate_exits.value,
                 "pickupsanity": self.options.pickupsanity.value,
+                "glassanity": self.options.glassanity.value,
                 "deathlink": self.options.deathlink.value,
             },
         }

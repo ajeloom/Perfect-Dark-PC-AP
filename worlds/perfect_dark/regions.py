@@ -36,6 +36,8 @@ def create_all_regions(world: PerfectDarkWorld) -> None:
     maian_sos = Region("Maian SOS", world.player, world.multiworld)
     war = Region("War!", world.player, world.multiworld)
     duel = Region("The Duel", world.player, world.multiworld)
+    dd_central = Region("dataDyne Central", world.player, world.multiworld)
+    inner_a51 = Region("Inner Area 51", world.player, world.multiworld)
 
     regions = [
         carrington_institute,
@@ -59,7 +61,9 @@ def create_all_regions(world: PerfectDarkWorld) -> None:
         mbr,
         maian_sos,
         war,
-        duel
+        duel,
+        dd_central,
+        inner_a51
     ]
 
     world.multiworld.regions += regions
@@ -88,6 +92,8 @@ def connect_regions(world: PerfectDarkWorld) -> None:
     maian_sos = world.get_region("Maian SOS")
     war = world.get_region("War!")
     duel = world.get_region("The Duel")
+    dd_central = world.get_region("dataDyne Central")
+    inner_a51 = world.get_region("Inner Area 51")
 
     carrington_institute.connect(defection, "Carrington Institute to Defection")
     carrington_institute.connect(investigation, "Carrington Institute to Investigation")
@@ -110,3 +116,5 @@ def connect_regions(world: PerfectDarkWorld) -> None:
     carrington_institute.connect(maian_sos, "Carrington Institute to Maian SOS")
     carrington_institute.connect(war, "Carrington Institute to War!")
     carrington_institute.connect(duel, "Carrington Institute to The Duel")
+    carrington_institute.connect(dd_central, "Carrington Institute to dataDyne Central")
+    carrington_institute.connect(inner_a51, "Carrington Institute to Inner Area 51")

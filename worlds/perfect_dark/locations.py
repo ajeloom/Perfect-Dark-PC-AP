@@ -703,6 +703,492 @@ LOCATION_NAME_TO_ID = {
     "Mr. Blonde's Revenge (Agent): 1F Shield": 36607,
     "Maian SOS: double DY357-LX (from dual-wielding guard)": 38011,
     "Maian SOS: Psychosis Gun (on desk near the start)": 38919,
+    "dD Central: Top Glass Railing (stairs between roof and 4F)": 40291, # 273
+    "dD Central: Bottom Glass Railing (stairs between roof and 4F)": 40292, # 274
+    "dD Central: Top Window (stairs between roof and 4F)": 40284, # 272
+    "dD Central: Middle Window (stairs between roof and 4F)": 40283, # 271
+    "dD Central: Bottom Window (stairs between roof and 4F)": 40257, # 244
+    "dD Central: 4F Window 1": 40256, # 243
+    "dD Central: 4F Window 2": 40240, # 227
+    "dD Central: 4F Window 3": 40235, # 222
+    "dD Central: 4F Window 4": 40231, # 218
+    "dD Central: 4F Window 5": 40232, # 219
+    "dD Central: 4F Window 6": 40226, # 213
+    "dD Central: 4F Window 7": 40225, # 212
+    "dD Central: 4F Window 8": 40247, # 234
+    "dD Central: 4F Window 9": 40255, # 242
+    "dD Central: 4F Glass Railing 1": 40297, # 279
+    "dD Central: 4F Glass Railing 2": 40295, # 282
+    "dD Central: 4F Glass Railing 3": 40296, # 281
+    "dD Central: 4F Glass Railing 4": 40298, # 280
+    "dD Central: Cassandra's Office Window (left)": 40280, # 268
+    "dD Central: Cassandra's Office Window (middle)": 40281, # 269
+    "dD Central: Cassandra's Office Window (right)": 40279, # 267
+    "dD Central: Cassandra's Office Window (top)": 40282, # 270
+    "dD Central: Top Glass Railing (stairs between 4F and 2F)": 40293, # 275
+    "dD Central: Bottom Glass Railing (stairs between 4F and 2F)": 40294, # 276
+    "dD Central: Top Window (stairs between 4F and 2F)": 40260, # 247
+    "dD Central: Middle Window (stairs between 4F and 2F)": 40258, # 246
+    "dD Central: Bottom Window (stairs between 4F and 2F)": 40259, # 245
+    "dD Central: 3F Glass 1 (near elevator)": 40274, # 261
+    "dD Central: 3F Glass 2 (near elevator)": 40276, # 263
+    "dD Central: 3F Glass 3 (near elevator)": 40275, # 262
+    "dD Central: 3F Window 1": 40254, # 241
+    "dD Central: 3F Window 2": 40248, # 235
+    "dD Central: 3F Window 3": 40224, # 211
+    "dD Central: 3F Window 4": 40227, # 214
+    "dD Central: 3F Window 5": 40233, # 220
+    "dD Central: 3F Window 6": 40230, # 217
+    "dD Central: 3F Window 7": 40236, # 223
+    "dD Central: 3F Window 8": 40239, # 226
+    "dD Central: 3F Window 9": 40241, # 228
+    "dD Central: 3F Window 10": 40245, # 232
+    "dD Central: 3F Window 11": 40244, # 231
+    "dD Central: 3F Window 12": 40269, # 256
+    "dD Central: 3F Window 13": 40270, # 257
+    "dD Central: 3F Window 14": 40267, # 254
+    "dD Central: 3F Window 15": 40268, # 255
+    "dD Central: 3F Window 16": 40262, # Unreachable on Extraction
+    "dD Central: 3F Window 17": 40251, # Unreachable on Extraction
+    "dD Central: 3F Window 18": 40252, # Unreachable on Extraction
+    "dD Central: 2F Glass 1 (near elevator)": 40273, # 260
+    "dD Central: 2F Glass 2 (near elevator)": 40271, # 258
+    "dD Central: 2F Glass 3 (near elevator)": 40272, # 259
+    "dD Central: 2F Window 1": 40249, # 236
+    "dD Central: 2F Window 2": 40223, # 210
+    "dD Central: 2F Window 3": 40228, # 215
+    "dD Central: 2F Window 4": 40234, # Unreachable on Extraction
+    "dD Central: 2F Window 5": 40229, # Unreachable on Extraction
+    "dD Central: 2F Window 6": 40237, # 224
+    "dD Central: 2F Window 7": 40238, # 225
+    "dD Central: 2F Window 8": 40242, # 229
+    "dD Central: 2F Window 9": 40246, # 233
+    "dD Central: 2F Window 10": 40243, # 230
+    "dD Central: 2F Window 11": 40261, # 248
+    "dD Central: 2F Window 12": 40263, # 250
+    "dD Central: 2F Window 13": 40264, # 251
+    "dD Central: 2F Window 14": 40265, # 252
+    "dD Central: 2F Window 15": 40266, # 253
+    "dD Central: 2F Window 16": 40250, # 237
+    "dD Central: 2F Window 17": 40253, # 240
+    "dD Central: Left Elevator Glass 1": 40287, # 208 # Left when facing door of elevator 
+    "dD Central: Left Elevator Glass 2": 40288, # 209 # Right when facing door of elevator 
+    "dD Central: Right Elevator Glass 1": 40289, # 207 # Left when facing door of elevator
+    "dD Central: Right Elevator Glass 2": 40290, # 206 # Right when facing door of elevator
+    "dD Central: 1F Left Elevator Glass 1": 40584, # 597
+    "dD Central: 1F Left Elevator Glass 2": 40589, # 592
+    "dD Central: 1F Left Elevator Glass 3": 40591, # 590
+    "dD Central: 1F Right Elevator Glass 1": 40588, # 593
+    "dD Central: 1F Right Elevator Glass 2": 40590, # 591
+    "dD Central: 1F Right Elevator Glass 3": 40592, # 589
+    "dD Central: 1F Glass Railing 1": 40585, # 596
+    "dD Central: 1F Glass Railing 2": 40586, # 595
+    "dD Central: 1F Glass Railing 3": 40587, # 594
+    "dD Central: 1F Glass Railing 4": 40593, # 588 # Left from top of stairs 
+    "dD Central: 1F Glass Railing 5": 40594, # 587 # Right from top of stairs 
+    "dD Investigation: Glass Railing (near cleaning bot)": 42440,
+    "dD Investigation: Glass on door (near cleaning bot)": 42350,
+    "dD Investigation: Glass 1 (near computer)": 42435,
+    "dD Investigation: Glass 2 (near computer)": 42436,
+    "dD Investigation: Glass 1 (room with one scientist)": 42448,
+    "dD Investigation: Glass 2 (room with one scientist)": 42449,
+    "dD Investigation: Glass 3 (room with one scientist)": 42450,
+    "dD Investigation: Glass 4 (room with one scientist)": 42451,
+    "dD Investigation: Glass 5 (room with one scientist)": 42452,
+    "dD Investigation: Glass 6 (room with one scientist)": 42453,
+    "dD Investigation: Glass 7 (room with one scientist)": 42454,
+    "dD Investigation: Glass 8 (room with one scientist)": 42455,
+    "dD Investigation: Glass 1 (room with night vision)": 42461,
+    "dD Investigation: Glass 2 (room with night vision)": 42462,
+    "dD Investigation: Glass 3 (room with night vision)": 42463,
+    "dD Investigation: Glass 4 (room with night vision)": 42464,
+    "dD Investigation: Glass 5 (room with night vision)": 42465,
+    "dD Investigation: Glass 6 (room with night vision)": 42466,
+    "dD Investigation: Glass 7 (room with night vision)": 42467,
+    "dD Investigation: Glass 8 (room with night vision)": 42468,
+    "dD Investigation: Glass 1 (room near two scientists)": 42456,
+    "dD Investigation: Glass 2 (room near two scientists)": 42457,
+    "dD Investigation: Glass 3 (room near two scientists)": 42458,
+    "dD Investigation: Glass 4 (room near two scientists)": 42459,
+    "dD Investigation: Glass 1 (room with glass enclosure)": 42447,
+    "dD Investigation: Glass 2 (room with glass enclosure)": 42446,
+    "dD Investigation: Glass 3 (room with glass enclosure)": 42445,
+    "dD Investigation: Glass on door 1 (sector 3 door)": 42391,
+    "dD Investigation: Glass on door 2 (sector 3 door)": 42392,
+    "dD Investigation: Glass 1 (big room near the end)": 42441,
+    "dD Investigation: Glass 2 (big room near the end)": 42442,
+    "dD Investigation: Glass 3 (big room near the end)": 42443,
+    "dD Investigation: Glass 4 (big room near the end)": 42444,
+    "dD Investigation: Glass 1 (right glass pillar of big room)": 42469,
+    "dD Investigation: Glass 2 (right glass pillar of big room)": 42470,
+    "dD Investigation: Glass 3 (right glass pillar of big room)": 42471,
+    "dD Investigation: Glass 4 (right glass pillar of big room)": 42472,
+    "dD Investigation: Glass 5 (right glass pillar of big room)": 42473,
+    "dD Investigation: Glass 6 (right glass pillar of big room)": 42474,
+    "dD Investigation: Glass 7 (right glass pillar of big room)": 42475,
+    "dD Investigation: Glass 8 (right glass pillar of big room)": 42476,
+    "dD Investigation: Glass 1 (front left glass pillar of big room)": 42485,
+    "dD Investigation: Glass 2 (front left glass pillar of big room)": 42486,
+    "dD Investigation: Glass 3 (front left glass pillar of big room)": 42487,
+    "dD Investigation: Glass 4 (front left glass pillar of big room)": 42488,
+    "dD Investigation: Glass 5 (front left glass pillar of big room)": 42489,
+    "dD Investigation: Glass 6 (front left glass pillar of big room)": 42490,
+    "dD Investigation: Glass 7 (front left glass pillar of big room)": 42491,
+    "dD Investigation: Glass 8 (front left glass pillar of big room)": 42492,
+    "dD Investigation: Glass 1 (back left glass pillar of big room)": 42477,
+    "dD Investigation: Glass 2 (back left glass pillar of big room)": 42478,
+    "dD Investigation: Glass 3 (back left glass pillar of big room)": 42479,
+    "dD Investigation: Glass 4 (back left glass pillar of big room)": 42480,
+    "dD Investigation: Glass 5 (back left glass pillar of big room)": 42481,
+    "dD Investigation: Glass 6 (back left glass pillar of big room)": 42482,
+    "dD Investigation: Glass 7 (back left glass pillar of big room)": 42483,
+    "dD Investigation: Glass 8 (back left glass pillar of big room)": 42484,
+    "Carrington Villa: Glass Bottle 1": 44240,
+    "Carrington Villa: Glass Bottle 2": 44239,
+    "Carrington Villa: Glass Bottle 3": 44238,
+    "Carrington Villa: Glass Bottle 4": 44233,
+    "Carrington Villa: Glass Bottle 5": 44234,
+    "Carrington Villa: Glass Bottle 6": 44232,
+    "Carrington Villa: Glass Bottle 7": 44230,
+    "Carrington Villa: Glass Bottle 8": 44235,
+    "Carrington Villa: Glass Bottle 9": 44229,
+    "Carrington Villa: Glass Bottle 10": 44231,
+    "Carrington Villa: Glass Bottle 11": 44236,
+    "Carrington Villa: Glass Bottle 12": 44237,
+    "Carrington Villa: Glass Bottle 13": 44244,
+    "Carrington Villa: Glass Bottle 14": 44241,
+    "Carrington Villa: Glass Bottle 15": 44242,
+    "Carrington Villa: Glass Bottle 16": 44243,
+    "Carrington Villa: Glass Bottle 17": 44245,
+    "Carrington Villa: Glass Bottle 18": 44246,
+    "Carrington Villa: Glass Bottle 19": 44247,
+    "Carrington Villa: Glass Bottle 20": 44248,
+    "Carrington Villa: Glass Bottle 21": 44250,
+    "Carrington Villa: Glass Bottle 22": 44249,
+    "Carrington Villa: Glass Bottle 23": 44251,
+    "Carrington Villa: Glass Bottle 24": 44252,
+    "Carrington Villa: Glass Bottle 25": 44253,
+    "Carrington Villa: Glass Bottle 26": 44254,
+    "Carrington Villa: Glass Bottle 27": 44255,
+    "Carrington Villa: Glass Bottle 28": 44256,
+    "Carrington Villa: Glass Bottle 29": 44257,
+    "Carrington Villa: Glass Bottle 30": 44258,
+    "Carrington Villa: Glass Bottle 31": 44259,
+    "Carrington Villa: Glass Bottle 32": 44260,
+    "Carrington Villa: Glass Bottle 33": 44261,
+    "Carrington Villa: Glass Bottle 34": 44262,
+    "Carrington Villa: Glass Bottle 35": 44263,
+    "Carrington Villa: Glass Bottle 36": 44264,
+    "Carrington Villa: Glass Bottle 37": 44276,
+    "Carrington Villa: Glass Bottle 38": 44275,
+    "Carrington Villa: Glass Bottle 39": 44274,
+    "Carrington Villa: Glass Bottle 40": 44269,
+    "Carrington Villa: Glass Bottle 41": 44270,
+    "Carrington Villa: Glass Bottle 42": 44268,
+    "Carrington Villa: Glass Bottle 43": 44266,
+    "Carrington Villa: Glass Bottle 44": 44271,
+    "Carrington Villa: Glass Bottle 45": 44265,
+    "Carrington Villa: Glass Bottle 46": 44267,
+    "Carrington Villa: Glass Bottle 47": 44272,
+    "Carrington Villa: Glass Bottle 48": 44273,
+    "Carrington Villa: Glass Bottle 49": 44280,
+    "Carrington Villa: Glass Bottle 50": 44277,
+    "Carrington Villa: Glass Bottle 51": 44278,
+    "Carrington Villa: Glass Bottle 52": 44279,
+    "Carrington Villa: Glass Bottle 53": 44281,
+    "Carrington Villa: Glass Bottle 54": 44282,
+    "Carrington Villa: Glass Bottle 55": 44297,
+    "Carrington Villa: Glass Bottle 56": 44291,
+    "Carrington Villa: Glass Bottle 57": 44296,
+    "Carrington Villa: Glass Bottle 58": 44289,
+    "Carrington Villa: Glass Bottle 59": 44290,
+    "Carrington Villa: Glass Bottle 60": 44295,
+    "Carrington Villa: Glass Bottle 61": 44292,
+    "Carrington Villa: Glass Bottle 62": 44294,
+    "Carrington Villa: Glass Bottle 63": 44293,
+    "Carrington Villa: Glass Bottle 64": 44298,
+    "Carrington Villa: Glass Bottle 65": 44299,
+    "Carrington Villa: Glass Bottle 66": 44300,
+    "Carrington Villa: Glass Bottle 67": 44288,
+    "Carrington Villa: Glass Bottle 68": 44287,
+    "Carrington Villa: Glass Bottle 69": 44285,
+    "Carrington Villa: Glass Bottle 70": 44284,
+    "Carrington Villa: Glass Bottle 71": 44283,
+    "Carrington Villa: Glass Bottle 72": 44286,
+    "Carrington Villa: Glass Bottle 73": 44325,
+    "Carrington Villa: Glass Bottle 74": 44326,
+    "Carrington Villa: Glass Bottle 75": 44327,
+    "Carrington Villa: Glass Bottle 76": 44328,
+    "Carrington Villa: Glass Bottle 77": 44329,
+    "Carrington Villa: Glass Bottle 78": 44330,
+    "Carrington Villa: Glass Bottle 79": 44331,
+    "Carrington Villa: Glass Bottle 80": 44332,
+    "Carrington Villa: Glass Bottle 81": 44333,
+    "Carrington Villa: Glass Bottle 82": 44334,
+    "Carrington Villa: Glass Bottle 83": 44335,
+    "Carrington Villa: Glass Bottle 84": 44319,
+    "Carrington Villa: Glass Bottle 85": 44320,
+    "Carrington Villa: Glass Bottle 86": 44321,
+    "Carrington Villa: Glass Bottle 87": 44322,
+    "Carrington Villa: Glass Bottle 88": 44323,
+    "Carrington Villa: Glass Bottle 89": 44324,
+    "Carrington Villa: Glass Bottle 90": 44318,
+    "Carrington Villa: Glass Bottle 91": 44317,
+    "Carrington Villa: Glass Bottle 92": 44316,
+    "Carrington Villa: Glass Bottle 93": 44311,
+    "Carrington Villa: Glass Bottle 94": 44312,
+    "Carrington Villa: Glass Bottle 95": 44310,
+    "Carrington Villa: Glass Bottle 96": 44313,
+    "Carrington Villa: Glass Bottle 97": 44308,
+    "Carrington Villa: Glass Bottle 98": 44307,
+    "Carrington Villa: Glass Bottle 99": 44314,
+    "Carrington Villa: Glass Bottle 100": 44309,
+    "Carrington Villa: Glass Bottle 101": 44315,
+    "Carrington Villa: Glass Bottle 102": 44304,
+    "Carrington Villa: Glass Bottle 103": 44301,
+    "Carrington Villa: Glass Bottle 104": 44302,
+    "Carrington Villa: Glass Bottle 105": 44303,
+    "Carrington Villa: Glass Bottle 106": 44305,
+    "Carrington Villa: Glass Bottle 107": 44306,
+    "Chicago: Glass 1 (above stacked barrels)": 46291,
+    "Chicago: Glass 2 (above stacked barrels)": 46292,
+    "Chicago: Glass 3 (above stacked barrels)": 46293,
+    "G5 Building: Glass (first room)": 48190,
+    "G5 Building: Glass 1 (2nd cloak guards room)": 48192,
+    "G5 Building: Glass 2 (2nd cloak guards room)": 48193,
+    "G5 Building: Door Glass 1 (1st door with glass)": 48156,
+    "G5 Building: Door Glass 2 (1st door with glass)": 48157,
+    "G5 Building: Door Glass 1 (2nd door with glass)": 48164,
+    "G5 Building: Door Glass 2 (2nd door with glass)": 48165,
+    "G5 Building: Door Glass 1 (3rd door with glass)": 48162,
+    "G5 Building: Door Glass 2 (3rd door with glass)": 48163,
+    "G5 Building: Door Glass 1 (4th door with glass)": 48166,
+    "G5 Building: Door Glass 2 (4th door with glass)": 48167,
+    "G5 Building: Door Glass 1 (5th door with glass)": 48170,
+    "G5 Building: Door Glass 2 (5th door with glass)": 48171,
+    "G5 Building: Door Glass 1 (6th door with glass)": 48172,
+    "G5 Building: Door Glass 2 (6th door with glass)": 48173,
+    "G5 Building: Door Glass 1 (7th door with glass)": 48168,
+    "G5 Building: Door Glass 2 (7th door with glass)": 48169,
+    "G5 Building: Door Glass 1 (8th door with glass)": 48179,
+    "G5 Building: Door Glass 2 (8th door with glass)": 48180,
+    "Rescue/Escape/Maian SOS: Glass on door 1": 50646,
+    "Rescue/Escape/Maian SOS: Glass on door 2": 50649,
+    "Rescue/Escape/Maian SOS: Glass on medlab door": 50680,
+    "Rescue/Maian SOS: Glass 1 (in medlab)": 51078,
+    "Rescue/Maian SOS: Glass 2 (in medlab)": 51079,
+    "Rescue/Maian SOS: Glass 3 (in medlab)": 51080,
+    "Maian SOS: Glass 1 (first room)": 51081,
+    "Maian SOS: Glass 2 (first room)": 51082,
+    "Maian SOS: Glass 3 (first room)": 51083,
+    "A51 Escape: Glass (near locked medical containment door)": 51084,
+    "A51 Escape: Glass on door (locked medical containment door)": 50612,
+    "Air Base: Window (suitcase room)": 52491,
+    "Air Base: Window (near security monitor)": 52494,
+    "Air Base: Window (near escalator)": 52500,
+    "Air Base: Window 1 (next to flight plans room)": 52495,
+    "Air Base: Window 2 (next to flight plans room)": 52498,
+    "Air Base: Window (in front of plane)": 52501,
+    "Air Base: Window (near flight plans)": 52496,
+    "Air Base: Window (near flight plans)": 52497,
+    "Pelagic II: Glass on Door (1st door)": 54244,
+    "Pelagic II: Glass on Door (2nd door)": 54271,
+    "Pelagic II: Glass on Door (3rd door)": 54243,
+    "Pelagic II: Glass on Door (4th door)": 54272,
+    "Pelagic II: Glass on Door (5th door)": 54273,
+    "Pelagic II: Glass on Door (6th door)": 54270,
+    "Pelagic II: Glass on Door (7th door)": 54268,
+    "Pelagic II: Glass on Door (8th door)": 54267,
+    "Pelagic II: Glass on Door (9th door)": 54269,
+    "Pelagic II: Glass on Door (10th door)": 54248,
+    "Pelagic II: Glass on Door (15th door)": 54276,
+    "Pelagic II: Glass on Door (16th door)": 54275,
+    "Pelagic II: Glass on Door (17th door)": 54277,
+    "Pelagic II: Glass on Door (18th door)": 54280,
+    "Pelagic II: Glass on Door (19th door)": 54281,
+    "Pelagic II: Glass on Door (20th door)": 54284,
+    "Pelagic II: Glass on Door (21th door)": 54283,
+    "Pelagic II: Glass on Door (22nd door)": 54282,
+    "Pelagic II: Glass on Door (23rd door)": 54279,
+    "Pelagic II: Glass on Door (24th door)": 54247,
+    "Pelagic II: Glass on Door (25th door)": 54278,
+    "Pelagic II: Glass on Door (near the end)": 54255,
+    "Pelagic II: Glass on Door (11th door)": 54253,
+    "Pelagic II: Glass on Door (12th door)": 54260,
+    "Pelagic II: Glass on Door (13th door)": 54261,
+    "Pelagic II: Glass on Door (14th door)": 54254,
+    "Pelagic II: Glass on Door 1 (lower floors)": 54242,
+    "Pelagic II: Glass on Door 2 (lower floors)": 54265,
+    "Pelagic II: Glass on Door 3 (lower floors)": 54264,
+    "Pelagic II: Glass on Door 4 (lower floors)": 54262,
+    "Pelagic II: Glass on Door 5 (lower floors)": 54263,
+    "Pelagic II: Glass on Door 6 (lower floors)": 54241,
+    "Pelagic II: Glass on Door 7 (lower floors)": 54240,
+    "Pelagic II: Glass on Door 1 (near research tapes)": 54249,
+    "Pelagic II: Glass on Door 2 (near research tapes)": 54250,
+    "Deep Sea: Glass 1 (1st power node)": 56515,
+    "Deep Sea: Glass 2 (1st power node)": 56516,
+    "Deep Sea: Glass 3 (1st power node)": 56517,
+    "Deep Sea: Glass 1 (2nd power node)": 56518,
+    "Deep Sea: Glass 2 (2nd power node)": 56519,
+    "Deep Sea: Glass 3 (2nd power node)": 56520,
+    "Deep Sea: Glass 1 (3rd power node)": 56521,
+    "Deep Sea: Glass 2 (3rd power node)": 56522,
+    "Deep Sea: Glass 3 (3rd power node)": 56523,
+    "Deep Sea: Glass 1 (4th power node)": 56524,
+    "Deep Sea: Glass 2 (4th power node)": 56525,
+    "Deep Sea: Glass 3 (4th power node)": 56526,
+    "Deep Sea: Glass 1 (5th power node)": 56527,
+    "Deep Sea: Glass 2 (5th power node)": 56528,
+    "Deep Sea: Glass 3 (5th power node)": 56529,
+    "Deep Sea: Glass 1 (6th power node)": 56530,
+    "Deep Sea: Glass 2 (6th power node)": 56531,
+    "Deep Sea: Glass 3 (6th power node)": 56532,
+    "Deep Sea: Glass 4 (6th power node)": 56533,
+    "Deep Sea: Glass 5 (6th power node)": 56534,
+    "Deep Sea: Glass 6 (6th power node)": 56535,
+    "Deep Sea: Glass 7 (6th power node)": 56536,
+    "Deep Sea: Glass 8 (6th power node)": 56537,
+    "Deep Sea: Glass 9 (6th power node)": 56538,
+    "Deep Sea: Glass 10 (6th power node)": 56539,
+    "Deep Sea: Glass 11 (6th power node)": 56540,
+    "Deep Sea: Glass 12 (6th power node)": 56541,
+    "Deep Sea: Glass 1 (7th power node)": 56542,
+    "Deep Sea: Glass 2 (7th power node)": 56543,
+    "Deep Sea: Glass 3 (7th power node)": 56544,
+    "Deep Sea: Glass 4 (7th power node)": 56545,
+    "Deep Sea: Glass 5 (7th power node)": 56546,
+    "Deep Sea: Glass 6 (7th power node)": 56547,
+    "Deep Sea: Glass 7 (7th power node)": 56548,
+    "Deep Sea: Glass 8 (7th power node)": 56549,
+    "Deep Sea: Glass 9 (7th power node)": 56550,
+    "Deep Sea: Glass 10 (7th power node)": 56551,
+    "Deep Sea: Glass 11 (7th power node)": 56552,
+    "Deep Sea: Glass 12 (7th power node)": 56553,
+    "Deep Sea: Glass 1 (8th power node)": 56554,
+    "Deep Sea: Glass 2 (8th power node)": 56555,
+    "Deep Sea: Glass 3 (8th power node)": 56556,
+    "Deep Sea: Glass 4 (8th power node)": 56557,
+    "Deep Sea: Glass 5 (8th power node)": 56558,
+    "Deep Sea: Glass 6 (8th power node)": 56559,
+    "Deep Sea: Glass 7 (8th power node)": 56560,
+    "Deep Sea: Glass 8 (8th power node)": 56561,
+    "Deep Sea: Glass 9 (8th power node)": 56562,
+    "Deep Sea: Glass 10 (8th power node)": 56563,
+    "Deep Sea: Glass 11 (8th power node)": 56564,
+    "Deep Sea: Glass 12 (8th power node)": 56565,
+    "Deep Sea: Glass 1 (9th power node)": 56566,
+    "Deep Sea: Glass 2 (9th power node)": 56567,
+    "Deep Sea: Glass 3 (9th power node)": 56568,
+    "Deep Sea: Glass 4 (9th power node)": 56569,
+    "Deep Sea: Glass 5 (9th power node)": 56570,
+    "Deep Sea: Glass 6 (9th power node)": 56571,
+    "Deep Sea: Glass 7 (9th power node)": 56572,
+    "Deep Sea: Glass 8 (9th power node)": 56573,
+    "Deep Sea: Glass 9 (9th power node)": 56574,
+    "Deep Sea: Glass 10 (9th power node)": 56575,
+    "Deep Sea: Glass 11 (9th power node)": 56576,
+    "Deep Sea: Glass 12 (9th power node)": 56577,
+    "Deep Sea: Glass 1 (10th power node)": 56578,
+    "Deep Sea: Glass 2 (10th power node)": 56579,
+    "Deep Sea: Glass 3 (10th power node)": 56580,
+    "Deep Sea: Glass 4 (10th power node)": 56581,
+    "Deep Sea: Glass 5 (10th power node)": 56582,
+    "Deep Sea: Glass 6 (10th power node)": 56583,
+    "Deep Sea: Glass 7 (10th power node)": 56584,
+    "Deep Sea: Glass 8 (10th power node)": 56585,
+    "Deep Sea: Glass 9 (10th power node)": 56586,
+    "Deep Sea: Glass 10 (10th power node)": 56587,
+    "Deep Sea: Glass 11 (10th power node)": 56588,
+    "Deep Sea: Glass 12 (10th power node)": 56589,
+    "Deep Sea: Glass 1 (11th power node)": 56590,
+    "Deep Sea: Glass 2 (11th power node)": 56591,
+    "Deep Sea: Glass 3 (11th power node)": 56592,
+    "Deep Sea: Glass 4 (11th power node)": 56593,
+    "Deep Sea: Glass 5 (11th power node)": 56594,
+    "Deep Sea: Glass 6 (11th power node)": 56595,
+    "Deep Sea: Glass 7 (11th power node)": 56596,
+    "Deep Sea: Glass 8 (11th power node)": 56597,
+    "Deep Sea: Glass 9 (11th power node)": 56598,
+    "Deep Sea: Glass 10 (11th power node)": 56599,
+    "Deep Sea: Glass 11 (11th power node)": 56600,
+    "Deep Sea: Glass 12 (11th power node)": 56601,
+    "Deep Sea: Glass 1 (12th power node)": 56602,
+    "Deep Sea: Glass 2 (12th power node)": 56603,
+    "Deep Sea: Glass 3 (12th power node)": 56604,
+    "Deep Sea: Glass 4 (12th power node)": 56605,
+    "Deep Sea: Glass 5 (12th power node)": 56606,
+    "Deep Sea: Glass 6 (12th power node)": 56607,
+    "Deep Sea: Glass 7 (12th power node)": 56608,
+    "Deep Sea: Glass 8 (12th power node)": 56609,
+    "Deep Sea: Glass 9 (12th power node)": 56610,
+    "Deep Sea: Glass 10 (12th power node)": 56611,
+    "Deep Sea: Glass 11 (12th power node)": 56612,
+    "Deep Sea: Glass 12 (12th power node)": 56613,
+    "CI Defense: 1F Glass Railing": 58465,
+    "CI Defense: Basement Glass on Door 1": 58387,
+    "CI Defense: Basement Glass on Door 2": 58388,
+    "CI Defense: Basement Glass Railing 1": 58451,
+    "CI Defense: Basement Glass Railing 2": 58439,
+    "CI Defense: Basement Glass Railing 3": 58441,
+    "CI Defense: Basement Glass Railing 4": 58440,
+    "CI Defense: Basement Glass Railing 5": 58442,
+    "CI Defense: Basement Glass Railing 6": 58443,
+    "CI Defense: Basement Glass Railing 7": 58444,
+    "CI Defense: Basement Glass Railing 8": 58447,
+    "CI Defense: Basement Glass Railing 9": 58445,
+    "CI Defense: Basement Glass Railing 10": 58446,
+    "CI Defense: Basement Glass on Door 1 (2nd door)": 58360,
+    "CI Defense: Basement Glass on Door 2 (2nd door)": 58361,
+    "CI Defense: Basement Glass on Door 1 (3rd door)": 58362,
+    "CI Defense: Basement Glass on Door 2 (3rd door)": 58363,
+    "CI Defense: Basement Glass on Door 1 (4th door)": 58364,
+    "CI Defense: Basement Glass on Door 2 (4th door)": 58365,
+    "CI Defense: Basement Glass on Door 1 (5th door)": 58366,
+    "CI Defense: Basement Glass on Door 2 (5th door)": 58367,
+    "CI Defense: Basement Glass on Door 1 (6th door)": 58368,
+    "CI Defense: Basement Glass on Door 2 (6th door)": 58369,
+    "CI Defense: Basement Glass on Door 1 (7th door)": 58370,
+    "CI Defense: Basement Glass on Door 2 (7th door)": 58371,
+    "CI Defense: Basement Glass on Door 1 (8th door)": 58372,
+    "CI Defense: Basement Glass on Door 2 (8th door)": 58373,
+    "CI Defense: Basement Glass on Door 1 (9th door)": 58381,
+    "CI Defense: Basement Glass on Door 2 (9th door)": 58382,
+    "CI Defense: Basement Glass on Door 1 (10th door)": 58383,
+    "CI Defense: Basement Glass on Door 2 (10th door)": 58384,
+    "CI Defense: Basement Glass on Door 1 (11th door)": 58376,
+    "CI Defense: Basement Glass on Door 2 (11th door)": 58377,
+    "CI Defense: Basement Glass on Door 1 (12th door)": 58374,
+    "CI Defense: Basement Glass on Door 2 (12th door)": 58375,
+    "CI Defense: Basement Glass on Door 1 (13th door)": 58379,
+    "CI Defense: Basement Glass on Door 2 (13th door)": 58380,
+    "CI Defense: Firing Range Glass 1": 58464,
+    "CI Defense: Firing Range Glass 2": 58463,
+    "CI Defense: Firing Range Glass 3": 58458,
+    "CI Defense: Firing Range Glass 4": 58457,
+    "CI Defense: Firing Range Glass 5": 58456,
+    "CI Defense: Firing Range Glass 6": 58460,
+    "CI Defense: Firing Range Glass 7": 58461,
+    "CI Defense: Firing Range Glass 8": 58459,
+    "CI Defense: Firing Range RC-P120 Glass": 58462,
+    "CI Defense: Firing Range Ceiling Glass 1": 58420,
+    "CI Defense: Firing Range Ceiling Glass 2": 58421,
+    "CI Defense: Firing Range Ceiling Glass 3": 58423,
+    "CI Defense: Firing Range Ceiling Glass 4": 58422,
+    "CI Defense: Device Lab Glass 1": 58418,
+    "CI Defense: Device Lab Glass 2": 58419,
+    "CI Defense: Info Room Glass 1": 58416,
+    "CI Defense: Info Room Glass 2": 58417,
+    "CI Defense: Joanna's Office Glass 1": 58412,
+    "CI Defense: Joanna's Office Glass 2": 58413,
+    "CI Defense: Carrington's Office Glass 1": 58414,
+    "CI Defense: Carrington's Office Glass 2": 58415,
+    "Attack Ship: Engine System Glass 1": 60413,
+    "Attack Ship: Engine System Glass 2": 60414,
+    "Attack Ship: Engine System Glass 3": 60415,
+    "Attack Ship: Engine System Glass 4": 60416,
+    "Attack Ship: Engine System Glass 5": 60417,
+    "Attack Ship: Engine System Glass 6": 60418,
 }
 
 class PerfectDarkLocation(Location):
@@ -740,6 +1226,8 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
     maian_sos = world.get_region("Maian SOS")
     war = world.get_region("War!")
     duel = world.get_region("The Duel")
+    dd_central = world.get_region("dataDyne Central")
+    inner_a51 = world.get_region("Inner Area 51")
 
     institute_locations_list = []
     defection_locations_list = []
@@ -763,6 +1251,8 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
     maiansos_locations_list = []
     war_locations_list = []
     duel_locations_list = []
+    dd_central_locations_list = []
+    inner_a51_locations_list = []
     
 
     # Missions
@@ -1710,6 +2200,519 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
             defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on right)")
             defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on left)")
 
+    if world.options.glassanity:
+        dd_central_locations_list.append("dD Central: Top Glass Railing (stairs between roof and 4F)")
+        dd_central_locations_list.append("dD Central: Bottom Glass Railing (stairs between roof and 4F)")
+        dd_central_locations_list.append("dD Central: Top Window (stairs between roof and 4F)")
+        dd_central_locations_list.append("dD Central: Middle Window (stairs between roof and 4F)")
+        dd_central_locations_list.append("dD Central: Bottom Window (stairs between roof and 4F)")
+        dd_central_locations_list.append("dD Central: 4F Window 1")
+        dd_central_locations_list.append("dD Central: 4F Window 2")
+        dd_central_locations_list.append("dD Central: 4F Window 3")
+        dd_central_locations_list.append("dD Central: 4F Window 4")
+        dd_central_locations_list.append("dD Central: 4F Window 5")
+        dd_central_locations_list.append("dD Central: 4F Window 6")
+        dd_central_locations_list.append("dD Central: 4F Window 7")
+        dd_central_locations_list.append("dD Central: 4F Window 8")
+        dd_central_locations_list.append("dD Central: 4F Window 9")
+        dd_central_locations_list.append("dD Central: 4F Glass Railing 1")
+        dd_central_locations_list.append("dD Central: 4F Glass Railing 2")
+        dd_central_locations_list.append("dD Central: 4F Glass Railing 3")
+        dd_central_locations_list.append("dD Central: 4F Glass Railing 4")
+        dd_central_locations_list.append("dD Central: Cassandra's Office Window (left)")
+        dd_central_locations_list.append("dD Central: Cassandra's Office Window (middle)")
+        dd_central_locations_list.append("dD Central: Cassandra's Office Window (right)")
+        dd_central_locations_list.append("dD Central: Cassandra's Office Window (top)")
+        dd_central_locations_list.append("dD Central: Top Glass Railing (stairs between 4F and 2F)")
+        dd_central_locations_list.append("dD Central: Bottom Glass Railing (stairs between 4F and 2F)")
+        dd_central_locations_list.append("dD Central: Top Window (stairs between 4F and 2F)")
+        dd_central_locations_list.append("dD Central: Middle Window (stairs between 4F and 2F)")
+        dd_central_locations_list.append("dD Central: Bottom Window (stairs between 4F and 2F)")
+        dd_central_locations_list.append("dD Central: 3F Glass 1 (near elevator)")
+        dd_central_locations_list.append("dD Central: 3F Glass 2 (near elevator)")
+        dd_central_locations_list.append("dD Central: 3F Glass 3 (near elevator)")
+        dd_central_locations_list.append("dD Central: 3F Window 1")
+        dd_central_locations_list.append("dD Central: 3F Window 2")
+        dd_central_locations_list.append("dD Central: 3F Window 3")
+        dd_central_locations_list.append("dD Central: 3F Window 4")
+        dd_central_locations_list.append("dD Central: 3F Window 5")
+        dd_central_locations_list.append("dD Central: 3F Window 6")
+        dd_central_locations_list.append("dD Central: 3F Window 7")
+        dd_central_locations_list.append("dD Central: 3F Window 8")
+        dd_central_locations_list.append("dD Central: 3F Window 9")
+        dd_central_locations_list.append("dD Central: 3F Window 10")
+        dd_central_locations_list.append("dD Central: 3F Window 11")
+        dd_central_locations_list.append("dD Central: 3F Window 12")
+        dd_central_locations_list.append("dD Central: 3F Window 13")
+        dd_central_locations_list.append("dD Central: 3F Window 14")
+        dd_central_locations_list.append("dD Central: 3F Window 15")
+        dd_central_locations_list.append("dD Central: 3F Window 16")
+        dd_central_locations_list.append("dD Central: 3F Window 17")
+        dd_central_locations_list.append("dD Central: 3F Window 18")
+        dd_central_locations_list.append("dD Central: 2F Glass 1 (near elevator)")
+        dd_central_locations_list.append("dD Central: 2F Glass 2 (near elevator)")
+        dd_central_locations_list.append("dD Central: 2F Glass 3 (near elevator)")
+        dd_central_locations_list.append("dD Central: 2F Window 1")
+        dd_central_locations_list.append("dD Central: 2F Window 2")
+        dd_central_locations_list.append("dD Central: 2F Window 3")
+        dd_central_locations_list.append("dD Central: 2F Window 4")
+        dd_central_locations_list.append("dD Central: 2F Window 5")
+        dd_central_locations_list.append("dD Central: 2F Window 6")
+        dd_central_locations_list.append("dD Central: 2F Window 7")
+        dd_central_locations_list.append("dD Central: 2F Window 8")
+        dd_central_locations_list.append("dD Central: 2F Window 9")
+        dd_central_locations_list.append("dD Central: 2F Window 10")
+        dd_central_locations_list.append("dD Central: 2F Window 11")
+        dd_central_locations_list.append("dD Central: 2F Window 12")
+        dd_central_locations_list.append("dD Central: 2F Window 13")
+        dd_central_locations_list.append("dD Central: 2F Window 14")
+        dd_central_locations_list.append("dD Central: 2F Window 15")
+        dd_central_locations_list.append("dD Central: 2F Window 16")
+        dd_central_locations_list.append("dD Central: 2F Window 17")
+        dd_central_locations_list.append("dD Central: Left Elevator Glass 1")
+        dd_central_locations_list.append("dD Central: Left Elevator Glass 2")
+        dd_central_locations_list.append("dD Central: Right Elevator Glass 1")
+        dd_central_locations_list.append("dD Central: Right Elevator Glass 2")
+        dd_central_locations_list.append("dD Central: 1F Left Elevator Glass 1")
+        dd_central_locations_list.append("dD Central: 1F Left Elevator Glass 2")
+        dd_central_locations_list.append("dD Central: 1F Left Elevator Glass 3")
+        dd_central_locations_list.append("dD Central: 1F Right Elevator Glass 1")
+        dd_central_locations_list.append("dD Central: 1F Right Elevator Glass 2")
+        dd_central_locations_list.append("dD Central: 1F Right Elevator Glass 3")
+        dd_central_locations_list.append("dD Central: 1F Glass Railing 1")
+        dd_central_locations_list.append("dD Central: 1F Glass Railing 2")
+        dd_central_locations_list.append("dD Central: 1F Glass Railing 3")
+        dd_central_locations_list.append("dD Central: 1F Glass Railing 4")
+        dd_central_locations_list.append("dD Central: 1F Glass Railing 5")
+
+        investigation_locations_list.append("dD Investigation: Glass Railing (near cleaning bot)")
+        investigation_locations_list.append("dD Investigation: Glass on door (near cleaning bot)")
+        investigation_locations_list.append("dD Investigation: Glass 1 (near computer)")
+        investigation_locations_list.append("dD Investigation: Glass 2 (near computer)")
+        investigation_locations_list.append("dD Investigation: Glass 1 (room with night vision)")
+        investigation_locations_list.append("dD Investigation: Glass 2 (room with night vision)")
+        investigation_locations_list.append("dD Investigation: Glass 3 (room with night vision)")
+        investigation_locations_list.append("dD Investigation: Glass 4 (room with night vision)")
+        investigation_locations_list.append("dD Investigation: Glass 5 (room with night vision)")
+        investigation_locations_list.append("dD Investigation: Glass 6 (room with night vision)")
+        investigation_locations_list.append("dD Investigation: Glass 7 (room with night vision)")
+        investigation_locations_list.append("dD Investigation: Glass 8 (room with night vision)")
+        investigation_locations_list.append("dD Investigation: Glass 1 (room with glass enclosure)")
+        
+        investigation_locations_list.append("dD Investigation: Glass on door 1 (sector 3 door)")
+        investigation_locations_list.append("dD Investigation: Glass on door 2 (sector 3 door)")
+        investigation_locations_list.append("dD Investigation: Glass 1 (big room near the end)")
+        investigation_locations_list.append("dD Investigation: Glass 2 (big room near the end)")
+        investigation_locations_list.append("dD Investigation: Glass 3 (big room near the end)")
+        investigation_locations_list.append("dD Investigation: Glass 4 (big room near the end)")
+        investigation_locations_list.append("dD Investigation: Glass 1 (right glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 2 (right glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 3 (right glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 4 (right glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 5 (right glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 6 (right glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 7 (right glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 8 (right glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 1 (front left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 2 (front left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 3 (front left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 4 (front left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 5 (front left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 6 (front left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 7 (front left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 8 (front left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 1 (back left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 2 (back left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 3 (back left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 4 (back left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 5 (back left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 6 (back left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 7 (back left glass pillar of big room)")
+        investigation_locations_list.append("dD Investigation: Glass 8 (back left glass pillar of big room)")
+
+        villa_locations_list.append("Carrington Villa: Glass Bottle 1")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 2")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 3")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 4")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 5")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 6")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 7")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 8")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 9")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 10")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 11")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 12")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 13")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 14")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 15")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 16")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 17")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 18")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 19")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 20")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 21")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 22")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 23")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 24")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 25")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 26")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 27")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 28")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 29")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 30")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 31")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 32")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 33")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 34")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 35")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 36")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 37")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 38")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 39")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 40")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 41")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 42")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 43")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 44")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 45")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 46")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 47")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 48")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 49")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 50")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 51")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 52")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 53")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 54")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 55")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 56")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 57")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 58")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 59")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 60")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 61")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 62")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 63")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 64")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 65")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 66")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 67")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 68")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 69")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 70")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 71")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 72")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 73")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 74")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 75")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 76")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 77")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 78")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 79")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 80")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 81")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 82")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 83")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 84")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 85")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 86")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 87")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 88")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 89")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 90")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 91")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 92")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 93")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 94")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 95")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 96")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 97")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 98")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 99")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 100")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 101")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 102")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 103")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 104")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 105")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 106")
+        villa_locations_list.append("Carrington Villa: Glass Bottle 107")
+
+        chicago_locations_list.append("Chicago: Glass 1 (above stacked barrels)")
+        chicago_locations_list.append("Chicago: Glass 2 (above stacked barrels)")
+        chicago_locations_list.append("Chicago: Glass 3 (above stacked barrels)")
+
+        g5_locations_list.append("G5 Building: Glass 1 (2nd cloak guards room)")
+        g5_locations_list.append("G5 Building: Glass 2 (2nd cloak guards room)")
+        g5_locations_list.append("G5 Building: Door Glass 1 (1st door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 2 (1st door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 1 (2nd door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 2 (2nd door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 1 (3rd door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 2 (3rd door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 1 (4th door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 2 (4th door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 1 (5th door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 2 (5th door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 1 (6th door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 2 (6th door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 1 (7th door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 2 (7th door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 1 (8th door with glass)")
+        g5_locations_list.append("G5 Building: Door Glass 2 (8th door with glass)")
+
+        inner_a51_locations_list.append("Rescue/Escape/Maian SOS: Glass on door 1")
+        inner_a51_locations_list.append("Rescue/Escape/Maian SOS: Glass on door 2")
+        inner_a51_locations_list.append("Rescue/Escape/Maian SOS: Glass on medlab door")
+        inner_a51_locations_list.append("Rescue/Maian SOS: Glass 1 (in medlab)")
+        inner_a51_locations_list.append("Rescue/Maian SOS: Glass 2 (in medlab)")
+        inner_a51_locations_list.append("Rescue/Maian SOS: Glass 3 (in medlab)")
+        
+        escape_locations_list.append("A51 Escape: Glass (near locked medical containment door)")
+        escape_locations_list.append("A51 Escape: Glass on door (locked medical containment door)")
+
+        maiansos_locations_list.append("Maian SOS: Glass 1 (first room)")
+        maiansos_locations_list.append("Maian SOS: Glass 2 (first room)")
+        maiansos_locations_list.append("Maian SOS: Glass 3 (first room)")
+
+        airbase_locations_list.append("Air Base: Window (suitcase room)")
+        airbase_locations_list.append("Air Base: Window (near security monitor)")
+        
+        airbase_locations_list.append("Air Base: Window 1 (next to flight plans room)")
+        airbase_locations_list.append("Air Base: Window 2 (next to flight plans room)")
+        
+        airbase_locations_list.append("Air Base: Window (near flight plans)")
+        airbase_locations_list.append("Air Base: Window (near flight plans)")
+
+        pelagic_locations_list.append("Pelagic II: Glass on Door (1st door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (2nd door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (3rd door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (4th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (5th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (6th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (7th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (8th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (9th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (10th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (15th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (16th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (17th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (18th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (19th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (20th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (21th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (22nd door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (23rd door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (24th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (25th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (near the end)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (11th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (12th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (13th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door (14th door)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door 1 (lower floors)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door 2 (lower floors)")
+        pelagic_locations_list.append("Pelagic II: Glass on Door 3 (lower floors)")
+        
+        defense_locations_list.append("CI Defense: 1F Glass Railing")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 1")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 2")
+        defense_locations_list.append("CI Defense: Basement Glass Railing 1")
+        defense_locations_list.append("CI Defense: Basement Glass Railing 2")
+        defense_locations_list.append("CI Defense: Basement Glass Railing 3")
+        defense_locations_list.append("CI Defense: Basement Glass Railing 4")
+        defense_locations_list.append("CI Defense: Basement Glass Railing 5")
+        defense_locations_list.append("CI Defense: Basement Glass Railing 6")
+        defense_locations_list.append("CI Defense: Basement Glass Railing 7")
+        defense_locations_list.append("CI Defense: Basement Glass Railing 8")
+        defense_locations_list.append("CI Defense: Basement Glass Railing 9")
+        defense_locations_list.append("CI Defense: Basement Glass Railing 10")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (2nd door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (2nd door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (3rd door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (3rd door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (4th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (4th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (5th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (5th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (6th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (6th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (7th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (7th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (8th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (8th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (9th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (9th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (10th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (10th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (11th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (11th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (12th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (12th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (13th door)")
+        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (13th door)")
+        defense_locations_list.append("CI Defense: Firing Range Glass 1")
+        defense_locations_list.append("CI Defense: Firing Range RC-P120 Glass")
+        defense_locations_list.append("CI Defense: Firing Range Ceiling Glass 1")
+        defense_locations_list.append("CI Defense: Firing Range Ceiling Glass 2")
+        defense_locations_list.append("CI Defense: Firing Range Ceiling Glass 3")
+        defense_locations_list.append("CI Defense: Firing Range Ceiling Glass 4")
+        defense_locations_list.append("CI Defense: Device Lab Glass 1")
+        defense_locations_list.append("CI Defense: Device Lab Glass 2")
+        defense_locations_list.append("CI Defense: Info Room Glass 1")
+        defense_locations_list.append("CI Defense: Info Room Glass 2")
+        defense_locations_list.append("CI Defense: Joanna's Office Glass 1")
+        defense_locations_list.append("CI Defense: Joanna's Office Glass 2")
+        defense_locations_list.append("CI Defense: Carrington's Office Glass 1")
+        defense_locations_list.append("CI Defense: Carrington's Office Glass 2")
+
+        if world.options.special_agent or world.options.perfect_agent:
+            investigation_locations_list.append("dD Investigation: Glass 1 (room with one scientist)")
+            investigation_locations_list.append("dD Investigation: Glass 2 (room with one scientist)")
+            investigation_locations_list.append("dD Investigation: Glass 3 (room with one scientist)")
+            investigation_locations_list.append("dD Investigation: Glass 4 (room with one scientist)")
+            investigation_locations_list.append("dD Investigation: Glass 5 (room with one scientist)")
+            investigation_locations_list.append("dD Investigation: Glass 6 (room with one scientist)")
+            investigation_locations_list.append("dD Investigation: Glass 7 (room with one scientist)")
+            investigation_locations_list.append("dD Investigation: Glass 8 (room with one scientist)")
+            investigation_locations_list.append("dD Investigation: Glass 1 (room near two scientists)")
+            investigation_locations_list.append("dD Investigation: Glass 2 (room near two scientists)")
+            investigation_locations_list.append("dD Investigation: Glass 3 (room near two scientists)")
+            investigation_locations_list.append("dD Investigation: Glass 4 (room near two scientists)")
+
+            pelagic_locations_list.append("Pelagic II: Glass on Door 4 (lower floors)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door 5 (lower floors)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door 6 (lower floors)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door 7 (lower floors)")
+
+            attackship_locations_list.append("Attack Ship: Engine System Glass 1")
+            attackship_locations_list.append("Attack Ship: Engine System Glass 2")
+            attackship_locations_list.append("Attack Ship: Engine System Glass 3")
+            attackship_locations_list.append("Attack Ship: Engine System Glass 4")
+            attackship_locations_list.append("Attack Ship: Engine System Glass 5")
+            attackship_locations_list.append("Attack Ship: Engine System Glass 6")
+
+        if world.options.perfect_agent:
+            pelagic_locations_list.append("Pelagic II: Glass on Door 1 (near research tapes)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door 2 (near research tapes)")
+
+            deepsea_locations_list.append("Deep Sea: Glass 1 (1st power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 2 (1st power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 3 (1st power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 1 (2nd power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 2 (2nd power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 3 (2nd power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 1 (3rd power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 2 (3rd power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 3 (3rd power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 1 (4th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 2 (4th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 3 (4th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 1 (5th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 2 (5th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 3 (5th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 1 (6th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 2 (6th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 3 (6th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 4 (6th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 5 (6th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 6 (6th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 7 (6th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 8 (6th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 9 (6th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 10 (6th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 11 (6th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 12 (6th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 1 (7th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 2 (7th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 3 (7th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 4 (7th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 5 (7th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 6 (7th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 7 (7th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 8 (7th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 9 (7th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 10 (7th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 11 (7th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 12 (7th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 1 (8th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 2 (8th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 3 (8th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 4 (8th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 5 (8th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 6 (8th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 7 (8th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 8 (8th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 9 (8th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 10 (8th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 11 (8th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 12 (8th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 1 (9th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 2 (9th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 3 (9th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 4 (9th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 5 (9th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 6 (9th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 7 (9th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 8 (9th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 9 (9th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 10 (9th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 11 (9th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 12 (9th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 1 (10th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 2 (10th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 3 (10th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 4 (10th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 5 (10th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 6 (10th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 7 (10th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 8 (10th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 9 (10th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 10 (10th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 11 (10th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 12 (10th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 1 (11th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 2 (11th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 3 (11th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 4 (11th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 5 (11th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 6 (11th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 7 (11th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 8 (11th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 9 (11th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 10 (11th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 11 (11th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 12 (11th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 1 (12th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 2 (12th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 3 (12th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 4 (12th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 5 (12th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 6 (12th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 7 (12th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 8 (12th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 9 (12th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 10 (12th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 11 (12th power node)")
+            deepsea_locations_list.append("Deep Sea: Glass 12 (12th power node)")
+
+        if world.options.weapon_progression.value >= WeaponProgression.option_all_guns:
+            investigation_locations_list.append("dD Investigation: Glass 2 (room with glass enclosure)")
+            investigation_locations_list.append("dD Investigation: Glass 3 (room with glass enclosure)")
+            
+            g5_locations_list.append("G5 Building: Glass (first room)")
+
+            airbase_locations_list.append("Air Base: Window (near escalator)")
+            airbase_locations_list.append("Air Base: Window (in front of plane)")
+
+            defense_locations_list.append("CI Defense: Firing Range Glass 2")
+            defense_locations_list.append("CI Defense: Firing Range Glass 3")
+            defense_locations_list.append("CI Defense: Firing Range Glass 4")
+            defense_locations_list.append("CI Defense: Firing Range Glass 5")
+            defense_locations_list.append("CI Defense: Firing Range Glass 6")
+            defense_locations_list.append("CI Defense: Firing Range Glass 7")
+            defense_locations_list.append("CI Defense: Firing Range Glass 8")
+
 
     institute_locations = get_location_names_with_ids(institute_locations_list)
     carrington_institute.add_locations(institute_locations, PerfectDarkLocation)
@@ -1776,3 +2779,9 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
     duel_locations = get_location_names_with_ids(duel_locations_list)
     duel.add_locations(duel_locations, PerfectDarkLocation)
+
+    dd_central_locations = get_location_names_with_ids(dd_central_locations_list)
+    dd_central.add_locations(dd_central_locations, PerfectDarkLocation)
+
+    inner_a51_locations = get_location_names_with_ids(inner_a51_locations_list)
+    inner_a51.add_locations(inner_a51_locations, PerfectDarkLocation)

@@ -484,6 +484,14 @@ class Pickupsanity(Toggle):
     display_name = "Pickupsanity"
 
 
+class Glassanity(Toggle):
+    """
+    Adds checks for breaking the bottles in Carrington Villa.
+    """
+
+    display_name = "Glassanity"
+
+
 class TrapChance(Range):
     """
     Sets the percentage of filler that is replaced by a trap.
@@ -584,6 +592,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     multiplayer_unlocks: MultiplayerUnlocks
     alternate_exits: AlternateExits
     pickupsanity: Pickupsanity
+    glassanity: Glassanity
     trap_chance: TrapChance
     excluded_traps: ExcludedTraps
     deathlink: DeathLink
@@ -626,6 +635,7 @@ option_groups = [
             MultiplayerUnlocks,
             AlternateExits,
             Pickupsanity,
+            Glassanity,
             TrapChance,
             ExcludedTraps,
             DeathLink
@@ -667,6 +677,7 @@ option_presets = {
         "multiplayer_unlocks": False,
         "alternate_exits": AlternateExits.option_disabled,
         "pickupsanity": False,
+        "glassanity": False,
         "trap_chance": 0,
         "deathlink": False,
     },
@@ -703,6 +714,7 @@ option_presets = {
         "multiplayer_unlocks": True,
         "alternate_exits": AlternateExits.option_disabled,
         "pickupsanity": False,
+        "glassanity": False,
         "trap_chance": 100,
         "deathlink": True,
     },
