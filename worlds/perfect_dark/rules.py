@@ -42,89 +42,89 @@ HAS_AFO_EXTRA_KEYS = HasAny("Air Force One Left Room Key Card", "Air Force One R
 HAS_AFO_LEFT_KEY = HasAny("Air Force One Left Room Key Card", "Air Force One Master Key")
 HAS_AFO_RIGHT_KEY = HasAny("Air Force One Right Room Key Card", "Air Force One Master Key")
 
-HAS_DEFECTION_AGENT = HasAny("dD Defection - Agent", "dD Defection", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_DEFECTION_SP_AGENT = HasAny("dD Defection - Special Agent", "dD Defection", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_DEFECTION_PF_AGENT = HasAny("dD Defection - Perfect Agent", "dD Defection", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEFECTION_AGENT = has_agent & HasAny("dD Defection - Agent", "dD Defection", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEFECTION_SP_AGENT = has_special_agent & HasAny("dD Defection - Special Agent", "dD Defection", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEFECTION_PF_AGENT = has_perfect_agent & HasAny("dD Defection - Perfect Agent", "dD Defection", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_INVESTIGATION_AGENT = HasAny("dD Investigation - Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_INVESTIGATION_SP_AGENT = HasAny("dD Investigation - Special Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_INVESTIGATION_PF_AGENT = HasAny("dD Investigation - Perfect Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_INVESTIGATION_AGENT = has_agent & HasAny("dD Investigation - Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_INVESTIGATION_SP_AGENT = has_special_agent & HasAny("dD Investigation - Special Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_INVESTIGATION_PF_AGENT = has_perfect_agent & HasAny("dD Investigation - Perfect Agent", "dD Investigation", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_EXTRACTION_AGENT = HasAny("dD Extraction - Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_EXTRACTION_SP_AGENT = HasAny("dD Extraction - Special Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_EXTRACTION_PF_AGENT = HasAny("dD Extraction - Perfect Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_EXTRACTION_AGENT = has_agent & HasAny("dD Extraction - Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_EXTRACTION_SP_AGENT = has_special_agent & HasAny("dD Extraction - Special Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_EXTRACTION_PF_AGENT = has_perfect_agent & HasAny("dD Extraction - Perfect Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_VILLA_AGENT = HasAny("Carrington Villa - Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_VILLA_SP_AGENT = HasAny("Carrington Villa - Special Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_VILLA_PF_AGENT = HasAny("Carrington Villa - Perfect Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_VILLA_AGENT = has_agent & HasAny("Carrington Villa - Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_VILLA_SP_AGENT = has_special_agent & HasAny("Carrington Villa - Special Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_VILLA_PF_AGENT = has_perfect_agent & HasAny("Carrington Villa - Perfect Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_CHICAGO_AGENT = HasAny("Chicago - Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_CHICAGO_SP_AGENT = HasAny("Chicago - Special Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_CHICAGO_PF_AGENT = HasAny("Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_CHICAGO_AGENT = has_agent & HasAny("Chicago - Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_CHICAGO_SP_AGENT = has_special_agent & HasAny("Chicago - Special Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_CHICAGO_PF_AGENT = has_perfect_agent & HasAny("Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_G5_AGENT = HasAny("G5 Building - Agent", "G5 Building", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_G5_SP_AGENT = HasAny("G5 Building - Special Agent", "G5 Building", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_G5_PF_AGENT = HasAny("G5 Building - Perfect Agent", "G5 Building", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_G5_AGENT = has_agent & HasAny("G5 Building - Agent", "G5 Building", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_G5_SP_AGENT = has_special_agent & HasAny("G5 Building - Special Agent", "G5 Building", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_G5_PF_AGENT = has_perfect_agent & HasAny("G5 Building - Perfect Agent", "G5 Building", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_INFILTRATION_AGENT = HasAny("A51 Infiltration - Agent", "A51 Infiltration", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_INFILTRATION_SP_AGENT = HasAny("A51 Infiltration - Special Agent", "A51 Infiltration", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_INFILTRATION_PF_AGENT = HasAny("A51 Infiltration - Perfect Agent", "A51 Infiltration", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_INFILTRATION_AGENT = has_agent & HasAny("A51 Infiltration - Agent", "A51 Infiltration", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_INFILTRATION_SP_AGENT = has_special_agent & HasAny("A51 Infiltration - Special Agent", "A51 Infiltration", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_INFILTRATION_PF_AGENT = has_perfect_agent & HasAny("A51 Infiltration - Perfect Agent", "A51 Infiltration", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_RESCUE_AGENT = HasAny("A51 Rescue - Agent", "A51 Rescue", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_RESCUE_SP_AGENT = HasAny("A51 Rescue - Special Agent", "A51 Rescue", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_RESCUE_PF_AGENT = HasAny("A51 Rescue - Perfect Agent", "A51 Rescue", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_RESCUE_AGENT = has_agent & HasAny("A51 Rescue - Agent", "A51 Rescue", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_RESCUE_SP_AGENT = has_special_agent & HasAny("A51 Rescue - Special Agent", "A51 Rescue", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_RESCUE_PF_AGENT = has_perfect_agent & HasAny("A51 Rescue - Perfect Agent", "A51 Rescue", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_ESCAPE_AGENT = HasAny("A51 Escape - Agent", "A51 Escape", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_ESCAPE_SP_AGENT = HasAny("A51 Escape - Special Agent", "A51 Escape", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_ESCAPE_PF_AGENT = HasAny("A51 Escape - Perfect Agent", "A51 Escape", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_ESCAPE_AGENT = has_agent & HasAny("A51 Escape - Agent", "A51 Escape", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_ESCAPE_SP_AGENT = has_special_agent & HasAny("A51 Escape - Special Agent", "A51 Escape", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_ESCAPE_PF_AGENT = has_perfect_agent & HasAny("A51 Escape - Perfect Agent", "A51 Escape", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_AIR_BASE_AGENT = HasAny("Air Base - Agent", "Air Base", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_AIR_BASE_SP_AGENT = HasAny("Air Base - Special Agent", "Air Base", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_AIR_BASE_PF_AGENT = HasAny("Air Base - Perfect Agent", "Air Base", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_AIR_BASE_AGENT = has_agent & HasAny("Air Base - Agent", "Air Base", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_AIR_BASE_SP_AGENT = has_special_agent & HasAny("Air Base - Special Agent", "Air Base", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_AIR_BASE_PF_AGENT = has_perfect_agent & HasAny("Air Base - Perfect Agent", "Air Base", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_AFO_AGENT = HasAny("Air Force One - Agent", "Air Force One", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_AFO_SP_AGENT = HasAny("Air Force One - Special Agent", "Air Force One", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_AFO_PF_AGENT = HasAny("Air Force One - Perfect Agent", "Air Force One", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_AFO_AGENT = has_agent & HasAny("Air Force One - Agent", "Air Force One", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_AFO_SP_AGENT = has_special_agent & HasAny("Air Force One - Special Agent", "Air Force One", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_AFO_PF_AGENT = has_perfect_agent & HasAny("Air Force One - Perfect Agent", "Air Force One", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_CRASH_SITE_AGENT = HasAny("Crash Site - Agent", "Crash Site", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_CRASH_SITE_SP_AGENT = HasAny("Crash Site - Special Agent", "Crash Site", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_CRASH_SITE_PF_AGENT = HasAny("Crash Site - Perfect Agent", "Crash Site", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_CRASH_SITE_AGENT = has_agent & HasAny("Crash Site - Agent", "Crash Site", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_CRASH_SITE_SP_AGENT = has_special_agent & HasAny("Crash Site - Special Agent", "Crash Site", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_CRASH_SITE_PF_AGENT = has_perfect_agent & HasAny("Crash Site - Perfect Agent", "Crash Site", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_PELAGIC_AGENT = HasAny("Pelagic II - Agent", "Pelagic II", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_PELAGIC_SP_AGENT = HasAny("Pelagic II - Special Agent", "Pelagic II", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_PELAGIC_PF_AGENT = HasAny("Pelagic II - Perfect Agent", "Pelagic II", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_PELAGIC_AGENT = has_agent & HasAny("Pelagic II - Agent", "Pelagic II", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_PELAGIC_SP_AGENT = has_special_agent & HasAny("Pelagic II - Special Agent", "Pelagic II", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_PELAGIC_PF_AGENT = has_perfect_agent & HasAny("Pelagic II - Perfect Agent", "Pelagic II", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_DEEP_SEA_AGENT = HasAny("Deep Sea - Agent", "Deep Sea", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_DEEP_SEA_SP_AGENT = HasAny("Deep Sea - Special Agent", "Deep Sea", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_DEEP_SEA_PF_AGENT = HasAny("Deep Sea - Perfect Agent", "Deep Sea", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEEP_SEA_AGENT = has_agent & HasAny("Deep Sea - Agent", "Deep Sea", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEEP_SEA_SP_AGENT = has_special_agent & HasAny("Deep Sea - Special Agent", "Deep Sea", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEEP_SEA_PF_AGENT = has_perfect_agent & HasAny("Deep Sea - Perfect Agent", "Deep Sea", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_DEFENSE_AGENT = HasAny("CI Defense - Agent", "CI Defense", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_DEFENSE_SP_AGENT = HasAny("CI Defense - Special Agent", "CI Defense", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_DEFENSE_PF_AGENT = HasAny("CI Defense - Perfect Agent", "CI Defense", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEFENSE_AGENT = has_agent & HasAny("CI Defense - Agent", "CI Defense", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEFENSE_SP_AGENT = has_special_agent & HasAny("CI Defense - Special Agent", "CI Defense", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DEFENSE_PF_AGENT = has_perfect_agent & HasAny("CI Defense - Perfect Agent", "CI Defense", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_ATTACK_SHIP_AGENT = HasAny("Attack Ship - Agent", "Attack Ship", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_ATTACK_SHIP_SP_AGENT = HasAny("Attack Ship - Special Agent", "Attack Ship", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_ATTACK_SHIP_PF_AGENT = HasAny("Attack Ship - Perfect Agent", "Attack Ship", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_ATTACK_SHIP_AGENT = has_agent & HasAny("Attack Ship - Agent", "Attack Ship", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_ATTACK_SHIP_SP_AGENT = has_special_agent & HasAny("Attack Ship - Special Agent", "Attack Ship", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_ATTACK_SHIP_PF_AGENT = has_perfect_agent & HasAny("Attack Ship - Perfect Agent", "Attack Ship", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_SKEDAR_RUINS_AGENT = HasAny("Skedar Ruins - Agent", "Skedar Ruins", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_SKEDAR_RUINS_SP_AGENT = HasAny("Skedar Ruins - Special Agent", "Skedar Ruins", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_SKEDAR_RUINS_PF_AGENT = HasAny("Skedar Ruins - Perfect Agent", "Skedar Ruins", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_SKEDAR_RUINS_AGENT = has_agent & HasAny("Skedar Ruins - Agent", "Skedar Ruins", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_SKEDAR_RUINS_SP_AGENT = has_special_agent & HasAny("Skedar Ruins - Special Agent", "Skedar Ruins", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_SKEDAR_RUINS_PF_AGENT = has_perfect_agent & HasAny("Skedar Ruins - Perfect Agent", "Skedar Ruins", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_MBR_AGENT = HasAny("Mr. Blonde's Revenge - Agent", "Mr. Blonde's Revenge", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_MBR_SP_AGENT = HasAny("Mr. Blonde's Revenge - Special Agent", "Mr. Blonde's Revenge", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_MBR_PF_AGENT = HasAny("Mr. Blonde's Revenge - Perfect Agent", "Mr. Blonde's Revenge", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_MBR_AGENT = has_agent & HasAny("Mr. Blonde's Revenge - Agent", "Mr. Blonde's Revenge", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_MBR_SP_AGENT = has_special_agent & HasAny("Mr. Blonde's Revenge - Special Agent", "Mr. Blonde's Revenge", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_MBR_PF_AGENT = has_perfect_agent & HasAny("Mr. Blonde's Revenge - Perfect Agent", "Mr. Blonde's Revenge", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_MAIAN_SOS_AGENT = HasAny("Maian SOS - Agent", "Maian SOS", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_MAIAN_SOS_SP_AGENT = HasAny("Maian SOS - Special Agent", "Maian SOS", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_MAIAN_SOS_PF_AGENT = HasAny("Maian SOS - Perfect Agent", "Maian SOS", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_MAIAN_SOS_AGENT = has_agent & HasAny("Maian SOS - Agent", "Maian SOS", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_MAIAN_SOS_SP_AGENT = has_special_agent & HasAny("Maian SOS - Special Agent", "Maian SOS", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_MAIAN_SOS_PF_AGENT = has_perfect_agent & HasAny("Maian SOS - Perfect Agent", "Maian SOS", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_WAR_AGENT = HasAny("WAR! - Agent", "WAR!", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_WAR_SP_AGENT = HasAny("WAR! - Special Agent", "WAR!", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_WAR_PF_AGENT = HasAny("WAR! - Perfect Agent", "WAR!", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_WAR_AGENT = has_agent & HasAny("WAR! - Agent", "WAR!", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_WAR_SP_AGENT = has_special_agent & HasAny("WAR! - Special Agent", "WAR!", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_WAR_PF_AGENT = has_perfect_agent & HasAny("WAR! - Perfect Agent", "WAR!", options=[mission_item_pool_filter], filtered_resolution=True) 
 
-HAS_DUEL_AGENT = HasAny("The Duel - Agent", "The Duel", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_DUEL_SP_AGENT = HasAny("The Duel - Special Agent", "The Duel", options=[mission_item_pool_filter], filtered_resolution=True) 
-HAS_DUEL_PF_AGENT = HasAny("The Duel - Perfect Agent", "The Duel", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DUEL_AGENT = has_agent & HasAny("The Duel - Agent", "The Duel", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DUEL_SP_AGENT = has_special_agent & HasAny("The Duel - Special Agent", "The Duel", options=[mission_item_pool_filter], filtered_resolution=True) 
+HAS_DUEL_PF_AGENT = has_perfect_agent & HasAny("The Duel - Perfect Agent", "The Duel", options=[mission_item_pool_filter], filtered_resolution=True) 
 
 normal_weapon_filter = OptionFilter(WeaponProgression, WeaponProgression.option_normal)
 all_guns_filter = OptionFilter(WeaponProgression, WeaponProgression.option_all_guns)
@@ -644,17 +644,12 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                      | HAS_ANY_WEAPON_TYPE)
 
 
-    has_villa_agent_or_special = ((has_agent & HasAny("Carrington Villa - Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True))
-                                 | (has_special_agent & HasAny("Carrington Villa - Special Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True)))
+    has_villa_agent_or_special = HAS_VILLA_AGENT | HAS_VILLA_SP_AGENT
     
     villa_pickupsanity_weapon = (has_villa_agent_or_special & Has("Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
                                 | (has_villa_agent_or_special & HasAny("Sniper Rifle", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
-                                | (has_perfect_agent 
-                                    & HasAny("Carrington Villa - Perfect Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
-                                    & Has("Laptop Gun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False))
-                                | (has_perfect_agent 
-                                    & HasAny("Carrington Villa - Perfect Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True) 
-                                    & HasAny("Laptop Gun", "CMP150", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
+                                | (HAS_VILLA_PF_AGENT & Has("Laptop Gun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False))
+                                | (HAS_VILLA_PF_AGENT & HasAny("Laptop Gun", "CMP150", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                 | HAS_ANY_WEAPON_TYPE)
@@ -2868,24 +2863,16 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                            & (has_extraction_explosive
                                                                            | Has("Grenade")),
 
-        "dD Extraction: Rocket ammo box (on left)": ((has_agent & HAS_EXTRACTION_AGENT)
-                                                    | (has_special_agent 
-                                                        & HasAny("dD Extraction - Special Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True)
-                                                        & HAS_CASS_OFFICE_KEY)
-                                                    | (has_perfect_agent
-                                                        & HasAny("dD Extraction - Perfect Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True)
-                                                        & HAS_CASS_OFFICE_KEY))
+        "dD Extraction: Rocket ammo box (on left)": (HAS_EXTRACTION_AGENT
+                                                     | (HAS_EXTRACTION_SP_AGENT & HAS_CASS_OFFICE_KEY)
+                                                     | (HAS_EXTRACTION_PF_AGENT & HAS_CASS_OFFICE_KEY))
                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
                                                     & has_rocket_launcher 
                                                     & complete_extraction_weapons,
 
-        "dD Extraction: Rocket ammo box (on right)": ((has_agent & HAS_EXTRACTION_AGENT)
-                                                     | (has_special_agent 
-                                                        & HasAny("dD Extraction - Special Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True)
-                                                        & HAS_CASS_OFFICE_KEY)
-                                                     | (has_perfect_agent
-                                                        & HasAny("dD Extraction - Perfect Agent", "dD Extraction", options=[mission_item_pool_filter], filtered_resolution=True)
-                                                        & HAS_CASS_OFFICE_KEY))
+        "dD Extraction: Rocket ammo box (on right)": (HAS_EXTRACTION_AGENT
+                                                     | (HAS_EXTRACTION_SP_AGENT & HAS_CASS_OFFICE_KEY)
+                                                     | (HAS_EXTRACTION_PF_AGENT & HAS_CASS_OFFICE_KEY))
                                                      & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
                                                      & has_rocket_launcher 
                                                      & complete_extraction_weapons,
