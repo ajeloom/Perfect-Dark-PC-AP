@@ -3273,11 +3273,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                           & complete_mbr_weapons
                           & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True))
 
-    can_break_dd_central_glass = can_break_defection_glass | can_break_extraction_glass | can_break_mbr_glass
-
     can_break_extraction_glass = (has_extraction 
                                  & has_extraction_weapon
                                  & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True))
+
+    can_break_dd_central_glass = can_break_defection_glass | can_break_extraction_glass | can_break_mbr_glass
 
 
     # dD Investigation
