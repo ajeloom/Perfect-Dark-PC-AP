@@ -625,41 +625,32 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
     # Villa
     has_villa_weapon = (Has("Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
                        | HasAny("Sniper Rifle", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
-                       | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
-                       | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
+                       | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
+                       | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                        | HAS_ANY_WEAPON_TYPE)
 
     complete_villa_weapons = (HasAll("Sniper Rifle", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
                              | HasAny("Sniper Rifle", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
-                             | (all_guns_filter & HasAny("Sniper Rifle", "Falcon 2 (Scope)") & HasFromList(*exclude_weapons_from_list(["Sniper Rifle", "Falcon 2 (Scope)"]), count=1))
-                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
+                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
+                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                              | HAS_ANY_WEAPON_TYPE)
 
     has_villa_weapon_perfect = (Has("Laptop Gun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
                                | HasAny("Laptop Gun", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
                                | HasAny("Laptop Gun", "CMP150", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
+                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                | HAS_ANY_WEAPON_TYPE)
 
     complete_villa_weapons_perfect = (HasAll("Laptop Gun", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=False)
                                      | (veteran_logic & Has("Laptop Gun") & HasAny("CMP150", "Sniper Rifle"))
-                                     | (hard_logic & Has("Laptop Gun") & HasAny("CMP150", "Sniper Rifle"))
-                                     | HasFromList("Laptop Gun", "CMP150", "Sniper Rifle", count=2, options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                     | HasFromList("Laptop Gun", "CMP150", "Sniper Rifle", count=2, options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                                      | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
-                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Sniper Rifle"])
+                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                      | HAS_ANY_WEAPON_TYPE)
 
-
-    has_villa_agent_or_special = HAS_VILLA_AGENT | HAS_VILLA_SP_AGENT
-    
-    villa_pickupsanity_weapon = (has_villa_agent_or_special & Has("Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                                | (has_villa_agent_or_special & HasAny("Sniper Rifle", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
-                                | (HAS_VILLA_PF_AGENT & Has("Laptop Gun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False))
-                                | (HAS_VILLA_PF_AGENT & HasAny("Laptop Gun", "CMP150", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False))
-                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
-                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                                | HAS_ANY_WEAPON_TYPE)
+    has_villa_weapon_any_diff = (((HAS_VILLA_AGENT | HAS_VILLA_SP_AGENT) & has_villa_weapon)
+                                    | (HAS_VILLA_PF_AGENT & has_villa_weapon_perfect))
 
 
     # Chicago
@@ -787,7 +778,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                             | HAS_ANY_WEAPON_TYPE)
 
-    complete_crash_site_weapons = (HasAll("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
+    complete_crash_site_weapons = (Has("Falcon 2 (Scope)") & HasAny("K7 Avenger", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
                                   | HasFromList("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", count=2, options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                   | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                   | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
@@ -905,6 +896,9 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                  | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                  | HAS_ANY_WEAPON_TYPE)
+
+    can_leave_maian_sos_room = (Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                 | has_explosive)
 
 
     # WAR!
@@ -1157,13 +1151,13 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Crash Site - Agent Objective 2": HAS_CRASH_SITE_AGENT
                                           & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
-                                          & complete_crash_site_weapons,
+                                          & has_crash_site_weapon,
 
         "Crash Site - Agent Objective 3": HAS_CRASH_SITE_AGENT
                                           & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
                                           & Has("President", options=[npc_filter], filtered_resolution=True)
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                          & complete_crash_site_weapons,
+                                          & has_crash_site_weapon,
 
         "Complete: Crash Site - Agent": HAS_CRASH_SITE_AGENT
                                         & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
@@ -1305,11 +1299,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 19 - Maian SOS
         "Maian SOS - Agent Objective 1": HAS_MAIAN_SOS_AGENT
-                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                         & can_leave_maian_sos_room
                                          & complete_maian_sos_weapons,
 
         "Complete: Maian SOS - Agent": HAS_MAIAN_SOS_AGENT
-                                       & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                       & can_leave_maian_sos_room
                                        & complete_maian_sos_weapons,
 
 
@@ -1645,13 +1639,13 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Crash Site - Special Agent Objective 3": HAS_CRASH_SITE_SP_AGENT
                                                   & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
-                                                  & complete_crash_site_weapons,
+                                                  & has_crash_site_weapon,
 
         "Crash Site - Special Agent Objective 4": HAS_CRASH_SITE_SP_AGENT
                                                   & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
                                                   & Has("President", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                  & complete_crash_site_weapons,
+                                                  & has_crash_site_weapon,
 
         "Complete: Crash Site - Special Agent": HAS_CRASH_SITE_SP_AGENT
                                                 & Has("President Scanner")
@@ -1726,7 +1720,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         # Stage 15 - CI Defense
         "CI Defense - Special Agent Objective 1": HAS_DEFENSE_SP_AGENT
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
-                                                  & complete_defense_weapons,
+                                                  & has_defense_weapon,
 
         "CI Defense - Special Agent Objective 2": HAS_DEFENSE_SP_AGENT
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
@@ -1824,15 +1818,15 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 19 - Maian SOS
         "Maian SOS - Special Agent Objective 1": HAS_MAIAN_SOS_SP_AGENT
-                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                 & can_leave_maian_sos_room
                                                  & complete_maian_sos_weapons,
 
         "Maian SOS - Special Agent Objective 2": HAS_MAIAN_SOS_SP_AGENT
-                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                 & can_leave_maian_sos_room
                                                  & complete_maian_sos_weapons,
 
         "Complete: Maian SOS - Special Agent": HAS_MAIAN_SOS_SP_AGENT
-                                               & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                               & can_leave_maian_sos_room
                                                & complete_maian_sos_weapons,
 
 
@@ -2234,13 +2228,13 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Crash Site - Perfect Agent Objective 4": HAS_CRASH_SITE_PF_AGENT
                                                   & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
-                                                  & complete_crash_site_weapons,
+                                                  & has_crash_site_weapon,
 
         "Crash Site - Perfect Agent Objective 5": HAS_CRASH_SITE_PF_AGENT
                                                   & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
                                                   & Has("President", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                                  & complete_crash_site_weapons,
+                                                  & has_crash_site_weapon,
 
         "Complete: Crash Site - Perfect Agent": HAS_CRASH_SITE_PF_AGENT
                                                 & Has("President Scanner")
@@ -2326,7 +2320,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         # Stage 15 - CI Defense
         "CI Defense - Perfect Agent Objective 1": HAS_DEFENSE_PF_AGENT
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
-                                                  & complete_defense_weapons,
+                                                  & has_defense_weapon,
 
         "CI Defense - Perfect Agent Objective 2": HAS_DEFENSE_PF_AGENT
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
@@ -2447,22 +2441,24 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 19 - Maian SOS
         "Maian SOS - Perfect Agent Objective 1": HAS_MAIAN_SOS_PF_AGENT
-                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                 & can_leave_maian_sos_room
                                                  & complete_maian_sos_weapons,
 
         "Maian SOS - Perfect Agent Objective 2": HAS_MAIAN_SOS_PF_AGENT
-                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                 & can_leave_maian_sos_room
                                                  & complete_maian_sos_weapons
-                                                 & has_dy357lx,
+                                                 & (has_dy357lx
+                                                 | perfect_logic),
 
         "Maian SOS - Perfect Agent Objective 3": HAS_MAIAN_SOS_PF_AGENT
-                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                 & can_leave_maian_sos_room
                                                  & complete_maian_sos_weapons,
 
         "Complete: Maian SOS - Perfect Agent": HAS_MAIAN_SOS_PF_AGENT
-                                               & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                               & can_leave_maian_sos_room
                                                & complete_maian_sos_weapons
-                                               & has_dy357lx,
+                                               & (has_dy357lx
+                                               | perfect_logic),
 
 
         # Stage 20 - WAR!
@@ -2886,38 +2882,38 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Carrington Villa: Devastator (in helipad crate)": has_villa
                                                            & has_devastator
-                                                           & villa_pickupsanity_weapon,
+                                                           & has_villa_weapon_any_diff,
 
         "Carrington Villa: 1st ammo box (in crate on observatory path)": has_villa
-                                                                         & villa_pickupsanity_weapon,
+                                                                         & has_villa_weapon_any_diff,
 
         "Carrington Villa: 2nd ammo box (in crate on observatory path)": has_villa 
-                                                                         & villa_pickupsanity_weapon,
+                                                                         & has_villa_weapon_any_diff,
 
         "Carrington Villa: 3rd ammo box (in crate on observatory path)": has_villa 
-                                                                         & villa_pickupsanity_weapon,
+                                                                         & has_villa_weapon_any_diff,
 
         "Carrington Villa: 4th ammo box (in crate on observatory path)": has_villa 
-                                                                         & villa_pickupsanity_weapon,
+                                                                         & has_villa_weapon_any_diff,
 
         "Carrington Villa: 5th ammo box (in crate on observatory path)": has_villa 
-                                                                         & villa_pickupsanity_weapon,
+                                                                         & has_villa_weapon_any_diff,
 
         "Carrington Villa: 6th ammo box (in crate on observatory path)": has_villa 
-                                                                         & villa_pickupsanity_weapon,
+                                                                         & has_villa_weapon_any_diff,
 
         "Carrington Villa: 7th ammo box (in crate on observatory path)": has_villa 
-                                                                         & villa_pickupsanity_weapon,
+                                                                         & has_villa_weapon_any_diff,
         
         "Carrington Villa: 8th ammo box (in crate on observatory path)": has_villa 
-                                                                         & villa_pickupsanity_weapon,
+                                                                         & has_villa_weapon_any_diff,
         
         "Carrington Villa: 9th ammo box (in crate on observatory path)": has_villa 
-                                                                         & villa_pickupsanity_weapon,
+                                                                         & has_villa_weapon_any_diff,
         
         "Carrington Villa: double CMP150 (from sniper near the helipad)": has_villa 
                                                                           & has_cmp150
-                                                                          & villa_pickupsanity_weapon,
+                                                                          & has_villa_weapon_any_diff,
             
         "Chicago: BombSpy (in the dumpster)": has_chicago 
                                               & Has("CamSpy") 
@@ -3056,7 +3052,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
             
         "Maian SOS: double DY357-LX (from dual-wielding guard)": has_maian_sos 
                                                                  & has_dy357lx 
-                                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
+                                                                 & can_leave_maian_sos_room
                                                                  & complete_maian_sos_weapons,
 
         "Maian SOS: Psychosis Gun (on desk near the start)": has_maian_sos 
@@ -3081,11 +3077,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Carrington Villa (Agent): Shield (on helipad crate)": HAS_VILLA_AGENT
                                                                & Has("Shield")
-                                                               & villa_pickupsanity_weapon,
+                                                               & has_villa_weapon,
 
         "Carrington Villa (Agent): Shield (in the bathroom)": HAS_VILLA_AGENT
                                                               & Has("Shield")
-                                                              & villa_pickupsanity_weapon,
+                                                              & has_villa_weapon,
 
         "Chicago (Agent): Shield (near the taxi)": HAS_CHICAGO_AGENT
                                                    & Has("Shield"),
@@ -3142,9 +3138,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                    & has_skedar_ruins_weapon,
 
         "Mr. Blonde's Revenge (Agent): 1F Shield": HAS_MBR_AGENT
-                                                   & Has("Shield")
-                                                   & (complete_mbr_weapons
-                                                   | Has("Cloaking Device")),
+                                                   & Has("Shield"),
     }
 
     pickupsanity_rules_agent_or_special = {
@@ -3192,7 +3186,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Crash Site (Agent/Special): Shield (behind President's clone)": HasAny("Crash Site - Agent", "Crash Site - Special Agent", "Crash Site", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                          & Has("Shield")
-                                                                         & Has("Night Vision")
+                                                                         & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                                          & has_crash_site_weapon,
 
         "Pelagic II (Agent/Special): Shield (on the sub hangar crate)": HasAny("Pelagic II - Agent", "Pelagic II - Special Agent", "Pelagic II", options=[mission_item_pool_filter], filtered_resolution=True)
@@ -3293,7 +3287,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
     # Carrington Villa
-    can_break_villa_glass = has_villa & villa_pickupsanity_weapon
+    can_break_villa_glass = has_villa & has_villa_weapon_any_diff
 
 
     # G5 Building
@@ -3305,8 +3299,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
     # Area 51
     can_break_rescue_glass = (has_rescue 
                              & has_rescue_weapon 
-                             & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
-                             & Has("Lab Clothes"))
+                             & Has("Jonathan", options=[npc_filter], filtered_resolution=True))
 
     can_break_escape_glass = has_escape & has_escape_weapon
 
