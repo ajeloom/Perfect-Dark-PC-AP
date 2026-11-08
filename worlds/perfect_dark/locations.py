@@ -989,8 +989,8 @@ LOCATION_NAME_TO_ID = {
     "Air Base: Window 1 (next to flight plans room)": 52495,
     "Air Base: Window 2 (next to flight plans room)": 52498,
     "Air Base: Window (in front of plane)": 52501,
-    "Air Base: Window (near flight plans)": 52496,
-    "Air Base: Window (near flight plans)": 52497,
+    "Air Base: Window 1 (near flight plans)": 52496,
+    "Air Base: Window 2 (near flight plans)": 52497,
     "Pelagic II: Glass on Door (1st door)": 54244,
     "Pelagic II: Glass on Door (2nd door)": 54271,
     "Pelagic II: Glass on Door (3rd door)": 54243,
@@ -2481,8 +2481,8 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         airbase_locations_list.append("Air Base: Window 1 (next to flight plans room)")
         airbase_locations_list.append("Air Base: Window 2 (next to flight plans room)")
         
-        airbase_locations_list.append("Air Base: Window (near flight plans)")
-        airbase_locations_list.append("Air Base: Window (near flight plans)")
+        airbase_locations_list.append("Air Base: Window 1 (near flight plans)")
+        airbase_locations_list.append("Air Base: Window 2 (near flight plans)")
 
         pelagic_locations_list.append("Pelagic II: Glass on Door (1st door)")
         pelagic_locations_list.append("Pelagic II: Glass on Door (2nd door)")

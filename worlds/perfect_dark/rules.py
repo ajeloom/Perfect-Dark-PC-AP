@@ -3971,9 +3971,9 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                 & complete_air_base_weapons
                                                 & can_break_strong_glass,
     
-        "Air Base: Window (near flight plans)": can_break_air_base_glass & complete_air_base_weapons,
+        "Air Base: Window 1 (near flight plans)": can_break_air_base_glass & complete_air_base_weapons,
     
-        "Air Base: Window (near flight plans)": can_break_air_base_glass & complete_air_base_weapons,
+        "Air Base: Window 2 (near flight plans)": can_break_air_base_glass & complete_air_base_weapons,
         
         "Pelagic II: Glass on Door (1st door)": can_break_pelagic_glass,
 
