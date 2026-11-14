@@ -22,6 +22,7 @@ from .options import (
     ChallengesInItemPool, 
     NPCs, 
     AlternateExits,
+    RandomEnemyWeapons,
 )
 
 npc_filter = OptionFilter(NPCs, True)
@@ -30,6 +31,8 @@ mission_item_pool_filter = OptionFilter(MissionsInItemPool, MissionsInItemPool.o
 has_agent = OptionFilter(IncludeAgent, True)
 has_special_agent = OptionFilter(IncludeSpecialAgent, True)
 has_perfect_agent = OptionFilter(IncludePerfectAgent, True)
+has_normal_weapons = OptionFilter(RandomEnemyWeapons, False)
+has_random_weapons = OptionFilter(RandomEnemyWeapons, True)
 
 HAS_DD_KEYS = HasAny("De Vries' Necklace", "dataDyne Master Key") & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
 HAS_CASS_OFFICE_KEY = HasAny("Cassandra's Office Key Card", "dataDyne Master Key")
@@ -573,28 +576,30 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                     | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Timed Mine"]))
 
     # Defection
-    has_defection_weapon = (Has("Falcon 2 (Silencer)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                           | HasAny("Falcon 2 (Silencer)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
-                           | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
+    has_defection_weapon = (Has("Falcon 2 (Silencer)")
+                           | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
+                           | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                            | HAS_ANY_WEAPON_TYPE)
 
-    complete_defection_weapons = (HasAll("Falcon 2 (Silencer)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                                 | HasAny("Falcon 2 (Silencer)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_defection_weapons = ((Has("Falcon 2 (Silencer)")
+                                 & Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
+                                 | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                  | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                  | HAS_ANY_WEAPON_TYPE)
 
 
     # Investigation
-    has_investigation_weapon = (Has("Falcon 2", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                               | HasAny("Falcon 2", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+    has_investigation_weapon = (Has("Falcon 2")
+                               | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                | HAS_ANY_WEAPON_TYPE)
 
-    complete_investigation_weapons = (HasAll("Falcon 2", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                                     | HasAny("Falcon 2", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_investigation_weapons = ((Has("Falcon 2")
+                                     & Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
+                                     | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                      | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                      | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                      | HAS_ANY_WEAPON_TYPE)
@@ -607,14 +612,15 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
     # Extraction
-    has_extraction_weapon = (Has("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                            | HasAny("Falcon 2 (Scope)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+    has_extraction_weapon = (Has("Falcon 2 (Scope)")
+                            | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                             | HAS_ANY_WEAPON_TYPE)
 
-    complete_extraction_weapons = (HasAll("Falcon 2 (Scope)", "CMP150", "Shotgun", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                                  | HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2, options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_extraction_weapons = ((Has("Falcon 2 (Scope)")
+                                  & HasAll("CMP150", "Shotgun", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
+                                  | HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                   | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                   | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                   | HAS_ANY_WEAPON_TYPE)
@@ -623,28 +629,30 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
     # Villa
-    has_villa_weapon = (Has("Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                       | HasAny("Sniper Rifle", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    has_villa_weapon = (Has("Sniper Rifle")
+                       | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                        | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                        | HAS_ANY_WEAPON_TYPE)
 
-    complete_villa_weapons = (HasAll("Sniper Rifle", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                             | HasAny("Sniper Rifle", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_villa_weapons = ((Has("Sniper Rifle")
+                             & Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
+                             | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                              | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                              | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                              | HAS_ANY_WEAPON_TYPE)
 
-    has_villa_weapon_perfect = (Has("Laptop Gun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                               | HasAny("Laptop Gun", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
-                               | HasAny("Laptop Gun", "CMP150", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    has_villa_weapon_perfect = (Has("Laptop Gun")
+                               | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+                               | Has("Sniper Rifle", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                | HAS_ANY_WEAPON_TYPE)
 
-    complete_villa_weapons_perfect = (HasAll("Laptop Gun", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=False)
-                                     | (veteran_logic & Has("Laptop Gun") & HasAny("CMP150", "Sniper Rifle"))
-                                     | HasFromList("Laptop Gun", "CMP150", "Sniper Rifle", count=2, options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+    complete_villa_weapons_perfect = ((Has("Laptop Gun") 
+                                     & (Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
+                                     | Has("Sniper Rifle", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="eq")], filtered_resolution=True)))
+                                     | HasFromList("Laptop Gun", "CMP150", "Sniper Rifle", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                                      | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                      | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                      | HAS_ANY_WEAPON_TYPE)
@@ -654,15 +662,16 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
     # Chicago
-    has_chicago_weapon = (Has("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                         | HasAny("Falcon 2 (Scope)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
-                         | HasAny("Falcon 2 (Scope)", "CMP150", "DY357 Magnum", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    has_chicago_weapon = (Has("Falcon 2 (Scope)")
+                         | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+                         | Has("DY357 Magnum", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                          | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                          | HAS_ANY_WEAPON_TYPE)
 
-    complete_chicago_weapons = (HasAll("Falcon 2 (Scope)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                               | HasAny("Falcon 2 (Scope)", "CMP150", "DY357 Magnum", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_chicago_weapons = ((Has("Falcon 2 (Scope)")
+                               & Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
+                               | HasAny("CMP150", "DY357 Magnum", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                | (all_guns_filter & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2))
                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                | HAS_ANY_WEAPON_TYPE)
@@ -675,91 +684,94 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
     # G5 Building
-    has_g5_weapon = (Has("Falcon 2 (Silencer)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                    | HasAny("Falcon 2 (Silencer)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+    has_g5_weapon = (Has("Falcon 2 (Silencer)")
+                    | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                     | HAS_ANY_WEAPON_TYPE)
 
-    complete_g5_weapons = (HasAll("Falcon 2 (Silencer)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                          | HasAny("Falcon 2 (Silencer)", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_g5_weapons = ((Has("Falcon 2 (Silencer)")
+                          & Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
+                          | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                           | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                           | HAS_ANY_WEAPON_TYPE)
 
 
     # Infiltration
-    has_infiltration_weapon = (Has("Falcon 2", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                              | HasAny("Falcon 2", "MagSec 4", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+    has_infiltration_weapon = (Has("Falcon 2")
+                              | Has("MagSec 4", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                               | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                               | HAS_ANY_WEAPON_TYPE)
     
-    complete_infiltration_weapons = (HasAll("Falcon 2", "MagSec 4", "Dragon", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                                    | HasFromList("Falcon 2", "MagSec 4", "Dragon", count=2, options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_infiltration_weapons = ((Has("Falcon 2")
+                                    & HasAll("MagSec 4", "Dragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
+                                    | HasFromList("Falcon 2", "MagSec 4", "Dragon", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                     | HAS_ANY_WEAPON_TYPE)
 
 
     # Rescue
-    has_rescue_weapon = (HasAll("Falcon 2 (Silencer)", "Dragon", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                        | HasAny("Falcon 2 (Silencer)", "Dragon", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+    has_rescue_weapon = (Has("Falcon 2 (Silencer)")
+                        | Has("Dragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                         | HAS_ANY_WEAPON_TYPE)
 
-    complete_rescue_weapons = (HasAll("Falcon 2 (Silencer)", "Dragon", "SuperDragon", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                              | HasFromList("Falcon 2 (Silencer)", "Dragon", "SuperDragon", count=2, options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_rescue_weapons = ((Has("Falcon 2 (Silencer)")
+                              & HasAny("Dragon", "SuperDragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
+                              | HasFromList("Falcon 2 (Silencer)", "Dragon", "SuperDragon", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                               | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                               | HAS_ANY_WEAPON_TYPE)
 
 
     # Escape
-    has_escape_weapon = (Has("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                        | HasAny("Falcon 2 (Scope)", "SuperDragon", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
-                        | HasAny("Falcon 2 (Scope)", "SuperDragon", "Tranquilizer", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    has_escape_weapon = (Has("Falcon 2 (Scope)")
+                        | Has("SuperDragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+                        | Has("Tranquilizer", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                         | HAS_ANY_WEAPON_TYPE)
 
-    complete_escape_weapons = (HasAll("Falcon 2 (Scope)", "SuperDragon", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                              | HasFromList("Falcon 2 (Scope)", "SuperDragon", "Tranquilizer", count=2, options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_escape_weapons = ((Has("Falcon 2 (Scope)")
+                              & Has("SuperDragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
+                              | HasFromList("Falcon 2 (Scope)", "SuperDragon", "Tranquilizer", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                               | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                               | HAS_ANY_WEAPON_TYPE)
 
 
     # Air Base
-    complete_air_base_weapons = (HasAll("Dragon", "K7 Avenger", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                                | HasAny("Dragon", "K7 Avenger", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_air_base_weapons = ((Has("K7 Avenger")
+                                & Has("Dragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
+                                | Has("Dragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                 | HAS_ANY_WEAPON_TYPE)
 
     has_sedate = (HasAny("Crossbow", "CamSpy")
                  | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
 
-    has_air_base_explosive = ((normal_logic & HasAll("Dragon", "K7 Avenger"))
-                             | (veteran_logic & HasAny("Dragon", "Proximity Mine") & Has("K7 Avenger"))
-                             | (hard_logic & (Has("Dragon") | (Has("Proximity Mine") & HasAny("Dragon", "K7 Avenger"))))
-                             | (perfect_logic & (Has("Dragon") | (Has("Proximity Mine") & HasAny("Dragon", "K7 Avenger"))))
+    has_air_base_explosive = ((Has("Proximity Mine")
+                             & (Has("Dragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True) 
+                             | Has("K7 Avenger", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)))
                              | has_explosive)
 
 
     # Air Force One
-    has_afo_weapon = ((normal_logic & Has("Laptop Gun"))
-                     | (veteran_logic & (Has("Laptop Gun") | (Has("Cyclone") & HAS_AFO_EXTRA_KEYS)))
-                     | (hard_logic & (Has("Laptop Gun") | (Has("Cyclone") & HAS_AFO_EXTRA_KEYS)))
-                     | (perfect_logic & HasAny("Laptop Gun", "Cyclone", "K7 Avenger"))
+    has_afo_weapon = (Has("Laptop Gun")
+                     | (Has("Cyclone", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge")], filtered_resolution=False) & HAS_AFO_EXTRA_KEYS)
+                     | Has("K7 Avenger", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                      | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                      | (Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
                      | HAS_ANY_WEAPON_TYPE)
 
-    complete_afo_weapons = ((normal_logic & HasAll("Laptop Gun", "K7 Avenger"))
-                           | (veteran_logic & (Has("Laptop Gun") | (Has("Cyclone") & HAS_AFO_EXTRA_KEYS)) & Has("K7 Avenger"))
-                           | (hard_logic & (Has("Laptop Gun") | (Has("Cyclone") & HAS_AFO_EXTRA_KEYS)) & Has("K7 Avenger"))
-                           | (perfect_logic & HasAny("Laptop Gun", "Cyclone", "K7 Avenger"))
+    complete_afo_weapons = ((Has("Laptop Gun")
+                           & ((Has("Cyclone", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge")], filtered_resolution=True) & HAS_AFO_EXTRA_KEYS)
+                           | Has("K7 Avenger", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)))
+                           | HasAny("Laptop Gun", "Cyclone", "K7 Avenger", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                            | (Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
                            | HAS_ANY_WEAPON_TYPE)
@@ -772,14 +784,15 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
     # Crash Site
-    has_crash_site_weapon = (Has("Falcon 2 (Scope)", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                            | HasAny("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+    has_crash_site_weapon = (Has("Falcon 2 (Scope)") 
+                            | HasAny("K7 Avenger", "Sniper Rifle", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                             | HAS_ANY_WEAPON_TYPE)
 
-    complete_crash_site_weapons = (Has("Falcon 2 (Scope)") & HasAny("K7 Avenger", "Sniper Rifle", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                                  | HasFromList("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", count=2, options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_crash_site_weapons = ((Has("Falcon 2 (Scope)") 
+                                  & HasAny("K7 Avenger", "Sniper Rifle", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
+                                  | HasFromList("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                   | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                   | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                   | HAS_ANY_WEAPON_TYPE)
@@ -795,15 +808,16 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
     # Pelagic II
-    has_pelagic_weapon = (HasAny("Falcon 2 (Silencer)", "Laptop Gun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                         | HasAny("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
-                         | HasAny("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", "Phoenix", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    has_pelagic_weapon = (HasAny("Falcon 2 (Silencer)", "Laptop Gun")
+                         | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+                         | Has("Phoenix", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                          | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                          | HAS_ANY_WEAPON_TYPE)
 
-    complete_pelagic_weapons = (HasAll("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                               | HasFromList("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", count=2, options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_pelagic_weapons = ((HasAll("Falcon 2 (Silencer)", "Laptop Gun")
+                               & Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
+                               | HasFromList("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                | HAS_ANY_WEAPON_TYPE)
@@ -863,7 +877,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                              | HAS_ANY_WEAPON_TYPE_ATTACKSHIP)
     
     complete_attack_ship_weapons = (HasAll("Combat Knife", "Mauler", "AR34", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                                   | Has("Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                   | HasAll("Mauler", "AR34", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                                    | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                    | HAS_ANY_WEAPON_TYPE_ATTACKSHIP)
@@ -884,15 +898,16 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
     # Mr. Blonde's Revenge
-    complete_mbr_weapons = (Has("Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                           | HasAny("Mauler", "CMP150", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+    complete_mbr_weapons = (Has("Mauler")
+                           | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                            | HAS_ANY_WEAPON_TYPE)
 
 
     # Maian SOS
-    complete_maian_sos_weapons = (HasAll("Falcon 2", "Dragon")
+    complete_maian_sos_weapons = ((Has("Falcon 2")
+                                 & Has("Dragon", options=[has_normal_weapons], filtered_resolution=True))
                                  | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                  | HAS_ANY_WEAPON_TYPE)
@@ -902,8 +917,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
 
     # WAR!
-    complete_war_weapons = (Has("Phoenix", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                           | HasAny("Phoenix", "Callisto NTG", "Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_war_weapons = (Has("Phoenix")
+                           | HasAny("Callisto NTG", "Mauler", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
                            | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=2))
                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                            | HAS_ANY_WEAPON_TYPE)

@@ -1079,7 +1079,8 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         itempool.append(world.create_item("Remote Mine"))
         itempool.append(world.create_item("Psychosis Gun"))
 
-        if world.options.weapon_progression.value == WeaponProgression.option_all_guns:
+        if (world.options.weapon_progression.value == WeaponProgression.option_all_guns
+                or world.options.random_enemy_weapons):
             itempool.append(world.create_item("PP9i"))
             itempool.append(world.create_item("CC13"))
             itempool.append(world.create_item("KL01313"))

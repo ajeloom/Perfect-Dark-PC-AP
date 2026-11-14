@@ -624,6 +624,55 @@ class Glassanity(Toggle):
     display_name = "Glassanity"
 
 
+class RandomMusic(Toggle):
+    """
+    It will play a random song anywhere a song plays.
+    """
+
+    display_name = "Random Music"
+
+
+class RandomHeads(Toggle):
+    """
+    Randomizes the heads of characters based on the seed.
+    """
+
+    display_name = "Random Heads"
+
+
+class RandomBodies(Toggle):
+    """
+    Randomizes the outfits of characters based on the seed.
+    """
+
+    display_name = "Random Bodies"
+
+
+class RandomEnemyWeapons(Toggle):
+    """
+    It will give an enemy a random weapon.
+    Weapons required for missions or Pickupsanity are not randomized.
+    """
+
+    display_name = "Random Enemy Weapons"
+
+
+class RandomBuddyWeapons(Toggle):
+    """
+    It will give your buddy a random weapon.
+    """
+
+    display_name = "Random Buddy Weapons"
+
+
+class RandomChallengeStages(Toggle):
+    """
+    It will pick a random stage everytime you start a challenge.
+    """
+
+    display_name = "Random Challenge Stages"
+
+
 class TrapChance(Range):
     """
     Sets the percentage of filler that is replaced by a trap.
@@ -727,6 +776,12 @@ class PerfectDarkOptions(PerGameCommonOptions):
     alternate_exits: AlternateExits
     pickupsanity: Pickupsanity
     glassanity: Glassanity
+    random_music: RandomMusic
+    random_heads: RandomHeads
+    random_bodies: RandomBodies
+    random_enemy_weapons: RandomEnemyWeapons
+    random_buddy_weapons: RandomBuddyWeapons
+    random_challenge_stages: RandomChallengeStages
     trap_chance: TrapChance
     excluded_traps: ExcludedTraps
     deathlink: DeathLink
@@ -772,6 +827,12 @@ option_groups = [
             AlternateExits,
             Pickupsanity,
             Glassanity,
+            RandomMusic,
+            RandomHeads,
+            RandomBodies,
+            RandomEnemyWeapons,
+            RandomBuddyWeapons,
+            RandomChallengeStages,
             TrapChance,
             ExcludedTraps,
             DeathLink
@@ -814,6 +875,12 @@ option_presets = {
         "alternate_exits": AlternateExits.option_disabled,
         "pickupsanity": False,
         "glassanity": False,
+        "random_music": False,
+        "random_heads": False,
+        "random_bodies": False,
+        "random_enemy_weapons": False,
+        "random_buddy_weapons": False,
+        "random_challenge_stages": False,
         "trap_chance": 0,
         "deathlink": False,
     },
@@ -851,6 +918,12 @@ option_presets = {
         "alternate_exits": AlternateExits.option_disabled,
         "pickupsanity": False,
         "glassanity": False,
+        "random_music": False,
+        "random_heads": False,
+        "random_bodies": False,
+        "random_enemy_weapons": True,
+        "random_buddy_weapons": False,
+        "random_challenge_stages": True,
         "trap_chance": 100,
         "deathlink": True,
     },
