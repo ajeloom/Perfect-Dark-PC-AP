@@ -178,7 +178,62 @@ class MissionsInItemPool(Choice):
 
     display_name = "Missions In Item Pool"
 
-    default = option_enabled_per_difficulty
+
+class ExcludedMissions(OptionSet):
+    """
+    Sets which missions will not appear in the run.
+    Skedar Ruins cannot be excluded if the goal is to complete it.
+    Any items needed for an excluded mission will also be removed from the item pool.
+    This will also exclude locations from Pickupsanity and Glassanity.
+    Valid missions:
+        - dD Defection
+        - dD Investigation
+        - dD Extraction
+        - Carrington Villa
+        - Chicago
+        - G5 Building
+        - A51 Infiltration
+        - A51 Rescue
+        - A51 Escape
+        - Air Base
+        - Air Force One
+        - Crash Site
+        - Pelagic II
+        - Deep Sea
+        - CI Defense
+        - Attack Ship
+        - Skedar Ruins
+        - Mr. Blonde's Revenge
+        - Maian SOS
+        - WAR!
+        - The Duel
+    Ex: ['dD Defection', 'Crash Site', "Mr. Blonde's Revenge"]
+    """
+    display_name = "Excluded Missions"
+    valid_keys = frozenset({
+        "dD Defection",
+        "dD Investigation",
+        "dD Extraction",
+        "Carrington Villa",
+        "Chicago",
+        "G5 Building",
+        "A51 Infiltration",
+        "A51 Rescue",
+        "A51 Escape",
+        "Air Base",
+        "Air Force One",
+        "Crash Site",
+        "Pelagic II",
+        "Deep Sea",
+        "CI Defense",
+        "Attack Ship",
+        "Skedar Ruins",
+        "Mr. Blonde's Revenge",
+        "Maian SOS",
+        "WAR!",
+        "The Duel"
+    })
+    default = frozenset({})
 
 
 class WeaponProgression(Choice):
@@ -376,6 +431,83 @@ class WeaponTraining(Toggle):
     display_name = "Weapon Training"
 
 
+class ExcludedFiringRangeWeapons(OptionSet):
+    """
+    Sets which weapons you will not have to get medals for in the Firing Range.
+    This allows you to leave out any difficult ones.
+    Valid weapons:
+        - Falcon 2
+        - Falcon 2 (Silencer)
+        - Falcon 2 (Scope)
+        - MagSec 4
+        - Mauler
+        - Phoenix
+        - DY357 Magnum
+        - DY357-LX
+        - CMP150
+        - Cyclone
+        - Callisto NTG
+        - RC-P120
+        - Laptop Gun
+        - Dragon
+        - K7 Avenger
+        - AR34
+        - SuperDragon
+        - Shotgun
+        - Reaper
+        - Sniper Rifle
+        - FarSight XR-20
+        - Devastator
+        - Rocket Launcher
+        - Slayer
+        - Combat Knife
+        - Crossbow
+        - Tranquilizer
+        - Laser
+        - Grenade
+        - Timed Mine
+        - Proximity Mine
+        - Remote Mine
+    Ex: ['Falcon 2', 'Laser', 'Slayer']
+    """
+    display_name = "Excluded Firing Range Weapons"
+    valid_keys = frozenset({
+        "Falcon 2",
+        "Falcon 2 (Silencer)",
+        "Falcon 2 (Scope)",
+        "MagSec 4",
+        "Mauler",
+        "Phoenix",
+        "DY357 Magnum",
+        "DY357-LX",
+        "CMP150",
+        "Cyclone",
+        "Callisto NTG",
+        "RC-P120",
+        "Laptop Gun",
+        "Dragon",
+        "K7 Avenger",
+        "AR34",
+        "SuperDragon",
+        "Shotgun",
+        "Reaper",
+        "Sniper Rifle",
+        "FarSight XR-20",
+        "Devastator",
+        "Rocket Launcher",
+        "Slayer",
+        "Combat Knife",
+        "Crossbow",
+        "Tranquilizer",
+        "Laser",
+        "Grenade",
+        "Timed Mine",
+        "Proximity Mine",
+        "Remote Mine"
+    })
+    default = frozenset({})
+
+
 class DeviceTraining(Toggle):
     """
     Adds the 10 device training as checks.
@@ -571,6 +703,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     perfect_agent: IncludePerfectAgent
     required_perfect_agent_mission_stars: RequiredPerfectAgentMissionStars
     missions_in_item_pool: MissionsInItemPool
+    excluded_missions: ExcludedMissions
     weapon_progression: WeaponProgression
     allow_progressive_weapon_in_challenges: ProgressiveWeaponsInChallenges
     starting_items: StartingItems
@@ -582,6 +715,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     excluded_challenges: ExcludedChallenges
     shorter_challenges: ShorterChallenges
     weapon_training: WeaponTraining
+    excluded_fr_weapons: ExcludedFiringRangeWeapons
     device_training: DeviceTraining
     holotraining: Holotraining
     completion_cheats: CompletionCheatUnlocks
@@ -614,6 +748,7 @@ option_groups = [
             IncludePerfectAgent,
             RequiredPerfectAgentMissionStars,
             MissionsInItemPool,
+            ExcludedMissions,
             WeaponProgression,
             ProgressiveWeaponsInChallenges,
             StartingItems,
@@ -625,6 +760,7 @@ option_groups = [
             ExcludedChallenges,
             ShorterChallenges,
             WeaponTraining,
+            ExcludedFiringRangeWeapons,
             DeviceTraining,
             Holotraining,
             CompletionCheatUnlocks,

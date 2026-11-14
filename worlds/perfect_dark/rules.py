@@ -2768,6 +2768,28 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         "dD Defection: 2F double Falcon 2 (silencer)": has_defection
                                                        & has_falcon2_silencer,
 
+        "dD Defection: 2F Laptop Gun": (HAS_DEFECTION_PF_AGENT
+                                            & has_laptop_gun 
+                                            & complete_defection_weapons)
+                                       | (perfect_logic 
+                                            & has_defection 
+                                            & has_laptop_gun 
+                                            & complete_defection_weapons),
+
+        "dD Defection: 2F Falcon 2 (silencer) (on right)": (HAS_DEFECTION_PF_AGENT
+                                                                & has_falcon2_silencer 
+                                                                & complete_defection_weapons)
+                                                           | (perfect_logic 
+                                                                & has_defection 
+                                                                & has_falcon2_silencer),
+
+        "dD Defection: 2F Falcon 2 (silencer) (on left)": (HAS_DEFECTION_PF_AGENT
+                                                                & has_falcon2_silencer 
+                                                                & complete_defection_weapons)
+                                                          | (perfect_logic 
+                                                                & has_defection 
+                                                                & has_falcon2_silencer),
+
         "dD Defection: 3F tiny ammo box (on corner desk)": has_defection
                                                            & (has_defection_weapon
                                                            | perfect_logic),
@@ -3020,6 +3042,21 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                                     & complete_mbr_weapons
                                                                                     & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
 
+        "Mr. Blonde's Revenge: 2F Laptop Gun": has_mbr 
+                                               & perfect_logic
+                                               & has_laptop_gun
+                                               & complete_mbr_weapons,
+                    
+        "Mr. Blonde's Revenge: 2F Falcon 2 (on right)": has_mbr
+                                                        & perfect_logic
+                                                        & has_falcon2 
+                                                        & complete_mbr_weapons,
+        
+        "Mr. Blonde's Revenge: 2F Falcon 2 (on left)": has_mbr
+                                                       & perfect_logic
+                                                       & has_falcon2 
+                                                       & complete_mbr_weapons,
+
         "Mr. Blonde's Revenge: 3F tiny ammo box (on corner desk)": has_mbr
                                                                    & complete_mbr_weapons
                                                                    & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
@@ -3250,6 +3287,16 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                          & Has("Comms Rider")
                                                                          & has_magsec4
                                                                          & has_infiltration_weapon,
+    }
+
+    pickupsanity_rules_perfect = {
+        "Carrington Villa (Perfect Agent): Sniper Rifle (in the bathroom)": HAS_VILLA_PF_AGENT
+                                                                            & has_sniper_rifle
+                                                                            & has_villa_weapon_perfect,
+        
+        "Attack Ship (Perfect Agent): De Vries' Necklace": HAS_ATTACK_SHIP_PF_AGENT
+                                                           & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
+                                                           & HAS_DD_KEYS,
     }
 
     # Glassanity Rules
@@ -4386,28 +4433,28 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
     }
 
     if world.options.agent:
-        add_rule(world, agent_rules)
+        add_rules(world, agent_rules)
 
     if world.options.special_agent:
-        add_rule(world, special_agent_rules)
+        add_rules(world, special_agent_rules)
 
     if world.options.perfect_agent:
-        add_rule(world, perfect_agent_rules)
+        add_rules(world, perfect_agent_rules)
 
     if world.options.alternate_exits.value >= AlternateExits.option_one:
         add_rules(world, alternate_exits_rules)
 
     if world.options.completion_cheats:
         if world.options.agent or world.options.special_agent or world.options.perfect_agent:
-            add_rule(world, cheat_rules)
+            add_rules(world, cheat_rules)
 
     if world.options.timed_cheats:
         if world.options.agent:
-            add_rule(world, cheat_agent_rules)
+            add_rules(world, cheat_agent_rules)
         if world.options.special_agent:
-            add_rule(world, cheat_sp_agent_rules)
+            add_rules(world, cheat_sp_agent_rules)
         if world.options.perfect_agent:
-            add_rule(world, cheat_pf_agent_rules)
+            add_rules(world, cheat_pf_agent_rules)
 
     if world.options.goal.value == Goal.option_complete_skedar_ruins \
             and not (world.options.agent or world.options.special_agent or world.options.perfect_agent):
@@ -4434,70 +4481,19 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     if world.options.pickupsanity:
         if world.options.agent or world.options.special_agent or world.options.perfect_agent:
-            add_rule(world, pickupsanity_rules)
+            add_rules(world, pickupsanity_rules)
 
         if world.options.agent:
-            add_rule(world, pickupsanity_rules_agent_only)
+            add_rules(world, pickupsanity_rules_agent_only)
 
         if world.options.agent or world.options.special_agent:
-            add_rule(world, pickupsanity_rules_agent_or_special)
-
-        if world.options.perfect_agent:
-            villa_sniper_rifle = world.get_location("Carrington Villa (Perfect Agent): Sniper Rifle (in the bathroom)")
-            world.set_rule(villa_sniper_rifle, HasAny("Carrington Villa - Perfect Agent", "Carrington Villa", options=[mission_item_pool_filter], filtered_resolution=True)
-                                               & has_sniper_rifle
-                                               & has_villa_weapon_perfect)
-
-            attack_ship_necklace = world.get_location("Attack Ship (Perfect Agent): De Vries' Necklace")
-            world.set_rule(attack_ship_necklace, HasAny("Attack Ship - Perfect Agent", "Attack Ship", options=[mission_item_pool_filter], filtered_resolution=True)
-                                                 & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
-                                                 & HAS_DD_KEYS)
+            add_rules(world, pickupsanity_rules_agent_or_special)
 
         if world.options.special_agent or world.options.perfect_agent:
-            add_rule(world, pickupsanity_rules_special_or_perfect)
+            add_rules(world, pickupsanity_rules_special_or_perfect)
 
-        if world.options.perfect_agent \
-                or world.options.mission_logic.value == MissionLogic.option_perfect:
-            defection_laptop_gun = world.get_location("dD Defection: 2F Laptop Gun")
-            world.set_rule(defection_laptop_gun, (HAS_DEFECTION_PF_AGENT
-                                                    & has_laptop_gun 
-                                                    & complete_defection_weapons)
-                                                 | (perfect_logic 
-                                                    & has_defection 
-                                                    & has_laptop_gun 
-                                                    & complete_defection_weapons))
-
-            defection_right_falcon2 = world.get_location("dD Defection: 2F Falcon 2 (silencer) (on right)")
-            world.set_rule(defection_right_falcon2, (HAS_DEFECTION_PF_AGENT
-                                                        & has_falcon2_silencer 
-                                                        & complete_defection_weapons)
-                                                    | (perfect_logic 
-                                                        & has_defection 
-                                                        & has_falcon2_silencer))
-
-            defection_left_falcon2 = world.get_location("dD Defection: 2F Falcon 2 (silencer) (on left)")
-            world.set_rule(defection_left_falcon2, (HAS_DEFECTION_PF_AGENT
-                                                        & has_falcon2_silencer 
-                                                        & complete_defection_weapons)
-                                                   | (perfect_logic 
-                                                        & has_defection 
-                                                        & has_falcon2_silencer))
-
-        if world.options.mission_logic.value == MissionLogic.option_perfect:
-            mbr_laptop_gun = world.get_location("Mr. Blonde's Revenge: 2F Laptop Gun")
-            world.set_rule(mbr_laptop_gun, has_mbr 
-                                           & has_laptop_gun
-                                           & complete_mbr_weapons)
-            
-            mbr_falcon2_1 = world.get_location("Mr. Blonde's Revenge: 2F Falcon 2 (on right)")
-            world.set_rule(mbr_falcon2_1, has_mbr
-                                          & has_falcon2 
-                                          & complete_mbr_weapons)
-
-            mbr_falcon2_2 = world.get_location("Mr. Blonde's Revenge: 2F Falcon 2 (on left)")
-            world.set_rule(mbr_falcon2_2, has_mbr
-                                          & has_falcon2 
-                                          & complete_mbr_weapons)
+        if world.options.perfect_agent:
+            add_rules(world, pickupsanity_rules_perfect)
 
     if world.options.glassanity:
         add_rules(world, glassanity_rules)
@@ -5661,16 +5657,16 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
 
 
     if world.options.weapon_training:
-        add_rule(world, weapon_training_rules)
+        add_rules(world, weapon_training_rules)
 
     if world.options.weapon_cheats:
-        add_rule(world, weapon_training_cheat_rules)
+        add_rules(world, weapon_training_cheat_rules)
 
     if has_challenges(world):
         add_challenge_rules(world, challenge_rules)
 
         if world.options.multiplayer_unlocks:
-            add_rule(world, complete_challenge_unlock_rules)
+            add_rules(world, complete_challenge_unlock_rules)
 
     if world.options.holotraining:
         ht7 = world.get_location("Holotraining 7: Live Combat 2")
@@ -5731,24 +5727,31 @@ def set_completion_condition(world: PerfectDarkWorld) -> None:
 def get_mission_stars(world: PerfectDarkWorld) -> int:
     required_mission_stars = 0
 
-    if world.options.agent:
-        if (world.options.goal.value == Goal.option_complete_skedar_ruins 
-                and world.options.required_agent_mission_stars == 21):
-            required_mission_stars += 20
-        else:
+    if world.options.goal.value == Goal.option_complete_skedar_ruins:
+        num_of_difficulties = 0
+
+        if world.options.agent:
             required_mission_stars += world.options.required_agent_mission_stars.value
-    if world.options.special_agent:
-        if (world.options.goal.value == Goal.option_complete_skedar_ruins 
-                and world.options.required_special_agent_mission_stars == 21):
-            required_mission_stars += 20
-        else:
+            num_of_difficulties += 1
+        if world.options.special_agent:
             required_mission_stars += world.options.required_special_agent_mission_stars.value
-    if world.options.perfect_agent:
-        if (world.options.goal.value == Goal.option_complete_skedar_ruins 
-                and world.options.required_perfect_agent_mission_stars == 21):
-            required_mission_stars += 20
-        else:
+            num_of_difficulties += 1
+        if world.options.perfect_agent:
             required_mission_stars += world.options.required_perfect_agent_mission_stars.value
+            num_of_difficulties += 1
+
+        total_missions = 20 * num_of_difficulties
+        excluded_missions_num = len(world.options.excluded_missions.value)
+        if "Skedar Ruins" in world.options.excluded_missions:
+            if world.options.agent or world.options.special_agent or world.options.perfect_agent:
+                excluded_missions_num -= num_of_difficulties
+            else:
+                excluded_missions_num -= 3
+
+        total_missing = excluded_missions_num * num_of_difficulties
+
+        if required_mission_stars > (total_missions - total_missing):
+            required_mission_stars = total_missions - total_missing
 
     return required_mission_stars
 

@@ -746,62 +746,108 @@ def create_all_items(world:PerfectDarkWorld) -> None:
     
     # Create items needed for missions
     if has_any_difficulty(world):
-        itempool.append(world.create_item("Horizon Scanner"))
-        itempool.append(world.create_item("President Scanner"))
-        itempool.append(world.create_item("Explosives"))
-        itempool.append(world.create_item("Lab Clothes"))
-        itempool.append(world.create_item("Backup Disk"))
-        itempool.append(world.create_item("Cellar Key Card"))
+        if (has_mission(world, "Air Base") or has_mission(world, "Crash Site")):
+            itempool.append(world.create_item("Horizon Scanner"))
 
-    if world.options.special_agent or world.options.perfect_agent:
+        if has_mission(world, "Crash Site"):
+            itempool.append(world.create_item("President Scanner"))
+
+        if has_mission(world, "A51 Infiltration"):
+            itempool.append(world.create_item("Explosives"))
+
+        if has_mission(world, "A51 Rescue"):
+            itempool.append(world.create_item("Lab Clothes"))
+        
+        if (has_mission(world, "G5 Building")
+            or (world.options.perfect_agent and has_mission(world, "Deep Sea"))):
+            itempool.append(world.create_item("Backup Disk"))
+        
+        if has_mission(world, "Carrington Villa"):
+            itempool.append(world.create_item("Cellar Key Card"))
+
+    if (world.options.special_agent or world.options.perfect_agent or world.options.glassanity) \
+            and has_mission(world, "A51 Escape"):
         itempool.append(world.create_item("Alien Medpack"))
+
+    if (world.options.special_agent or world.options.perfect_agent) \
+            and (has_mission(world, "Air Base") or has_mission(world, "Air Force One")):
         itempool.append(world.create_item("Suitcase"))
         
-    if has_challenges(world) or has_any_difficulty(world):
+    if has_challenges(world) \
+            or (has_any_difficulty(world) and has_mission(world, "CI Defense")):
         itempool.append(world.create_item("Combat Boost"))
 
     if has_challenges(world) \
             or world.options.device_training \
-            or world.options.pickupsanity \
-            or has_any_difficulty(world):
+            or ((world.options.pickupsanity or has_any_difficulty(world) or world.options.glassanity)
+                and has_mission(world, "Mr. Blonde's Revenge")):
         itempool.append(world.create_item("Cloaking Device"))
 
     if has_challenges(world) \
             or world.options.device_training \
-            or has_any_difficulty(world):
+            or (has_any_difficulty(world) 
+                and (has_mission(world, "dD Investigation") or has_mission(world, "Chicago") or has_mission(world, "CI Defense"))) \
+            or (world.options.perfect_agent and has_mission(world, "A51 Rescue")) \
+            or (world.options.glassanity and has_mission(world, "dD Investigation")):
         itempool.append(world.create_item("Data Uplink"))
 
     if world.options.device_training \
-            or world.options.pickupsanity \
-            or has_any_difficulty(world):
+            or ((world.options.pickupsanity or has_any_difficulty(world) or world.options.glassanity) 
+                and has_mission(world, "dD Extraction")) \
+            or (world.options.perfect_agent and has_mission(world, "dD Investigation")) \
+            or (world.options.pickupsanity and has_mission(world, "Crash Site")):
         itempool.append(world.create_item("Night Vision"))
+        
+    if world.options.device_training \
+            or ((world.options.pickupsanity or has_any_difficulty(world)) 
+                and (has_mission(world, "dD Investigation") or has_mission(world, "Chicago"))) \
+            or ((world.options.glassanity or world.options.timed_cheats) and has_mission(world, "Chicago")) \
+            or (has_any_difficulty(world)
+                and (has_mission(world, "G5 Building") 
+                    or has_mission(world, "Air Base") 
+                    or has_mission(world, "Mr. Blonde's Revenge"))):
         itempool.append(world.create_item("CamSpy"))
+
+    if world.options.device_training \
+            or ((world.options.pickupsanity or has_any_difficulty(world) or world.options.glassanity) 
+                and has_mission(world, "Air Base")):
         itempool.append(world.create_item("Stewardess Disguise"))
 
     if world.options.device_training \
-            or has_any_difficulty(world):
+            or (has_any_difficulty(world) and has_mission(world, "Pelagic II")) \
+            or ((world.options.special_agent or world.options.perfect_agent) and has_mission(world, "A51 Rescue")):
         itempool.append(world.create_item("X-Ray Scanner"))
+
+    if world.options.device_training \
+            or (has_any_difficulty(world) and has_mission(world, "G5 Building")):
         itempool.append(world.create_item("Door Decoder"))
 
     if world.options.perfect_agent:
-        itempool.append(world.create_item("Tracer Bug"))
-        itempool.append(world.create_item("Flight Plans"))
-        itempool.append(world.create_item("Research Tape"))
-        itempool.append(world.create_item("Shield Tech Item"))
+        if has_mission(world, "Chicago"):
+            itempool.append(world.create_item("Tracer Bug"))
+
+        if has_mission(world, "Air Base"):
+            itempool.append(world.create_item("Flight Plans"))
+
+        if has_mission(world, "Pelagic II"):
+            itempool.append(world.create_item("Research Tape"))
+
+        if has_mission(world, "dD Investigation"):
+            itempool.append(world.create_item("Shield Tech Item"))
 
     # Items in both Special and Perfect Agent
-    if world.options.special_agent or world.options.perfect_agent:
+    if (world.options.special_agent or world.options.perfect_agent) \
+            and has_mission(world, "Mr. Blonde's Revenge"):
         itempool.append(world.create_item("Skedar Bomb"))
 
-    if world.options.pickupsanity \
-            or world.options.special_agent \
-            or world.options.perfect_agent:
+    if (world.options.pickupsanity or world.options.special_agent or world.options.perfect_agent) \
+            and has_mission(world, "A51 Infiltration"):
         itempool.append(world.create_item("Comms Rider"))
 
     # Create ECM Mine
     if world.options.device_training \
-            or world.options.special_agent \
-            or world.options.perfect_agent:
+            or ((world.options.special_agent or world.options.perfect_agent)
+                and has_mission(world, "dD Defection")):
         itempool.append(world.create_item("ECM Mine"))
 
     if (has_challenges(world)):
@@ -816,68 +862,105 @@ def create_all_items(world:PerfectDarkWorld) -> None:
 
     # Create items needed to beat Skedar Ruins
     if world.options.device_training \
-            or world.options.pickupsanity \
-            or has_any_difficulty(world) \
+            or ((world.options.pickupsanity or has_any_difficulty(world) or world.options.glassanity)
+                and has_mission(world, "Deep Sea")) \
+            or (has_any_difficulty(world) and has_mission(world, "Skedar Ruins")) \
             or world.options.goal.value == Goal.option_complete_skedar_ruins:
         itempool.append(world.create_item("IR Scanner"))
+
+    if world.options.device_training \
+            or ((world.options.pickupsanity or has_any_difficulty(world)) and has_mission(world, "Skedar Ruins")) \
+            or world.options.goal.value == Goal.option_complete_skedar_ruins:
         itempool.append(world.create_item("R-Tracker"))
 
     if world.options.pickupsanity \
-            or has_any_difficulty(world) \
+            or ((world.options.pickupsanity or has_any_difficulty(world)) and has_mission(world, "Skedar Ruins")) \
             or world.options.goal.value == Goal.option_complete_skedar_ruins:
         itempool.append(world.create_item("Target Amplifier"))
 
 
     # Create key cards
     if world.options.master_key:
-        if world.options.special_agent \
-                or world.options.perfect_agent \
-                or world.options.pickupsanity:
+        if ((world.options.special_agent or world.options.perfect_agent) and has_mission(world, "dD Defection")) \
+                or ((world.options.pickupsanity or world.options.glassanity) and has_mission(world, "dD Extraction"))  \
+                or ((world.options.pickupsanity and world.options.perfect_agent) and has_mission(world, "Attack Ship")):
             itempool.append(world.create_item("dataDyne Master Key"))
 
-        if has_any_difficulty(world):
+        if has_any_difficulty(world) and (has_mission(world, "A51 Infiltration") or has_mission(world, "A51 Rescue")):
             itempool.append(world.create_item("Area 51 Master Key"))
 
-        if has_any_difficulty(world) \
-                or world.options.pickupsanity:
+        if (has_any_difficulty(world) or world.options.pickupsanity or world.options.glassanity) \
+                and has_mission(world, "G5 Building"):
             itempool.append(world.create_item("G5 Building Master Key"))
+
+        if (has_any_difficulty(world) or world.options.pickupsanity) \
+                and has_mission(world, "Air Force One"):
             itempool.append(world.create_item("Air Force One Master Key"))
 
     else:
-        if world.options.pickupsanity:
+        if (has_any_difficulty(world) or world.options.pickupsanity or world.options.glassanity) \
+                and has_mission(world, "dD Extraction"):
             itempool.append(world.create_item("Cassandra's Office Key Card"))
 
         if has_any_difficulty(world):
-            itempool.append(world.create_item("Medlab 2 Key Card"))
-            itempool.append(world.create_item("Op Room Key Card"))
-            itempool.append(world.create_item("Area 51 Lift Key Card"))
+            if has_mission(world, "A51 Rescue"):
+                itempool.append(world.create_item("Medlab 2 Key Card"))
+                itempool.append(world.create_item("Op Room Key Card"))
+
+            if has_mission(world, "A51 Infiltration"):
+                itempool.append(world.create_item("Area 51 Lift Key Card"))
 
 
-        if world.options.pickupsanity \
-                or world.options.special_agent \
-                or world.options.perfect_agent:
+        if (world.options.pickupsanity and has_mission(world, "Attack Ship")) \
+                or ((world.options.special_agent or world.options.perfect_agent) and has_mission(world, "dD Defection")):
             itempool.append(world.create_item("De Vries' Necklace"))
 
-        if has_any_difficulty(world) \
-                or world.options.pickupsanity:
+        if (has_any_difficulty(world) or world.options.pickupsanity or world.options.glassanity) \
+                and has_mission(world, "G5 Building"):
             itempool.append(world.create_item("G5 Building Level 1 Key Card"))
             itempool.append(world.create_item("G5 Building Level 2 Key Card"))
+
+        if (has_any_difficulty(world) or world.options.pickupsanity) and has_mission(world, "Air Force One"):
             itempool.append(world.create_item("Air Force One Left Room Key Card"))
             itempool.append(world.create_item("Air Force One Right Room Key Card"))
 
-        if world.options.special_agent \
-                or world.options.perfect_agent:
+        if (world.options.special_agent or world.options.perfect_agent) and has_mission(world, "Air Force One"):
             itempool.append(world.create_item("Air Force One Lift Key Card"))
 
 
     # Create NPCs
     if world.options.npcs:
-        itempool.append(world.create_item("Carrington"))
-        itempool.append(world.create_item("Cassandra"))
-        itempool.append(world.create_item("Dr. Caroll"))
-        itempool.append(world.create_item("Jonathan"))
-        itempool.append(world.create_item("Elvis"))
-        itempool.append(world.create_item("President"))
+        if world.options.device_training \
+                or ((has_any_difficulty(world) or world.options.pickupsanity or world.options.glassanity) 
+                    and (has_mission(world, "Carrington Villa") or has_mission(world, "CI Defense"))):
+            itempool.append(world.create_item("Carrington"))
+
+        if (has_any_difficulty(world) and (has_mission(world, "dD Defection") or has_mission(world, "dD Extraction")
+                or has_mission(world, "G5 Building") or has_mission(world, "Attack Ship") or has_mission(world, "Mr. Blonde's Revenge"))) \
+                or ((world.options.pickupsanity or world.options.glassanity) and has_mission(world, "Attack Ship")):
+            itempool.append(world.create_item("Cassandra"))
+
+        if (has_any_difficulty(world) 
+                and (has_mission(world, "dD Investigation") or has_mission(world, "dD Extraction") or has_mission(world, "Deep Sea"))):
+            itempool.append(world.create_item("Dr. Caroll"))
+
+        if (has_any_difficulty(world) and (has_mission(world, "A51 Infiltration") or has_mission(world, "A51 Rescue") or has_mission(world, "A51 Escape"))) \
+                or ((world.options.special_agent or world.options.perfect_agent) and has_mission(world, "The Duel")) \
+                or ((world.options.pickupsanity or world.options.glassanity) and has_mission(world, "A51 Rescue")) \
+                or (world.options.glassanity and has_mission(world, "A51 Escape")):
+            itempool.append(world.create_item("Jonathan"))
+
+        if (has_any_difficulty(world) and (has_mission(world, "A51 Rescue") or has_mission(world, "A51 Escape") or has_mission(world, "Air Force One")
+                    or has_mission(world, "Crash Site") or has_mission(world, "Pelagic II") or has_mission(world, "Deep Sea")
+                    or has_mission(world, "Attack Ship") or has_mission(world, "Skedar Ruins") or has_mission(world, "Maian SOS"))) \
+                or (world.options.pickupsanity and (has_mission(world, "A51 Escape") 
+                        or has_mission(world, "Crash Site") or has_mission(world, "Attack Ship") or has_mission(world, "Skedar Ruins"))) \
+                or (world.options.glassanity and (has_mission(world, "A51 Escape") or has_mission(world, "Deep Sea") 
+                        or has_mission(world, "Attack Ship") or has_mission(world, "Maian SOS"))):
+            itempool.append(world.create_item("Elvis"))
+
+        if has_any_difficulty(world) and (has_mission(world, "Air Force One") or has_mission(world, "Crash Site")):
+            itempool.append(world.create_item("President"))
 
 
     # Cheats
@@ -926,127 +1009,37 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         itempool.append(world.create_item("Cheat: Alien"))
 
     # Missions 
-    if world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled:
+    if world.options.missions_in_item_pool.value >= MissionsInItemPool.option_enabled:
         if has_any_difficulty(world) \
-                or world.options.pickupsanity:
-            add_mission(world, "dD Defection", itempool)
-            add_mission(world, "dD Investigation", itempool)
-            add_mission(world, "dD Extraction", itempool)
-            add_mission(world, "Carrington Villa", itempool)
-            add_mission(world, "Chicago", itempool)
-            add_mission(world, "G5 Building", itempool)
-            add_mission(world, "A51 Infiltration", itempool)
-            add_mission(world, "A51 Rescue", itempool)
-            add_mission(world, "A51 Escape", itempool)
-            add_mission(world, "Air Base", itempool)
-            add_mission(world, "Air Force One", itempool)
-            add_mission(world, "Crash Site", itempool)
-            add_mission(world, "Pelagic II", itempool)
-            add_mission(world, "Deep Sea", itempool)
-            add_mission(world, "CI Defense", itempool)
-            add_mission(world, "Attack Ship", itempool)
-            add_mission(world, "Mr. Blonde's Revenge", itempool)
-            add_mission(world, "Maian SOS", itempool)
+                or world.options.pickupsanity \
+                or world.options.glassanity:
+            add_mission_to_itempool(world, "dD Defection", itempool)
+            add_mission_to_itempool(world, "dD Investigation", itempool)
+            add_mission_to_itempool(world, "dD Extraction", itempool)
+            add_mission_to_itempool(world, "Carrington Villa", itempool)
+            add_mission_to_itempool(world, "Chicago", itempool)
+            add_mission_to_itempool(world, "G5 Building", itempool)
+            add_mission_to_itempool(world, "A51 Rescue", itempool)
+            add_mission_to_itempool(world, "A51 Escape", itempool)
+            add_mission_to_itempool(world, "Air Base", itempool)
+            add_mission_to_itempool(world, "Pelagic II", itempool)
+            add_mission_to_itempool(world, "Deep Sea", itempool)
+            add_mission_to_itempool(world, "CI Defense", itempool)
+            add_mission_to_itempool(world, "Attack Ship", itempool)
+            add_mission_to_itempool(world, "Mr. Blonde's Revenge", itempool)
+            add_mission_to_itempool(world, "Maian SOS", itempool)
 
-            if has_any_difficulty(world):
-                add_mission(world, "WAR!", itempool)
-                add_mission(world, "The Duel", itempool)
+        if has_any_difficulty(world) or world.options.pickupsanity:
+            add_mission_to_itempool(world, "A51 Infiltration", itempool)
+            add_mission_to_itempool(world, "Air Force One", itempool)
+            add_mission_to_itempool(world, "Crash Site", itempool)
+
+        if has_any_difficulty(world):
+            add_mission_to_itempool(world, "WAR!", itempool)
+            add_mission_to_itempool(world, "The Duel", itempool)
 
         if (is_skedar_ruins_in_itempool(world)):
-            add_mission(world, "Skedar Ruins", itempool)
-
-    elif world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled_per_difficulty:
-        if world.options.agent \
-                or world.options.pickupsanity:
-            add_mission(world, "dD Defection - Agent", itempool)
-            add_mission(world, "dD Investigation - Agent", itempool)
-            add_mission(world, "dD Extraction - Agent", itempool)
-            add_mission(world, "Carrington Villa - Agent", itempool)
-            add_mission(world, "Chicago - Agent", itempool)
-            add_mission(world, "G5 Building - Agent", itempool)
-            add_mission(world, "A51 Infiltration - Agent", itempool)
-            add_mission(world, "A51 Rescue - Agent", itempool)
-            add_mission(world, "A51 Escape - Agent", itempool)
-            add_mission(world, "Air Base - Agent", itempool)
-            add_mission(world, "Air Force One - Agent", itempool)
-            add_mission(world, "Crash Site - Agent", itempool)
-            add_mission(world, "Pelagic II - Agent", itempool)
-            add_mission(world, "Deep Sea - Agent", itempool)
-            add_mission(world, "CI Defense - Agent", itempool)
-            add_mission(world, "Attack Ship - Agent", itempool)
-            add_mission(world, "Mr. Blonde's Revenge - Agent", itempool)
-            add_mission(world, "Maian SOS - Agent", itempool)
-
-            if world.options.agent:
-                add_mission(world, "WAR! - Agent", itempool)
-                add_mission(world, "The Duel - Agent", itempool)
-
-            if (is_skedar_ruins_in_itempool(world)):
-                add_mission(world, "Skedar Ruins - Agent", itempool)
-
-        if world.options.special_agent \
-                or world.options.pickupsanity:
-            add_mission(world, "dD Defection - Special Agent", itempool)
-            add_mission(world, "dD Investigation - Special Agent", itempool)
-            add_mission(world, "dD Extraction - Special Agent", itempool)
-            add_mission(world, "Carrington Villa - Special Agent", itempool)
-            add_mission(world, "Chicago - Special Agent", itempool)
-            add_mission(world, "G5 Building - Special Agent", itempool)
-            add_mission(world, "A51 Infiltration - Special Agent", itempool)
-            add_mission(world, "A51 Rescue - Special Agent", itempool)
-            add_mission(world, "A51 Escape - Special Agent", itempool)
-            add_mission(world, "Air Base - Special Agent", itempool)
-            add_mission(world, "Air Force One - Special Agent", itempool)
-            add_mission(world, "Crash Site - Special Agent", itempool)
-            add_mission(world, "Pelagic II - Special Agent", itempool)
-            add_mission(world, "Deep Sea - Special Agent", itempool)
-            add_mission(world, "CI Defense - Special Agent", itempool)
-            add_mission(world, "Attack Ship - Special Agent", itempool)
-            add_mission(world, "Mr. Blonde's Revenge - Special Agent", itempool)
-            add_mission(world, "Maian SOS - Special Agent", itempool)
-
-            if world.options.special_agent:
-                add_mission(world, "WAR! - Special Agent", itempool)
-                add_mission(world, "The Duel - Special Agent", itempool)
-    
-            if (is_skedar_ruins_in_itempool(world)):
-                add_mission(world, "Skedar Ruins - Special Agent", itempool)
-
-        if world.options.perfect_agent \
-                or world.options.pickupsanity:
-            add_mission(world, "dD Defection - Perfect Agent", itempool)
-            add_mission(world, "dD Investigation - Perfect Agent", itempool)
-            add_mission(world, "dD Extraction - Perfect Agent", itempool)
-            add_mission(world, "Carrington Villa - Perfect Agent", itempool)
-            add_mission(world, "Chicago - Perfect Agent", itempool)
-            add_mission(world, "G5 Building - Perfect Agent", itempool)
-            add_mission(world, "A51 Infiltration - Perfect Agent", itempool)
-            add_mission(world, "A51 Rescue - Perfect Agent", itempool)
-            add_mission(world, "A51 Escape - Perfect Agent", itempool)
-            add_mission(world, "Air Base - Perfect Agent", itempool)
-            add_mission(world, "Air Force One - Perfect Agent", itempool)
-            add_mission(world, "Crash Site - Perfect Agent", itempool)
-            add_mission(world, "Pelagic II - Perfect Agent", itempool)
-            add_mission(world, "Deep Sea - Perfect Agent", itempool)
-            add_mission(world, "CI Defense - Perfect Agent", itempool)
-            add_mission(world, "Attack Ship - Perfect Agent", itempool)
-            add_mission(world, "Mr. Blonde's Revenge - Perfect Agent", itempool)
-            add_mission(world, "Maian SOS - Perfect Agent", itempool)
-
-            if world.options.perfect_agent:
-                add_mission(world, "WAR! - Perfect Agent", itempool)
-                add_mission(world, "The Duel - Perfect Agent", itempool)
-    
-            if (is_skedar_ruins_in_itempool(world)):
-                add_mission(world, "Skedar Ruins - Perfect Agent", itempool)
-
-        if (is_skedar_ruins_in_itempool(world) 
-                and not has_any_difficulty(world)
-                and not world.options.pickupsanity):
-            add_mission(world, "Skedar Ruins - Agent", itempool)
-            add_mission(world, "Skedar Ruins - Special Agent", itempool)
-            add_mission(world, "Skedar Ruins - Perfect Agent", itempool)
-
+            add_mission_to_itempool(world, "Skedar Ruins", itempool)
 
     # Weapons
     if (world.options.weapon_progression.value == WeaponProgression.option_normal
@@ -1366,6 +1359,10 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         # Weapon Training
         elif option == "Weapon Training":
             if world.options.weapon_progression.value <= WeaponProgression.option_all_guns:
+                for weapon in FIRING_RANGE_LIST:
+                    if weapon in world.options.excluded_fr_weapons:
+                        FIRING_RANGE_LIST.remove(weapon)
+
                 weapon1, weapon2 = world.random.sample(FIRING_RANGE_LIST, 2)
                 remove_starting_item_from_pool(world, weapon1, itempool)
                 remove_starting_item_from_pool(world, weapon2, itempool)
@@ -1498,10 +1495,28 @@ def has_any_difficulty(world: PerfectDarkWorld) -> bool:
     return False
 
 
-def add_mission(world:PerfectDarkWorld, item:str, itempool:list[Item]) -> None:
-    itempool.append(world.create_item(item))
-    # print(f"Adding mission {item} to mission_list")
-    mission_list.append(item)
+def add_mission_to_itempool(world:PerfectDarkWorld, item:str, itempool:list[Item]) -> None:
+    if (world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled
+            and item not in world.options.excluded_missions):
+        itempool.append(world.create_item(item))
+        mission_list.append(item)
+
+    elif (world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled_per_difficulty
+            and item not in world.options.excluded_missions):
+        if world.options.agent:
+            mission_name = f"{item} - Agent"
+            itempool.append(world.create_item(mission_name))
+            mission_list.append(mission_name)
+
+        if world.options.special_agent:
+            mission_name = f"{item} - Special Agent"
+            itempool.append(world.create_item(mission_name))
+            mission_list.append(mission_name)
+
+        if world.options.perfect_agent:
+            mission_name = f"{item} - Perfect Agent"
+            itempool.append(world.create_item(mission_name))
+            mission_list.append(mission_name)
 
 
 def get_challenge_items(world:PerfectDarkWorld, weaponlist:list[str], itempool:list[Item], challenge:str) -> None:
@@ -2387,4 +2402,11 @@ def get_challenge_items(world:PerfectDarkWorld, weaponlist:list[str], itempool:l
                 pistol_count = PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"]
 
             select_one_type()
+
+
+def has_mission(world:PerfectDarkWorld, mission_name:str) -> bool:
+    if mission_name not in world.options.excluded_missions:
+        return True
+
+    return False
     

@@ -12,6 +12,41 @@ if TYPE_CHECKING:
 from .options import Goal, SkedarRuinsRequirements, MissionLogic, WeaponProgression, AlternateExits
 from .rules import has_challenges
 
+FIRING_RANGE_WEAPONS = [
+    "Falcon 2",
+    "Falcon 2 (Silencer)",
+    "Falcon 2 (Scope)",
+    "MagSec 4",
+    "Mauler",
+    "Phoenix",
+    "DY357 Magnum",
+    "DY357-LX",
+    "CMP150",
+    "Cyclone",
+    "Callisto NTG",
+    "RC-P120",
+    "Laptop Gun",
+    "Dragon",
+    "K7 Avenger",
+    "AR34",
+    "SuperDragon",
+    "Shotgun",
+    "Reaper",
+    "Sniper Rifle",
+    "FarSight XR-20",
+    "Devastator",
+    "Rocket Launcher",
+    "Slayer",
+    "Combat Knife",
+    "Crossbow",
+    "Tranquilizer",
+    "Laser",
+    "Grenade",
+    "Timed Mine",
+    "Proximity Mine",
+    "Remote Mine"
+]
+
 LOCATION_NAME_TO_ID = {
     "dD Defection - Agent Objective 1": 1,
     "dD Investigation - Agent Objective 1": 4,
@@ -1257,79 +1292,121 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
     # Missions
     if world.options.agent:
-        defection_locations_list.append("dD Defection - Agent Objective 1")
-        defection_locations_list.append("Complete: dD Defection - Agent")
-        investigation_locations_list.append("dD Investigation - Agent Objective 1")
-        investigation_locations_list.append("dD Investigation - Agent Objective 2")
-        investigation_locations_list.append("Complete: dD Investigation - Agent")
-        extraction_locations_list.append("dD Extraction - Agent Objective 1")
-        extraction_locations_list.append("dD Extraction - Agent Objective 2")
-        extraction_locations_list.append("dD Extraction - Agent Objective 3")
-        extraction_locations_list.append("Complete: dD Extraction - Agent")
-        villa_locations_list.append("Carrington Villa - Agent Objective 1")
-        villa_locations_list.append("Carrington Villa - Agent Objective 2")
-        villa_locations_list.append("Carrington Villa - Agent Objective 3")
-        villa_locations_list.append("Complete: Carrington Villa - Agent")
-        chicago_locations_list.append("Chicago - Agent Objective 1")
-        chicago_locations_list.append("Chicago - Agent Objective 2")
-        chicago_locations_list.append("Chicago - Agent Objective 3")
-        chicago_locations_list.append("Complete: Chicago - Agent")
-        g5_locations_list.append("G5 Building - Agent Objective 1")
-        g5_locations_list.append("G5 Building - Agent Objective 2")
-        g5_locations_list.append("G5 Building - Agent Objective 3")
-        g5_locations_list.append("Complete: G5 Building - Agent")
-        infiltration_locations_list.append("A51 Infiltration - Agent Objective 1")
-        infiltration_locations_list.append("A51 Infiltration - Agent Objective 2")
-        infiltration_locations_list.append("A51 Infiltration - Agent Objective 3")
-        infiltration_locations_list.append("Complete: A51 Infiltration - Agent")
-        rescue_locations_list.append("A51 Rescue - Agent Objective 1")
-        rescue_locations_list.append("A51 Rescue - Agent Objective 2")
-        rescue_locations_list.append("A51 Rescue - Agent Objective 3")
-        rescue_locations_list.append("Complete: A51 Rescue - Agent")
-        escape_locations_list.append("A51 Escape - Agent Objective 1")
-        escape_locations_list.append("A51 Escape - Agent Objective 2")
-        escape_locations_list.append("A51 Escape - Agent Objective 3")
-        escape_locations_list.append("Complete: A51 Escape - Agent")
-        airbase_locations_list.append("Air Base - Agent Objective 1")
-        airbase_locations_list.append("Air Base - Agent Objective 2")
-        airbase_locations_list.append("Air Base - Agent Objective 3")
-        airbase_locations_list.append("Complete: Air Base - Agent")
-        afo_locations_list.append("Air Force One - Agent Objective 1")
-        afo_locations_list.append("Air Force One - Agent Objective 2")
-        afo_locations_list.append("Air Force One - Agent Objective 3")
-        afo_locations_list.append("Complete: Air Force One - Agent")
-        crashsite_locations_list.append("Crash Site - Agent Objective 1")
-        crashsite_locations_list.append("Crash Site - Agent Objective 2")
-        crashsite_locations_list.append("Crash Site - Agent Objective 3")
-        crashsite_locations_list.append("Complete: Crash Site - Agent")
-        pelagic_locations_list.append("Pelagic II - Agent Objective 1")
-        pelagic_locations_list.append("Pelagic II - Agent Objective 2")
-        pelagic_locations_list.append("Pelagic II - Agent Objective 3")
-        pelagic_locations_list.append("Complete: Pelagic II - Agent")
-        deepsea_locations_list.append("Deep Sea - Agent Objective 1")
-        deepsea_locations_list.append("Deep Sea - Agent Objective 2")
-        deepsea_locations_list.append("Deep Sea - Agent Objective 3")
-        deepsea_locations_list.append("Complete: Deep Sea - Agent")
-        defense_locations_list.append("CI Defense - Agent Objective 1")
-        defense_locations_list.append("CI Defense - Agent Objective 2")
-        defense_locations_list.append("CI Defense - Agent Objective 3")
-        defense_locations_list.append("Complete: CI Defense - Agent")
-        attackship_locations_list.append("Attack Ship - Agent Objective 1")
-        attackship_locations_list.append("Attack Ship - Agent Objective 2")
-        attackship_locations_list.append("Attack Ship - Agent Objective 3")
-        attackship_locations_list.append("Complete: Attack Ship - Agent")
-        skedarruins_locations_list.append("Skedar Ruins - Agent Objective 1")
-        skedarruins_locations_list.append("Skedar Ruins - Agent Objective 2")
-        skedarruins_locations_list.append("Skedar Ruins - Agent Objective 3")
-        skedarruins_locations_list.append("Complete: Skedar Ruins - Agent")
-        mbr_locations_list.append("Mr. Blonde's Revenge - Agent Objective 1")
-        mbr_locations_list.append("Complete: Mr. Blonde's Revenge - Agent")
-        maiansos_locations_list.append("Maian SOS - Agent Objective 1")
-        maiansos_locations_list.append("Complete: Maian SOS - Agent")
-        war_locations_list.append("WAR! - Agent Objective 1")
-        war_locations_list.append("Complete: WAR! - Agent")
-        duel_locations_list.append("The Duel - Agent Objective 1")
-        duel_locations_list.append("Complete: The Duel - Agent")
+        if "dD Defection" not in world.options.excluded_missions:
+            defection_locations_list.append("dD Defection - Agent Objective 1")
+            defection_locations_list.append("Complete: dD Defection - Agent")
+
+        if "dD Investigation" not in world.options.excluded_missions:
+            investigation_locations_list.append("dD Investigation - Agent Objective 1")
+            investigation_locations_list.append("dD Investigation - Agent Objective 2")
+            investigation_locations_list.append("Complete: dD Investigation - Agent")
+
+        if "dD Extraction" not in world.options.excluded_missions:
+            extraction_locations_list.append("dD Extraction - Agent Objective 1")
+            extraction_locations_list.append("dD Extraction - Agent Objective 2")
+            extraction_locations_list.append("dD Extraction - Agent Objective 3")
+            extraction_locations_list.append("Complete: dD Extraction - Agent")
+
+        if "Carrington Villa" not in world.options.excluded_missions:
+            villa_locations_list.append("Carrington Villa - Agent Objective 1")
+            villa_locations_list.append("Carrington Villa - Agent Objective 2")
+            villa_locations_list.append("Carrington Villa - Agent Objective 3")
+            villa_locations_list.append("Complete: Carrington Villa - Agent")
+
+        if "Chicago" not in world.options.excluded_missions:
+            chicago_locations_list.append("Chicago - Agent Objective 1")
+            chicago_locations_list.append("Chicago - Agent Objective 2")
+            chicago_locations_list.append("Chicago - Agent Objective 3")
+            chicago_locations_list.append("Complete: Chicago - Agent")
+
+        if "G5 Building" not in world.options.excluded_missions:
+            g5_locations_list.append("G5 Building - Agent Objective 1")
+            g5_locations_list.append("G5 Building - Agent Objective 2")
+            g5_locations_list.append("G5 Building - Agent Objective 3")
+            g5_locations_list.append("Complete: G5 Building - Agent")
+
+        if "A51 Infiltration" not in world.options.excluded_missions:
+            infiltration_locations_list.append("A51 Infiltration - Agent Objective 1")
+            infiltration_locations_list.append("A51 Infiltration - Agent Objective 2")
+            infiltration_locations_list.append("A51 Infiltration - Agent Objective 3")
+            infiltration_locations_list.append("Complete: A51 Infiltration - Agent")
+
+        if "A51 Rescue" not in world.options.excluded_missions:
+            rescue_locations_list.append("A51 Rescue - Agent Objective 1")
+            rescue_locations_list.append("A51 Rescue - Agent Objective 2")
+            rescue_locations_list.append("A51 Rescue - Agent Objective 3")
+            rescue_locations_list.append("Complete: A51 Rescue - Agent")
+
+        if "A51 Escape" not in world.options.excluded_missions:
+            escape_locations_list.append("A51 Escape - Agent Objective 1")
+            escape_locations_list.append("A51 Escape - Agent Objective 2")
+            escape_locations_list.append("A51 Escape - Agent Objective 3")
+            escape_locations_list.append("Complete: A51 Escape - Agent")
+
+        if "Air Base" not in world.options.excluded_missions:
+            airbase_locations_list.append("Air Base - Agent Objective 1")
+            airbase_locations_list.append("Air Base - Agent Objective 2")
+            airbase_locations_list.append("Air Base - Agent Objective 3")
+            airbase_locations_list.append("Complete: Air Base - Agent")
+
+        if "Air Force One" not in world.options.excluded_missions:
+            afo_locations_list.append("Air Force One - Agent Objective 1")
+            afo_locations_list.append("Air Force One - Agent Objective 2")
+            afo_locations_list.append("Air Force One - Agent Objective 3")
+            afo_locations_list.append("Complete: Air Force One - Agent")
+
+        if "Crash Site" not in world.options.excluded_missions:
+            crashsite_locations_list.append("Crash Site - Agent Objective 1")
+            crashsite_locations_list.append("Crash Site - Agent Objective 2")
+            crashsite_locations_list.append("Crash Site - Agent Objective 3")
+            crashsite_locations_list.append("Complete: Crash Site - Agent")
+
+        if "Pelagic II" not in world.options.excluded_missions:
+            pelagic_locations_list.append("Pelagic II - Agent Objective 1")
+            pelagic_locations_list.append("Pelagic II - Agent Objective 2")
+            pelagic_locations_list.append("Pelagic II - Agent Objective 3")
+            pelagic_locations_list.append("Complete: Pelagic II - Agent")
+
+        if "Deep Sea" not in world.options.excluded_missions:
+            deepsea_locations_list.append("Deep Sea - Agent Objective 1")
+            deepsea_locations_list.append("Deep Sea - Agent Objective 2")
+            deepsea_locations_list.append("Deep Sea - Agent Objective 3")
+            deepsea_locations_list.append("Complete: Deep Sea - Agent")
+
+        if "CI Defense" not in world.options.excluded_missions:
+            defense_locations_list.append("CI Defense - Agent Objective 1")
+            defense_locations_list.append("CI Defense - Agent Objective 2")
+            defense_locations_list.append("CI Defense - Agent Objective 3")
+            defense_locations_list.append("Complete: CI Defense - Agent")
+
+        if "Attack Ship" not in world.options.excluded_missions:
+            attackship_locations_list.append("Attack Ship - Agent Objective 1")
+            attackship_locations_list.append("Attack Ship - Agent Objective 2")
+            attackship_locations_list.append("Attack Ship - Agent Objective 3")
+            attackship_locations_list.append("Complete: Attack Ship - Agent")
+
+        if ("Skedar Ruins" not in world.options.excluded_missions
+                or world.options.goal.value == Goal.option_complete_skedar_ruins):
+            skedarruins_locations_list.append("Skedar Ruins - Agent Objective 1")
+            skedarruins_locations_list.append("Skedar Ruins - Agent Objective 2")
+            skedarruins_locations_list.append("Skedar Ruins - Agent Objective 3")
+            skedarruins_locations_list.append("Complete: Skedar Ruins - Agent")
+
+        if "Mr. Blonde's Revenge" not in world.options.excluded_missions:
+            mbr_locations_list.append("Mr. Blonde's Revenge - Agent Objective 1")
+            mbr_locations_list.append("Complete: Mr. Blonde's Revenge - Agent")
+
+        if "Maian SOS" not in world.options.excluded_missions:
+            maiansos_locations_list.append("Maian SOS - Agent Objective 1")
+            maiansos_locations_list.append("Complete: Maian SOS - Agent")
+        
+        if "WAR!" not in world.options.excluded_missions:
+            war_locations_list.append("WAR! - Agent Objective 1")
+            war_locations_list.append("Complete: WAR! - Agent")
+        
+        if "The Duel" not in world.options.excluded_missions:
+            duel_locations_list.append("The Duel - Agent Objective 1")
+            duel_locations_list.append("Complete: The Duel - Agent")
 
         if world.options.alternate_exits.value == AlternateExits.option_one:
             g5_building_exits = [
@@ -1347,129 +1424,176 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
                 "Complete Air Base (Agent): Ladder Exit"
             ]
 
-            escape_item = world.random.choice(escape_exits)
-            air_base_item = world.random.choice(air_base_exits)
-
-            escape_locations_list.append(escape_item)
-            airbase_locations_list.append(air_base_item)
-
-            if world.options.special_agent \
-                    or world.options.perfect_agent \
-                    or world.options.weapon_progression.value >= WeaponProgression.option_all_guns:
+            if (((world.options.special_agent or world.options.perfect_agent) and "Chicago" not in world.options.excluded_missions)
+                    or world.options.weapon_progression.value >= WeaponProgression.option_all_guns) \
+                    and "G5 Building" not in world.options.excluded_missions:
                 g5_item = world.random.choice(g5_building_exits)
                 g5_locations_list.append(g5_item)
+
+            if "A51 Escape" not in world.options.excluded_missions:
+                escape_item = world.random.choice(escape_exits)
+                escape_locations_list.append(escape_item)
+
+            if "Air Base" not in world.options.excluded_missions:
+                air_base_item = world.random.choice(air_base_exits)
+                airbase_locations_list.append(air_base_item)
             
         elif world.options.alternate_exits.value == AlternateExits.option_all:
-            escape_locations_list.append("Complete A51 Escape (Agent): UFO Escape")
-            escape_locations_list.append("Complete A51 Escape (Agent): Alternate Escape")
-            airbase_locations_list.append("Complete Air Base (Agent): Shuttle Exit")
-            airbase_locations_list.append("Complete Air Base (Agent): Ladder Exit")
-
-            if world.options.special_agent \
-                    or world.options.perfect_agent \
-                    or world.options.weapon_progression.value >= WeaponProgression.option_all_guns:
+            if (((world.options.special_agent or world.options.perfect_agent) and "Chicago" not in world.options.excluded_missions)
+                    or world.options.weapon_progression.value >= WeaponProgression.option_all_guns) \
+                    and "G5 Building" not in world.options.excluded_missions:
                 g5_locations_list.append("Complete G5 Building (Agent): Bottom Exit")
                 g5_locations_list.append("Complete G5 Building (Agent): Upper Exit")
 
+            if "A51 Escape" not in world.options.excluded_missions:
+                escape_locations_list.append("Complete A51 Escape (Agent): UFO Escape")
+                escape_locations_list.append("Complete A51 Escape (Agent): Alternate Escape")
+
+            if "Air Base" not in world.options.excluded_missions:
+                airbase_locations_list.append("Complete Air Base (Agent): Shuttle Exit")
+                airbase_locations_list.append("Complete Air Base (Agent): Ladder Exit")
+
 
     if world.options.special_agent:
-        defection_locations_list.append("dD Defection - Special Agent Objective 1")
-        defection_locations_list.append("dD Defection - Special Agent Objective 2")
-        defection_locations_list.append("dD Defection - Special Agent Objective 3")
-        defection_locations_list.append("dD Defection - Special Agent Objective 4")
-        defection_locations_list.append("Complete: dD Defection - Special Agent")
-        investigation_locations_list.append("dD Investigation - Special Agent Objective 1")
-        investigation_locations_list.append("dD Investigation - Special Agent Objective 2")
-        investigation_locations_list.append("dD Investigation - Special Agent Objective 3")
-        investigation_locations_list.append("dD Investigation - Special Agent Objective 4")
-        investigation_locations_list.append("Complete: dD Investigation - Special Agent")
-        extraction_locations_list.append("dD Extraction - Special Agent Objective 1")
-        extraction_locations_list.append("dD Extraction - Special Agent Objective 2")
-        extraction_locations_list.append("dD Extraction - Special Agent Objective 3")
-        extraction_locations_list.append("dD Extraction - Special Agent Objective 4")
-        extraction_locations_list.append("Complete: dD Extraction - Special Agent")
-        villa_locations_list.append("Carrington Villa - Special Agent Objective 1")
-        villa_locations_list.append("Carrington Villa - Special Agent Objective 2")
-        villa_locations_list.append("Carrington Villa - Special Agent Objective 3")
-        villa_locations_list.append("Carrington Villa - Special Agent Objective 4")
-        villa_locations_list.append("Complete: Carrington Villa - Special Agent")
-        chicago_locations_list.append("Chicago - Special Agent Objective 1")
-        chicago_locations_list.append("Chicago - Special Agent Objective 2")
-        chicago_locations_list.append("Chicago - Special Agent Objective 3")
-        chicago_locations_list.append("Chicago - Special Agent Objective 4")
-        chicago_locations_list.append("Complete: Chicago - Special Agent")
-        g5_locations_list.append("G5 Building - Special Agent Objective 1")
-        g5_locations_list.append("G5 Building - Special Agent Objective 2")
-        g5_locations_list.append("G5 Building - Special Agent Objective 3")
-        g5_locations_list.append("G5 Building - Special Agent Objective 4")
-        g5_locations_list.append("Complete: G5 Building - Special Agent")
-        infiltration_locations_list.append("A51 Infiltration - Special Agent Objective 1")
-        infiltration_locations_list.append("A51 Infiltration - Special Agent Objective 2")
-        infiltration_locations_list.append("A51 Infiltration - Special Agent Objective 3")
-        infiltration_locations_list.append("A51 Infiltration - Special Agent Objective 4")
-        infiltration_locations_list.append("Complete: A51 Infiltration - Special Agent")
-        rescue_locations_list.append("A51 Rescue - Special Agent Objective 1")
-        rescue_locations_list.append("A51 Rescue - Special Agent Objective 2")
-        rescue_locations_list.append("A51 Rescue - Special Agent Objective 3")
-        rescue_locations_list.append("A51 Rescue - Special Agent Objective 4")
-        rescue_locations_list.append("Complete: A51 Rescue - Special Agent")
-        escape_locations_list.append("A51 Escape - Special Agent Objective 1")
-        escape_locations_list.append("A51 Escape - Special Agent Objective 2")
-        escape_locations_list.append("A51 Escape - Special Agent Objective 3")
-        escape_locations_list.append("A51 Escape - Special Agent Objective 4")
-        escape_locations_list.append("Complete: A51 Escape - Special Agent")
-        airbase_locations_list.append("Air Base - Special Agent Objective 1")
-        airbase_locations_list.append("Air Base - Special Agent Objective 2")
-        airbase_locations_list.append("Air Base - Special Agent Objective 3")
-        airbase_locations_list.append("Air Base - Special Agent Objective 4")
-        airbase_locations_list.append("Complete: Air Base - Special Agent")
-        afo_locations_list.append("Air Force One - Special Agent Objective 1")
-        afo_locations_list.append("Air Force One - Special Agent Objective 2")
-        afo_locations_list.append("Air Force One - Special Agent Objective 3")
-        afo_locations_list.append("Air Force One - Special Agent Objective 4")
-        afo_locations_list.append("Complete: Air Force One - Special Agent")
-        crashsite_locations_list.append("Crash Site - Special Agent Objective 1")
-        crashsite_locations_list.append("Crash Site - Special Agent Objective 2")
-        crashsite_locations_list.append("Crash Site - Special Agent Objective 3")
-        crashsite_locations_list.append("Crash Site - Special Agent Objective 4")
-        crashsite_locations_list.append("Complete: Crash Site - Special Agent")
-        pelagic_locations_list.append("Pelagic II - Special Agent Objective 1")
-        pelagic_locations_list.append("Pelagic II - Special Agent Objective 2")
-        pelagic_locations_list.append("Pelagic II - Special Agent Objective 3")
-        pelagic_locations_list.append("Pelagic II - Special Agent Objective 4")
-        pelagic_locations_list.append("Complete: Pelagic II - Special Agent")
-        deepsea_locations_list.append("Deep Sea - Special Agent Objective 1")
-        deepsea_locations_list.append("Deep Sea - Special Agent Objective 2")
-        deepsea_locations_list.append("Deep Sea - Special Agent Objective 3")
-        deepsea_locations_list.append("Deep Sea - Special Agent Objective 4")
-        deepsea_locations_list.append("Complete: Deep Sea - Special Agent")
-        defense_locations_list.append("CI Defense - Special Agent Objective 1")
-        defense_locations_list.append("CI Defense - Special Agent Objective 2")
-        defense_locations_list.append("CI Defense - Special Agent Objective 3")
-        defense_locations_list.append("CI Defense - Special Agent Objective 4")
-        defense_locations_list.append("Complete: CI Defense - Special Agent")
-        attackship_locations_list.append("Attack Ship - Special Agent Objective 1")
-        attackship_locations_list.append("Attack Ship - Special Agent Objective 2")
-        attackship_locations_list.append("Attack Ship - Special Agent Objective 3")
-        attackship_locations_list.append("Attack Ship - Special Agent Objective 4")
-        attackship_locations_list.append("Complete: Attack Ship - Special Agent")
-        skedarruins_locations_list.append("Skedar Ruins - Special Agent Objective 1")
-        skedarruins_locations_list.append("Skedar Ruins - Special Agent Objective 2")
-        skedarruins_locations_list.append("Skedar Ruins - Special Agent Objective 3")
-        skedarruins_locations_list.append("Skedar Ruins - Special Agent Objective 4")
-        skedarruins_locations_list.append("Complete: Skedar Ruins - Special Agent")
-        mbr_locations_list.append("Mr. Blonde's Revenge - Special Agent Objective 1")
-        mbr_locations_list.append("Mr. Blonde's Revenge - Special Agent Objective 2")
-        mbr_locations_list.append("Complete: Mr. Blonde's Revenge - Special Agent")
-        maiansos_locations_list.append("Maian SOS - Special Agent Objective 1")
-        maiansos_locations_list.append("Maian SOS - Special Agent Objective 2")
-        maiansos_locations_list.append("Complete: Maian SOS - Special Agent")
-        war_locations_list.append("WAR! - Special Agent Objective 1")
-        war_locations_list.append("WAR! - Special Agent Objective 2")
-        war_locations_list.append("Complete: WAR! - Special Agent")
-        duel_locations_list.append("The Duel - Special Agent Objective 1")
-        duel_locations_list.append("The Duel - Special Agent Objective 2")
-        duel_locations_list.append("Complete: The Duel - Special Agent")
+        if "dD Defection" not in world.options.excluded_missions:
+            defection_locations_list.append("dD Defection - Special Agent Objective 1")
+            defection_locations_list.append("dD Defection - Special Agent Objective 2")
+            defection_locations_list.append("dD Defection - Special Agent Objective 3")
+            defection_locations_list.append("dD Defection - Special Agent Objective 4")
+            defection_locations_list.append("Complete: dD Defection - Special Agent")
+
+        if "dD Investigation" not in world.options.excluded_missions:
+            investigation_locations_list.append("dD Investigation - Special Agent Objective 1")
+            investigation_locations_list.append("dD Investigation - Special Agent Objective 2")
+            investigation_locations_list.append("dD Investigation - Special Agent Objective 3")
+            investigation_locations_list.append("dD Investigation - Special Agent Objective 4")
+            investigation_locations_list.append("Complete: dD Investigation - Special Agent")
+
+        if "dD Extraction" not in world.options.excluded_missions:
+            extraction_locations_list.append("dD Extraction - Special Agent Objective 1")
+            extraction_locations_list.append("dD Extraction - Special Agent Objective 2")
+            extraction_locations_list.append("dD Extraction - Special Agent Objective 3")
+            extraction_locations_list.append("dD Extraction - Special Agent Objective 4")
+            extraction_locations_list.append("Complete: dD Extraction - Special Agent")
+
+        if "Carrington Villa" not in world.options.excluded_missions:
+            villa_locations_list.append("Carrington Villa - Special Agent Objective 1")
+            villa_locations_list.append("Carrington Villa - Special Agent Objective 2")
+            villa_locations_list.append("Carrington Villa - Special Agent Objective 3")
+            villa_locations_list.append("Carrington Villa - Special Agent Objective 4")
+            villa_locations_list.append("Complete: Carrington Villa - Special Agent")
+
+        if "Chicago" not in world.options.excluded_missions:
+            chicago_locations_list.append("Chicago - Special Agent Objective 1")
+            chicago_locations_list.append("Chicago - Special Agent Objective 2")
+            chicago_locations_list.append("Chicago - Special Agent Objective 3")
+            chicago_locations_list.append("Chicago - Special Agent Objective 4")
+            chicago_locations_list.append("Complete: Chicago - Special Agent")
+
+        if "G5 Building" not in world.options.excluded_missions:
+            g5_locations_list.append("G5 Building - Special Agent Objective 1")
+            g5_locations_list.append("G5 Building - Special Agent Objective 2")
+            g5_locations_list.append("G5 Building - Special Agent Objective 3")
+            g5_locations_list.append("G5 Building - Special Agent Objective 4")
+            g5_locations_list.append("Complete: G5 Building - Special Agent")
+
+        if "A51 Infiltration" not in world.options.excluded_missions:
+            infiltration_locations_list.append("A51 Infiltration - Special Agent Objective 1")
+            infiltration_locations_list.append("A51 Infiltration - Special Agent Objective 2")
+            infiltration_locations_list.append("A51 Infiltration - Special Agent Objective 3")
+            infiltration_locations_list.append("A51 Infiltration - Special Agent Objective 4")
+            infiltration_locations_list.append("Complete: A51 Infiltration - Special Agent")
+
+        if "A51 Rescue" not in world.options.excluded_missions:
+            rescue_locations_list.append("A51 Rescue - Special Agent Objective 1")
+            rescue_locations_list.append("A51 Rescue - Special Agent Objective 2")
+            rescue_locations_list.append("A51 Rescue - Special Agent Objective 3")
+            rescue_locations_list.append("A51 Rescue - Special Agent Objective 4")
+            rescue_locations_list.append("Complete: A51 Rescue - Special Agent")
+
+        if "A51 Escape" not in world.options.excluded_missions:
+            escape_locations_list.append("A51 Escape - Special Agent Objective 1")
+            escape_locations_list.append("A51 Escape - Special Agent Objective 2")
+            escape_locations_list.append("A51 Escape - Special Agent Objective 3")
+            escape_locations_list.append("A51 Escape - Special Agent Objective 4")
+            escape_locations_list.append("Complete: A51 Escape - Special Agent")
+
+        if "Air Base" not in world.options.excluded_missions:
+            airbase_locations_list.append("Air Base - Special Agent Objective 1")
+            airbase_locations_list.append("Air Base - Special Agent Objective 2")
+            airbase_locations_list.append("Air Base - Special Agent Objective 3")
+            airbase_locations_list.append("Air Base - Special Agent Objective 4")
+            airbase_locations_list.append("Complete: Air Base - Special Agent")
+
+        if "Air Force One" not in world.options.excluded_missions:
+            afo_locations_list.append("Air Force One - Special Agent Objective 1")
+            afo_locations_list.append("Air Force One - Special Agent Objective 2")
+            afo_locations_list.append("Air Force One - Special Agent Objective 3")
+            afo_locations_list.append("Air Force One - Special Agent Objective 4")
+            afo_locations_list.append("Complete: Air Force One - Special Agent")
+
+        if "Crash Site" not in world.options.excluded_missions:
+            crashsite_locations_list.append("Crash Site - Special Agent Objective 1")
+            crashsite_locations_list.append("Crash Site - Special Agent Objective 2")
+            crashsite_locations_list.append("Crash Site - Special Agent Objective 3")
+            crashsite_locations_list.append("Crash Site - Special Agent Objective 4")
+            crashsite_locations_list.append("Complete: Crash Site - Special Agent")
+
+        if "Pelagic II" not in world.options.excluded_missions:
+            pelagic_locations_list.append("Pelagic II - Special Agent Objective 1")
+            pelagic_locations_list.append("Pelagic II - Special Agent Objective 2")
+            pelagic_locations_list.append("Pelagic II - Special Agent Objective 3")
+            pelagic_locations_list.append("Pelagic II - Special Agent Objective 4")
+            pelagic_locations_list.append("Complete: Pelagic II - Special Agent")
+
+        if "Deep Sea" not in world.options.excluded_missions:
+            deepsea_locations_list.append("Deep Sea - Special Agent Objective 1")
+            deepsea_locations_list.append("Deep Sea - Special Agent Objective 2")
+            deepsea_locations_list.append("Deep Sea - Special Agent Objective 3")
+            deepsea_locations_list.append("Deep Sea - Special Agent Objective 4")
+            deepsea_locations_list.append("Complete: Deep Sea - Special Agent")
+
+        if "CI Defense" not in world.options.excluded_missions:
+            defense_locations_list.append("CI Defense - Special Agent Objective 1")
+            defense_locations_list.append("CI Defense - Special Agent Objective 2")
+            defense_locations_list.append("CI Defense - Special Agent Objective 3")
+            defense_locations_list.append("CI Defense - Special Agent Objective 4")
+            defense_locations_list.append("Complete: CI Defense - Special Agent")
+
+        if "Attack Ship" not in world.options.excluded_missions:
+            attackship_locations_list.append("Attack Ship - Special Agent Objective 1")
+            attackship_locations_list.append("Attack Ship - Special Agent Objective 2")
+            attackship_locations_list.append("Attack Ship - Special Agent Objective 3")
+            attackship_locations_list.append("Attack Ship - Special Agent Objective 4")
+            attackship_locations_list.append("Complete: Attack Ship - Special Agent")
+
+        if ("Skedar Ruins" not in world.options.excluded_missions
+                or world.options.goal.value == Goal.option_complete_skedar_ruins):
+            skedarruins_locations_list.append("Skedar Ruins - Special Agent Objective 1")
+            skedarruins_locations_list.append("Skedar Ruins - Special Agent Objective 2")
+            skedarruins_locations_list.append("Skedar Ruins - Special Agent Objective 3")
+            skedarruins_locations_list.append("Skedar Ruins - Special Agent Objective 4")
+            skedarruins_locations_list.append("Complete: Skedar Ruins - Special Agent")
+
+        if "Mr. Blonde's Revenge" not in world.options.excluded_missions:
+            mbr_locations_list.append("Mr. Blonde's Revenge - Special Agent Objective 1")
+            mbr_locations_list.append("Mr. Blonde's Revenge - Special Agent Objective 2")
+            mbr_locations_list.append("Complete: Mr. Blonde's Revenge - Special Agent")
+
+        if "Maian SOS" not in world.options.excluded_missions:
+            maiansos_locations_list.append("Maian SOS - Special Agent Objective 1")
+            maiansos_locations_list.append("Maian SOS - Special Agent Objective 2")
+            maiansos_locations_list.append("Complete: Maian SOS - Special Agent")
+
+        if "WAR!" not in world.options.excluded_missions:
+            war_locations_list.append("WAR! - Special Agent Objective 1")
+            war_locations_list.append("WAR! - Special Agent Objective 2")
+            war_locations_list.append("Complete: WAR! - Special Agent")
+
+        if "The Duel" not in world.options.excluded_missions:
+            duel_locations_list.append("The Duel - Special Agent Objective 1")
+            duel_locations_list.append("The Duel - Special Agent Objective 2")
+            duel_locations_list.append("Complete: The Duel - Special Agent")
 
         if world.options.alternate_exits.value == AlternateExits.option_one:
             g5_building_exits = [
@@ -1487,142 +1611,193 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
                 "Complete Air Base (Special Agent): Ladder Exit"
             ]
 
-            g5_item = world.random.choice(g5_building_exits)
-            escape_item = world.random.choice(escape_exits)
-            air_base_item = world.random.choice(air_base_exits)
+            if "G5 Building" not in world.options.excluded_missions:
+                g5_item = world.random.choice(g5_building_exits)
+                g5_locations_list.append(g5_item)
 
-            g5_locations_list.append(g5_item)
-            escape_locations_list.append(escape_item)
-            airbase_locations_list.append(air_base_item)
+            if "A51 Escape" not in world.options.excluded_missions:
+                escape_item = world.random.choice(escape_exits)
+                escape_locations_list.append(escape_item)
+
+            if "Air Base" not in world.options.excluded_missions:
+                air_base_item = world.random.choice(air_base_exits)
+                airbase_locations_list.append(air_base_item)
             
         elif world.options.alternate_exits.value == AlternateExits.option_all:
-            g5_locations_list.append("Complete G5 Building (Special Agent): Bottom Exit")
-            g5_locations_list.append("Complete G5 Building (Special Agent): Upper Exit")
-            escape_locations_list.append("Complete A51 Escape (Special Agent): UFO Escape")
-            escape_locations_list.append("Complete A51 Escape (Special Agent): Alternate Escape")
-            airbase_locations_list.append("Complete Air Base (Special Agent): Shuttle Exit")
-            airbase_locations_list.append("Complete Air Base (Special Agent): Ladder Exit")
+            if "G5 Building" not in world.options.excluded_missions:
+                g5_locations_list.append("Complete G5 Building (Special Agent): Bottom Exit")
+                g5_locations_list.append("Complete G5 Building (Special Agent): Upper Exit")
+
+            if "A51 Escape" not in world.options.excluded_missions:
+                escape_locations_list.append("Complete A51 Escape (Special Agent): UFO Escape")
+                escape_locations_list.append("Complete A51 Escape (Special Agent): Alternate Escape")
+
+            if "Air Base" not in world.options.excluded_missions:
+                airbase_locations_list.append("Complete Air Base (Special Agent): Shuttle Exit")
+                airbase_locations_list.append("Complete Air Base (Special Agent): Ladder Exit")
 
 
     if world.options.perfect_agent:
-        defection_locations_list.append("dD Defection - Perfect Agent Objective 1")
-        defection_locations_list.append("dD Defection - Perfect Agent Objective 2")
-        defection_locations_list.append("dD Defection - Perfect Agent Objective 3")
-        defection_locations_list.append("dD Defection - Perfect Agent Objective 4")
-        defection_locations_list.append("dD Defection - Perfect Agent Objective 5")
-        defection_locations_list.append("Complete: dD Defection - Perfect Agent")
-        investigation_locations_list.append("dD Investigation - Perfect Agent Objective 1")
-        investigation_locations_list.append("dD Investigation - Perfect Agent Objective 2")
-        investigation_locations_list.append("dD Investigation - Perfect Agent Objective 3")
-        investigation_locations_list.append("dD Investigation - Perfect Agent Objective 4")
-        investigation_locations_list.append("dD Investigation - Perfect Agent Objective 5")
-        investigation_locations_list.append("Complete: dD Investigation - Perfect Agent")
-        extraction_locations_list.append("dD Extraction - Perfect Agent Objective 1")
-        extraction_locations_list.append("dD Extraction - Perfect Agent Objective 2")
-        extraction_locations_list.append("dD Extraction - Perfect Agent Objective 3")
-        extraction_locations_list.append("dD Extraction - Perfect Agent Objective 4")
-        extraction_locations_list.append("dD Extraction - Perfect Agent Objective 5")
-        extraction_locations_list.append("Complete: dD Extraction - Perfect Agent")
-        villa_locations_list.append("Carrington Villa - Perfect Agent Objective 1")
-        villa_locations_list.append("Carrington Villa - Perfect Agent Objective 2")
-        villa_locations_list.append("Carrington Villa - Perfect Agent Objective 3")
-        villa_locations_list.append("Carrington Villa - Perfect Agent Objective 4")
-        villa_locations_list.append("Carrington Villa - Perfect Agent Objective 5")
-        villa_locations_list.append("Complete: Carrington Villa - Perfect Agent")
-        chicago_locations_list.append("Chicago - Perfect Agent Objective 1")
-        chicago_locations_list.append("Chicago - Perfect Agent Objective 2")
-        chicago_locations_list.append("Chicago - Perfect Agent Objective 3")
-        chicago_locations_list.append("Chicago - Perfect Agent Objective 4")
-        chicago_locations_list.append("Chicago - Perfect Agent Objective 5")
-        chicago_locations_list.append("Complete: Chicago - Perfect Agent")
-        g5_locations_list.append("G5 Building - Perfect Agent Objective 1")
-        g5_locations_list.append("G5 Building - Perfect Agent Objective 2")
-        g5_locations_list.append("G5 Building - Perfect Agent Objective 3")
-        g5_locations_list.append("G5 Building - Perfect Agent Objective 4")
-        g5_locations_list.append("G5 Building - Perfect Agent Objective 5")
-        g5_locations_list.append("Complete: G5 Building - Perfect Agent")
-        infiltration_locations_list.append("A51 Infiltration - Perfect Agent Objective 1")
-        infiltration_locations_list.append("A51 Infiltration - Perfect Agent Objective 2")
-        infiltration_locations_list.append("A51 Infiltration - Perfect Agent Objective 3")
-        infiltration_locations_list.append("A51 Infiltration - Perfect Agent Objective 4")
-        infiltration_locations_list.append("A51 Infiltration - Perfect Agent Objective 5")
-        infiltration_locations_list.append("Complete: A51 Infiltration - Perfect Agent")
-        rescue_locations_list.append("A51 Rescue - Perfect Agent Objective 1")
-        rescue_locations_list.append("A51 Rescue - Perfect Agent Objective 2")
-        rescue_locations_list.append("A51 Rescue - Perfect Agent Objective 3")
-        rescue_locations_list.append("A51 Rescue - Perfect Agent Objective 4")
-        rescue_locations_list.append("A51 Rescue - Perfect Agent Objective 5")
-        rescue_locations_list.append("Complete: A51 Rescue - Perfect Agent")
-        escape_locations_list.append("A51 Escape - Perfect Agent Objective 1")
-        escape_locations_list.append("A51 Escape - Perfect Agent Objective 2")
-        escape_locations_list.append("A51 Escape - Perfect Agent Objective 3")
-        escape_locations_list.append("A51 Escape - Perfect Agent Objective 4")
-        escape_locations_list.append("A51 Escape - Perfect Agent Objective 5")
-        escape_locations_list.append("Complete: A51 Escape - Perfect Agent")
-        airbase_locations_list.append("Air Base - Perfect Agent Objective 1")
-        airbase_locations_list.append("Air Base - Perfect Agent Objective 2")
-        airbase_locations_list.append("Air Base - Perfect Agent Objective 3")
-        airbase_locations_list.append("Air Base - Perfect Agent Objective 4")
-        airbase_locations_list.append("Air Base - Perfect Agent Objective 5")
-        airbase_locations_list.append("Complete: Air Base - Perfect Agent")
-        afo_locations_list.append("Air Force One - Perfect Agent Objective 1")
-        afo_locations_list.append("Air Force One - Perfect Agent Objective 2")
-        afo_locations_list.append("Air Force One - Perfect Agent Objective 3")
-        afo_locations_list.append("Air Force One - Perfect Agent Objective 4")
-        afo_locations_list.append("Air Force One - Perfect Agent Objective 5")
-        afo_locations_list.append("Complete: Air Force One - Perfect Agent")
-        crashsite_locations_list.append("Crash Site - Perfect Agent Objective 1")
-        crashsite_locations_list.append("Crash Site - Perfect Agent Objective 2")
-        crashsite_locations_list.append("Crash Site - Perfect Agent Objective 3")
-        crashsite_locations_list.append("Crash Site - Perfect Agent Objective 4")
-        crashsite_locations_list.append("Crash Site - Perfect Agent Objective 5")
-        crashsite_locations_list.append("Complete: Crash Site - Perfect Agent")
-        pelagic_locations_list.append("Pelagic II - Perfect Agent Objective 1")
-        pelagic_locations_list.append("Pelagic II - Perfect Agent Objective 2")
-        pelagic_locations_list.append("Pelagic II - Perfect Agent Objective 3")
-        pelagic_locations_list.append("Pelagic II - Perfect Agent Objective 4")
-        pelagic_locations_list.append("Pelagic II - Perfect Agent Objective 5")
-        pelagic_locations_list.append("Complete: Pelagic II - Perfect Agent")
-        deepsea_locations_list.append("Deep Sea - Perfect Agent Objective 1")
-        deepsea_locations_list.append("Deep Sea - Perfect Agent Objective 2")
-        deepsea_locations_list.append("Deep Sea - Perfect Agent Objective 3")
-        deepsea_locations_list.append("Deep Sea - Perfect Agent Objective 4")
-        deepsea_locations_list.append("Deep Sea - Perfect Agent Objective 5")
-        deepsea_locations_list.append("Complete: Deep Sea - Perfect Agent")
-        defense_locations_list.append("CI Defense - Perfect Agent Objective 1")
-        defense_locations_list.append("CI Defense - Perfect Agent Objective 2")
-        defense_locations_list.append("CI Defense - Perfect Agent Objective 3")
-        defense_locations_list.append("CI Defense - Perfect Agent Objective 4")
-        defense_locations_list.append("CI Defense - Perfect Agent Objective 5")
-        defense_locations_list.append("Complete: CI Defense - Perfect Agent")
-        attackship_locations_list.append("Attack Ship - Perfect Agent Objective 1")
-        attackship_locations_list.append("Attack Ship - Perfect Agent Objective 2")
-        attackship_locations_list.append("Attack Ship - Perfect Agent Objective 3")
-        attackship_locations_list.append("Attack Ship - Perfect Agent Objective 4")
-        attackship_locations_list.append("Attack Ship - Perfect Agent Objective 5")
-        attackship_locations_list.append("Complete: Attack Ship - Perfect Agent")
-        skedarruins_locations_list.append("Skedar Ruins - Perfect Agent Objective 1")
-        skedarruins_locations_list.append("Skedar Ruins - Perfect Agent Objective 2")
-        skedarruins_locations_list.append("Skedar Ruins - Perfect Agent Objective 3")
-        skedarruins_locations_list.append("Skedar Ruins - Perfect Agent Objective 4")
-        skedarruins_locations_list.append("Skedar Ruins - Perfect Agent Objective 5")
-        skedarruins_locations_list.append("Complete: Skedar Ruins - Perfect Agent")
-        mbr_locations_list.append("Mr. Blonde's Revenge - Perfect Agent Objective 1")
-        mbr_locations_list.append("Mr. Blonde's Revenge - Perfect Agent Objective 2")
-        mbr_locations_list.append("Mr. Blonde's Revenge - Perfect Agent Objective 3")
-        mbr_locations_list.append("Complete: Mr. Blonde's Revenge - Perfect Agent")
-        maiansos_locations_list.append("Maian SOS - Perfect Agent Objective 1")
-        maiansos_locations_list.append("Maian SOS - Perfect Agent Objective 2")
-        maiansos_locations_list.append("Maian SOS - Perfect Agent Objective 3")
-        maiansos_locations_list.append("Complete: Maian SOS - Perfect Agent")
-        war_locations_list.append("WAR! - Perfect Agent Objective 1")
-        war_locations_list.append("WAR! - Perfect Agent Objective 2")
-        war_locations_list.append("WAR! - Perfect Agent Objective 3")
-        war_locations_list.append("Complete: WAR! - Perfect Agent")
-        duel_locations_list.append("The Duel - Perfect Agent Objective 1")
-        duel_locations_list.append("The Duel - Perfect Agent Objective 2")
-        duel_locations_list.append("The Duel - Perfect Agent Objective 3")
-        duel_locations_list.append("Complete: The Duel - Perfect Agent")
+        if "dD Defection" not in world.options.excluded_missions:
+            defection_locations_list.append("dD Defection - Perfect Agent Objective 1")
+            defection_locations_list.append("dD Defection - Perfect Agent Objective 2")
+            defection_locations_list.append("dD Defection - Perfect Agent Objective 3")
+            defection_locations_list.append("dD Defection - Perfect Agent Objective 4")
+            defection_locations_list.append("dD Defection - Perfect Agent Objective 5")
+            defection_locations_list.append("Complete: dD Defection - Perfect Agent")
+
+        if "dD Investigation" not in world.options.excluded_missions:
+            investigation_locations_list.append("dD Investigation - Perfect Agent Objective 1")
+            investigation_locations_list.append("dD Investigation - Perfect Agent Objective 2")
+            investigation_locations_list.append("dD Investigation - Perfect Agent Objective 3")
+            investigation_locations_list.append("dD Investigation - Perfect Agent Objective 4")
+            investigation_locations_list.append("dD Investigation - Perfect Agent Objective 5")
+            investigation_locations_list.append("Complete: dD Investigation - Perfect Agent")
+
+        if "dD Extraction" not in world.options.excluded_missions:
+            extraction_locations_list.append("dD Extraction - Perfect Agent Objective 1")
+            extraction_locations_list.append("dD Extraction - Perfect Agent Objective 2")
+            extraction_locations_list.append("dD Extraction - Perfect Agent Objective 3")
+            extraction_locations_list.append("dD Extraction - Perfect Agent Objective 4")
+            extraction_locations_list.append("dD Extraction - Perfect Agent Objective 5")
+            extraction_locations_list.append("Complete: dD Extraction - Perfect Agent")
+
+        if "Carrington Villa" not in world.options.excluded_missions:
+            villa_locations_list.append("Carrington Villa - Perfect Agent Objective 1")
+            villa_locations_list.append("Carrington Villa - Perfect Agent Objective 2")
+            villa_locations_list.append("Carrington Villa - Perfect Agent Objective 3")
+            villa_locations_list.append("Carrington Villa - Perfect Agent Objective 4")
+            villa_locations_list.append("Carrington Villa - Perfect Agent Objective 5")
+            villa_locations_list.append("Complete: Carrington Villa - Perfect Agent")
+
+        if "Chicago" not in world.options.excluded_missions:
+            chicago_locations_list.append("Chicago - Perfect Agent Objective 1")
+            chicago_locations_list.append("Chicago - Perfect Agent Objective 2")
+            chicago_locations_list.append("Chicago - Perfect Agent Objective 3")
+            chicago_locations_list.append("Chicago - Perfect Agent Objective 4")
+            chicago_locations_list.append("Chicago - Perfect Agent Objective 5")
+            chicago_locations_list.append("Complete: Chicago - Perfect Agent")
+
+        if "G5 Building" not in world.options.excluded_missions:
+            g5_locations_list.append("G5 Building - Perfect Agent Objective 1")
+            g5_locations_list.append("G5 Building - Perfect Agent Objective 2")
+            g5_locations_list.append("G5 Building - Perfect Agent Objective 3")
+            g5_locations_list.append("G5 Building - Perfect Agent Objective 4")
+            g5_locations_list.append("G5 Building - Perfect Agent Objective 5")
+            g5_locations_list.append("Complete: G5 Building - Perfect Agent")
+
+        if "A51 Infiltration" not in world.options.excluded_missions:
+            infiltration_locations_list.append("A51 Infiltration - Perfect Agent Objective 1")
+            infiltration_locations_list.append("A51 Infiltration - Perfect Agent Objective 2")
+            infiltration_locations_list.append("A51 Infiltration - Perfect Agent Objective 3")
+            infiltration_locations_list.append("A51 Infiltration - Perfect Agent Objective 4")
+            infiltration_locations_list.append("A51 Infiltration - Perfect Agent Objective 5")
+            infiltration_locations_list.append("Complete: A51 Infiltration - Perfect Agent")
+
+        if "A51 Rescue" not in world.options.excluded_missions:
+            rescue_locations_list.append("A51 Rescue - Perfect Agent Objective 1")
+            rescue_locations_list.append("A51 Rescue - Perfect Agent Objective 2")
+            rescue_locations_list.append("A51 Rescue - Perfect Agent Objective 3")
+            rescue_locations_list.append("A51 Rescue - Perfect Agent Objective 4")
+            rescue_locations_list.append("A51 Rescue - Perfect Agent Objective 5")
+            rescue_locations_list.append("Complete: A51 Rescue - Perfect Agent")
+
+        if "A51 Escape" not in world.options.excluded_missions:
+            escape_locations_list.append("A51 Escape - Perfect Agent Objective 1")
+            escape_locations_list.append("A51 Escape - Perfect Agent Objective 2")
+            escape_locations_list.append("A51 Escape - Perfect Agent Objective 3")
+            escape_locations_list.append("A51 Escape - Perfect Agent Objective 4")
+            escape_locations_list.append("A51 Escape - Perfect Agent Objective 5")
+            escape_locations_list.append("Complete: A51 Escape - Perfect Agent")
+
+        if "Air Base" not in world.options.excluded_missions:
+            airbase_locations_list.append("Air Base - Perfect Agent Objective 1")
+            airbase_locations_list.append("Air Base - Perfect Agent Objective 2")
+            airbase_locations_list.append("Air Base - Perfect Agent Objective 3")
+            airbase_locations_list.append("Air Base - Perfect Agent Objective 4")
+            airbase_locations_list.append("Air Base - Perfect Agent Objective 5")
+            airbase_locations_list.append("Complete: Air Base - Perfect Agent")
+
+        if "Air Force One" not in world.options.excluded_missions:
+            afo_locations_list.append("Air Force One - Perfect Agent Objective 1")
+            afo_locations_list.append("Air Force One - Perfect Agent Objective 2")
+            afo_locations_list.append("Air Force One - Perfect Agent Objective 3")
+            afo_locations_list.append("Air Force One - Perfect Agent Objective 4")
+            afo_locations_list.append("Air Force One - Perfect Agent Objective 5")
+            afo_locations_list.append("Complete: Air Force One - Perfect Agent")
+
+        if "Crash Site" not in world.options.excluded_missions:
+            crashsite_locations_list.append("Crash Site - Perfect Agent Objective 1")
+            crashsite_locations_list.append("Crash Site - Perfect Agent Objective 2")
+            crashsite_locations_list.append("Crash Site - Perfect Agent Objective 3")
+            crashsite_locations_list.append("Crash Site - Perfect Agent Objective 4")
+            crashsite_locations_list.append("Crash Site - Perfect Agent Objective 5")
+            crashsite_locations_list.append("Complete: Crash Site - Perfect Agent")
+
+        if "Pelagic II" not in world.options.excluded_missions:
+            pelagic_locations_list.append("Pelagic II - Perfect Agent Objective 1")
+            pelagic_locations_list.append("Pelagic II - Perfect Agent Objective 2")
+            pelagic_locations_list.append("Pelagic II - Perfect Agent Objective 3")
+            pelagic_locations_list.append("Pelagic II - Perfect Agent Objective 4")
+            pelagic_locations_list.append("Pelagic II - Perfect Agent Objective 5")
+            pelagic_locations_list.append("Complete: Pelagic II - Perfect Agent")
+
+        if "Deep Sea" not in world.options.excluded_missions:
+            deepsea_locations_list.append("Deep Sea - Perfect Agent Objective 1")
+            deepsea_locations_list.append("Deep Sea - Perfect Agent Objective 2")
+            deepsea_locations_list.append("Deep Sea - Perfect Agent Objective 3")
+            deepsea_locations_list.append("Deep Sea - Perfect Agent Objective 4")
+            deepsea_locations_list.append("Deep Sea - Perfect Agent Objective 5")
+            deepsea_locations_list.append("Complete: Deep Sea - Perfect Agent")
+
+        if "CI Defense" not in world.options.excluded_missions:
+            defense_locations_list.append("CI Defense - Perfect Agent Objective 1")
+            defense_locations_list.append("CI Defense - Perfect Agent Objective 2")
+            defense_locations_list.append("CI Defense - Perfect Agent Objective 3")
+            defense_locations_list.append("CI Defense - Perfect Agent Objective 4")
+            defense_locations_list.append("CI Defense - Perfect Agent Objective 5")
+            defense_locations_list.append("Complete: CI Defense - Perfect Agent")
+
+        if "Attack Ship" not in world.options.excluded_missions:
+            attackship_locations_list.append("Attack Ship - Perfect Agent Objective 1")
+            attackship_locations_list.append("Attack Ship - Perfect Agent Objective 2")
+            attackship_locations_list.append("Attack Ship - Perfect Agent Objective 3")
+            attackship_locations_list.append("Attack Ship - Perfect Agent Objective 4")
+            attackship_locations_list.append("Attack Ship - Perfect Agent Objective 5")
+            attackship_locations_list.append("Complete: Attack Ship - Perfect Agent")
+
+        if ("Skedar Ruins" not in world.options.excluded_missions
+                or world.options.goal.value == Goal.option_complete_skedar_ruins):
+            skedarruins_locations_list.append("Skedar Ruins - Perfect Agent Objective 1")
+            skedarruins_locations_list.append("Skedar Ruins - Perfect Agent Objective 2")
+            skedarruins_locations_list.append("Skedar Ruins - Perfect Agent Objective 3")
+            skedarruins_locations_list.append("Skedar Ruins - Perfect Agent Objective 4")
+            skedarruins_locations_list.append("Skedar Ruins - Perfect Agent Objective 5")
+            skedarruins_locations_list.append("Complete: Skedar Ruins - Perfect Agent")
+
+        if "Mr. Blonde's Revenge" not in world.options.excluded_missions:
+            mbr_locations_list.append("Mr. Blonde's Revenge - Perfect Agent Objective 1")
+            mbr_locations_list.append("Mr. Blonde's Revenge - Perfect Agent Objective 2")
+            mbr_locations_list.append("Mr. Blonde's Revenge - Perfect Agent Objective 3")
+            mbr_locations_list.append("Complete: Mr. Blonde's Revenge - Perfect Agent")
+
+        if "Maian SOS" not in world.options.excluded_missions:
+            maiansos_locations_list.append("Maian SOS - Perfect Agent Objective 1")
+            maiansos_locations_list.append("Maian SOS - Perfect Agent Objective 2")
+            maiansos_locations_list.append("Maian SOS - Perfect Agent Objective 3")
+            maiansos_locations_list.append("Complete: Maian SOS - Perfect Agent")
+
+        if "WAR!" not in world.options.excluded_missions:
+            war_locations_list.append("WAR! - Perfect Agent Objective 1")
+            war_locations_list.append("WAR! - Perfect Agent Objective 2")
+            war_locations_list.append("WAR! - Perfect Agent Objective 3")
+            war_locations_list.append("Complete: WAR! - Perfect Agent")
+
+        if "The Duel" not in world.options.excluded_missions:
+            duel_locations_list.append("The Duel - Perfect Agent Objective 1")
+            duel_locations_list.append("The Duel - Perfect Agent Objective 2")
+            duel_locations_list.append("The Duel - Perfect Agent Objective 3")
+            duel_locations_list.append("Complete: The Duel - Perfect Agent")
 
         if world.options.alternate_exits.value == AlternateExits.option_one:
             g5_building_exits = [
@@ -1640,26 +1815,34 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
                 "Complete Air Base (Perfect Agent): Ladder Exit"
             ]
 
-            g5_item = world.random.choice(g5_building_exits)
-            escape_item = world.random.choice(escape_exits)
-            air_base_item = world.random.choice(air_base_exits)
+            if "G5 Building" not in world.options.excluded_missions:
+                g5_item = world.random.choice(g5_building_exits)
+                g5_locations_list.append(g5_item)
 
-            g5_locations_list.append(g5_item)
-            escape_locations_list.append(escape_item)
-            airbase_locations_list.append(air_base_item)
+            if "A51 Escape" not in world.options.excluded_missions:
+                escape_item = world.random.choice(escape_exits)
+                escape_locations_list.append(escape_item)
+
+            if "Air Base" not in world.options.excluded_missions:
+                air_base_item = world.random.choice(air_base_exits)
+                airbase_locations_list.append(air_base_item)
             
         elif world.options.alternate_exits.value == AlternateExits.option_all:
-            g5_locations_list.append("Complete G5 Building (Perfect Agent): Bottom Exit")
-            g5_locations_list.append("Complete G5 Building (Perfect Agent): Upper Exit")
-            escape_locations_list.append("Complete A51 Escape (Perfect Agent): UFO Escape")
-            escape_locations_list.append("Complete A51 Escape (Perfect Agent): Alternate Escape")
-            airbase_locations_list.append("Complete Air Base (Perfect Agent): Shuttle Exit")
-            airbase_locations_list.append("Complete Air Base (Perfect Agent): Ladder Exit")
+            if "G5 Building" not in world.options.excluded_missions:
+                g5_locations_list.append("Complete G5 Building (Perfect Agent): Bottom Exit")
+                g5_locations_list.append("Complete G5 Building (Perfect Agent): Upper Exit")
+
+            if "A51 Escape" not in world.options.excluded_missions:
+                escape_locations_list.append("Complete A51 Escape (Perfect Agent): UFO Escape")
+                escape_locations_list.append("Complete A51 Escape (Perfect Agent): Alternate Escape")
+
+            if "Air Base" not in world.options.excluded_missions:
+                airbase_locations_list.append("Complete Air Base (Perfect Agent): Shuttle Exit")
+                airbase_locations_list.append("Complete Air Base (Perfect Agent): Ladder Exit")
 
 
     if world.options.goal.value == Goal.option_complete_skedar_ruins \
             and not (world.options.agent or world.options.special_agent or world.options.perfect_agent):
-
         skedarruins_locations_list.append("Skedar Ruins - Agent Objective 1")
         skedarruins_locations_list.append("Skedar Ruins - Agent Objective 2")
         skedarruins_locations_list.append("Skedar Ruins - Agent Objective 3")
@@ -1675,7 +1858,7 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
         skedarruins_locations_list.append("Skedar Ruins - Perfect Agent Objective 4")
         skedarruins_locations_list.append("Skedar Ruins - Perfect Agent Objective 5")
         skedarruins_locations_list.append("Complete: Skedar Ruins - Perfect Agent")
-     
+
         if world.options.completion_cheats:
             skedarruins_locations_list.append("Cheat Unlock: Complete Skedar Ruins")
             skedar_cheat = PerfectDarkLocation(world.player, "Cheat Unlock: Complete Skedar Ruins")
@@ -1834,102 +2017,11 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
 
     if world.options.weapon_training:
-        institute_locations_list.append("Firing Range: Falcon 2 - Bronze")
-        institute_locations_list.append("Firing Range: Falcon 2 - Silver")
-        institute_locations_list.append("Firing Range: Falcon 2 - Gold")
-        institute_locations_list.append("Firing Range: Falcon 2 (Silencer) - Bronze")
-        institute_locations_list.append("Firing Range: Falcon 2 (Silencer) - Silver")
-        institute_locations_list.append("Firing Range: Falcon 2 (Silencer) - Gold")
-        institute_locations_list.append("Firing Range: Falcon 2 (Scope) - Bronze")
-        institute_locations_list.append("Firing Range: Falcon 2 (Scope) - Silver")
-        institute_locations_list.append("Firing Range: Falcon 2 (Scope) - Gold")
-        institute_locations_list.append("Firing Range: MagSec 4 - Bronze")
-        institute_locations_list.append("Firing Range: MagSec 4 - Silver")
-        institute_locations_list.append("Firing Range: MagSec 4 - Gold")
-        institute_locations_list.append("Firing Range: Mauler - Bronze")
-        institute_locations_list.append("Firing Range: Mauler - Silver")
-        institute_locations_list.append("Firing Range: Mauler - Gold")
-        institute_locations_list.append("Firing Range: Phoenix - Bronze")
-        institute_locations_list.append("Firing Range: Phoenix - Silver")
-        institute_locations_list.append("Firing Range: Phoenix - Gold")
-        institute_locations_list.append("Firing Range: DY357 Magnum - Bronze")
-        institute_locations_list.append("Firing Range: DY357 Magnum - Silver")
-        institute_locations_list.append("Firing Range: DY357 Magnum - Gold")
-        institute_locations_list.append("Firing Range: DY357-LX - Bronze")
-        institute_locations_list.append("Firing Range: DY357-LX - Silver")
-        institute_locations_list.append("Firing Range: DY357-LX - Gold")
-        institute_locations_list.append("Firing Range: CMP150 - Bronze")
-        institute_locations_list.append("Firing Range: CMP150 - Silver")
-        institute_locations_list.append("Firing Range: CMP150 - Gold")
-        institute_locations_list.append("Firing Range: Cyclone - Bronze")
-        institute_locations_list.append("Firing Range: Cyclone - Silver")
-        institute_locations_list.append("Firing Range: Cyclone - Gold")
-        institute_locations_list.append("Firing Range: Callisto NTG - Bronze")
-        institute_locations_list.append("Firing Range: Callisto NTG - Silver")
-        institute_locations_list.append("Firing Range: Callisto NTG - Gold")
-        institute_locations_list.append("Firing Range: RC-P120 - Bronze")
-        institute_locations_list.append("Firing Range: RC-P120 - Silver")
-        institute_locations_list.append("Firing Range: RC-P120 - Gold")
-        institute_locations_list.append("Firing Range: Laptop Gun - Bronze")
-        institute_locations_list.append("Firing Range: Laptop Gun - Silver")
-        institute_locations_list.append("Firing Range: Laptop Gun - Gold")
-        institute_locations_list.append("Firing Range: Dragon - Bronze")
-        institute_locations_list.append("Firing Range: Dragon - Silver")
-        institute_locations_list.append("Firing Range: Dragon - Gold")
-        institute_locations_list.append("Firing Range: K7 Avenger - Bronze")
-        institute_locations_list.append("Firing Range: K7 Avenger - Silver")
-        institute_locations_list.append("Firing Range: K7 Avenger - Gold")
-        institute_locations_list.append("Firing Range: AR34 - Bronze")
-        institute_locations_list.append("Firing Range: AR34 - Silver")
-        institute_locations_list.append("Firing Range: AR34 - Gold")
-        institute_locations_list.append("Firing Range: SuperDragon - Bronze")
-        institute_locations_list.append("Firing Range: SuperDragon - Silver")
-        institute_locations_list.append("Firing Range: SuperDragon - Gold")
-        institute_locations_list.append("Firing Range: Shotgun - Bronze")
-        institute_locations_list.append("Firing Range: Shotgun - Silver")
-        institute_locations_list.append("Firing Range: Shotgun - Gold")
-        institute_locations_list.append("Firing Range: Reaper - Bronze")
-        institute_locations_list.append("Firing Range: Reaper - Silver")
-        institute_locations_list.append("Firing Range: Reaper - Gold")
-        institute_locations_list.append("Firing Range: Sniper Rifle - Bronze")
-        institute_locations_list.append("Firing Range: Sniper Rifle - Silver")
-        institute_locations_list.append("Firing Range: Sniper Rifle - Gold")
-        institute_locations_list.append("Firing Range: FarSight XR-20 - Bronze")
-        institute_locations_list.append("Firing Range: FarSight XR-20 - Silver")
-        institute_locations_list.append("Firing Range: FarSight XR-20 - Gold")
-        institute_locations_list.append("Firing Range: Devastator - Bronze")
-        institute_locations_list.append("Firing Range: Devastator - Silver")
-        institute_locations_list.append("Firing Range: Devastator - Gold")
-        institute_locations_list.append("Firing Range: Rocket Launcher - Bronze")
-        institute_locations_list.append("Firing Range: Rocket Launcher - Silver")
-        institute_locations_list.append("Firing Range: Rocket Launcher - Gold")
-        institute_locations_list.append("Firing Range: Slayer - Bronze")
-        institute_locations_list.append("Firing Range: Slayer - Silver")
-        institute_locations_list.append("Firing Range: Slayer - Gold")
-        institute_locations_list.append("Firing Range: Combat Knife - Bronze")
-        institute_locations_list.append("Firing Range: Combat Knife - Silver")
-        institute_locations_list.append("Firing Range: Combat Knife - Gold")
-        institute_locations_list.append("Firing Range: Crossbow - Bronze")
-        institute_locations_list.append("Firing Range: Crossbow - Silver")
-        institute_locations_list.append("Firing Range: Crossbow - Gold")
-        institute_locations_list.append("Firing Range: Tranquilizer - Bronze")
-        institute_locations_list.append("Firing Range: Tranquilizer - Silver")
-        institute_locations_list.append("Firing Range: Tranquilizer - Gold")
-        institute_locations_list.append("Firing Range: Laser - Bronze")
-        institute_locations_list.append("Firing Range: Laser - Silver")
-        institute_locations_list.append("Firing Range: Laser - Gold")
-        institute_locations_list.append("Firing Range: Grenade - Bronze")
-        institute_locations_list.append("Firing Range: Grenade - Silver")
-        institute_locations_list.append("Firing Range: Grenade - Gold")
-        institute_locations_list.append("Firing Range: Timed Mine - Bronze")
-        institute_locations_list.append("Firing Range: Timed Mine - Silver")
-        institute_locations_list.append("Firing Range: Timed Mine - Gold")
-        institute_locations_list.append("Firing Range: Proximity Mine - Bronze")
-        institute_locations_list.append("Firing Range: Proximity Mine - Silver")
-        institute_locations_list.append("Firing Range: Proximity Mine - Gold")
-        institute_locations_list.append("Firing Range: Remote Mine - Bronze")
-        institute_locations_list.append("Firing Range: Remote Mine - Silver")
-        institute_locations_list.append("Firing Range: Remote Mine - Gold")
+        for weapon in FIRING_RANGE_WEAPONS:
+            if weapon not in world.options.excluded_fr_weapons:
+                institute_locations_list.append(f"Firing Range: {weapon} - Bronze")
+                institute_locations_list.append(f"Firing Range: {weapon} - Silver")
+                institute_locations_list.append(f"Firing Range: {weapon} - Gold")
 
 
     if world.options.device_training:
@@ -1957,761 +2049,947 @@ def create_regular_locations(world: PerfectDarkWorld) -> None:
 
     if world.options.completion_cheats \
             and (world.options.agent or world.options.special_agent or world.options.perfect_agent):
-        defection_locations_list.append("Cheat Unlock: Complete dD Defection")
-        investigation_locations_list.append("Cheat Unlock: Complete dD Investigation")
-        extraction_locations_list.append("Cheat Unlock: Complete dD Extraction")
-        villa_locations_list.append("Cheat Unlock: Complete Carrington Villa")
-        chicago_locations_list.append("Cheat Unlock: Complete Chicago")
-        g5_locations_list.append("Cheat Unlock: Complete G5 Building")
-        infiltration_locations_list.append("Cheat Unlock: Complete A51 Infiltration")
-        rescue_locations_list.append("Cheat Unlock: Complete A51 Rescue")
-        escape_locations_list.append("Cheat Unlock: Complete A51 Escape")
-        airbase_locations_list.append("Cheat Unlock: Complete Air Base")
-        afo_locations_list.append("Cheat Unlock: Complete Air Force One")
-        crashsite_locations_list.append("Cheat Unlock: Complete Crash Site")
-        pelagic_locations_list.append("Cheat Unlock: Complete Pelagic II")
-        deepsea_locations_list.append("Cheat Unlock: Complete Deep Sea")
-        defense_locations_list.append("Cheat Unlock: Complete CI Defense")
-        attackship_locations_list.append("Cheat Unlock: Complete Attack Ship")
-        skedarruins_locations_list.append("Cheat Unlock: Complete Skedar Ruins")
+        if "dD Defection" not in world.options.excluded_missions:
+            defection_locations_list.append("Cheat Unlock: Complete dD Defection")
+
+        if "dD Investigation" not in world.options.excluded_missions:
+            investigation_locations_list.append("Cheat Unlock: Complete dD Investigation")
+
+        if "dD Extraction" not in world.options.excluded_missions:
+            extraction_locations_list.append("Cheat Unlock: Complete dD Extraction")
+
+        if "Carrington Villa" not in world.options.excluded_missions:
+            villa_locations_list.append("Cheat Unlock: Complete Carrington Villa")
+
+        if "Chicago" not in world.options.excluded_missions:
+            chicago_locations_list.append("Cheat Unlock: Complete Chicago")
+
+        if "G5 Building" not in world.options.excluded_missions:
+            g5_locations_list.append("Cheat Unlock: Complete G5 Building")
+
+        if "A51 Infiltration" not in world.options.excluded_missions:
+            infiltration_locations_list.append("Cheat Unlock: Complete A51 Infiltration")
+
+        if "A51 Rescue" not in world.options.excluded_missions:
+            rescue_locations_list.append("Cheat Unlock: Complete A51 Rescue")
+
+        if "A51 Escape" not in world.options.excluded_missions:
+            escape_locations_list.append("Cheat Unlock: Complete A51 Escape")
+
+        if "Air Base" not in world.options.excluded_missions:
+            airbase_locations_list.append("Cheat Unlock: Complete Air Base")
+
+        if "Air Force One" not in world.options.excluded_missions:
+            afo_locations_list.append("Cheat Unlock: Complete Air Force One")
+
+        if "Crash Site" not in world.options.excluded_missions:
+            crashsite_locations_list.append("Cheat Unlock: Complete Crash Site")
+
+        if "Pelagic II" not in world.options.excluded_missions:
+            pelagic_locations_list.append("Cheat Unlock: Complete Pelagic II")
+
+        if "Deep Sea" not in world.options.excluded_missions:
+            deepsea_locations_list.append("Cheat Unlock: Complete Deep Sea")
+
+        if "CI Defense" not in world.options.excluded_missions:
+            defense_locations_list.append("Cheat Unlock: Complete CI Defense")
+
+        if "Attack Ship" not in world.options.excluded_missions:
+            attackship_locations_list.append("Cheat Unlock: Complete Attack Ship")
+
+        if "Skedar Ruins" not in world.options.excluded_missions:
+            skedarruins_locations_list.append("Cheat Unlock: Complete Skedar Ruins")
 
 
     if world.options.timed_cheats:
         if world.options.agent:
-            extraction_locations_list.append("Cheat Unlock: Complete dD Extraction (Agent) in under 2:03")
-            g5_locations_list.append("Cheat Unlock: Complete G5 Building (Agent) in under 1:40")
-            escape_locations_list.append("Cheat Unlock: Complete A51 Escape (Agent) in under 3:50")
-            crashsite_locations_list.append("Cheat Unlock: Complete Crash Site (Agent) in under 2:50")
-            defense_locations_list.append("Cheat Unlock: Complete CI Defense (Agent) in under 1:45")
+            if "dD Extraction" not in world.options.excluded_missions:
+                extraction_locations_list.append("Cheat Unlock: Complete dD Extraction (Agent) in under 2:03")
+
+            if "G5 Building" not in world.options.excluded_missions:
+                g5_locations_list.append("Cheat Unlock: Complete G5 Building (Agent) in under 1:40")
+
+            if "A51 Escape" not in world.options.excluded_missions:
+                escape_locations_list.append("Cheat Unlock: Complete A51 Escape (Agent) in under 3:50")
+
+            if "Crash Site" not in world.options.excluded_missions:
+                crashsite_locations_list.append("Cheat Unlock: Complete Crash Site (Agent) in under 2:50")
+
+            if "CI Defense" not in world.options.excluded_missions:
+                defense_locations_list.append("Cheat Unlock: Complete CI Defense (Agent) in under 1:45")
 
         if world.options.special_agent:
-            defection_locations_list.append("Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30")
-            villa_locations_list.append("Cheat Unlock: Complete Carrington Villa (Special Agent) in under 2:30")
-            infiltration_locations_list.append("Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00")
-            airbase_locations_list.append("Cheat Unlock: Complete Air Base (Special Agent) in under 3:11")
-            pelagic_locations_list.append("Cheat Unlock: Complete Pelagic II (Special Agent) in under 7:07")
-            attackship_locations_list.append("Cheat Unlock: Complete Attack Ship (Special Agent) in under 5:17")
+            if "dD Defection" not in world.options.excluded_missions:
+                defection_locations_list.append("Cheat Unlock: Complete dD Defection (Special Agent) in under 1:30")
+
+            if "Carrington Villa" not in world.options.excluded_missions:
+                villa_locations_list.append("Cheat Unlock: Complete Carrington Villa (Special Agent) in under 2:30")
+
+            if "A51 Infiltration" not in world.options.excluded_missions:
+                infiltration_locations_list.append("Cheat Unlock: Complete A51 Infiltration (Special Agent) in under 5:00")
+
+            if "Air Base" not in world.options.excluded_missions:
+                airbase_locations_list.append("Cheat Unlock: Complete Air Base (Special Agent) in under 3:11")
+
+            if "Pelagic II" not in world.options.excluded_missions:
+                pelagic_locations_list.append("Cheat Unlock: Complete Pelagic II (Special Agent) in under 7:07")
+
+            if "Attack Ship" not in world.options.excluded_missions:
+                attackship_locations_list.append("Cheat Unlock: Complete Attack Ship (Special Agent) in under 5:17")
 
         if world.options.perfect_agent:
-            investigation_locations_list.append("Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30")
-            chicago_locations_list.append("Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00")
-            rescue_locations_list.append("Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59")
-            afo_locations_list.append("Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55")
-            deepsea_locations_list.append("Cheat Unlock: Complete Deep Sea (Perfect Agent) in under 7:27")
-            skedarruins_locations_list.append("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31")
+            if "dD Investigation" not in world.options.excluded_missions:
+                investigation_locations_list.append("Cheat Unlock: Complete dD Investigation (Perfect Agent) in under 6:30")
+
+            if "Chicago" not in world.options.excluded_missions:
+                chicago_locations_list.append("Cheat Unlock: Complete Chicago (Perfect Agent) in under 2:00")
+
+            if "A51 Rescue" not in world.options.excluded_missions:
+                rescue_locations_list.append("Cheat Unlock: Complete A51 Rescue (Perfect Agent) in under 7:59")
+
+            if "Air Force One" not in world.options.excluded_missions:
+                afo_locations_list.append("Cheat Unlock: Complete Air Force One (Perfect Agent) in under 3:55")
+
+            if "Deep Sea" not in world.options.excluded_missions:
+                deepsea_locations_list.append("Cheat Unlock: Complete Deep Sea (Perfect Agent) in under 7:27")
+
+            if "Skedar Ruins" not in world.options.excluded_missions:
+                skedarruins_locations_list.append("Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31")
 
 
     if world.options.weapon_cheats:
-        institute_locations_list.append("Cheat Unlock: Get gold on Falcon 2, Falcon 2 (Silencer), and Falcon 2 (Scope)")
-        institute_locations_list.append("Cheat Unlock: Get gold on MagSec 4, Mauler, Phoenix, DY357 Magnum, and DY357-LX")
-        institute_locations_list.append("Cheat Unlock: Get gold on CMP150, Cyclone, Callisto NTG, and RC-P120")
-        institute_locations_list.append("Cheat Unlock: Get gold on Laptop Gun, Dragon, K7 Avenger, AR34, and SuperDragon")
-        institute_locations_list.append("Cheat Unlock: Get gold on Shotgun, Sniper Rifle, Rocket Launcher, and Slayer")
-        institute_locations_list.append("Cheat Unlock: Get gold on Timed Mine, Proximity Mine, and Remote Mine")
-        institute_locations_list.append("Cheat Unlock: Get gold on FarSight XR-20, Crossbow, Combat Knife, and Grenade")
-        institute_locations_list.append("Cheat Unlock: Get gold on Tranquilizer, Reaper, and Devastator")
+        if ("Falcon 2" not in world.options.excluded_fr_weapons
+                and "Falcon 2 (Silencer)" not in world.options.excluded_fr_weapons
+                and "Falcon 2 (Scope)" not in world.options.excluded_fr_weapons):
+            institute_locations_list.append("Cheat Unlock: Get gold on Falcon 2, Falcon 2 (Silencer), and Falcon 2 (Scope)")
+
+        if ("MagSec 4" not in world.options.excluded_fr_weapons
+                and "Mauler" not in world.options.excluded_fr_weapons
+                and "Phoenix" not in world.options.excluded_fr_weapons
+                and "DY357 Magnum" not in world.options.excluded_fr_weapons
+                and "DY357-LX" not in world.options.excluded_fr_weapons):
+            institute_locations_list.append("Cheat Unlock: Get gold on MagSec 4, Mauler, Phoenix, DY357 Magnum, and DY357-LX")
+
+        if ("CMP150" not in world.options.excluded_fr_weapons
+                and "Cyclone" not in world.options.excluded_fr_weapons
+                and "Callisto NTG" not in world.options.excluded_fr_weapons
+                and "RC-P120" not in world.options.excluded_fr_weapons):
+            institute_locations_list.append("Cheat Unlock: Get gold on CMP150, Cyclone, Callisto NTG, and RC-P120")
+
+        if ("Laptop Gun" not in world.options.excluded_fr_weapons
+                and "Dragon" not in world.options.excluded_fr_weapons
+                and "K7 Avenger" not in world.options.excluded_fr_weapons
+                and "AR34" not in world.options.excluded_fr_weapons
+                and "SuperDragon" not in world.options.excluded_fr_weapons):
+            institute_locations_list.append("Cheat Unlock: Get gold on Laptop Gun, Dragon, K7 Avenger, AR34, and SuperDragon")
+
+        if ("Shotgun" not in world.options.excluded_fr_weapons
+                and "Sniper Rifle" not in world.options.excluded_fr_weapons
+                and "Rocket Launcher" not in world.options.excluded_fr_weapons
+                and "Slayer" not in world.options.excluded_fr_weapons):
+            institute_locations_list.append("Cheat Unlock: Get gold on Shotgun, Sniper Rifle, Rocket Launcher, and Slayer")
+
+        if ("Timed Mine" not in world.options.excluded_fr_weapons
+                and "Proximity Mine" not in world.options.excluded_fr_weapons
+                and "Remote Mine" not in world.options.excluded_fr_weapons):
+            institute_locations_list.append("Cheat Unlock: Get gold on Timed Mine, Proximity Mine, and Remote Mine")
+
+        if ("FarSight XR-20" not in world.options.excluded_fr_weapons
+                and "Crossbow" not in world.options.excluded_fr_weapons
+                and "Combat Knife" not in world.options.excluded_fr_weapons
+                and "Grenade" not in world.options.excluded_fr_weapons):
+            institute_locations_list.append("Cheat Unlock: Get gold on FarSight XR-20, Crossbow, Combat Knife, and Grenade")
+
+        if ("Tranquilizer" not in world.options.excluded_fr_weapons
+                and "Reaper" not in world.options.excluded_fr_weapons
+                and "Devastator" not in world.options.excluded_fr_weapons):
+            institute_locations_list.append("Cheat Unlock: Get gold on Tranquilizer, Reaper, and Devastator")
 
 
     if world.options.pickupsanity \
             and (world.options.agent or world.options.special_agent or world.options.perfect_agent):
-        defection_locations_list.append("dD Defection: 2F double Falcon 2 (silencer)")
-        defection_locations_list.append("dD Defection: 3F tiny ammo box (on corner desk)")
-        defection_locations_list.append("dD Defection: 3F tiny ammo box (on table near couch)")
-        defection_locations_list.append("dD Defection: 2F tiny ammo box (on desk across the stairs)")
-        defection_locations_list.append("dD Defection: 2F tiny ammo box (on desk across the elevator)")
-        defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on desk)")
-        defection_locations_list.append("dD Defection: 2F tiny ammo box (under stairs)")
-        defection_locations_list.append("dD Defection: 1F CMP150 (on right of front desk)")
-        defection_locations_list.append("dD Defection: 1F CMP150 (on left of front desk)")
+        if "dD Defection" not in world.options.excluded_missions:
+            defection_locations_list.append("dD Defection: 2F double Falcon 2 (silencer)")
+            defection_locations_list.append("dD Defection: 3F tiny ammo box (on corner desk)")
+            defection_locations_list.append("dD Defection: 3F tiny ammo box (on table near couch)")
+            defection_locations_list.append("dD Defection: 2F tiny ammo box (on desk across the stairs)")
+            defection_locations_list.append("dD Defection: 2F tiny ammo box (on desk across the elevator)")
+            defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on desk)")
+            defection_locations_list.append("dD Defection: 2F tiny ammo box (under stairs)")
+            defection_locations_list.append("dD Defection: 1F CMP150 (on right of front desk)")
+            defection_locations_list.append("dD Defection: 1F CMP150 (on left of front desk)")
 
-        investigation_locations_list.append("dD Investigation: ammo box (front of room above the K7 Avenger)")
-        investigation_locations_list.append("dD Investigation: ammo box (back of room above the K7 Avenger)")
-        investigation_locations_list.append("dD Investigation: ammo box (front of Night Vision room)")
-        investigation_locations_list.append("dD Investigation: ammo box (back of Night Vision room)")
-        investigation_locations_list.append("dD Investigation: CMP150 (on front of table)")
-        investigation_locations_list.append("dD Investigation: CMP150 (on back of table)")
-        investigation_locations_list.append("dD Investigation: CMP150 (left of secret weapons compartment)")
-        investigation_locations_list.append("dD Investigation: CMP150 (right of secret weapons compartment)")
-        investigation_locations_list.append("dD Investigation: Proximity Mine (in radioactive room)")
+        if "dD Investigation" not in world.options.excluded_missions:
+            investigation_locations_list.append("dD Investigation: ammo box (front of room above the K7 Avenger)")
+            investigation_locations_list.append("dD Investigation: ammo box (back of room above the K7 Avenger)")
+            investigation_locations_list.append("dD Investigation: ammo box (front of Night Vision room)")
+            investigation_locations_list.append("dD Investigation: ammo box (back of Night Vision room)")
+            investigation_locations_list.append("dD Investigation: CMP150 (on front of table)")
+            investigation_locations_list.append("dD Investigation: CMP150 (on back of table)")
+            investigation_locations_list.append("dD Investigation: CMP150 (left of secret weapons compartment)")
+            investigation_locations_list.append("dD Investigation: CMP150 (right of secret weapons compartment)")
+            investigation_locations_list.append("dD Investigation: Proximity Mine (in radioactive room)")
 
-        extraction_locations_list.append("dD Extraction: 1F DY357 Magnum (from fifth guard)")
-        extraction_locations_list.append("dD Extraction: 4F Rocket Launcher")
-        extraction_locations_list.append("dD Extraction: 4F Grenade (on Cassandra's desk)")
-        extraction_locations_list.append("dD Extraction: 4F Dragon (in hidden room in Cassandra's office)")
-        extraction_locations_list.append("dD Extraction: Rocket ammo box (on left)")
-        extraction_locations_list.append("dD Extraction: Rocket ammo box (on right)")
+        if "dD Extraction" not in world.options.excluded_missions:
+            extraction_locations_list.append("dD Extraction: 1F DY357 Magnum (from fifth guard)")
+            extraction_locations_list.append("dD Extraction: 4F Rocket Launcher")
+            extraction_locations_list.append("dD Extraction: 4F Grenade (on Cassandra's desk)")
+            extraction_locations_list.append("dD Extraction: 4F Dragon (in hidden room in Cassandra's office)")
+            extraction_locations_list.append("dD Extraction: Rocket ammo box (on left)")
+            extraction_locations_list.append("dD Extraction: Rocket ammo box (on right)")
 
-        villa_locations_list.append("Carrington Villa: Devastator (in helipad crate)")
-        villa_locations_list.append("Carrington Villa: 1st ammo box (in crate on observatory path)")
-        villa_locations_list.append("Carrington Villa: 2nd ammo box (in crate on observatory path)")
-        villa_locations_list.append("Carrington Villa: 3rd ammo box (in crate on observatory path)")
-        villa_locations_list.append("Carrington Villa: 4th ammo box (in crate on observatory path)")
-        villa_locations_list.append("Carrington Villa: 5th ammo box (in crate on observatory path)")
-        villa_locations_list.append("Carrington Villa: 6th ammo box (in crate on observatory path)")
-        villa_locations_list.append("Carrington Villa: 7th ammo box (in crate on observatory path)")
-        villa_locations_list.append("Carrington Villa: 8th ammo box (in crate on observatory path)")
-        villa_locations_list.append("Carrington Villa: 9th ammo box (in crate on observatory path)")
-        villa_locations_list.append("Carrington Villa: double CMP150 (from sniper near the helipad)")
+        if "Carrington Villa" not in world.options.excluded_missions:
+            villa_locations_list.append("Carrington Villa: Devastator (in helipad crate)")
+            villa_locations_list.append("Carrington Villa: 1st ammo box (in crate on observatory path)")
+            villa_locations_list.append("Carrington Villa: 2nd ammo box (in crate on observatory path)")
+            villa_locations_list.append("Carrington Villa: 3rd ammo box (in crate on observatory path)")
+            villa_locations_list.append("Carrington Villa: 4th ammo box (in crate on observatory path)")
+            villa_locations_list.append("Carrington Villa: 5th ammo box (in crate on observatory path)")
+            villa_locations_list.append("Carrington Villa: 6th ammo box (in crate on observatory path)")
+            villa_locations_list.append("Carrington Villa: 7th ammo box (in crate on observatory path)")
+            villa_locations_list.append("Carrington Villa: 8th ammo box (in crate on observatory path)")
+            villa_locations_list.append("Carrington Villa: 9th ammo box (in crate on observatory path)")
+            villa_locations_list.append("Carrington Villa: double CMP150 (from sniper near the helipad)")
 
-        chicago_locations_list.append("Chicago: BombSpy (in the dumpster)")
-        chicago_locations_list.append("Chicago: double Falcon 2 (scope) (in the Pond Punk)")
+        if "Chicago" not in world.options.excluded_missions:
+            chicago_locations_list.append("Chicago: BombSpy (in the dumpster)")
+            chicago_locations_list.append("Chicago: double Falcon 2 (scope) (in the Pond Punk)")
 
-        g5_locations_list.append("G5 Building: Crossbow (after knocking out the second guard)")
+        if "G5 Building" not in world.options.excluded_missions:
+            g5_locations_list.append("G5 Building: Crossbow (after knocking out the second guard)")
 
-        infiltration_locations_list.append("A51 Infiltration: Rocket Launcher (in mine field)")
+        if "A51 Infiltration" not in world.options.excluded_missions:
+            infiltration_locations_list.append("A51 Infiltration: Rocket Launcher (in mine field)")
 
-        rescue_locations_list.append("A51 Rescue: Phoenix (past locked hangar door)")
-        rescue_locations_list.append("A51 Rescue: double Falcon 2 (silencer) (hidden in barrel)")
+        if "A51 Rescue" not in world.options.excluded_missions:
+            rescue_locations_list.append("A51 Rescue: Phoenix (past locked hangar door)")
+            rescue_locations_list.append("A51 Rescue: double Falcon 2 (silencer) (hidden in barrel)")
 
-        escape_locations_list.append("A51 Escape: double Falcon 2 (scope) (behind you at the start)")
-        escape_locations_list.append("A51 Escape: Remote Mine (in first room with guards)")
+        if "A51 Escape" not in world.options.excluded_missions:
+            escape_locations_list.append("A51 Escape: double Falcon 2 (scope) (behind you at the start)")
+            escape_locations_list.append("A51 Escape: Remote Mine (in first room with guards)")
 
-        airbase_locations_list.append("Air Base: double DY357 Magnum (after knocking out all NSA Lackeys)")
-        airbase_locations_list.append("Air Base: Proximity Mine (past the cave)")
+        if "Air Base" not in world.options.excluded_missions:
+            airbase_locations_list.append("Air Base: double DY357 Magnum (after knocking out all NSA Lackeys)")
+            airbase_locations_list.append("Air Base: Proximity Mine (past the cave)")
 
-        afo_locations_list.append("Air Force One: Cyclone (in room right of stairs)")
-        afo_locations_list.append("Air Force One: Cyclone (in room left of stairs)")
+        if "Air Force One" not in world.options.excluded_missions:
+            afo_locations_list.append("Air Force One: Cyclone (in room right of stairs)")
+            afo_locations_list.append("Air Force One: Cyclone (in room left of stairs)")
 
-        crashsite_locations_list.append("Crash Site: DY357-LX (from disarming Trent)")
-        crashsite_locations_list.append("Crash Site: Proximity Mine (from Elvis before doing any objective)")
+        if "Crash Site" not in world.options.excluded_missions:
+            crashsite_locations_list.append("Crash Site: DY357-LX (from disarming Trent)")
+            crashsite_locations_list.append("Crash Site: Proximity Mine (from Elvis before doing any objective)")
 
-        pelagic_locations_list.append("Pelagic II: double Falcon 2 (silencer) (without triggering the alarm)")
+        if "Pelagic II" not in world.options.excluded_missions:
+            pelagic_locations_list.append("Pelagic II: double Falcon 2 (silencer) (without triggering the alarm)")
 
-        deepsea_locations_list.append("Deep Sea: Proximity Mine (from guard in 2nd room with cloaked guards)")
-        # deepsea_locations_list.append("Deep Sea: Shotgun (near Shield on the left path)")
+        if "Deep Sea" not in world.options.excluded_missions:
+            deepsea_locations_list.append("Deep Sea: Proximity Mine (from guard in 2nd room with cloaked guards)")
+            # deepsea_locations_list.append("Deep Sea: Shotgun (near Shield on the left path)")
 
-        defense_locations_list.append("CI Defense: Devastator (dropped after saving most of the hostages)")
+        if "CI Defense" not in world.options.excluded_missions:
+            defense_locations_list.append("CI Defense: Devastator (dropped after saving most of the hostages)")
 
-        attackship_locations_list.append("Attack Ship: double Mauler (dropped from Skedar in final room)")
-        attackship_locations_list.append("Attack Ship: Slayer (in the room past green chambers)")
+        if "Attack Ship" not in world.options.excluded_missions:
+            attackship_locations_list.append("Attack Ship: double Mauler (dropped from Skedar in final room)")
+            attackship_locations_list.append("Attack Ship: Slayer (in the room past green chambers)")
 
-        skedarruins_locations_list.append("Skedar Ruins: double Phoenix (near the gap)")
+        if "Skedar Ruins" not in world.options.excluded_missions:
+            skedarruins_locations_list.append("Skedar Ruins: double Phoenix (near the gap)")
 
-        mbr_locations_list.append("Mr. Blonde's Revenge: 1F double CMP150 (from guard near bottom elevator)")
-        mbr_locations_list.append("Mr. Blonde's Revenge: 3F tiny ammo box (on corner desk)")
-        mbr_locations_list.append("Mr. Blonde's Revenge: 3F tiny ammo box (on table near couch)")
-        mbr_locations_list.append("Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the stairs)")
-        mbr_locations_list.append("Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the elevator)")
-        mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (on desk)")
-        mbr_locations_list.append("Mr. Blonde's Revenge: 2F tiny ammo box (under stairs)")
-        mbr_locations_list.append("Mr. Blonde's Revenge: 1F CMP150 (on right of front desk)")
-        mbr_locations_list.append("Mr. Blonde's Revenge: 1F CMP150 (on left of front desk)")
+        if "Mr. Blonde's Revenge" not in world.options.excluded_missions:
+            mbr_locations_list.append("Mr. Blonde's Revenge: 1F double CMP150 (from guard near bottom elevator)")
+            mbr_locations_list.append("Mr. Blonde's Revenge: 3F tiny ammo box (on corner desk)")
+            mbr_locations_list.append("Mr. Blonde's Revenge: 3F tiny ammo box (on table near couch)")
+            mbr_locations_list.append("Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the stairs)")
+            mbr_locations_list.append("Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the elevator)")
+            mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (on desk)")
+            mbr_locations_list.append("Mr. Blonde's Revenge: 2F tiny ammo box (under stairs)")
+            mbr_locations_list.append("Mr. Blonde's Revenge: 1F CMP150 (on right of front desk)")
+            mbr_locations_list.append("Mr. Blonde's Revenge: 1F CMP150 (on left of front desk)")
 
-        maiansos_locations_list.append("Maian SOS: double DY357-LX (from dual-wielding guard)")
-        maiansos_locations_list.append("Maian SOS: Psychosis Gun (on desk near the start)")
+        if "Maian SOS" not in world.options.excluded_missions:
+            maiansos_locations_list.append("Maian SOS: double DY357-LX (from dual-wielding guard)")
+            maiansos_locations_list.append("Maian SOS: Psychosis Gun (on desk near the start)")
 
         if world.options.agent:
-            defection_locations_list.append("dD Defection (Agent): 1F Shield")
+            if "dD Defection" not in world.options.excluded_missions:
+                defection_locations_list.append("dD Defection (Agent): 1F Shield")
 
-            investigation_locations_list.append("dD Investigation (Agent): Shield (on crate)")
+            if "dD Investigation" not in world.options.excluded_missions:
+                investigation_locations_list.append("dD Investigation (Agent): Shield (on crate)")
 
-            extraction_locations_list.append("dD Extraction (Agent): 2F Shield")
+            if "dD Extraction" not in world.options.excluded_missions:
+                extraction_locations_list.append("dD Extraction (Agent): 2F Shield")
 
-            villa_locations_list.append("Carrington Villa (Agent): Shield (on helipad crate)")
-            villa_locations_list.append("Carrington Villa (Agent): Shield (in the bathroom)")
+            if "Carrington Villa" not in world.options.excluded_missions:
+                villa_locations_list.append("Carrington Villa (Agent): Shield (on helipad crate)")
+                villa_locations_list.append("Carrington Villa (Agent): Shield (in the bathroom)")
 
-            chicago_locations_list.append("Chicago (Agent): Shield (near the taxi)")
+            if "Chicago" not in world.options.excluded_missions:
+                chicago_locations_list.append("Chicago (Agent): Shield (near the taxi)")
 
-            g5_locations_list.append("G5 Building (Agent): Shield (in room before the laser grids)")
+            if "G5 Building" not in world.options.excluded_missions:
+                g5_locations_list.append("G5 Building (Agent): Shield (in room before the laser grids)")
 
-            infiltration_locations_list.append("A51 Infiltration (Agent): Shield (near hoverbike)")
+            if "A51 Infiltration" not in world.options.excluded_missions:
+                infiltration_locations_list.append("A51 Infiltration (Agent): Shield (near hoverbike)")
 
-            rescue_locations_list.append("A51 Rescue (Agent): Shield (guard past first elevator)")
+            if "A51 Rescue" not in world.options.excluded_missions:
+                rescue_locations_list.append("A51 Rescue (Agent): Shield (guard past first elevator)")
 
-            escape_locations_list.append("A51 Escape (Agent): Shield (dropped by biotechnician)")
+            if "A51 Escape" not in world.options.excluded_missions:
+                escape_locations_list.append("A51 Escape (Agent): Shield (dropped by biotechnician)")
 
-            airbase_locations_list.append("Air Base (Agent): Shield (dropped by NSA Lackey)")
+            if "Air Base" not in world.options.excluded_missions:
+                airbase_locations_list.append("Air Base (Agent): Shield (dropped by NSA Lackey)")
 
-            afo_locations_list.append("Air Force One (Agent): Shield (in small kitchen)")
+            if "Air Force One" not in world.options.excluded_missions:
+                afo_locations_list.append("Air Force One (Agent): Shield (in small kitchen)")
 
-            crashsite_locations_list.append("Crash Site (Agent): Shield (near the crashed UFO)")
+            if "Crash Site" not in world.options.excluded_missions:
+                crashsite_locations_list.append("Crash Site (Agent): Shield (near the crashed UFO)")
 
-            pelagic_locations_list.append("Pelagic II (Agent): Shield (on the helipad)")
+            if "Pelagic II" not in world.options.excluded_missions:
+                pelagic_locations_list.append("Pelagic II (Agent): Shield (on the helipad)")
 
-            # deepsea_locations_list.append("Deep Sea (Agent): Pick up Shield dropped from Sniper guard")
+            # if "Deep Sea" not in world.options.excluded_missions:
+            #     deepsea_locations_list.append("Deep Sea (Agent): Pick up Shield dropped from Sniper guard")
 
-            defense_locations_list.append("CI Defense (Agent): 2F Shield")
+            if "CI Defense" not in world.options.excluded_missions:
+                defense_locations_list.append("CI Defense (Agent): 2F Shield")
 
-            skedarruins_locations_list.append("Skedar Ruins (Agent): Shield (behind the fallen pillar)")
+            if "Skedar Ruins" not in world.options.excluded_missions:
+                skedarruins_locations_list.append("Skedar Ruins (Agent): Shield (behind the fallen pillar)")
 
-            mbr_locations_list.append("Mr. Blonde's Revenge (Agent): 1F Shield")
+            if "Mr. Blonde's Revenge" not in world.options.excluded_missions:
+                mbr_locations_list.append("Mr. Blonde's Revenge (Agent): 1F Shield")
 
 
         if world.options.agent or world.options.special_agent:
-            defection_locations_list.append("dD Defection (Agent/Special): 3F Shield")
+            if "dD Defection" not in world.options.excluded_missions:
+                defection_locations_list.append("dD Defection (Agent/Special): 3F Shield")
 
-            investigation_locations_list.append("dD Investigation (Agent/Special): Shield (behind the glass)")
+            if "dD Investigation" not in world.options.excluded_missions:
+                investigation_locations_list.append("dD Investigation (Agent/Special): Shield (behind the glass)")
 
-            chicago_locations_list.append("Chicago (Agent/Special): Shield (under stairs near Pond Punk)")
+            if "Chicago" not in world.options.excluded_missions:
+                chicago_locations_list.append("Chicago (Agent/Special): Shield (under stairs near Pond Punk)")
 
-            g5_locations_list.append("G5 Building (Agent/Special): Shield (on stairs to the upper exit)")
+            if "G5 Building" not in world.options.excluded_missions:
+                g5_locations_list.append("G5 Building (Agent/Special): Shield (on stairs to the upper exit)")
 
-            infiltration_locations_list.append("A51 Infiltration (Agent/Special): Shield (in the crawl space)")
+            if "A51 Infiltration" not in world.options.excluded_missions:
+                infiltration_locations_list.append("A51 Infiltration (Agent/Special): Shield (in the crawl space)")
 
-            rescue_locations_list.append("A51 Rescue (Agent/Special): Shield (on desk near computer)")
+            if "A51 Rescue" not in world.options.excluded_missions:
+                rescue_locations_list.append("A51 Rescue (Agent/Special): Shield (on desk near computer)")
 
-            escape_locations_list.append("A51 Escape (Agent/Special): Shield (behind locked medical containment doors)")
+            if "A51 Escape" not in world.options.excluded_missions:
+                escape_locations_list.append("A51 Escape (Agent/Special): Shield (behind locked medical containment doors)")
 
-            airbase_locations_list.append("Air Base (Agent/Special): Shield (in the safe)")
+            if "Air Base" not in world.options.excluded_missions:
+                airbase_locations_list.append("Air Base (Agent/Special): Shield (in the safe)")
 
-            afo_locations_list.append("Air Force One (Agent/Special): Shield (in piano room)")
+            if "Air Force One" not in world.options.excluded_missions:
+                afo_locations_list.append("Air Force One (Agent/Special): Shield (in piano room)")
 
-            crashsite_locations_list.append("Crash Site (Agent/Special): Shield (behind President's clone)")
+            if "Crash Site" not in world.options.excluded_missions:
+                crashsite_locations_list.append("Crash Site (Agent/Special): Shield (behind President's clone)")
 
-            pelagic_locations_list.append("Pelagic II (Agent/Special): Shield (on the sub hangar crate)")
+            if "Pelagic II" not in world.options.excluded_missions:
+                pelagic_locations_list.append("Pelagic II (Agent/Special): Shield (on the sub hangar crate)")
 
-            deepsea_locations_list.append("Deep Sea (Agent/Special): Shield (on the left path)")
+            if "Deep Sea" not in world.options.excluded_missions:
+                deepsea_locations_list.append("Deep Sea (Agent/Special): Shield (on the left path)")
 
-            defense_locations_list.append("CI Defense (Agent/Special): Basement Shield")
+            if "CI Defense" not in world.options.excluded_missions:
+                defense_locations_list.append("CI Defense (Agent/Special): Basement Shield")
 
-            attackship_locations_list.append("Attack Ship (Agent/Special): Shield (on table)")
+            if "Attack Ship" not in world.options.excluded_missions:
+                attackship_locations_list.append("Attack Ship (Agent/Special): Shield (on table)")
 
-            skedarruins_locations_list.append("Skedar Ruins (Agent/Special): Shield (area past the gap to the right)")
+            if "Skedar Ruins" not in world.options.excluded_missions:
+                skedarruins_locations_list.append("Skedar Ruins (Agent/Special): Shield (area past the gap to the right)")
 
-            mbr_locations_list.append("Mr. Blonde's Revenge (Agent/Special): 3F Shield")
+            if "Mr. Blonde's Revenge" not in world.options.excluded_missions:
+                mbr_locations_list.append("Mr. Blonde's Revenge (Agent/Special): 3F Shield")
 
 
         if world.options.special_agent or world.options.perfect_agent:
-            investigation_locations_list.append("dD Investigation: ammo box (front of room with one scientist)")
-            investigation_locations_list.append("dD Investigation: ammo box (back of room with one scientist)")
-            investigation_locations_list.append("dD Investigation: ammo box (front of room near two scientists)")
-            investigation_locations_list.append("dD Investigation: ammo box (back of room near two scientists)")
+            if "dD Investigation" not in world.options.excluded_missions:
+                investigation_locations_list.append("dD Investigation: ammo box (front of room with one scientist)")
+                investigation_locations_list.append("dD Investigation: ammo box (back of room with one scientist)")
+                investigation_locations_list.append("dD Investigation: ammo box (front of room near two scientists)")
+                investigation_locations_list.append("dD Investigation: ammo box (back of room near two scientists)")
 
-            g5_locations_list.append("G5 Building: N-Bomb (near the upper exit)")
+            if "G5 Building" not in world.options.excluded_missions:
+                g5_locations_list.append("G5 Building: N-Bomb (near the upper exit)")
 
-            infiltration_locations_list.append("A51 Infiltration: double MagSec 4 (after placing comms rider)")
+            if "A51 Infiltration" not in world.options.excluded_missions:
+                infiltration_locations_list.append("A51 Infiltration: double MagSec 4 (after placing comms rider)")
 
 
         if world.options.perfect_agent:
-            villa_locations_list.append("Carrington Villa (Perfect Agent): Sniper Rifle (in the bathroom)")
+            if "Carrington Villa" not in world.options.excluded_missions:
+                villa_locations_list.append("Carrington Villa (Perfect Agent): Sniper Rifle (in the bathroom)")
 
-            attackship_locations_list.append("Attack Ship (Perfect Agent): De Vries' Necklace")
+            if "Attack Ship" not in world.options.excluded_missions:
+                attackship_locations_list.append("Attack Ship (Perfect Agent): De Vries' Necklace")
 
 
         if world.options.mission_logic.value == MissionLogic.option_perfect:
-            mbr_locations_list.append("Mr. Blonde's Revenge: 2F Laptop Gun")
-            mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (on right)")
-            mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (on left)")
+            if "Mr. Blonde's Revenge" not in world.options.excluded_missions:
+                mbr_locations_list.append("Mr. Blonde's Revenge: 2F Laptop Gun")
+                mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (on right)")
+                mbr_locations_list.append("Mr. Blonde's Revenge: 2F Falcon 2 (on left)")
 
 
         if world.options.perfect_agent \
                 or world.options.mission_logic.value == MissionLogic.option_perfect:
-            defection_locations_list.append("dD Defection: 2F Laptop Gun")
-            defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on right)")
-            defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on left)")
+            if "dD Defection" not in world.options.excluded_missions:
+                defection_locations_list.append("dD Defection: 2F Laptop Gun")
+                defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on right)")
+                defection_locations_list.append("dD Defection: 2F Falcon 2 (silencer) (on left)")
 
     if world.options.glassanity:
-        dd_central_locations_list.append("dD Central: Top Glass Railing (stairs between roof and 4F)")
-        dd_central_locations_list.append("dD Central: Bottom Glass Railing (stairs between roof and 4F)")
-        dd_central_locations_list.append("dD Central: Top Window (stairs between roof and 4F)")
-        dd_central_locations_list.append("dD Central: Middle Window (stairs between roof and 4F)")
-        dd_central_locations_list.append("dD Central: Bottom Window (stairs between roof and 4F)")
-        dd_central_locations_list.append("dD Central: 4F Window 1")
-        dd_central_locations_list.append("dD Central: 4F Window 2")
-        dd_central_locations_list.append("dD Central: 4F Window 3")
-        dd_central_locations_list.append("dD Central: 4F Window 4")
-        dd_central_locations_list.append("dD Central: 4F Window 5")
-        dd_central_locations_list.append("dD Central: 4F Window 6")
-        dd_central_locations_list.append("dD Central: 4F Window 7")
-        dd_central_locations_list.append("dD Central: 4F Window 8")
-        dd_central_locations_list.append("dD Central: 4F Window 9")
-        dd_central_locations_list.append("dD Central: 4F Glass Railing 1")
-        dd_central_locations_list.append("dD Central: 4F Glass Railing 2")
-        dd_central_locations_list.append("dD Central: 4F Glass Railing 3")
-        dd_central_locations_list.append("dD Central: 4F Glass Railing 4")
-        dd_central_locations_list.append("dD Central: Cassandra's Office Window (left)")
-        dd_central_locations_list.append("dD Central: Cassandra's Office Window (middle)")
-        dd_central_locations_list.append("dD Central: Cassandra's Office Window (right)")
-        dd_central_locations_list.append("dD Central: Cassandra's Office Window (top)")
-        dd_central_locations_list.append("dD Central: Top Glass Railing (stairs between 4F and 2F)")
-        dd_central_locations_list.append("dD Central: Bottom Glass Railing (stairs between 4F and 2F)")
-        dd_central_locations_list.append("dD Central: Top Window (stairs between 4F and 2F)")
-        dd_central_locations_list.append("dD Central: Middle Window (stairs between 4F and 2F)")
-        dd_central_locations_list.append("dD Central: Bottom Window (stairs between 4F and 2F)")
-        dd_central_locations_list.append("dD Central: 3F Glass 1 (near elevator)")
-        dd_central_locations_list.append("dD Central: 3F Glass 2 (near elevator)")
-        dd_central_locations_list.append("dD Central: 3F Glass 3 (near elevator)")
-        dd_central_locations_list.append("dD Central: 3F Window 1")
-        dd_central_locations_list.append("dD Central: 3F Window 2")
-        dd_central_locations_list.append("dD Central: 3F Window 3")
-        dd_central_locations_list.append("dD Central: 3F Window 4")
-        dd_central_locations_list.append("dD Central: 3F Window 5")
-        dd_central_locations_list.append("dD Central: 3F Window 6")
-        dd_central_locations_list.append("dD Central: 3F Window 7")
-        dd_central_locations_list.append("dD Central: 3F Window 8")
-        dd_central_locations_list.append("dD Central: 3F Window 9")
-        dd_central_locations_list.append("dD Central: 3F Window 10")
-        dd_central_locations_list.append("dD Central: 3F Window 11")
-        dd_central_locations_list.append("dD Central: 3F Window 12")
-        dd_central_locations_list.append("dD Central: 3F Window 13")
-        dd_central_locations_list.append("dD Central: 3F Window 14")
-        dd_central_locations_list.append("dD Central: 3F Window 15")
-        dd_central_locations_list.append("dD Central: 3F Window 16")
-        dd_central_locations_list.append("dD Central: 3F Window 17")
-        dd_central_locations_list.append("dD Central: 3F Window 18")
-        dd_central_locations_list.append("dD Central: 2F Glass 1 (near elevator)")
-        dd_central_locations_list.append("dD Central: 2F Glass 2 (near elevator)")
-        dd_central_locations_list.append("dD Central: 2F Glass 3 (near elevator)")
-        dd_central_locations_list.append("dD Central: 2F Window 1")
-        dd_central_locations_list.append("dD Central: 2F Window 2")
-        dd_central_locations_list.append("dD Central: 2F Window 3")
-        dd_central_locations_list.append("dD Central: 2F Window 4")
-        dd_central_locations_list.append("dD Central: 2F Window 5")
-        dd_central_locations_list.append("dD Central: 2F Window 6")
-        dd_central_locations_list.append("dD Central: 2F Window 7")
-        dd_central_locations_list.append("dD Central: 2F Window 8")
-        dd_central_locations_list.append("dD Central: 2F Window 9")
-        dd_central_locations_list.append("dD Central: 2F Window 10")
-        dd_central_locations_list.append("dD Central: 2F Window 11")
-        dd_central_locations_list.append("dD Central: 2F Window 12")
-        dd_central_locations_list.append("dD Central: 2F Window 13")
-        dd_central_locations_list.append("dD Central: 2F Window 14")
-        dd_central_locations_list.append("dD Central: 2F Window 15")
-        dd_central_locations_list.append("dD Central: 2F Window 16")
-        dd_central_locations_list.append("dD Central: 2F Window 17")
-        dd_central_locations_list.append("dD Central: Left Elevator Glass 1")
-        dd_central_locations_list.append("dD Central: Left Elevator Glass 2")
-        dd_central_locations_list.append("dD Central: Right Elevator Glass 1")
-        dd_central_locations_list.append("dD Central: Right Elevator Glass 2")
-        dd_central_locations_list.append("dD Central: 1F Left Elevator Glass 1")
-        dd_central_locations_list.append("dD Central: 1F Left Elevator Glass 2")
-        dd_central_locations_list.append("dD Central: 1F Left Elevator Glass 3")
-        dd_central_locations_list.append("dD Central: 1F Right Elevator Glass 1")
-        dd_central_locations_list.append("dD Central: 1F Right Elevator Glass 2")
-        dd_central_locations_list.append("dD Central: 1F Right Elevator Glass 3")
-        dd_central_locations_list.append("dD Central: 1F Glass Railing 1")
-        dd_central_locations_list.append("dD Central: 1F Glass Railing 2")
-        dd_central_locations_list.append("dD Central: 1F Glass Railing 3")
-        dd_central_locations_list.append("dD Central: 1F Glass Railing 4")
-        dd_central_locations_list.append("dD Central: 1F Glass Railing 5")
+        if ("dD Defection" not in world.options.excluded_missions
+                or "dD Extraction" not in world.options.excluded_missions
+                or "Mr. Blonde's Revenge" not in world.options.excluded_missions):
+            dd_central_locations_list.append("dD Central: Top Glass Railing (stairs between roof and 4F)")
+            dd_central_locations_list.append("dD Central: Bottom Glass Railing (stairs between roof and 4F)")
+            dd_central_locations_list.append("dD Central: Top Window (stairs between roof and 4F)")
+            dd_central_locations_list.append("dD Central: Middle Window (stairs between roof and 4F)")
+            dd_central_locations_list.append("dD Central: Bottom Window (stairs between roof and 4F)")
+            dd_central_locations_list.append("dD Central: 4F Window 1")
+            dd_central_locations_list.append("dD Central: 4F Window 2")
+            dd_central_locations_list.append("dD Central: 4F Window 3")
+            dd_central_locations_list.append("dD Central: 4F Window 4")
+            dd_central_locations_list.append("dD Central: 4F Window 5")
+            dd_central_locations_list.append("dD Central: 4F Window 6")
+            dd_central_locations_list.append("dD Central: 4F Window 7")
+            dd_central_locations_list.append("dD Central: 4F Window 8")
+            dd_central_locations_list.append("dD Central: 4F Window 9")
+            dd_central_locations_list.append("dD Central: 4F Glass Railing 1")
+            dd_central_locations_list.append("dD Central: 4F Glass Railing 2")
+            dd_central_locations_list.append("dD Central: 4F Glass Railing 3")
+            dd_central_locations_list.append("dD Central: 4F Glass Railing 4")
+            dd_central_locations_list.append("dD Central: Cassandra's Office Window (left)")
+            dd_central_locations_list.append("dD Central: Cassandra's Office Window (middle)")
+            dd_central_locations_list.append("dD Central: Cassandra's Office Window (right)")
+            dd_central_locations_list.append("dD Central: Cassandra's Office Window (top)")
+            dd_central_locations_list.append("dD Central: Top Glass Railing (stairs between 4F and 2F)")
+            dd_central_locations_list.append("dD Central: Bottom Glass Railing (stairs between 4F and 2F)")
+            dd_central_locations_list.append("dD Central: Top Window (stairs between 4F and 2F)")
+            dd_central_locations_list.append("dD Central: Middle Window (stairs between 4F and 2F)")
+            dd_central_locations_list.append("dD Central: Bottom Window (stairs between 4F and 2F)")
+            dd_central_locations_list.append("dD Central: 3F Glass 1 (near elevator)")
+            dd_central_locations_list.append("dD Central: 3F Glass 2 (near elevator)")
+            dd_central_locations_list.append("dD Central: 3F Glass 3 (near elevator)")
+            dd_central_locations_list.append("dD Central: 3F Window 1")
+            dd_central_locations_list.append("dD Central: 3F Window 2")
+            dd_central_locations_list.append("dD Central: 3F Window 3")
+            dd_central_locations_list.append("dD Central: 3F Window 4")
+            dd_central_locations_list.append("dD Central: 3F Window 5")
+            dd_central_locations_list.append("dD Central: 3F Window 6")
+            dd_central_locations_list.append("dD Central: 3F Window 7")
+            dd_central_locations_list.append("dD Central: 3F Window 8")
+            dd_central_locations_list.append("dD Central: 3F Window 9")
+            dd_central_locations_list.append("dD Central: 3F Window 10")
+            dd_central_locations_list.append("dD Central: 3F Window 11")
+            dd_central_locations_list.append("dD Central: 3F Window 12")
+            dd_central_locations_list.append("dD Central: 3F Window 13")
+            dd_central_locations_list.append("dD Central: 3F Window 14")
+            dd_central_locations_list.append("dD Central: 3F Window 15")
+            dd_central_locations_list.append("dD Central: 3F Window 16")
+            dd_central_locations_list.append("dD Central: 3F Window 17")
+            dd_central_locations_list.append("dD Central: 3F Window 18")
+            dd_central_locations_list.append("dD Central: 2F Glass 1 (near elevator)")
+            dd_central_locations_list.append("dD Central: 2F Glass 2 (near elevator)")
+            dd_central_locations_list.append("dD Central: 2F Glass 3 (near elevator)")
+            dd_central_locations_list.append("dD Central: 2F Window 1")
+            dd_central_locations_list.append("dD Central: 2F Window 2")
+            dd_central_locations_list.append("dD Central: 2F Window 3")
+            dd_central_locations_list.append("dD Central: 2F Window 4")
+            dd_central_locations_list.append("dD Central: 2F Window 5")
+            dd_central_locations_list.append("dD Central: 2F Window 6")
+            dd_central_locations_list.append("dD Central: 2F Window 7")
+            dd_central_locations_list.append("dD Central: 2F Window 8")
+            dd_central_locations_list.append("dD Central: 2F Window 9")
+            dd_central_locations_list.append("dD Central: 2F Window 10")
+            dd_central_locations_list.append("dD Central: 2F Window 11")
+            dd_central_locations_list.append("dD Central: 2F Window 12")
+            dd_central_locations_list.append("dD Central: 2F Window 13")
+            dd_central_locations_list.append("dD Central: 2F Window 14")
+            dd_central_locations_list.append("dD Central: 2F Window 15")
+            dd_central_locations_list.append("dD Central: 2F Window 16")
+            dd_central_locations_list.append("dD Central: 2F Window 17")
+            dd_central_locations_list.append("dD Central: Left Elevator Glass 1")
+            dd_central_locations_list.append("dD Central: Left Elevator Glass 2")
+            dd_central_locations_list.append("dD Central: Right Elevator Glass 1")
+            dd_central_locations_list.append("dD Central: Right Elevator Glass 2")
+            dd_central_locations_list.append("dD Central: 1F Left Elevator Glass 1")
+            dd_central_locations_list.append("dD Central: 1F Left Elevator Glass 2")
+            dd_central_locations_list.append("dD Central: 1F Left Elevator Glass 3")
+            dd_central_locations_list.append("dD Central: 1F Right Elevator Glass 1")
+            dd_central_locations_list.append("dD Central: 1F Right Elevator Glass 2")
+            dd_central_locations_list.append("dD Central: 1F Right Elevator Glass 3")
+            dd_central_locations_list.append("dD Central: 1F Glass Railing 1")
+            dd_central_locations_list.append("dD Central: 1F Glass Railing 2")
+            dd_central_locations_list.append("dD Central: 1F Glass Railing 3")
+            dd_central_locations_list.append("dD Central: 1F Glass Railing 4")
+            dd_central_locations_list.append("dD Central: 1F Glass Railing 5")
 
-        investigation_locations_list.append("dD Investigation: Glass Railing (near cleaning bot)")
-        investigation_locations_list.append("dD Investigation: Glass on door (near cleaning bot)")
-        investigation_locations_list.append("dD Investigation: Glass 1 (near computer)")
-        investigation_locations_list.append("dD Investigation: Glass 2 (near computer)")
-        investigation_locations_list.append("dD Investigation: Glass 1 (room with night vision)")
-        investigation_locations_list.append("dD Investigation: Glass 2 (room with night vision)")
-        investigation_locations_list.append("dD Investigation: Glass 3 (room with night vision)")
-        investigation_locations_list.append("dD Investigation: Glass 4 (room with night vision)")
-        investigation_locations_list.append("dD Investigation: Glass 5 (room with night vision)")
-        investigation_locations_list.append("dD Investigation: Glass 6 (room with night vision)")
-        investigation_locations_list.append("dD Investigation: Glass 7 (room with night vision)")
-        investigation_locations_list.append("dD Investigation: Glass 8 (room with night vision)")
-        investigation_locations_list.append("dD Investigation: Glass 1 (room with glass enclosure)")
-        
-        investigation_locations_list.append("dD Investigation: Glass on door 1 (sector 3 door)")
-        investigation_locations_list.append("dD Investigation: Glass on door 2 (sector 3 door)")
-        investigation_locations_list.append("dD Investigation: Glass 1 (big room near the end)")
-        investigation_locations_list.append("dD Investigation: Glass 2 (big room near the end)")
-        investigation_locations_list.append("dD Investigation: Glass 3 (big room near the end)")
-        investigation_locations_list.append("dD Investigation: Glass 4 (big room near the end)")
-        investigation_locations_list.append("dD Investigation: Glass 1 (right glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 2 (right glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 3 (right glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 4 (right glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 5 (right glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 6 (right glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 7 (right glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 8 (right glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 1 (front left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 2 (front left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 3 (front left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 4 (front left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 5 (front left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 6 (front left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 7 (front left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 8 (front left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 1 (back left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 2 (back left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 3 (back left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 4 (back left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 5 (back left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 6 (back left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 7 (back left glass pillar of big room)")
-        investigation_locations_list.append("dD Investigation: Glass 8 (back left glass pillar of big room)")
+        if "dD Investigation" not in world.options.excluded_missions:
+            investigation_locations_list.append("dD Investigation: Glass Railing (near cleaning bot)")
+            investigation_locations_list.append("dD Investigation: Glass on door (near cleaning bot)")
+            investigation_locations_list.append("dD Investigation: Glass 1 (near computer)")
+            investigation_locations_list.append("dD Investigation: Glass 2 (near computer)")
+            investigation_locations_list.append("dD Investigation: Glass 1 (room with night vision)")
+            investigation_locations_list.append("dD Investigation: Glass 2 (room with night vision)")
+            investigation_locations_list.append("dD Investigation: Glass 3 (room with night vision)")
+            investigation_locations_list.append("dD Investigation: Glass 4 (room with night vision)")
+            investigation_locations_list.append("dD Investigation: Glass 5 (room with night vision)")
+            investigation_locations_list.append("dD Investigation: Glass 6 (room with night vision)")
+            investigation_locations_list.append("dD Investigation: Glass 7 (room with night vision)")
+            investigation_locations_list.append("dD Investigation: Glass 8 (room with night vision)")
+            investigation_locations_list.append("dD Investigation: Glass 1 (room with glass enclosure)")
+            
+            investigation_locations_list.append("dD Investigation: Glass on door 1 (sector 3 door)")
+            investigation_locations_list.append("dD Investigation: Glass on door 2 (sector 3 door)")
+            investigation_locations_list.append("dD Investigation: Glass 1 (big room near the end)")
+            investigation_locations_list.append("dD Investigation: Glass 2 (big room near the end)")
+            investigation_locations_list.append("dD Investigation: Glass 3 (big room near the end)")
+            investigation_locations_list.append("dD Investigation: Glass 4 (big room near the end)")
+            investigation_locations_list.append("dD Investigation: Glass 1 (right glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 2 (right glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 3 (right glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 4 (right glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 5 (right glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 6 (right glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 7 (right glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 8 (right glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 1 (front left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 2 (front left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 3 (front left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 4 (front left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 5 (front left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 6 (front left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 7 (front left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 8 (front left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 1 (back left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 2 (back left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 3 (back left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 4 (back left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 5 (back left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 6 (back left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 7 (back left glass pillar of big room)")
+            investigation_locations_list.append("dD Investigation: Glass 8 (back left glass pillar of big room)")
 
-        villa_locations_list.append("Carrington Villa: Glass Bottle 1")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 2")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 3")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 4")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 5")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 6")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 7")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 8")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 9")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 10")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 11")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 12")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 13")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 14")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 15")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 16")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 17")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 18")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 19")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 20")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 21")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 22")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 23")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 24")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 25")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 26")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 27")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 28")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 29")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 30")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 31")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 32")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 33")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 34")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 35")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 36")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 37")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 38")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 39")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 40")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 41")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 42")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 43")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 44")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 45")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 46")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 47")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 48")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 49")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 50")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 51")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 52")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 53")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 54")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 55")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 56")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 57")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 58")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 59")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 60")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 61")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 62")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 63")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 64")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 65")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 66")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 67")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 68")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 69")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 70")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 71")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 72")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 73")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 74")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 75")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 76")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 77")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 78")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 79")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 80")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 81")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 82")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 83")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 84")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 85")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 86")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 87")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 88")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 89")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 90")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 91")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 92")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 93")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 94")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 95")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 96")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 97")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 98")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 99")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 100")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 101")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 102")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 103")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 104")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 105")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 106")
-        villa_locations_list.append("Carrington Villa: Glass Bottle 107")
+        if "Carrington Villa" not in world.options.excluded_missions:
+            villa_locations_list.append("Carrington Villa: Glass Bottle 1")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 2")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 3")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 4")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 5")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 6")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 7")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 8")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 9")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 10")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 11")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 12")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 13")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 14")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 15")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 16")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 17")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 18")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 19")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 20")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 21")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 22")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 23")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 24")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 25")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 26")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 27")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 28")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 29")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 30")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 31")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 32")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 33")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 34")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 35")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 36")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 37")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 38")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 39")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 40")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 41")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 42")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 43")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 44")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 45")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 46")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 47")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 48")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 49")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 50")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 51")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 52")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 53")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 54")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 55")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 56")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 57")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 58")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 59")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 60")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 61")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 62")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 63")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 64")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 65")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 66")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 67")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 68")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 69")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 70")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 71")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 72")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 73")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 74")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 75")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 76")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 77")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 78")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 79")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 80")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 81")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 82")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 83")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 84")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 85")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 86")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 87")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 88")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 89")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 90")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 91")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 92")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 93")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 94")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 95")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 96")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 97")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 98")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 99")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 100")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 101")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 102")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 103")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 104")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 105")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 106")
+            villa_locations_list.append("Carrington Villa: Glass Bottle 107")
 
-        chicago_locations_list.append("Chicago: Glass 1 (above stacked barrels)")
-        chicago_locations_list.append("Chicago: Glass 2 (above stacked barrels)")
-        chicago_locations_list.append("Chicago: Glass 3 (above stacked barrels)")
+        if "Chicago" not in world.options.excluded_missions:
+            chicago_locations_list.append("Chicago: Glass 1 (above stacked barrels)")
+            chicago_locations_list.append("Chicago: Glass 2 (above stacked barrels)")
+            chicago_locations_list.append("Chicago: Glass 3 (above stacked barrels)")
 
-        g5_locations_list.append("G5 Building: Glass 1 (2nd cloak guards room)")
-        g5_locations_list.append("G5 Building: Glass 2 (2nd cloak guards room)")
-        g5_locations_list.append("G5 Building: Door Glass 1 (1st door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 2 (1st door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 1 (2nd door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 2 (2nd door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 1 (3rd door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 2 (3rd door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 1 (4th door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 2 (4th door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 1 (5th door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 2 (5th door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 1 (6th door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 2 (6th door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 1 (7th door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 2 (7th door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 1 (8th door with glass)")
-        g5_locations_list.append("G5 Building: Door Glass 2 (8th door with glass)")
+        if "G5 Building" not in world.options.excluded_missions:
+            g5_locations_list.append("G5 Building: Glass 1 (2nd cloak guards room)")
+            g5_locations_list.append("G5 Building: Glass 2 (2nd cloak guards room)")
+            g5_locations_list.append("G5 Building: Door Glass 1 (1st door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 2 (1st door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 1 (2nd door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 2 (2nd door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 1 (3rd door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 2 (3rd door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 1 (4th door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 2 (4th door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 1 (5th door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 2 (5th door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 1 (6th door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 2 (6th door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 1 (7th door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 2 (7th door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 1 (8th door with glass)")
+            g5_locations_list.append("G5 Building: Door Glass 2 (8th door with glass)")
 
-        inner_a51_locations_list.append("Rescue/Escape/Maian SOS: Glass on door 1")
-        inner_a51_locations_list.append("Rescue/Escape/Maian SOS: Glass on door 2")
-        inner_a51_locations_list.append("Rescue/Escape/Maian SOS: Glass on medlab door")
-        inner_a51_locations_list.append("Rescue/Maian SOS: Glass 1 (in medlab)")
-        inner_a51_locations_list.append("Rescue/Maian SOS: Glass 2 (in medlab)")
-        inner_a51_locations_list.append("Rescue/Maian SOS: Glass 3 (in medlab)")
-        
-        escape_locations_list.append("A51 Escape: Glass (near locked medical containment door)")
-        escape_locations_list.append("A51 Escape: Glass on door (locked medical containment door)")
+        if ("A51 Rescue" not in world.options.excluded_missions
+                or "A51 Escape" not in world.options.excluded_missions
+                or "Maian SOS" not in world.options.excluded_missions):
+            inner_a51_locations_list.append("Rescue/Escape/Maian SOS: Glass on door 1")
+            inner_a51_locations_list.append("Rescue/Escape/Maian SOS: Glass on door 2")
+            inner_a51_locations_list.append("Rescue/Escape/Maian SOS: Glass on medlab door")
 
-        maiansos_locations_list.append("Maian SOS: Glass 1 (first room)")
-        maiansos_locations_list.append("Maian SOS: Glass 2 (first room)")
-        maiansos_locations_list.append("Maian SOS: Glass 3 (first room)")
+        if ("A51 Rescue" not in world.options.excluded_missions
+                or "Maian SOS" not in world.options.excluded_missions):
+            inner_a51_locations_list.append("Rescue/Maian SOS: Glass 1 (in medlab)")
+            inner_a51_locations_list.append("Rescue/Maian SOS: Glass 2 (in medlab)")
+            inner_a51_locations_list.append("Rescue/Maian SOS: Glass 3 (in medlab)")
 
-        airbase_locations_list.append("Air Base: Window (suitcase room)")
-        airbase_locations_list.append("Air Base: Window (near security monitor)")
-        
-        airbase_locations_list.append("Air Base: Window 1 (next to flight plans room)")
-        airbase_locations_list.append("Air Base: Window 2 (next to flight plans room)")
-        
-        airbase_locations_list.append("Air Base: Window 1 (near flight plans)")
-        airbase_locations_list.append("Air Base: Window 2 (near flight plans)")
+        if "A51 Escape" not in world.options.excluded_missions:
+            escape_locations_list.append("A51 Escape: Glass (near locked medical containment door)")
+            escape_locations_list.append("A51 Escape: Glass on door (locked medical containment door)")
 
-        pelagic_locations_list.append("Pelagic II: Glass on Door (1st door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (2nd door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (3rd door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (4th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (5th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (6th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (7th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (8th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (9th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (10th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (15th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (16th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (17th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (18th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (19th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (20th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (21th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (22nd door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (23rd door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (24th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (25th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (near the end)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (11th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (12th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (13th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door (14th door)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door 1 (lower floors)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door 2 (lower floors)")
-        pelagic_locations_list.append("Pelagic II: Glass on Door 3 (lower floors)")
-        
-        defense_locations_list.append("CI Defense: 1F Glass Railing")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 1")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 2")
-        defense_locations_list.append("CI Defense: Basement Glass Railing 1")
-        defense_locations_list.append("CI Defense: Basement Glass Railing 2")
-        defense_locations_list.append("CI Defense: Basement Glass Railing 3")
-        defense_locations_list.append("CI Defense: Basement Glass Railing 4")
-        defense_locations_list.append("CI Defense: Basement Glass Railing 5")
-        defense_locations_list.append("CI Defense: Basement Glass Railing 6")
-        defense_locations_list.append("CI Defense: Basement Glass Railing 7")
-        defense_locations_list.append("CI Defense: Basement Glass Railing 8")
-        defense_locations_list.append("CI Defense: Basement Glass Railing 9")
-        defense_locations_list.append("CI Defense: Basement Glass Railing 10")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (2nd door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (2nd door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (3rd door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (3rd door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (4th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (4th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (5th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (5th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (6th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (6th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (7th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (7th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (8th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (8th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (9th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (9th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (10th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (10th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (11th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (11th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (12th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (12th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 1 (13th door)")
-        defense_locations_list.append("CI Defense: Basement Glass on Door 2 (13th door)")
-        defense_locations_list.append("CI Defense: Firing Range Glass 1")
-        defense_locations_list.append("CI Defense: Firing Range RC-P120 Glass")
-        defense_locations_list.append("CI Defense: Firing Range Ceiling Glass 1")
-        defense_locations_list.append("CI Defense: Firing Range Ceiling Glass 2")
-        defense_locations_list.append("CI Defense: Firing Range Ceiling Glass 3")
-        defense_locations_list.append("CI Defense: Firing Range Ceiling Glass 4")
-        defense_locations_list.append("CI Defense: Device Lab Glass 1")
-        defense_locations_list.append("CI Defense: Device Lab Glass 2")
-        defense_locations_list.append("CI Defense: Info Room Glass 1")
-        defense_locations_list.append("CI Defense: Info Room Glass 2")
-        defense_locations_list.append("CI Defense: Joanna's Office Glass 1")
-        defense_locations_list.append("CI Defense: Joanna's Office Glass 2")
-        defense_locations_list.append("CI Defense: Carrington's Office Glass 1")
-        defense_locations_list.append("CI Defense: Carrington's Office Glass 2")
+        if "Maian SOS" not in world.options.excluded_missions:
+            maiansos_locations_list.append("Maian SOS: Glass 1 (first room)")
+            maiansos_locations_list.append("Maian SOS: Glass 2 (first room)")
+            maiansos_locations_list.append("Maian SOS: Glass 3 (first room)")
+
+        if "Air Base" not in world.options.excluded_missions:
+            airbase_locations_list.append("Air Base: Window (suitcase room)")
+            airbase_locations_list.append("Air Base: Window (near security monitor)")
+            airbase_locations_list.append("Air Base: Window 1 (next to flight plans room)")
+            airbase_locations_list.append("Air Base: Window 2 (next to flight plans room)")
+            airbase_locations_list.append("Air Base: Window 1 (near flight plans)")
+            airbase_locations_list.append("Air Base: Window 2 (near flight plans)")
+
+        if "Pelagic II" not in world.options.excluded_missions:
+            pelagic_locations_list.append("Pelagic II: Glass on Door (1st door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (2nd door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (3rd door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (4th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (5th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (6th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (7th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (8th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (9th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (10th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (15th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (16th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (17th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (18th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (19th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (20th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (21th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (22nd door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (23rd door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (24th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (25th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (near the end)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (11th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (12th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (13th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door (14th door)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door 1 (lower floors)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door 2 (lower floors)")
+            pelagic_locations_list.append("Pelagic II: Glass on Door 3 (lower floors)")
+
+        if "CI Defense" not in world.options.excluded_missions:
+            defense_locations_list.append("CI Defense: 1F Glass Railing")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 1")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 2")
+            defense_locations_list.append("CI Defense: Basement Glass Railing 1")
+            defense_locations_list.append("CI Defense: Basement Glass Railing 2")
+            defense_locations_list.append("CI Defense: Basement Glass Railing 3")
+            defense_locations_list.append("CI Defense: Basement Glass Railing 4")
+            defense_locations_list.append("CI Defense: Basement Glass Railing 5")
+            defense_locations_list.append("CI Defense: Basement Glass Railing 6")
+            defense_locations_list.append("CI Defense: Basement Glass Railing 7")
+            defense_locations_list.append("CI Defense: Basement Glass Railing 8")
+            defense_locations_list.append("CI Defense: Basement Glass Railing 9")
+            defense_locations_list.append("CI Defense: Basement Glass Railing 10")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 1 (2nd door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 2 (2nd door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 1 (3rd door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 2 (3rd door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 1 (4th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 2 (4th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 1 (5th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 2 (5th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 1 (6th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 2 (6th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 1 (7th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 2 (7th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 1 (8th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 2 (8th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 1 (9th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 2 (9th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 1 (10th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 2 (10th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 1 (11th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 2 (11th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 1 (12th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 2 (12th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 1 (13th door)")
+            defense_locations_list.append("CI Defense: Basement Glass on Door 2 (13th door)")
+            defense_locations_list.append("CI Defense: Firing Range Glass 1")
+            defense_locations_list.append("CI Defense: Firing Range RC-P120 Glass")
+            defense_locations_list.append("CI Defense: Firing Range Ceiling Glass 1")
+            defense_locations_list.append("CI Defense: Firing Range Ceiling Glass 2")
+            defense_locations_list.append("CI Defense: Firing Range Ceiling Glass 3")
+            defense_locations_list.append("CI Defense: Firing Range Ceiling Glass 4")
+            defense_locations_list.append("CI Defense: Device Lab Glass 1")
+            defense_locations_list.append("CI Defense: Device Lab Glass 2")
+            defense_locations_list.append("CI Defense: Info Room Glass 1")
+            defense_locations_list.append("CI Defense: Info Room Glass 2")
+            defense_locations_list.append("CI Defense: Joanna's Office Glass 1")
+            defense_locations_list.append("CI Defense: Joanna's Office Glass 2")
+            defense_locations_list.append("CI Defense: Carrington's Office Glass 1")
+            defense_locations_list.append("CI Defense: Carrington's Office Glass 2")
 
         if world.options.special_agent or world.options.perfect_agent:
-            investigation_locations_list.append("dD Investigation: Glass 1 (room with one scientist)")
-            investigation_locations_list.append("dD Investigation: Glass 2 (room with one scientist)")
-            investigation_locations_list.append("dD Investigation: Glass 3 (room with one scientist)")
-            investigation_locations_list.append("dD Investigation: Glass 4 (room with one scientist)")
-            investigation_locations_list.append("dD Investigation: Glass 5 (room with one scientist)")
-            investigation_locations_list.append("dD Investigation: Glass 6 (room with one scientist)")
-            investigation_locations_list.append("dD Investigation: Glass 7 (room with one scientist)")
-            investigation_locations_list.append("dD Investigation: Glass 8 (room with one scientist)")
-            investigation_locations_list.append("dD Investigation: Glass 1 (room near two scientists)")
-            investigation_locations_list.append("dD Investigation: Glass 2 (room near two scientists)")
-            investigation_locations_list.append("dD Investigation: Glass 3 (room near two scientists)")
-            investigation_locations_list.append("dD Investigation: Glass 4 (room near two scientists)")
+            if "dD Investigation" not in world.options.excluded_missions:
+                investigation_locations_list.append("dD Investigation: Glass 1 (room with one scientist)")
+                investigation_locations_list.append("dD Investigation: Glass 2 (room with one scientist)")
+                investigation_locations_list.append("dD Investigation: Glass 3 (room with one scientist)")
+                investigation_locations_list.append("dD Investigation: Glass 4 (room with one scientist)")
+                investigation_locations_list.append("dD Investigation: Glass 5 (room with one scientist)")
+                investigation_locations_list.append("dD Investigation: Glass 6 (room with one scientist)")
+                investigation_locations_list.append("dD Investigation: Glass 7 (room with one scientist)")
+                investigation_locations_list.append("dD Investigation: Glass 8 (room with one scientist)")
+                investigation_locations_list.append("dD Investigation: Glass 1 (room near two scientists)")
+                investigation_locations_list.append("dD Investigation: Glass 2 (room near two scientists)")
+                investigation_locations_list.append("dD Investigation: Glass 3 (room near two scientists)")
+                investigation_locations_list.append("dD Investigation: Glass 4 (room near two scientists)")
 
-            pelagic_locations_list.append("Pelagic II: Glass on Door 4 (lower floors)")
-            pelagic_locations_list.append("Pelagic II: Glass on Door 5 (lower floors)")
-            pelagic_locations_list.append("Pelagic II: Glass on Door 6 (lower floors)")
-            pelagic_locations_list.append("Pelagic II: Glass on Door 7 (lower floors)")
+            if "Pelagic II" not in world.options.excluded_missions:
+                pelagic_locations_list.append("Pelagic II: Glass on Door 4 (lower floors)")
+                pelagic_locations_list.append("Pelagic II: Glass on Door 5 (lower floors)")
+                pelagic_locations_list.append("Pelagic II: Glass on Door 6 (lower floors)")
+                pelagic_locations_list.append("Pelagic II: Glass on Door 7 (lower floors)")
 
-            attackship_locations_list.append("Attack Ship: Engine System Glass 1")
-            attackship_locations_list.append("Attack Ship: Engine System Glass 2")
-            attackship_locations_list.append("Attack Ship: Engine System Glass 3")
-            attackship_locations_list.append("Attack Ship: Engine System Glass 4")
-            attackship_locations_list.append("Attack Ship: Engine System Glass 5")
-            attackship_locations_list.append("Attack Ship: Engine System Glass 6")
+            if "Attack Ship" not in world.options.excluded_missions:
+                attackship_locations_list.append("Attack Ship: Engine System Glass 1")
+                attackship_locations_list.append("Attack Ship: Engine System Glass 2")
+                attackship_locations_list.append("Attack Ship: Engine System Glass 3")
+                attackship_locations_list.append("Attack Ship: Engine System Glass 4")
+                attackship_locations_list.append("Attack Ship: Engine System Glass 5")
+                attackship_locations_list.append("Attack Ship: Engine System Glass 6")
 
         if world.options.perfect_agent:
-            pelagic_locations_list.append("Pelagic II: Glass on Door 1 (near research tapes)")
-            pelagic_locations_list.append("Pelagic II: Glass on Door 2 (near research tapes)")
+            if "Pelagic II" not in world.options.excluded_missions:
+                pelagic_locations_list.append("Pelagic II: Glass on Door 1 (near research tapes)")
+                pelagic_locations_list.append("Pelagic II: Glass on Door 2 (near research tapes)")
 
-            deepsea_locations_list.append("Deep Sea: Glass 1 (1st power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 2 (1st power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 3 (1st power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 1 (2nd power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 2 (2nd power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 3 (2nd power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 1 (3rd power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 2 (3rd power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 3 (3rd power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 1 (4th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 2 (4th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 3 (4th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 1 (5th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 2 (5th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 3 (5th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 1 (6th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 2 (6th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 3 (6th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 4 (6th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 5 (6th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 6 (6th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 7 (6th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 8 (6th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 9 (6th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 10 (6th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 11 (6th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 12 (6th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 1 (7th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 2 (7th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 3 (7th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 4 (7th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 5 (7th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 6 (7th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 7 (7th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 8 (7th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 9 (7th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 10 (7th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 11 (7th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 12 (7th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 1 (8th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 2 (8th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 3 (8th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 4 (8th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 5 (8th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 6 (8th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 7 (8th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 8 (8th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 9 (8th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 10 (8th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 11 (8th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 12 (8th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 1 (9th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 2 (9th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 3 (9th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 4 (9th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 5 (9th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 6 (9th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 7 (9th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 8 (9th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 9 (9th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 10 (9th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 11 (9th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 12 (9th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 1 (10th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 2 (10th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 3 (10th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 4 (10th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 5 (10th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 6 (10th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 7 (10th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 8 (10th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 9 (10th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 10 (10th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 11 (10th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 12 (10th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 1 (11th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 2 (11th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 3 (11th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 4 (11th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 5 (11th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 6 (11th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 7 (11th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 8 (11th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 9 (11th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 10 (11th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 11 (11th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 12 (11th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 1 (12th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 2 (12th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 3 (12th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 4 (12th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 5 (12th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 6 (12th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 7 (12th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 8 (12th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 9 (12th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 10 (12th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 11 (12th power node)")
-            deepsea_locations_list.append("Deep Sea: Glass 12 (12th power node)")
+            if "Deep Sea" not in world.options.excluded_missions:
+                deepsea_locations_list.append("Deep Sea: Glass 1 (1st power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 2 (1st power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 3 (1st power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 1 (2nd power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 2 (2nd power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 3 (2nd power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 1 (3rd power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 2 (3rd power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 3 (3rd power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 1 (4th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 2 (4th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 3 (4th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 1 (5th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 2 (5th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 3 (5th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 1 (6th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 2 (6th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 3 (6th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 4 (6th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 5 (6th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 6 (6th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 7 (6th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 8 (6th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 9 (6th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 10 (6th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 11 (6th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 12 (6th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 1 (7th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 2 (7th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 3 (7th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 4 (7th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 5 (7th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 6 (7th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 7 (7th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 8 (7th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 9 (7th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 10 (7th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 11 (7th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 12 (7th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 1 (8th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 2 (8th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 3 (8th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 4 (8th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 5 (8th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 6 (8th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 7 (8th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 8 (8th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 9 (8th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 10 (8th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 11 (8th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 12 (8th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 1 (9th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 2 (9th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 3 (9th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 4 (9th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 5 (9th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 6 (9th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 7 (9th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 8 (9th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 9 (9th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 10 (9th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 11 (9th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 12 (9th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 1 (10th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 2 (10th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 3 (10th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 4 (10th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 5 (10th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 6 (10th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 7 (10th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 8 (10th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 9 (10th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 10 (10th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 11 (10th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 12 (10th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 1 (11th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 2 (11th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 3 (11th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 4 (11th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 5 (11th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 6 (11th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 7 (11th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 8 (11th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 9 (11th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 10 (11th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 11 (11th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 12 (11th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 1 (12th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 2 (12th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 3 (12th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 4 (12th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 5 (12th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 6 (12th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 7 (12th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 8 (12th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 9 (12th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 10 (12th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 11 (12th power node)")
+                deepsea_locations_list.append("Deep Sea: Glass 12 (12th power node)")
 
         if world.options.weapon_progression.value >= WeaponProgression.option_all_guns:
-            investigation_locations_list.append("dD Investigation: Glass 2 (room with glass enclosure)")
-            investigation_locations_list.append("dD Investigation: Glass 3 (room with glass enclosure)")
-            
-            g5_locations_list.append("G5 Building: Glass (first room)")
+            if "dD Investigation" not in world.options.excluded_missions:
+                investigation_locations_list.append("dD Investigation: Glass 2 (room with glass enclosure)")
+                investigation_locations_list.append("dD Investigation: Glass 3 (room with glass enclosure)")
 
-            airbase_locations_list.append("Air Base: Window (near escalator)")
-            airbase_locations_list.append("Air Base: Window (in front of plane)")
+            if "G5 Building" not in world.options.excluded_missions:
+                g5_locations_list.append("G5 Building: Glass (first room)")
 
-            defense_locations_list.append("CI Defense: Firing Range Glass 2")
-            defense_locations_list.append("CI Defense: Firing Range Glass 3")
-            defense_locations_list.append("CI Defense: Firing Range Glass 4")
-            defense_locations_list.append("CI Defense: Firing Range Glass 5")
-            defense_locations_list.append("CI Defense: Firing Range Glass 6")
-            defense_locations_list.append("CI Defense: Firing Range Glass 7")
-            defense_locations_list.append("CI Defense: Firing Range Glass 8")
+            if "Air Base" not in world.options.excluded_missions:
+                airbase_locations_list.append("Air Base: Window (near escalator)")
+                airbase_locations_list.append("Air Base: Window (in front of plane)")
+
+            if "CI Defense" not in world.options.excluded_missions:
+                defense_locations_list.append("CI Defense: Firing Range Glass 2")
+                defense_locations_list.append("CI Defense: Firing Range Glass 3")
+                defense_locations_list.append("CI Defense: Firing Range Glass 4")
+                defense_locations_list.append("CI Defense: Firing Range Glass 5")
+                defense_locations_list.append("CI Defense: Firing Range Glass 6")
+                defense_locations_list.append("CI Defense: Firing Range Glass 7")
+                defense_locations_list.append("CI Defense: Firing Range Glass 8")
 
 
     institute_locations = get_location_names_with_ids(institute_locations_list)
