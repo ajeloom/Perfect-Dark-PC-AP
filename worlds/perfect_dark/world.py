@@ -116,6 +116,7 @@ class PerfectDarkWorld(World):
                 "random_enemy_weapons": self.options.random_enemy_weapons.value,
                 "random_buddy_weapons": self.options.random_buddy_weapons.value,
                 "random_challenge_stages": self.options.random_challenge_stages.value,
+                "blur": self.options.blur.value,
                 "deathlink": self.options.deathlink.value,
             },
         }

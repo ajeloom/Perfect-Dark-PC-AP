@@ -165,11 +165,8 @@ class MissionsInItemPool(Choice):
     Choose whether missions are in the item pool.
 
     - Disabled: You start with every mission.
-
-    - Enabled: You must get the mission to play it. Once you get
-               a mission, every difficulty enabled is unlocked.
-    
-    - Enabled (per difficulty): You must get the mission on a specific difficulty to play it.
+    - Enabled: Each mission is one item that unlocks every difficulty you enabled.
+    - Enabled (per difficulty): Each mission on every difficulty enabled is an item.
     """
 
     option_disabled = 0
@@ -177,6 +174,8 @@ class MissionsInItemPool(Choice):
     option_enabled_per_difficulty = 2
 
     display_name = "Missions In Item Pool"
+
+    default = option_enabled
 
 
 class ExcludedMissions(OptionSet):
@@ -301,6 +300,8 @@ class StartingItems(Toggle):
     """
 
     display_name = "Starting Items"
+
+    default = True
 
 
 class MasterKey(Toggle):
@@ -585,6 +586,8 @@ class MultiplayerUnlocks(Toggle):
 
     display_name = "Multiplayer Unlocks"
 
+    default = True
+
 
 class AlternateExits(Choice):
     """
@@ -609,8 +612,8 @@ class AlternateExits(Choice):
 class Pickupsanity(Toggle):
     """
     Adds checks for picking up ammo crates, shields, and hidden items in missions.
-    You must have any of the difficulties enabled for this to work.
     Some checks are only in certain difficulties.
+    If no difficulty is set, then every difficulty is enabled.
     """
 
     display_name = "Pickupsanity"
@@ -671,6 +674,17 @@ class RandomChallengeStages(Toggle):
     """
 
     display_name = "Random Challenge Stages"
+
+
+class Blur(Toggle):
+    """
+    Enables or disables the blur effect when taking damage from certain weapons.
+    Recommend disabling this if you have the N-Bomb Trap or prone to motion sickness.
+    """
+
+    display_name = "Blur"
+
+    default = True
 
 
 class TrapChance(Range):
@@ -782,6 +796,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     random_enemy_weapons: RandomEnemyWeapons
     random_buddy_weapons: RandomBuddyWeapons
     random_challenge_stages: RandomChallengeStages
+    blur: Blur
     trap_chance: TrapChance
     excluded_traps: ExcludedTraps
     deathlink: DeathLink
@@ -833,6 +848,7 @@ option_groups = [
             RandomEnemyWeapons,
             RandomBuddyWeapons,
             RandomChallengeStages,
+            Blur,
             TrapChance,
             ExcludedTraps,
             DeathLink
@@ -881,6 +897,7 @@ option_presets = {
         "random_enemy_weapons": False,
         "random_buddy_weapons": False,
         "random_challenge_stages": False,
+        "blur": False,
         "trap_chance": 0,
         "deathlink": False,
     },
@@ -924,6 +941,7 @@ option_presets = {
         "random_enemy_weapons": True,
         "random_buddy_weapons": False,
         "random_challenge_stages": True,
+        "blur": True,
         "trap_chance": 100,
         "deathlink": True,
     },
