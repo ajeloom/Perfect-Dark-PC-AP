@@ -566,7 +566,11 @@ def set_all_entrance_rules(world: PerfectDarkWorld) -> None:
 def set_all_location_rules(world: PerfectDarkWorld) -> None:
     normal_logic = OptionFilter(MissionLogic, MissionLogic.option_normal)
     veteran_logic = OptionFilter(MissionLogic, MissionLogic.option_veteran)
+    normal_and_veteran_logic = OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")
+    veteran_and_above_logic = OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge")
     hard_logic = OptionFilter(MissionLogic, MissionLogic.option_hard)
+    hard_and_below_logic = OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")
+    hard_and_perfect_logic = OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")
     perfect_logic = OptionFilter(MissionLogic, MissionLogic.option_perfect)
 
 
@@ -577,14 +581,14 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     # Defection
     has_defection_weapon = (Has("Falcon 2 (Silencer)")
-                           | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="eq")], filtered_resolution=False)
+                           | Has("CMP150", options=[has_normal_weapons, hard_and_perfect_logic])
                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                            | HAS_ANY_WEAPON_TYPE)
 
     complete_defection_weapons = ((Has("Falcon 2 (Silencer)")
-                                 & Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
-                                 | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                    & Has("CMP150", options=[has_normal_weapons, hard_and_below_logic], filtered_resolution=True))
+                                 | Has("CMP150", options=[has_normal_weapons, perfect_logic])
                                  | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                  | HAS_ANY_WEAPON_TYPE)
@@ -592,14 +596,14 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     # Investigation
     has_investigation_weapon = (Has("Falcon 2")
-                               | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+                               | Has("CMP150", options=[has_normal_weapons, hard_and_perfect_logic])
                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                | HAS_ANY_WEAPON_TYPE)
 
     complete_investigation_weapons = ((Has("Falcon 2")
-                                     & Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
-                                     | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                        & Has("CMP150", options=[has_normal_weapons, hard_and_below_logic], filtered_resolution=True))
+                                     | Has("CMP150", options=[has_normal_weapons, perfect_logic])
                                      | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                      | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                      | HAS_ANY_WEAPON_TYPE)
@@ -613,14 +617,14 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     # Extraction
     has_extraction_weapon = (Has("Falcon 2 (Scope)")
-                            | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+                            | Has("CMP150", options=[has_normal_weapons, hard_and_perfect_logic])
                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                             | HAS_ANY_WEAPON_TYPE)
 
     complete_extraction_weapons = ((Has("Falcon 2 (Scope)")
-                                  & HasAll("CMP150", "Shotgun", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
-                                  | HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                    & HasAll("CMP150", "Shotgun", options=[has_normal_weapons, hard_and_below_logic], filtered_resolution=True))
+                                  | HasFromList("Falcon 2 (Scope)", "CMP150", "Shotgun", count=2, options=[has_normal_weapons, perfect_logic])
                                   | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                   | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                   | HAS_ANY_WEAPON_TYPE)
@@ -630,29 +634,28 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     # Villa
     has_villa_weapon = (Has("Sniper Rifle")
-                       | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                       | Has("CMP150", options=[has_normal_weapons, perfect_logic])
                        | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                        | HAS_ANY_WEAPON_TYPE)
 
     complete_villa_weapons = ((Has("Sniper Rifle")
-                             & Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
-                             | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                & Has("CMP150", options=[has_normal_weapons, hard_and_below_logic], filtered_resolution=True))
+                             | Has("CMP150", options=[has_normal_weapons, perfect_logic])
                              | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                              | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                              | HAS_ANY_WEAPON_TYPE)
 
     has_villa_weapon_perfect = (Has("Laptop Gun")
-                               | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
-                               | Has("Sniper Rifle", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                               | Has("CMP150", options=[has_normal_weapons, hard_and_perfect_logic])
+                               | Has("Sniper Rifle", options=[has_normal_weapons, perfect_logic])
                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                | HAS_ANY_WEAPON_TYPE)
 
-    complete_villa_weapons_perfect = ((Has("Laptop Gun") 
-                                     & (Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
-                                     | Has("Sniper Rifle", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="eq")], filtered_resolution=True)))
-                                     | HasFromList("Laptop Gun", "CMP150", "Sniper Rifle", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+    complete_villa_weapons_perfect = ((Has("Laptop Gun") & Has("CMP150", options=[has_normal_weapons, normal_logic], filtered_resolution=True))
+                                     | (Has("Laptop Gun") & HasAny("CMP150", "Sniper Rifle", options=[has_normal_weapons, veteran_logic], filtered_resolution=True))
+                                     | HasFromList("Laptop Gun", "CMP150", "Sniper Rifle", count=2, options=[has_normal_weapons, hard_and_perfect_logic])
                                      | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                      | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                      | HAS_ANY_WEAPON_TYPE)
@@ -663,15 +666,15 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     # Chicago
     has_chicago_weapon = (Has("Falcon 2 (Scope)")
-                         | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
-                         | Has("DY357 Magnum", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                         | Has("CMP150", options=[has_normal_weapons, hard_and_perfect_logic])
+                         | Has("DY357 Magnum", options=[has_normal_weapons, perfect_logic])
                          | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                          | HAS_ANY_WEAPON_TYPE)
 
     complete_chicago_weapons = ((Has("Falcon 2 (Scope)")
-                               & Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
-                               | HasAny("CMP150", "DY357 Magnum", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                & Has("CMP150", options=[has_normal_weapons, hard_and_below_logic], filtered_resolution=True))
+                               | HasAny("CMP150", "DY357 Magnum", options=[has_normal_weapons, perfect_logic])
                                | (all_guns_filter & HasFromList(*exclude_weapons_from_list(["Remote Mine"]), count=2))
                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
                                | HAS_ANY_WEAPON_TYPE)
@@ -685,14 +688,14 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     # G5 Building
     has_g5_weapon = (Has("Falcon 2 (Silencer)")
-                    | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+                    | Has("CMP150", options=[has_normal_weapons, hard_and_perfect_logic])
                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                     | HAS_ANY_WEAPON_TYPE)
 
     complete_g5_weapons = ((Has("Falcon 2 (Silencer)")
-                          & Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
-                          | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                          & Has("CMP150", options=[has_normal_weapons, hard_and_below_logic], filtered_resolution=True))
+                          | Has("CMP150", options=[has_normal_weapons, perfect_logic])
                           | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                           | HAS_ANY_WEAPON_TYPE)
@@ -700,14 +703,14 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     # Infiltration
     has_infiltration_weapon = (Has("Falcon 2")
-                              | Has("MagSec 4", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+                              | Has("MagSec 4", options=[has_normal_weapons, hard_and_perfect_logic])
                               | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                               | HAS_ANY_WEAPON_TYPE)
     
     complete_infiltration_weapons = ((Has("Falcon 2")
-                                    & HasAll("MagSec 4", "Dragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
-                                    | HasFromList("Falcon 2", "MagSec 4", "Dragon", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                        & HasAll("MagSec 4", "Dragon", options=[has_normal_weapons, normal_and_veteran_logic], filtered_resolution=True))
+                                    | HasFromList("Falcon 2", "MagSec 4", "Dragon", count=2, options=[has_normal_weapons, hard_and_perfect_logic])
                                     | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                     | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                     | HAS_ANY_WEAPON_TYPE)
@@ -715,30 +718,30 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     # Rescue
     has_rescue_weapon = (Has("Falcon 2 (Silencer)")
-                        | Has("Dragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+                        | Has("Dragon", options=[has_normal_weapons, hard_and_perfect_logic])
                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                         | HAS_ANY_WEAPON_TYPE)
 
     complete_rescue_weapons = ((Has("Falcon 2 (Silencer)")
-                              & HasAny("Dragon", "SuperDragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
-                              | HasFromList("Falcon 2 (Silencer)", "Dragon", "SuperDragon", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
-                              | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
+                                & HasAll("Dragon", "SuperDragon", options=[has_normal_weapons, normal_and_veteran_logic], filtered_resolution=True))
+                              | HasFromList("Falcon 2 (Silencer)", "Dragon", "SuperDragon", count=2, options=[has_normal_weapons, hard_and_perfect_logic])
+                              | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                               | HAS_ANY_WEAPON_TYPE)
 
 
     # Escape
     has_escape_weapon = (Has("Falcon 2 (Scope)")
-                        | Has("SuperDragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
-                        | Has("Tranquilizer", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                        | Has("SuperDragon", options=[has_normal_weapons, hard_and_perfect_logic])
+                        | Has("Tranquilizer", options=[has_normal_weapons, perfect_logic])
                         | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                         | HAS_ANY_WEAPON_TYPE)
 
     complete_escape_weapons = ((Has("Falcon 2 (Scope)")
-                              & Has("SuperDragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
-                              | HasFromList("Falcon 2 (Scope)", "SuperDragon", "Tranquilizer", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                & Has("SuperDragon", options=[has_normal_weapons, hard_and_below_logic], filtered_resolution=True))
+                              | HasFromList("Falcon 2 (Scope)", "SuperDragon", "Tranquilizer", count=2, options=[has_normal_weapons, perfect_logic])
                               | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                               | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                               | HAS_ANY_WEAPON_TYPE)
@@ -746,8 +749,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     # Air Base
     complete_air_base_weapons = ((Has("K7 Avenger")
-                                & Has("Dragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
-                                | Has("Dragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                    & Has("Dragon", options=[has_normal_weapons, hard_and_below_logic], filtered_resolution=True))
+                                | Has("Dragon", options=[has_normal_weapons, perfect_logic])
                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                 | HAS_ANY_WEAPON_TYPE)
 
@@ -755,23 +758,24 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                  | (all_guns_filter & HasAny("Crossbow", "CamSpy", "Tranquilizer")))
 
     has_air_base_explosive = ((Has("Proximity Mine")
-                             & (Has("Dragon", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True) 
-                             | Has("K7 Avenger", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)))
+                             & (Has("Dragon", options=[has_normal_weapons, hard_and_below_logic], filtered_resolution=True) 
+                             | Has("K7 Avenger", options=[has_normal_weapons, hard_and_below_logic], filtered_resolution=True)))
                              | has_explosive)
 
 
     # Air Force One
+    has_cyclone = Has("Cyclone", options=[has_normal_weapons, veteran_and_above_logic]) & (HAS_AFO_EXTRA_KEYS | perfect_logic)
+    
     has_afo_weapon = (Has("Laptop Gun")
-                     | (Has("Cyclone", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge")], filtered_resolution=False) & HAS_AFO_EXTRA_KEYS)
-                     | Has("K7 Avenger", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                     | has_cyclone
+                     | Has("K7 Avenger", options=[has_normal_weapons, perfect_logic])
                      | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                      | (Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
                      | HAS_ANY_WEAPON_TYPE)
 
-    complete_afo_weapons = ((Has("Laptop Gun")
-                           & ((Has("Cyclone", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge")], filtered_resolution=True) & HAS_AFO_EXTRA_KEYS)
-                           | Has("K7 Avenger", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)))
-                           | HasAny("Laptop Gun", "Cyclone", "K7 Avenger", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_afo_weapons = ((Has("Laptop Gun") & Has("K7 Avenger", options=[has_normal_weapons, normal_logic], filtered_resolution=True))
+                           | (Has("Laptop Gun") & (Has("K7 Avenger", options=[has_normal_weapons, veteran_and_above_logic], filtered_resolution=True) | has_cyclone))
+                           | HasAny("Laptop Gun", "Cyclone", "K7 Avenger", options=[has_normal_weapons, perfect_logic])
                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                            | (Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"]))
                            | HAS_ANY_WEAPON_TYPE)
@@ -785,14 +789,14 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     # Crash Site
     has_crash_site_weapon = (Has("Falcon 2 (Scope)") 
-                            | HasAny("K7 Avenger", "Sniper Rifle", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+                            | HasAny("K7 Avenger", "Sniper Rifle", options=[has_normal_weapons, hard_and_perfect_logic])
                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                             | HAS_ANY_WEAPON_TYPE)
 
     complete_crash_site_weapons = ((Has("Falcon 2 (Scope)") 
-                                  & HasAny("K7 Avenger", "Sniper Rifle", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
-                                  | HasFromList("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                    & HasAny("K7 Avenger", "Sniper Rifle", options=[has_normal_weapons, hard_and_below_logic], filtered_resolution=True))
+                                  | HasFromList("Falcon 2 (Scope)", "K7 Avenger", "Sniper Rifle", count=2, options=[has_normal_weapons, perfect_logic])
                                   | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=2))
                                   | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                   | HAS_ANY_WEAPON_TYPE)
@@ -809,15 +813,16 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     # Pelagic II
     has_pelagic_weapon = (HasAny("Falcon 2 (Silencer)", "Laptop Gun")
-                         | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
-                         | Has("Phoenix", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                         | Has("CMP150", options=[has_normal_weapons, hard_and_perfect_logic])
+                         | (Has("Phoenix", options=[has_normal_weapons, perfect_logic])
+                            & Has("Elvis", options=[npc_filter], filtered_resolution=True))
                          | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                          | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                          | HAS_ANY_WEAPON_TYPE)
 
     complete_pelagic_weapons = ((HasAll("Falcon 2 (Silencer)", "Laptop Gun")
-                               & Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True))
-                               | HasFromList("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", count=2, options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                                    & Has("CMP150", options=[has_normal_weapons, hard_and_below_logic], filtered_resolution=True))
+                               | HasFromList("Falcon 2 (Silencer)", "Laptop Gun", "CMP150", count=2, options=[has_normal_weapons, perfect_logic])
                                | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                | HAS_ANY_WEAPON_TYPE)
@@ -829,8 +834,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                           | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                           | HAS_ANY_WEAPON_TYPE)
 
-    complete_deep_sea_weapons = (HasAll("Falcon 2 (Scope)", "Shotgun", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=False)
-                                | HasAny("Falcon 2 (Scope)", "Shotgun", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+    complete_deep_sea_weapons = (HasAll("Falcon 2 (Scope)", "Shotgun", options=[normal_and_veteran_logic])
+                                | HasAny("Falcon 2 (Scope)", "Shotgun", options=[hard_and_perfect_logic])
                                 | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=3))
                                 | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                 | HAS_ANY_WEAPON_TYPE)
@@ -865,19 +870,18 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     has_defense_explosive = (Has("Devastator") | has_explosive)
 
-    has_defense_destroy_weapon = (has_laser
-                                 | (OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge") & has_defense_explosive))
+    has_defense_destroy_weapon = (has_laser | (veteran_and_above_logic & has_defense_explosive))
 
 
     # Attack Ship
-    has_attack_ship_weapon = (HasAll("Combat Knife", "Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                             | Has("Mauler", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    has_attack_ship_weapon = (HasAll("Combat Knife", "Mauler", options=[hard_and_below_logic])
+                             | Has("Mauler", options=[perfect_logic])
                              | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=2))
                              | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                              | HAS_ANY_WEAPON_TYPE_ATTACKSHIP)
     
-    complete_attack_ship_weapons = (HasAll("Combat Knife", "Mauler", "AR34", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=False)
-                                   | HasAll("Mauler", "AR34", options=[OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+    complete_attack_ship_weapons = (HasAll("Combat Knife", "Mauler", "AR34", options=[hard_and_below_logic])
+                                   | HasAll("Mauler", "AR34", options=[perfect_logic])
                                    | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=3))
                                    | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                                    | HAS_ANY_WEAPON_TYPE_ATTACKSHIP)
@@ -899,7 +903,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     # Mr. Blonde's Revenge
     complete_mbr_weapons = (Has("Mauler")
-                           | Has("CMP150", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")], filtered_resolution=False)
+                           | Has("CMP150", options=[has_normal_weapons, hard_and_perfect_logic])
                            | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                            | HAS_ANY_WEAPON_TYPE)
@@ -912,13 +916,12 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                  | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"])
                                  | HAS_ANY_WEAPON_TYPE)
 
-    can_leave_maian_sos_room = (Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                                 | has_explosive)
+    can_leave_maian_sos_room = (Has("Elvis", options=[npc_filter], filtered_resolution=True) | has_explosive)
 
 
     # WAR!
     complete_war_weapons = (Has("Phoenix")
-                           | HasAny("Callisto NTG", "Mauler", options=[has_normal_weapons, OptionFilter(MissionLogic, MissionLogic.option_perfect, operator="eq")], filtered_resolution=False)
+                           | HasAny("Callisto NTG", "Mauler", options=[has_normal_weapons, perfect_logic])
                            | (all_guns_filter & HAS_ANY_RIFLE & HasFromList(*WEAPON_NAME_LIST, count=2))
                            | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"])
                            | HAS_ANY_WEAPON_TYPE)
@@ -928,7 +931,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
     complete_duel_weapons = (Has("Falcon 2 (Scope)")
                             | (all_guns_filter & HasFromList(*WEAPON_NAME_LIST, count=1))
                             | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["KL01313"])
-                            | HAS_ANY_WEAPON_TYPE)
+                            | HAS_ANY_WEAPON_TYPE
+                            | perfect_logic)
 
 
     agent_rules = {
@@ -962,21 +966,21 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 3 - Extraction
         "dD Extraction - Agent Objective 1": HAS_EXTRACTION_AGENT
-                                             & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                             & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                              & has_extraction_weapon,
 
         "dD Extraction - Agent Objective 2": HAS_EXTRACTION_AGENT
-                                             & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                             & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                              & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                              & complete_extraction_weapons,
 
         "dD Extraction - Agent Objective 3": HAS_EXTRACTION_AGENT
-                                             & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                             & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                              & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                              & complete_extraction_weapons,
 
         "Complete: dD Extraction - Agent": HAS_EXTRACTION_AGENT
-                                           & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                           & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                            & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                            & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                            & complete_extraction_weapons,
@@ -1008,7 +1012,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Chicago - Agent Objective 2": HAS_CHICAGO_AGENT
                                        & (Has("Data Uplink")
-                                       | Has("CamSpy", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge")]))
+                                       | Has("CamSpy", options=[veteran_and_above_logic]))
                                        & has_chicago_weapon,
 
         "Chicago - Agent Objective 3": HAS_CHICAGO_AGENT
@@ -1165,17 +1169,17 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                           | perfect_logic),
 
         "Crash Site - Agent Objective 2": HAS_CRASH_SITE_AGENT
-                                          & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
+                                          & Has("President Scanner", options=[normal_logic], filtered_resolution=True)
                                           & has_crash_site_weapon,
 
         "Crash Site - Agent Objective 3": HAS_CRASH_SITE_AGENT
-                                          & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
+                                          & Has("President Scanner", options=[normal_logic], filtered_resolution=True)
                                           & Has("President", options=[npc_filter], filtered_resolution=True)
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & has_crash_site_weapon,
 
         "Complete: Crash Site - Agent": HAS_CRASH_SITE_AGENT
-                                        & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
+                                        & Has("President Scanner", options=[normal_logic], filtered_resolution=True)
                                         & Has("President", options=[npc_filter], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & complete_crash_site_weapons,
@@ -1183,31 +1187,31 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 13 - Pelagic II
         "Pelagic II - Agent Objective 1": HAS_PELAGIC_AGENT
-                                          & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+                                          & Has("X-Ray Scanner", options=[hard_and_below_logic], filtered_resolution=True)
                                           & has_pelagic_weapon,
 
         "Pelagic II - Agent Objective 2": HAS_PELAGIC_AGENT
                                           & has_pelagic_weapon,
 
         "Pelagic II - Agent Objective 3": HAS_PELAGIC_AGENT
-                                          & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+                                          & Has("X-Ray Scanner", options=[hard_and_below_logic], filtered_resolution=True)
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & complete_pelagic_weapons,
 
         "Complete: Pelagic II - Agent": HAS_PELAGIC_AGENT
-                                        & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+                                        & Has("X-Ray Scanner", options=[hard_and_below_logic], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & complete_pelagic_weapons,
 
 
         # Stage 14 - Deep Sea
         "Deep Sea - Agent Objective 1": HAS_DEEP_SEA_AGENT
-                                        & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                        & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & has_deep_sea_weapon,
 
         "Deep Sea - Agent Objective 2": HAS_DEEP_SEA_AGENT
-                                        & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                        & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & complete_deep_sea_weapons 
                                         & (has_farsight
@@ -1215,7 +1219,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                         | perfect_logic),
 
         "Deep Sea - Agent Objective 3": HAS_DEEP_SEA_AGENT
-                                        & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                        & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                         & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                         & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                         & complete_deep_sea_weapons 
@@ -1224,7 +1228,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                         | perfect_logic),
 
         "Complete: Deep Sea - Agent": HAS_DEEP_SEA_AGENT
-                                      & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                      & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                       & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                       & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                       & complete_deep_sea_weapons 
@@ -1284,30 +1288,30 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                             & has_skedar_ruins_weapon,
 
         "Skedar Ruins - Agent Objective 2": HAS_SKEDAR_RUINS_AGENT
-                                            & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                            & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & complete_skedar_ruins_weapons,
 
         "Skedar Ruins - Agent Objective 3": HAS_SKEDAR_RUINS_AGENT
-                                            & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                            & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                             & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                             & complete_skedar_ruins_weapons,
 
         "Complete: Skedar Ruins - Agent": HAS_SKEDAR_RUINS_AGENT
                                           & HasAll("R-Tracker", "Target Amplifier")
-                                          & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                          & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                           & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                           & complete_skedar_ruins_weapons,
 
 
         # Stage 18 - Mr. Blonde's Revenge
         "Mr. Blonde's Revenge - Agent Objective 1": HAS_MBR_AGENT
-                                                    & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                    & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                     & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                     & complete_mbr_weapons,
 
         "Complete: Mr. Blonde's Revenge - Agent": HAS_MBR_AGENT
-                                                  & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                  & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                   & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                   & complete_mbr_weapons,
 
@@ -1332,12 +1336,10 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 21 - The Duel
         "The Duel - Agent Objective 1": HAS_DUEL_AGENT
-                                        & (complete_duel_weapons
-                                        | perfect_logic),
+                                        & complete_duel_weapons,
 
         "Complete: The Duel - Agent": HAS_DUEL_AGENT
-                                      & (complete_duel_weapons
-                                      | perfect_logic),
+                                      & complete_duel_weapons,
     }
 
 
@@ -1391,27 +1393,27 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 3 - Extraction
         "dD Extraction - Special Agent Objective 1": HAS_EXTRACTION_SP_AGENT
-                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                     & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                      & has_extraction_weapon,
 
         "dD Extraction - Special Agent Objective 2": HAS_EXTRACTION_SP_AGENT
-                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                     & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                      & complete_extraction_weapons
                                                      & (has_extraction_explosive
                                                      | perfect_logic),
 
         "dD Extraction - Special Agent Objective 3": HAS_EXTRACTION_SP_AGENT
-                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                     & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                      & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                      & complete_extraction_weapons,
 
         "dD Extraction - Special Agent Objective 4": HAS_EXTRACTION_SP_AGENT
-                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                     & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                      & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                      & complete_extraction_weapons,
 
         "Complete: dD Extraction - Special Agent": HAS_EXTRACTION_SP_AGENT
-                                                   & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                   & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                    & complete_extraction_weapons
@@ -1452,7 +1454,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Chicago - Special Agent Objective 3": HAS_CHICAGO_SP_AGENT
                                                & (Has("Data Uplink")
-                                               | Has("CamSpy", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge")]))
+                                               | Has("CamSpy", options=[veteran_and_above_logic]))
                                                & has_chicago_weapon,
 
         "Chicago - Special Agent Objective 4": HAS_CHICAGO_SP_AGENT
@@ -1653,11 +1655,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                   | perfect_logic),
 
         "Crash Site - Special Agent Objective 3": HAS_CRASH_SITE_SP_AGENT
-                                                  & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
+                                                  & Has("President Scanner", options=[normal_logic], filtered_resolution=True)
                                                   & has_crash_site_weapon,
 
         "Crash Site - Special Agent Objective 4": HAS_CRASH_SITE_SP_AGENT
-                                                  & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
+                                                  & Has("President Scanner", options=[normal_logic], filtered_resolution=True)
                                                   & Has("President", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & has_crash_site_weapon,
@@ -1671,7 +1673,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 13 - Pelagic II
         "Pelagic II - Special Agent Objective 1": HAS_PELAGIC_SP_AGENT
-                                                  & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+                                                  & Has("X-Ray Scanner", options=[hard_and_below_logic], filtered_resolution=True)
                                                   & has_pelagic_weapon,
 
         "Pelagic II - Special Agent Objective 2": HAS_PELAGIC_SP_AGENT
@@ -1681,24 +1683,24 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                   & has_pelagic_weapon,
 
         "Pelagic II - Special Agent Objective 4": HAS_PELAGIC_SP_AGENT
-                                                  & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+                                                  & Has("X-Ray Scanner", options=[hard_and_below_logic], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_pelagic_weapons,
 
         "Complete: Pelagic II - Special Agent": HAS_PELAGIC_SP_AGENT
-                                                & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+                                                & Has("X-Ray Scanner", options=[hard_and_below_logic], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_pelagic_weapons,
 
 
         # Stage 14 - Deep Sea
         "Deep Sea - Special Agent Objective 1": HAS_DEEP_SEA_SP_AGENT
-                                                & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & has_deep_sea_weapon,
 
         "Deep Sea - Special Agent Objective 2": HAS_DEEP_SEA_SP_AGENT
-                                                & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_deep_sea_weapons
                                                 & (has_farsight
@@ -1706,7 +1708,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                 | perfect_logic),
 
         "Deep Sea - Special Agent Objective 3": HAS_DEEP_SEA_SP_AGENT
-                                                & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_deep_sea_weapons
                                                 & (has_farsight
@@ -1714,7 +1716,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                 | perfect_logic),
 
         "Deep Sea - Special Agent Objective 4": HAS_DEEP_SEA_SP_AGENT
-                                                & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_deep_sea_weapons
@@ -1723,7 +1725,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                 | perfect_logic),
 
         "Complete: Deep Sea - Special Agent": HAS_DEEP_SEA_SP_AGENT
-                                              & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                              & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                               & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                               & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                               & complete_deep_sea_weapons
@@ -1796,18 +1798,18 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                     & complete_skedar_ruins_weapons,
 
         "Skedar Ruins - Special Agent Objective 3": HAS_SKEDAR_RUINS_SP_AGENT
-                                                    & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                    & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & complete_skedar_ruins_weapons,
 
         "Skedar Ruins - Special Agent Objective 4": HAS_SKEDAR_RUINS_SP_AGENT
-                                                    & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                    & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & complete_skedar_ruins_weapons,
 
         "Complete: Skedar Ruins - Special Agent": HAS_SKEDAR_RUINS_SP_AGENT
                                                   & HasAll("R-Tracker", "Target Amplifier")
-                                                  & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                  & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_skedar_ruins_weapons,
 
@@ -1815,18 +1817,18 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         # Stage 18 - Mr. Blonde's Revenge
         "Mr. Blonde's Revenge - Special Agent Objective 1": HAS_MBR_SP_AGENT
                                                             & Has("Skedar Bomb")
-                                                            & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                            & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                             & (complete_mbr_weapons
                                                             | Has("Cloaking Device")),
 
         "Mr. Blonde's Revenge - Special Agent Objective 2": HAS_MBR_SP_AGENT
-                                                            & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                            & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                             & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                             & complete_mbr_weapons,
 
         "Complete: Mr. Blonde's Revenge - Special Agent": HAS_MBR_SP_AGENT
                                                           & Has("Skedar Bomb")
-                                                          & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                          & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                           & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                           & complete_mbr_weapons,
 
@@ -1858,18 +1860,15 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 21 - The Duel
         "The Duel - Special Agent Objective 1": HAS_DUEL_SP_AGENT
-                                                & (complete_duel_weapons
-                                                | perfect_logic),
+                                                & complete_duel_weapons,
 
         "The Duel - Special Agent Objective 2": HAS_DUEL_SP_AGENT
                                                 & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
-                                                & (complete_duel_weapons
-                                                | perfect_logic),
+                                                & complete_duel_weapons,
 
         "Complete: The Duel - Special Agent": HAS_DUEL_SP_AGENT
                                               & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
-                                              & (complete_duel_weapons
-                                              | perfect_logic),
+                                              & complete_duel_weapons,
     }
 
 
@@ -1934,31 +1933,31 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 3 - Extraction
         "dD Extraction - Perfect Agent Objective 1": HAS_EXTRACTION_PF_AGENT
-                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                     & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                      & has_extraction_weapon,
 
         "dD Extraction - Perfect Agent Objective 2": HAS_EXTRACTION_PF_AGENT
-                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                     & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                      & has_extraction_weapon,
 
         "dD Extraction - Perfect Agent Objective 3": HAS_EXTRACTION_PF_AGENT
-                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                     & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                      & complete_extraction_weapons
                                                      & (has_extraction_explosive
                                                      | perfect_logic),
 
         "dD Extraction - Perfect Agent Objective 4": HAS_EXTRACTION_PF_AGENT
-                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                     & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                      & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                      & complete_extraction_weapons,
 
         "dD Extraction - Perfect Agent Objective 5": HAS_EXTRACTION_PF_AGENT
-                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                     & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                      & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                      & complete_extraction_weapons,
 
         "Complete: dD Extraction - Perfect Agent": HAS_EXTRACTION_PF_AGENT
-                                                   & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                   & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                    & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                    & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                    & complete_extraction_weapons
@@ -2005,7 +2004,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Chicago - Perfect Agent Objective 4": HAS_CHICAGO_PF_AGENT
                                                & (Has("Data Uplink")
-                                               | Has("CamSpy", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge")]))
+                                               | Has("CamSpy", options=[veteran_and_above_logic]))
                                                & has_chicago_weapon,
 
         "Chicago - Perfect Agent Objective 5": HAS_CHICAGO_PF_AGENT
@@ -2242,11 +2241,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                   | perfect_logic),
 
         "Crash Site - Perfect Agent Objective 4": HAS_CRASH_SITE_PF_AGENT
-                                                  & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
+                                                  & Has("President Scanner", options=[normal_logic], filtered_resolution=True)
                                                   & has_crash_site_weapon,
 
         "Crash Site - Perfect Agent Objective 5": HAS_CRASH_SITE_PF_AGENT
-                                                  & Has("President Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_normal, operator="eq")], filtered_resolution=True)
+                                                  & Has("President Scanner", options=[normal_logic], filtered_resolution=True)
                                                   & Has("President", options=[npc_filter], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & has_crash_site_weapon,
@@ -2263,7 +2262,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 13 - Pelagic II
         "Pelagic II - Perfect Agent Objective 1": HAS_PELAGIC_PF_AGENT
-                                                  & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+                                                  & Has("X-Ray Scanner", options=[hard_and_below_logic], filtered_resolution=True)
                                                   & has_pelagic_weapon,
 
         "Pelagic II - Perfect Agent Objective 2": HAS_PELAGIC_PF_AGENT
@@ -2277,13 +2276,13 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                   & has_pelagic_weapon,
 
         "Pelagic II - Perfect Agent Objective 5": HAS_PELAGIC_PF_AGENT
-                                                  & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+                                                  & Has("X-Ray Scanner", options=[hard_and_below_logic], filtered_resolution=True)
                                                   & Has("Research Tape")
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_pelagic_weapons,
 
         "Complete: Pelagic II - Perfect Agent": HAS_PELAGIC_PF_AGENT
-                                                & Has("X-Ray Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+                                                & Has("X-Ray Scanner", options=[hard_and_below_logic], filtered_resolution=True)
                                                 & Has("Research Tape")
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_pelagic_weapons,
@@ -2291,25 +2290,25 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 14 - Deep Sea
         "Deep Sea - Perfect Agent Objective 1": HAS_DEEP_SEA_PF_AGENT
-                                                & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & has_deep_sea_weapon,
 
         "Deep Sea - Perfect Agent Objective 2": HAS_DEEP_SEA_PF_AGENT
-                                                & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_deep_sea_weapons
                                                 & has_farsight,
 
         "Deep Sea - Perfect Agent Objective 3": HAS_DEEP_SEA_PF_AGENT
-                                                & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_deep_sea_weapons
                                                 & has_farsight,
 
         "Deep Sea - Perfect Agent Objective 4": HAS_DEEP_SEA_PF_AGENT
                                                 & Has("Backup Disk")
-                                                & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_deep_sea_weapons
@@ -2317,7 +2316,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Deep Sea - Perfect Agent Objective 5": HAS_DEEP_SEA_PF_AGENT
                                                 & Has("Backup Disk")
-                                                & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                 & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                 & complete_deep_sea_weapons
@@ -2325,7 +2324,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Complete: Deep Sea - Perfect Agent": HAS_DEEP_SEA_PF_AGENT
                                               & Has("Backup Disk")
-                                              & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                              & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                               & Has("Dr. Caroll", options=[npc_filter], filtered_resolution=True)
                                               & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                               & complete_deep_sea_weapons
@@ -2350,7 +2349,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                   & Has("Carrington", options=[npc_filter], filtered_resolution=True)
                                                   & complete_defense_weapons
                                                   & ((has_rcp120 & has_laser)
-                                                  | (OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="ge") & has_defense_explosive)),
+                                                  | (veteran_and_above_logic & has_defense_explosive)),
 
         "CI Defense - Perfect Agent Objective 5": HAS_DEFENSE_PF_AGENT
                                                   & Has("Data Uplink")
@@ -2408,23 +2407,23 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                     & complete_skedar_ruins_weapons,
 
         "Skedar Ruins - Perfect Agent Objective 3": HAS_SKEDAR_RUINS_PF_AGENT
-                                                    & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                    & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & complete_skedar_ruins_weapons,
 
         "Skedar Ruins - Perfect Agent Objective 4": HAS_SKEDAR_RUINS_PF_AGENT
-                                                    & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                    & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & complete_skedar_ruins_weapons,
 
         "Skedar Ruins - Perfect Agent Objective 5": HAS_SKEDAR_RUINS_PF_AGENT
-                                                    & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                    & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                     & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                     & complete_skedar_ruins_weapons,
 
         "Complete: Skedar Ruins - Perfect Agent": HAS_SKEDAR_RUINS_PF_AGENT
                                                   & HasAll("R-Tracker", "Target Amplifier")
-                                                  & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                  & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                   & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                   & complete_skedar_ruins_weapons,
 
@@ -2432,24 +2431,24 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         # Stage 18 - Mr. Blonde's Revenge
         "Mr. Blonde's Revenge - Perfect Agent Objective 1": HAS_MBR_PF_AGENT
                                                             & Has("Skedar Bomb")
-                                                            & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                            & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                             & (complete_mbr_weapons
                                                             | Has("Cloaking Device")),
 
         "Mr. Blonde's Revenge - Perfect Agent Objective 2": HAS_MBR_PF_AGENT
-                                                            & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                            & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                             & (complete_mbr_weapons
                                                             | (hard_logic & Has("CamSpy"))
                                                             | (perfect_logic & Has("CamSpy"))),
 
         "Mr. Blonde's Revenge - Perfect Agent Objective 3": HAS_MBR_PF_AGENT
-                                                            & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                            & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                             & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                             & complete_mbr_weapons,
 
         "Complete: Mr. Blonde's Revenge - Perfect Agent": HAS_MBR_PF_AGENT
                                                           & Has("Skedar Bomb")
-                                                          & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                          & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                           & Has("Cassandra", options=[npc_filter], filtered_resolution=True)
                                                           & complete_mbr_weapons,
 
@@ -2492,22 +2491,18 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         # Stage 21 - The Duel
         "The Duel - Perfect Agent Objective 1": HAS_DUEL_PF_AGENT
-                                                & (complete_duel_weapons
-                                                | perfect_logic),
+                                                & complete_duel_weapons,
 
         "The Duel - Perfect Agent Objective 2": HAS_DUEL_PF_AGENT
                                                 & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
-                                                & (complete_duel_weapons
-                                                | perfect_logic),
+                                                & complete_duel_weapons,
 
         "The Duel - Perfect Agent Objective 3": HAS_DUEL_PF_AGENT
-                                                & (complete_duel_weapons
-                                                | perfect_logic),
+                                                & complete_duel_weapons,
 
         "Complete: The Duel - Perfect Agent": HAS_DUEL_PF_AGENT
                                               & Has("Jonathan", options=[npc_filter], filtered_resolution=True)
-                                              & (complete_duel_weapons
-                                              | perfect_logic),
+                                              & complete_duel_weapons,
     }
 
 
@@ -2885,18 +2880,18 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                              | HAS_ANY_WEAPON_TYPE),
 
         "dD Extraction: 4F Rocket Launcher": has_extraction 
-                                             & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                             & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                              & has_rocket_launcher 
                                              & complete_extraction_weapons,
 
         "dD Extraction: 4F Grenade (on Cassandra's desk)": has_extraction
-                                                           & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                           & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                            & HAS_CASS_OFFICE_KEY
                                                            & has_grenade
                                                            & complete_extraction_weapons,
 
         "dD Extraction: 4F Dragon (in hidden room in Cassandra's office)": has_extraction
-                                                                           & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                                           & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                                            & HAS_CASS_OFFICE_KEY
                                                                            & has_dragon
                                                                            & complete_extraction_weapons
@@ -2906,14 +2901,14 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         "dD Extraction: Rocket ammo box (on left)": (HAS_EXTRACTION_AGENT
                                                      | (HAS_EXTRACTION_SP_AGENT & HAS_CASS_OFFICE_KEY)
                                                      | (HAS_EXTRACTION_PF_AGENT & HAS_CASS_OFFICE_KEY))
-                                                    & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
+                                                    & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True) 
                                                     & has_rocket_launcher 
                                                     & complete_extraction_weapons,
 
         "dD Extraction: Rocket ammo box (on right)": (HAS_EXTRACTION_AGENT
                                                      | (HAS_EXTRACTION_SP_AGENT & HAS_CASS_OFFICE_KEY)
                                                      | (HAS_EXTRACTION_PF_AGENT & HAS_CASS_OFFICE_KEY))
-                                                     & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True) 
+                                                     & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True) 
                                                      & has_rocket_launcher 
                                                      & complete_extraction_weapons,
 
@@ -3021,12 +3016,12 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         "Deep Sea: Proximity Mine (from guard in 2nd room with cloaked guards)": has_deep_sea
                                                                                  & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                                                  & has_proxy_mine
-                                                                                 & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                                                 & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                                                  & has_deep_sea_weapon,
         
         # "Deep Sea: Shotgun (near Shield on the left path)": has_deep_sea
         #                                                     & has_shotgun
-        #                                                     & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_hard, operator="le")], filtered_resolution=True)
+        #                                                     & Has("IR Scanner", options=[hard_and_below_logic], filtered_resolution=True)
         #                                                     & has_deep_sea_weapon,
 
         "CI Defense: Devastator (dropped after saving most of the hostages)": has_defense
@@ -3056,7 +3051,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         "Mr. Blonde's Revenge: 1F double CMP150 (from guard near bottom elevator)": has_mbr
                                                                                     & has_cmp150
                                                                                     & complete_mbr_weapons
-                                                                                    & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+                                                                                    & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True),
 
         "Mr. Blonde's Revenge: 2F Laptop Gun": has_mbr 
                                                & perfect_logic
@@ -3075,27 +3070,27 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Mr. Blonde's Revenge: 3F tiny ammo box (on corner desk)": has_mbr
                                                                    & complete_mbr_weapons
-                                                                   & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+                                                                   & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True),
 
         "Mr. Blonde's Revenge: 3F tiny ammo box (on table near couch)": has_mbr 
                                                                         & complete_mbr_weapons
-                                                                        & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+                                                                        & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True),
 
         "Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the stairs)": has_mbr 
                                                                               & complete_mbr_weapons
-                                                                              & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+                                                                              & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True),
         
         "Mr. Blonde's Revenge: 2F tiny ammo box (on desk across the elevator)": has_mbr 
                                                                                 & complete_mbr_weapons
-                                                                                & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+                                                                                & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True),
 
         "Mr. Blonde's Revenge: 2F Falcon 2 (on desk)": has_mbr 
                                                        & complete_mbr_weapons
-                                                       & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+                                                       & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True),
         
         "Mr. Blonde's Revenge: 2F tiny ammo box (under stairs)": has_mbr 
                                                                  & complete_mbr_weapons
-                                                                 & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+                                                                 & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True),
 
         "Mr. Blonde's Revenge: 1F CMP150 (on right of front desk)": has_mbr
                                                                     & has_cmp150,
@@ -3125,7 +3120,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "dD Extraction (Agent): 2F Shield": HAS_EXTRACTION_AGENT 
                                             & Has("Shield")
-                                            & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                            & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                             & has_extraction_weapon,
 
         "Carrington Villa (Agent): Shield (on helipad crate)": HAS_VILLA_AGENT
@@ -3239,7 +3234,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "Crash Site (Agent/Special): Shield (behind President's clone)": HasAny("Crash Site - Agent", "Crash Site - Special Agent", "Crash Site", options=[mission_item_pool_filter], filtered_resolution=True)
                                                                          & Has("Shield")
-                                                                         & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                                                                         & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True)
                                                                          & has_crash_site_weapon,
 
         "Pelagic II (Agent/Special): Shield (on the sub hangar crate)": HasAny("Pelagic II - Agent", "Pelagic II - Special Agent", "Pelagic II", options=[mission_item_pool_filter], filtered_resolution=True)
@@ -3271,7 +3266,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         "Mr. Blonde's Revenge (Agent/Special): 3F Shield": HasAny("Mr. Blonde's Revenge - Agent", "Mr. Blonde's Revenge - Special Agent", "Mr. Blonde's Revenge", options=[mission_item_pool_filter], filtered_resolution=True)
                                                            & Has("Shield")
                                                            & complete_mbr_weapons
-                                                           & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True),
+                                                           & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True),
     }
 
     pickupsanity_rules_special_or_perfect = {
@@ -3330,11 +3325,11 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     can_break_mbr_glass = (has_mbr 
                           & complete_mbr_weapons
-                          & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True))
+                          & Has("Cloaking Device", options=[normal_and_veteran_logic], filtered_resolution=True))
 
     can_break_extraction_glass = (has_extraction 
                                  & has_extraction_weapon
-                                 & Has("Night Vision", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True))
+                                 & Has("Night Vision", options=[normal_and_veteran_logic], filtered_resolution=True))
 
     can_break_dd_central_glass = can_break_defection_glass | can_break_extraction_glass | can_break_mbr_glass
 
@@ -3401,7 +3396,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
     # Deep Sea
     can_break_deep_sea_glass = (HAS_DEEP_SEA_PF_AGENT
                                & Has("Elvis", options=[npc_filter], filtered_resolution=True)
-                               & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
+                               & Has("IR Scanner", options=[normal_and_veteran_logic], filtered_resolution=True)
                                & complete_deep_sea_weapons)
 
 
@@ -3674,9 +3669,9 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "dD Investigation: Glass on door 1 (sector 3 door)": can_break_investigation_glass,
 
-        "dD Investigation: Glass on door 2 (sector 3 door)": (OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le") 
+        "dD Investigation: Glass on door 2 (sector 3 door)": (normal_and_veteran_logic 
                                                                 & can_break_investigation_sector3_glass)
-                                                             | (OptionFilter(MissionLogic, MissionLogic.option_hard, operator="ge")
+                                                             | (hard_and_perfect_logic
                                                                 & can_break_investigation_glass),
     
         "dD Investigation: Glass 1 (big room near the end)": can_break_investigation_sector3_glass,

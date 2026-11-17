@@ -55,7 +55,7 @@ class PerfectDarkWorld(World):
                 self.options.alternate_exits.value = passthrough["options"]["alternate_exits"]
                 self.options.pickupsanity.value = passthrough["options"]["pickupsanity"]
                 self.options.glassanity.value = passthrough["options"]["glassanity"]
-                self.options.random_enemy_weapons.value = passthrough["options"]["random_enemy_weapons"],
+                self.options.random_enemy_weapons.value = passthrough["options"]["random_enemy_weapons"]
 
     def create_regions(self) -> None:
         regions.create_and_connect_regions(self)
