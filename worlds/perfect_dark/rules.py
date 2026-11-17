@@ -2659,7 +2659,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         "Cheat Unlock: Complete Skedar Ruins (Perfect Agent) in under 5:31": perfect_agent_rules["Complete: Skedar Ruins - Perfect Agent"],
     }
 
-    has_g5_explosive = ((HasAny("Chicago - Special Agent", "Chicago - Perfect Agent", "Chicago", options=[mission_item_pool_filter], filtered_resolution=True)
+    has_g5_explosive = (((HAS_CHICAGO_SP_AGENT | HAS_CHICAGO_PF_AGENT)
                             & has_remote_mine
                             & has_chicago_weapon)
                        | has_explosive)
@@ -3019,6 +3019,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                                                                  & has_falcon2_silencer,
 
         "Deep Sea: Proximity Mine (from guard in 2nd room with cloaked guards)": has_deep_sea
+                                                                                 & Has("Elvis", options=[npc_filter], filtered_resolution=True)
                                                                                  & has_proxy_mine
                                                                                  & Has("IR Scanner", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True)
                                                                                  & has_deep_sea_weapon,
@@ -3325,6 +3326,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
     # dD Central
     can_break_defection_glass = has_defection & has_defection_weapon
 
+    can_break_defection_glass_no_weapon = has_defection & perfect_logic
+
     can_break_mbr_glass = (has_mbr 
                           & complete_mbr_weapons
                           & Has("Cloaking Device", options=[OptionFilter(MissionLogic, MissionLogic.option_veteran, operator="le")], filtered_resolution=True))
@@ -3339,9 +3342,8 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
     # dD Investigation
     can_break_investigation_glass = has_investigation & has_investigation_weapon
     
-    can_break_investigation_glass_special_perfect = ((HAS_INVESTIGATION_SP_AGENT
-                                                    | HAS_INVESTIGATION_PF_AGENT)
-                                                    & has_investigation_weapon)
+    can_break_investigation_glass_special_perfect = ((HAS_INVESTIGATION_SP_AGENT | HAS_INVESTIGATION_PF_AGENT) 
+                                                    & (has_investigation_weapon | perfect_logic))
 
     can_break_investigation_sector3_glass = (has_investigation
                                             & has_investigation_weapon
@@ -3354,7 +3356,7 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
     # G5 Building
     can_break_g5_glass = (has_g5
-                         & HAS_G5_FIRST_KEY
+                         & HAS_G5_KEYS
                          & has_g5_weapon)
 
 
@@ -3422,157 +3424,165 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
     
 
     glassanity_rules = {
-        "dD Central: Top Glass Railing (stairs between roof and 4F)": can_break_dd_central_glass,
+        "dD Central: Top Glass Railing (stairs between roof and 4F)": can_break_dd_central_glass 
+                                                                      | can_break_defection_glass_no_weapon,
         
-        "dD Central: Bottom Glass Railing (stairs between roof and 4F)": can_break_dd_central_glass,
+        "dD Central: Bottom Glass Railing (stairs between roof and 4F)": can_break_dd_central_glass
+                                                                         | can_break_defection_glass_no_weapon,
         
-        "dD Central: Top Window (stairs between roof and 4F)": can_break_dd_central_glass,
+        "dD Central: Top Window (stairs between roof and 4F)": can_break_dd_central_glass
+                                                               | can_break_defection_glass_no_weapon,
         
-        "dD Central: Middle Window (stairs between roof and 4F)": can_break_dd_central_glass,
+        "dD Central: Middle Window (stairs between roof and 4F)": can_break_dd_central_glass
+                                                                  | can_break_defection_glass_no_weapon,
         
-        "dD Central: Bottom Window (stairs between roof and 4F)": can_break_dd_central_glass,
+        "dD Central: Bottom Window (stairs between roof and 4F)": can_break_dd_central_glass
+                                                                  | can_break_defection_glass_no_weapon,
         
-        "dD Central: 4F Window 1": can_break_dd_central_glass,
+        "dD Central: 4F Window 1": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 4F Window 2": can_break_dd_central_glass,
+        "dD Central: 4F Window 2": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 4F Window 3": can_break_dd_central_glass,
+        "dD Central: 4F Window 3": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 4F Window 4": can_break_dd_central_glass,
+        "dD Central: 4F Window 4": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 4F Window 5": can_break_dd_central_glass,
+        "dD Central: 4F Window 5": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 4F Window 6": can_break_dd_central_glass,
+        "dD Central: 4F Window 6": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 4F Window 7": can_break_dd_central_glass,
+        "dD Central: 4F Window 7": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 4F Window 8": can_break_dd_central_glass,
+        "dD Central: 4F Window 8": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 4F Window 9": can_break_dd_central_glass,
+        "dD Central: 4F Window 9": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 4F Glass Railing 1": can_break_dd_central_glass,
+        "dD Central: 4F Glass Railing 1": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 4F Glass Railing 2": can_break_dd_central_glass,
+        "dD Central: 4F Glass Railing 2": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 4F Glass Railing 3": can_break_dd_central_glass,
+        "dD Central: 4F Glass Railing 3": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 4F Glass Railing 4": can_break_dd_central_glass,
+        "dD Central: 4F Glass Railing 4": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
         "dD Central: Cassandra's Office Window (left)": can_break_defection_glass
                                                         | (can_break_extraction_glass & HAS_CASS_OFFICE_KEY) 
-                                                        | can_break_mbr_glass,
+                                                        | can_break_mbr_glass
+                                                        | can_break_defection_glass_no_weapon,
         
         "dD Central: Cassandra's Office Window (middle)": can_break_defection_glass
                                                           | (can_break_extraction_glass & HAS_CASS_OFFICE_KEY) 
-                                                          | can_break_mbr_glass,
+                                                          | can_break_mbr_glass
+                                                          | can_break_defection_glass_no_weapon,
         
         "dD Central: Cassandra's Office Window (right)": can_break_defection_glass
                                                          | (can_break_extraction_glass & HAS_CASS_OFFICE_KEY) 
-                                                         | can_break_mbr_glass,
+                                                         | can_break_mbr_glass
+                                                         | can_break_defection_glass_no_weapon,
         
         "dD Central: Cassandra's Office Window (top)": can_break_defection_glass 
                                                        | (can_break_extraction_glass & HAS_CASS_OFFICE_KEY)
                                                        | can_break_mbr_glass,
         
-        "dD Central: Top Glass Railing (stairs between 4F and 2F)": can_break_dd_central_glass,
+        "dD Central: Top Glass Railing (stairs between 4F and 2F)": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: Bottom Glass Railing (stairs between 4F and 2F)": can_break_dd_central_glass,
+        "dD Central: Bottom Glass Railing (stairs between 4F and 2F)": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: Top Window (stairs between 4F and 2F)": can_break_dd_central_glass,
+        "dD Central: Top Window (stairs between 4F and 2F)": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: Middle Window (stairs between 4F and 2F)": can_break_dd_central_glass,
+        "dD Central: Middle Window (stairs between 4F and 2F)": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: Bottom Window (stairs between 4F and 2F)": can_break_dd_central_glass,
+        "dD Central: Bottom Window (stairs between 4F and 2F)": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Glass 1 (near elevator)": can_break_dd_central_glass,
+        "dD Central: 3F Glass 1 (near elevator)": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Glass 2 (near elevator)": can_break_dd_central_glass,
+        "dD Central: 3F Glass 2 (near elevator)": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Glass 3 (near elevator)": can_break_dd_central_glass,
+        "dD Central: 3F Glass 3 (near elevator)": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 1": can_break_dd_central_glass,
+        "dD Central: 3F Window 1": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 2": can_break_dd_central_glass,
+        "dD Central: 3F Window 2": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 3": can_break_dd_central_glass,
+        "dD Central: 3F Window 3": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 4": can_break_dd_central_glass,
+        "dD Central: 3F Window 4": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 5": can_break_dd_central_glass,
+        "dD Central: 3F Window 5": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 6": can_break_dd_central_glass,
+        "dD Central: 3F Window 6": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 7": can_break_dd_central_glass,
+        "dD Central: 3F Window 7": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 8": can_break_dd_central_glass,
+        "dD Central: 3F Window 8": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 9": can_break_dd_central_glass,
+        "dD Central: 3F Window 9": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 10": can_break_dd_central_glass,
+        "dD Central: 3F Window 10": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 11": can_break_dd_central_glass,
+        "dD Central: 3F Window 11": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 12": can_break_dd_central_glass,
+        "dD Central: 3F Window 12": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 13": can_break_dd_central_glass,
+        "dD Central: 3F Window 13": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 14": can_break_dd_central_glass,
+        "dD Central: 3F Window 14": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 15": can_break_dd_central_glass,
+        "dD Central: 3F Window 15": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 16": can_break_defection_glass | can_break_mbr_glass,
+        "dD Central: 3F Window 16": can_break_defection_glass | can_break_mbr_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 17": can_break_defection_glass | can_break_mbr_glass,
+        "dD Central: 3F Window 17": can_break_defection_glass | can_break_mbr_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 3F Window 18": can_break_defection_glass | can_break_mbr_glass,
+        "dD Central: 3F Window 18": can_break_defection_glass | can_break_mbr_glass | can_break_defection_glass_no_weapon,
 
-        "dD Central: 2F Glass 1 (near elevator)": can_break_dd_central_glass,
+        "dD Central: 2F Glass 1 (near elevator)": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
                 
-        "dD Central: 2F Glass 2 (near elevator)": can_break_dd_central_glass,
+        "dD Central: 2F Glass 2 (near elevator)": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Glass 3 (near elevator)": can_break_dd_central_glass,
+        "dD Central: 2F Glass 3 (near elevator)": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 1": can_break_dd_central_glass,
+        "dD Central: 2F Window 1": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 2": can_break_dd_central_glass,
+        "dD Central: 2F Window 2": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 3": can_break_dd_central_glass,
+        "dD Central: 2F Window 3": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 4": can_break_defection_glass | can_break_mbr_glass,
+        "dD Central: 2F Window 4": can_break_defection_glass | can_break_mbr_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 5": can_break_defection_glass | can_break_mbr_glass,
+        "dD Central: 2F Window 5": can_break_defection_glass | can_break_mbr_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 6": can_break_dd_central_glass,
+        "dD Central: 2F Window 6": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 7": can_break_dd_central_glass,
+        "dD Central: 2F Window 7": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 8": can_break_dd_central_glass,
+        "dD Central: 2F Window 8": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 9": can_break_dd_central_glass,
+        "dD Central: 2F Window 9": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 10": can_break_dd_central_glass,
+        "dD Central: 2F Window 10": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 11": can_break_dd_central_glass,
+        "dD Central: 2F Window 11": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 12": can_break_dd_central_glass,
+        "dD Central: 2F Window 12": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 13": can_break_dd_central_glass,
+        "dD Central: 2F Window 13": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 14": can_break_dd_central_glass,
+        "dD Central: 2F Window 14": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 15": can_break_dd_central_glass,
+        "dD Central: 2F Window 15": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 16": can_break_dd_central_glass,
+        "dD Central: 2F Window 16": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: 2F Window 17": can_break_dd_central_glass,
+        "dD Central: 2F Window 17": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
         
-        "dD Central: Left Elevator Glass 1": can_break_dd_central_glass,
+        "dD Central: Left Elevator Glass 1": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
 
-        "dD Central: Left Elevator Glass 2": can_break_dd_central_glass,
+        "dD Central: Left Elevator Glass 2": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
 
-        "dD Central: Right Elevator Glass 1": can_break_dd_central_glass,
+        "dD Central: Right Elevator Glass 1": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
 
-        "dD Central: Right Elevator Glass 2": can_break_dd_central_glass,
+        "dD Central: Right Elevator Glass 2": can_break_dd_central_glass | can_break_defection_glass_no_weapon,
     
         "dD Central: 1F Left Elevator Glass 1": can_break_dd_central_glass,
 
@@ -3622,21 +3632,29 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
 
         "dD Investigation: Glass 8 (room with one scientist)": can_break_investigation_glass_special_perfect,
 
-        "dD Investigation: Glass 1 (room with night vision)": can_break_investigation_glass,
+        "dD Investigation: Glass 1 (room with night vision)": can_break_investigation_glass 
+                                                              | (has_investigation & perfect_logic),
 
-        "dD Investigation: Glass 2 (room with night vision)": can_break_investigation_glass,
+        "dD Investigation: Glass 2 (room with night vision)": can_break_investigation_glass 
+                                                              | (has_investigation & perfect_logic),
 
-        "dD Investigation: Glass 3 (room with night vision)": can_break_investigation_glass,
+        "dD Investigation: Glass 3 (room with night vision)": can_break_investigation_glass 
+                                                              | (has_investigation & perfect_logic),
 
-        "dD Investigation: Glass 4 (room with night vision)": can_break_investigation_glass,
+        "dD Investigation: Glass 4 (room with night vision)": can_break_investigation_glass 
+                                                              | (has_investigation & perfect_logic),
 
-        "dD Investigation: Glass 5 (room with night vision)": can_break_investigation_glass,
+        "dD Investigation: Glass 5 (room with night vision)": can_break_investigation_glass 
+                                                              | (has_investigation & perfect_logic),
 
-        "dD Investigation: Glass 6 (room with night vision)": can_break_investigation_glass,
+        "dD Investigation: Glass 6 (room with night vision)": can_break_investigation_glass 
+                                                              | (has_investigation & perfect_logic),
 
-        "dD Investigation: Glass 7 (room with night vision)": can_break_investigation_glass,
+        "dD Investigation: Glass 7 (room with night vision)": can_break_investigation_glass 
+                                                              | (has_investigation & perfect_logic),
 
-        "dD Investigation: Glass 8 (room with night vision)": can_break_investigation_glass,
+        "dD Investigation: Glass 8 (room with night vision)": can_break_investigation_glass 
+                                                              | (has_investigation & perfect_logic),
 
         "dD Investigation: Glass 1 (room near two scientists)": can_break_investigation_glass_special_perfect,
 
