@@ -6,6 +6,8 @@ from worlds.AutoWorld import World
 from . import items, locations, regions, rules, web_world
 from . import options as pd_options
 
+from .rules import get_mission_stars, get_challenge_stars
+
 class PerfectDarkWorld(World):
     game = "Perfect Dark"
 
@@ -75,6 +77,9 @@ class PerfectDarkWorld(World):
         percent = float(self.options.required_cheese_percentage.value) / 100
         required_cheese = int(round(self.options.cheese_total.value * percent, 0))
 
+        total_required_missions = get_mission_stars(self)
+        total_required_challenges = get_challenge_stars(self)
+
         slot_data: dict[str, Any] = {
             "options": {
                 "goal": self.options.goal.value,
@@ -89,12 +94,14 @@ class PerfectDarkWorld(World):
                 "required_special_agent_mission_stars": self.options.required_special_agent_mission_stars.value,
                 "perfect_agent": self.options.perfect_agent.value,
                 "required_perfect_agent_mission_stars": self.options.required_perfect_agent_mission_stars.value,
+                "total_required_missions": total_required_missions,
                 "missions_in_item_pool": self.options.missions_in_item_pool.value,
                 "weapon_progression": self.options.weapon_progression.value,
                 "allow_progressive_weapon_in_challenges": self.options.allow_progressive_weapon_in_challenges.value,
                 "master_key": self.options.master_key.value,
                 "challenges": self.options.challenges.value,
                 "required_challenge_stars": self.options.required_challenge_stars.value,
+                "total_required_challenges": total_required_challenges,
                 "challenge_logic": self.options.challenge_logic.value,
                 "challenges_in_item_pool": self.options.challenges_in_item_pool.value,
                 "shorter_challenges": self.options.shorter_challenges.value,
