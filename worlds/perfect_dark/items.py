@@ -1142,13 +1142,14 @@ def create_all_items(world:PerfectDarkWorld) -> None:
 
     option_list = []
     
-    if has_any_difficulty(world) or world.options.pickupsanity:
+    if (has_any_difficulty(world) or world.options.pickupsanity or world.options.glassanity) \
+            and mission_list:
         option_list.append("Missions")
     
-    if world.options.weapon_training:
+    if world.options.weapon_training and FIRING_RANGE_LIST:
         option_list.append("Weapon Training")
 
-    if has_challenges(world):
+    if has_challenges(world) and challenge_list:
         option_list.append("Challenges")
 
     if world.options.starting_items and option_list:
@@ -1477,7 +1478,6 @@ def create_all_items(world:PerfectDarkWorld) -> None:
 
 def remove_starting_item_from_pool(world:PerfectDarkWorld, item:str, itempool:list[Item]) -> None:
     world.push_precollected(world.create_item(item))
-    itempool.remove(world.create_item(item))
 
 
 def is_skedar_ruins_in_itempool(world: PerfectDarkWorld) -> bool:
