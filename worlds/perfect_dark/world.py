@@ -38,12 +38,12 @@ class PerfectDarkWorld(World):
                 self.options.required_special_agent_mission_stars.value = passthrough["options"]["required_special_agent_mission_stars"]
                 self.options.perfect_agent.value = passthrough["options"]["perfect_agent"]
                 self.options.required_perfect_agent_mission_stars.value = passthrough["options"]["required_perfect_agent_mission_stars"]
-                self.options.missions_in_item_pool.value = passthrough["options"]["missions_in_item_pool"]
+                self.options.mission_unlock_item.value = passthrough["options"]["mission_unlock_item"]
                 self.options.weapon_progression.value = passthrough["options"]["weapon_progression"]
                 self.options.challenges.value = passthrough["options"]["challenges"]
                 self.options.required_challenge_stars.value = passthrough["options"]["required_challenge_stars"]
                 self.options.challenge_logic.value = passthrough["options"]["challenge_logic"]
-                self.options.challenges_in_item_pool.value = passthrough["options"]["challenges_in_item_pool"]
+                self.options.challenge_unlock_item.value = passthrough["options"]["challenge_unlock_item"]
                 self.options.weapon_training.value = passthrough["options"]["weapon_training"]
                 self.options.device_training.value = passthrough["options"]["device_training"]
                 self.options.holotraining.value = passthrough["options"]["holotraining"]
@@ -95,7 +95,7 @@ class PerfectDarkWorld(World):
                 "perfect_agent": self.options.perfect_agent.value,
                 "required_perfect_agent_mission_stars": self.options.required_perfect_agent_mission_stars.value,
                 "total_required_missions": total_required_missions,
-                "missions_in_item_pool": self.options.missions_in_item_pool.value,
+                "mission_unlock_item": self.options.mission_unlock_item.value,
                 "weapon_progression": self.options.weapon_progression.value,
                 "allow_progressive_weapon_in_challenges": self.options.allow_progressive_weapon_in_challenges.value,
                 "master_key": self.options.master_key.value,
@@ -103,7 +103,7 @@ class PerfectDarkWorld(World):
                 "required_challenge_stars": self.options.required_challenge_stars.value,
                 "total_required_challenges": total_required_challenges,
                 "challenge_logic": self.options.challenge_logic.value,
-                "challenges_in_item_pool": self.options.challenges_in_item_pool.value,
+                "challenge_unlock_item": self.options.challenge_unlock_item.value,
                 "shorter_challenges": self.options.shorter_challenges.value,
                 "weapon_training": self.options.weapon_training.value,
                 "device_training": self.options.device_training.value,

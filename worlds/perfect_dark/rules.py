@@ -16,18 +16,18 @@ from .options import (
     IncludeAgent,
     IncludeSpecialAgent, 
     IncludePerfectAgent, 
-    MissionsInItemPool,     
+    MissionUnlockItem,     
     WeaponProgression, 
     ChallengeLogic, 
-    ChallengesInItemPool, 
+    ChallengeUnlockItem, 
     NPCs, 
     AlternateExits,
     RandomEnemyWeapons,
 )
 
 npc_filter = OptionFilter(NPCs, True)
-challenge_item_pool_filter = OptionFilter(ChallengesInItemPool, True)
-mission_item_pool_filter = OptionFilter(MissionsInItemPool, MissionsInItemPool.option_enabled, operator="ge")
+challenge_item_pool_filter = OptionFilter(ChallengeUnlockItem, True)
+mission_item_pool_filter = OptionFilter(MissionUnlockItem, MissionUnlockItem.option_enabled, operator="ge")
 has_agent = OptionFilter(IncludeAgent, True)
 has_special_agent = OptionFilter(IncludeSpecialAgent, True)
 has_perfect_agent = OptionFilter(IncludePerfectAgent, True)

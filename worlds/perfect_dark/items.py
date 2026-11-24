@@ -11,7 +11,7 @@ from .options import (
     Goal, 
     SkedarRuinsRequirements, 
     MissionLogic, 
-    MissionsInItemPool, 
+    MissionUnlockItem, 
     WeaponProgression, 
     ChallengeLogic,
 )
@@ -1009,7 +1009,7 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         itempool.append(world.create_item("Cheat: Alien"))
 
     # Missions 
-    if world.options.missions_in_item_pool.value >= MissionsInItemPool.option_enabled:
+    if world.options.mission_unlock_item.value >= MissionUnlockItem.option_enabled:
         if has_any_difficulty(world) \
                 or world.options.pickupsanity \
                 or world.options.glassanity:
@@ -1114,7 +1114,7 @@ def create_all_items(world:PerfectDarkWorld) -> None:
             if (world.options.excluded_challenges.__contains__(challenge_name) == False):
                 challenge_list.append(challenge_name)
                     
-                if world.options.challenges_in_item_pool:
+                if world.options.challenge_unlock_item:
                     itempool.append(world.create_item(challenge_name))
 
 
@@ -1157,7 +1157,7 @@ def create_all_items(world:PerfectDarkWorld) -> None:
 
         # Mission
         if option == "Missions":
-            if world.options.missions_in_item_pool.value == MissionsInItemPool.option_disabled:
+            if world.options.mission_unlock_item.value == MissionUnlockItem.option_disabled:
                 if world.options.weapon_progression.value <= WeaponProgression.option_all_guns:
                     starting_weapons_list = [
                         "Falcon 2",
@@ -1203,7 +1203,7 @@ def create_all_items(world:PerfectDarkWorld) -> None:
                         else:
                             remove_starting_item_from_pool(world, weapon, itempool)
 
-            elif world.options.missions_in_item_pool.value >= MissionsInItemPool.option_enabled:
+            elif world.options.mission_unlock_item.value >= MissionUnlockItem.option_enabled:
                 mission = world.random.choice(mission_list)
                 # print(f"Picked {mission} to start with")
                 remove_starting_item_from_pool(world, mission, itempool)
@@ -1395,7 +1395,7 @@ def create_all_items(world:PerfectDarkWorld) -> None:
         elif option == "Challenges":
             challenge = world.random.choice(challenge_list)
 
-            if world.options.challenges_in_item_pool:
+            if world.options.challenge_unlock_item:
                 remove_starting_item_from_pool(world, challenge, itempool)
 
             challenge_weapons_list = {
@@ -1497,12 +1497,12 @@ def has_any_difficulty(world: PerfectDarkWorld) -> bool:
 
 
 def add_mission_to_itempool(world:PerfectDarkWorld, item:str, itempool:list[Item]) -> None:
-    if (world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled
+    if (world.options.mission_unlock_item.value == MissionUnlockItem.option_enabled
             and item not in world.options.excluded_missions):
         itempool.append(world.create_item(item))
         mission_list.append(item)
 
-    elif (world.options.missions_in_item_pool.value == MissionsInItemPool.option_enabled_per_difficulty
+    elif (world.options.mission_unlock_item.value == MissionUnlockItem.option_enabled_per_difficulty
             and item not in world.options.excluded_missions):
         if world.options.agent:
             mission_name = f"{item} - Agent"

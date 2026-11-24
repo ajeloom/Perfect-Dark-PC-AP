@@ -160,20 +160,20 @@ class RequiredPerfectAgentMissionStars(Range):
     default = 7
 
 
-class MissionsInItemPool(Choice):
+class MissionUnlockItem(Choice):
     """
-    Choose whether missions are in the item pool.
+    Sets whether missions are locked behind an item or not.
 
     - Disabled: You start with every mission.
     - Enabled: Each mission is one item that unlocks every difficulty you enabled.
-    - Enabled (per difficulty): Each mission on every difficulty enabled is an item.
+    - Enabled (per difficulty): Each mission is separated into items for each difficulty.
     """
 
     option_disabled = 0
     option_enabled = 1
     option_enabled_per_difficulty = 2
 
-    display_name = "Missions In Item Pool"
+    display_name = "Mission Unlock Item"
 
     default = option_enabled
 
@@ -400,15 +400,14 @@ class ChallengeLogic(Choice):
     default = option_normal
 
 
-class ChallengesInItemPool(Toggle):
+class ChallengeUnlockItem(Toggle):
     """
-    Adds each challenge to the item pool.
-    You cannot start a challenge until you find it.
+    Set whether challenges are locked behind an item or not.
     This option only matters if challenges are enabled.
     Recommend disabling this if there are not enough locations in your multiworld.
     """
 
-    display_name = "Challenges in Item Pool"
+    display_name = "Challenge Unlock Item"
 
     default = True
 
@@ -765,7 +764,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     required_special_agent_mission_stars: RequiredSpecialAgentMissionStars
     perfect_agent: IncludePerfectAgent
     required_perfect_agent_mission_stars: RequiredPerfectAgentMissionStars
-    missions_in_item_pool: MissionsInItemPool
+    mission_unlock_item: MissionUnlockItem
     excluded_missions: ExcludedMissions
     weapon_progression: WeaponProgression
     allow_progressive_weapon_in_challenges: ProgressiveWeaponsInChallenges
@@ -774,7 +773,7 @@ class PerfectDarkOptions(PerGameCommonOptions):
     challenges: Challenges
     required_challenge_stars: RequiredChallengeStars
     challenge_logic: ChallengeLogic
-    challenges_in_item_pool: ChallengesInItemPool
+    challenge_unlock_item: ChallengeUnlockItem
     excluded_challenges: ExcludedChallenges
     shorter_challenges: ShorterChallenges
     weapon_training: WeaponTraining
@@ -817,7 +816,7 @@ option_groups = [
             RequiredSpecialAgentMissionStars,
             IncludePerfectAgent,
             RequiredPerfectAgentMissionStars,
-            MissionsInItemPool,
+            MissionUnlockItem,
             ExcludedMissions,
             WeaponProgression,
             ProgressiveWeaponsInChallenges,
@@ -826,7 +825,7 @@ option_groups = [
             Challenges,
             RequiredChallengeStars,
             ChallengeLogic,
-            ChallengesInItemPool,
+            ChallengeUnlockItem,
             ExcludedChallenges,
             ShorterChallenges,
             WeaponTraining,
@@ -869,7 +868,7 @@ option_presets = {
         "required_special_agent_mission_stars": 7,
         "perfect_agent": True,
         "required_perfect_agent_mission_stars": 7,
-        "missions_in_item_pool": MissionsInItemPool.option_enabled,
+        "mission_unlock_item": MissionUnlockItem.option_enabled,
         "weapon_progression": WeaponProgression.option_normal,
         "allow_progressive_weapon_in_challenges": False,
         "starting_items": True,
@@ -877,7 +876,7 @@ option_presets = {
         "challenges": False,
         "required_challenge_stars": 15,
         "challenge_logic": ChallengeLogic.option_normal,
-        "challenges_in_item_pool": False,
+        "challenge_unlock_item": False,
         "shorter_challenges": False,
         "weapon_training": False,
         "device_training": False,
@@ -913,7 +912,7 @@ option_presets = {
         "required_special_agent_mission_stars": 7,
         "perfect_agent": True,
         "required_perfect_agent_mission_stars": 21,
-        "missions_in_item_pool": MissionsInItemPool.option_enabled_per_difficulty,
+        "mission_unlock_item": MissionUnlockItem.option_enabled_per_difficulty,
         "weapon_progression": WeaponProgression.option_progressive_weapon,
         "allow_progressive_weapon_in_challenges": False,
         "starting_items": True,
@@ -921,7 +920,7 @@ option_presets = {
         "challenges": True,
         "required_challenge_stars": 30,
         "challenge_logic": ChallengeLogic.option_hard,
-        "challenges_in_item_pool": False,
+        "challenge_unlock_item": False,
         "shorter_challenges": False,
         "weapon_training": True,
         "device_training": True,
