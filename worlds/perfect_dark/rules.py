@@ -3344,6 +3344,10 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
                                             & has_investigation_weapon
                                             & Has("Data Uplink"))
 
+    has_investigation_explosive = ((has_proxy_mine & (has_investigation_weapon | perfect_logic))
+                                  | has_explosive
+                                  | (has_dragon & has_investigation_weapon & perfect_logic))
+
 
     # Carrington Villa
     can_break_villa_glass = has_villa & has_villa_weapon_any_diff
@@ -3606,10 +3610,10 @@ def set_all_location_rules(world: PerfectDarkWorld) -> None:
         "dD Investigation: Glass on door (near cleaning bot)": can_break_investigation_glass,
     
         "dD Investigation: Glass 1 (near computer)": has_investigation 
-                                                     & (has_proxy_mine | has_explosive),
+                                                     & has_investigation_explosive,
 
         "dD Investigation: Glass 2 (near computer)": has_investigation 
-                                                     & (has_proxy_mine | has_explosive),
+                                                     & has_investigation_explosive,
     
         "dD Investigation: Glass 1 (room with one scientist)": can_break_investigation_glass_special_perfect,
 
@@ -5315,13 +5319,18 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
 
         "Challenge 16": Has("Challenge 16", options=[challenge_item_pool_filter], filtered_resolution=True)
                         & Has("Shield", options=[strict_and_normal_logic], filtered_resolution=True)
-                        & (HasAll("Falcon 2", "K7 Avenger", "SuperDragon", "Proximity Mine", options=[strict_and_normal_logic])
+                        & (HasAll("Falcon 2", "K7 Avenger", "SuperDragon", "Proximity Mine", options=[strict_logic])
+                        | (normal_logic & Has("Proximity Mine") & HasAny("K7 Avenger", "SuperDragon"))
                         | HasAny("Falcon 2", "K7 Avenger", "SuperDragon", "Proximity Mine", options=[hard_logic])
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["SuperDragon"], options=[strict_and_normal_logic])
+                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["SuperDragon"], options=[strict_logic])
+                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"], options=[normal_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"], options=[hard_logic])
-                        | (strict_and_normal_logic
+                        | (strict_logic
                             & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"])
                             & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"])
+                            & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Proximity Mine"]))
+                        | (normal_logic
+                            & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])
                             & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Proximity Mine"]))
                         | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"], options=[hard_logic])
                         | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"], options=[hard_logic])
@@ -5329,15 +5338,21 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
 
         "Challenge 17": Has("Challenge 17", options=[challenge_item_pool_filter], filtered_resolution=True)
                         & Has("Shield", options=[strict_and_normal_logic], filtered_resolution=True)
-                        & (HasAll("DY357 Magnum", "AR34", "Reaper", "Slayer", options=[strict_and_normal_logic])
+                        & (HasAll("DY357 Magnum", "AR34", "Reaper", "Slayer", options=[strict_logic])
+                        | (normal_logic & Has("Slayer") & HasAny("DY357 Magnum", "AR34", "Reaper"))
                         | HasAny("DY357 Magnum", "AR34", "Reaper", "Slayer", options=[hard_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Slayer"], options=[strict_and_normal_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DY357 Magnum"], options=[hard_logic])
-                        | (strict_and_normal_logic
+                        | (strict_logic
                             & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"])
                             & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"])
                             & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"])
                             & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]))
+                        | (normal_logic
+                            & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"])
+                            & (Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"])
+                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"])
+                                | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"])))
                         | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357 Magnum"], options=[hard_logic])
                         | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["AR34"], options=[hard_logic])
                         | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Slayer"], options=[hard_logic])
@@ -5346,12 +5361,17 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         "Challenge 18": Has("Challenge 18", options=[challenge_item_pool_filter], filtered_resolution=True)
                         & Has("Shield", options=[strict_and_normal_logic], filtered_resolution=True)
                         & Has("Cloaking Device", options=[strict_and_normal_logic], filtered_resolution=True)
-                        & (HasAll("Falcon 2", "Phoenix", "Tranquilizer", "Laptop Gun", options=[strict_and_normal_logic])
+                        & (HasAll("Falcon 2", "Phoenix", "Tranquilizer", "Laptop Gun", options=[strict_logic])
+                        | HasAll("Tranquilizer", "Laptop Gun", options=[normal_logic])
                         | HasAny("Falcon 2", "Phoenix", "Tranquilizer", "Laptop Gun", options=[hard_logic])
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Phoenix"], options=[strict_and_normal_logic])
+                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Phoenix"], options=[strict_logic])
+                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Laptop Gun"], options=[normal_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"], options=[hard_logic])
-                        | (strict_and_normal_logic
+                        | (strict_logic
                             & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Phoenix"])
+                            & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"])
+                            & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]))
+                        | (normal_logic
                             & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"])
                             & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]))
                         | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"], options=[hard_logic])
@@ -5361,12 +5381,16 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         "Challenge 19": Has("Challenge 19", options=[challenge_item_pool_filter], filtered_resolution=True)
                         & Has("Shield", options=[strict_and_normal_logic], filtered_resolution=True)
                         & Has("Combat Boost", options=[strict_logic], filtered_resolution=True)
-                        & (HasAll("CMP150", "Shotgun", "Rocket Launcher", "FarSight XR-20", options=[strict_and_normal_logic])
+                        & (HasAll("CMP150", "Shotgun", "Rocket Launcher", "FarSight XR-20", options=[strict_logic])
+                        | HasAll("Rocket Launcher", "FarSight XR-20", options=[normal_logic])
                         | HasAny("CMP150", "Shotgun", "Rocket Launcher", "FarSight XR-20", options=[hard_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"], options=[strict_and_normal_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"], options=[hard_logic])
-                        | (strict_and_normal_logic
+                        | (strict_logic
                             & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["CMP150"])
+                            & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"])
+                            & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]))
+                        | (normal_logic
                             & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Rocket Launcher"])
                             & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]))
                         | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["CMP150"], options=[hard_logic])
@@ -5375,25 +5399,36 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
 
         "Challenge 20": Has("Challenge 20", options=[challenge_item_pool_filter], filtered_resolution=True)
                         & Has("Shield", options=[strict_and_normal_logic], filtered_resolution=True)
-                        & (HasAll("Mauler", "Falcon 2", "MagSec 4", "DY357 Magnum", options=[strict_and_normal_logic])
+                        & (HasAll("Mauler", "Falcon 2", "MagSec 4", "DY357 Magnum", options=[strict_logic])
+                        | HasFromList("Mauler", "Falcon 2", "MagSec 4", "DY357 Magnum", count=2, options=[normal_logic])
                         | HasAny("Mauler", "Falcon 2", "MagSec 4", "DY357 Magnum", options=[hard_logic])
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"], options=[strict_and_normal_logic])
+                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"], options=[strict_logic])
+                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"], options=[normal_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Falcon 2"], options=[hard_logic])
-                        | (strict_and_normal_logic
-                            & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"]))
+                        | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"], options=[strict_logic])
+                        | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"], options=[normal_logic])
                         | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"], options=[hard_logic])),
 
         "Challenge 21": Has("Challenge 21", options=[challenge_item_pool_filter], filtered_resolution=True)
                         & Has("Data Uplink")
                         & Has("Cloaking Device", options=[strict_and_normal_logic], filtered_resolution=True)
-                        & (HasAll("Mauler", "Reaper", "Shotgun", "Callisto NTG", options=[strict_and_normal_logic])
+                        & (HasAll("Mauler", "Reaper", "Shotgun", "Callisto NTG", options=[strict_logic])
+                        | HasFromList("Mauler", "Reaper", "Shotgun", "Callisto NTG", count=2, options=[normal_logic])
                         | HasAny("Mauler", "Reaper", "Shotgun", "Callisto NTG", options=[hard_logic])
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"], options=[strict_and_normal_logic])
+                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Mauler"], options=[strict_logic])
+                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Reaper"], options=[normal_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Shotgun"], options=[hard_logic])
-                        | (strict_and_normal_logic
+                        | (strict_logic
                             & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"])
                             & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Callisto NTG"])
                             & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"]))
+                        | (normal_logic
+                            & (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Reaper"])
+                            | (Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"])
+                                & (Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"])
+                                    | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Callisto NTG"])))
+                            | (Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"])
+                                | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Callisto NTG"]))))
                         | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"], options=[hard_logic])
                         | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Callisto NTG"], options=[hard_logic])
                         | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Shotgun"], options=[hard_logic])),
@@ -5401,14 +5436,19 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         "Challenge 22": Has("Challenge 22", options=[challenge_item_pool_filter], filtered_resolution=True)
                         & Has("Briefcase")
                         & Has("Shield", options=[strict_and_normal_logic], filtered_resolution=True)
-                        & (HasAll("Falcon 2", "Sniper Rifle", "Crossbow", "K7 Avenger", options=[strict_and_normal_logic])
+                        & (HasAll("Falcon 2", "Sniper Rifle", "Crossbow", "K7 Avenger", options=[strict_logic])
+                        | (normal_logic & Has("K7 Avenger") & HasAny("Sniper Rifle", "Crossbow"))
                         | HasAny("Falcon 2", "Sniper Rifle", "Crossbow", "K7 Avenger", options=[hard_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"], options=[strict_and_normal_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Crossbow"], options=[hard_logic])
-                        | (strict_and_normal_logic
+                        | (strict_logic
                             & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"])
                             & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])
                             & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"]))
+                        | (normal_logic
+                            & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])
+                            & (Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"])
+                                | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Sniper Rifle"])))
                         | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Falcon 2"], options=[hard_logic])
                         | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"], options=[hard_logic])
                         | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Crossbow"], options=[hard_logic])),
@@ -5416,30 +5456,39 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
         "Challenge 23": Has("Challenge 23", options=[challenge_item_pool_filter], filtered_resolution=True)
                         & Has("Shield", options=[strict_and_normal_logic], filtered_resolution=True)
                         & Has("Combat Boost", options=[strict_logic], filtered_resolution=True)
-                        & (HasAll("MagSec 4", "Grenade", "Laptop Gun", "RC-P120", options=[strict_and_normal_logic])
+                        & (HasAll("MagSec 4", "Grenade", "Laptop Gun", "RC-P120", options=[strict_logic])
+                        | Has("RC-P120", options=[normal_logic])
                         | HasAny("MagSec 4", "Grenade", "Laptop Gun", "RC-P120", options=[hard_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["RC-P120"], options=[strict_and_normal_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["MagSec 4"], options=[hard_logic])
-                        | (strict_and_normal_logic
+                        | (strict_logic
                             & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"])
                             & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"])
                             & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"]))
+                        | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["RC-P120"], options=[normal_logic])
                         | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["MagSec 4"], options=[hard_logic])
                         | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["Laptop Gun"], options=[hard_logic])
                         | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Grenade"], options=[hard_logic])),
 
         "Challenge 24": Has("Challenge 24", options=[challenge_item_pool_filter], filtered_resolution=True)
                         & Has("Briefcase")
-                        & (HasAll("CMP150", "Tranquilizer", "Devastator", "SuperDragon", "DY357-LX", options=[strict_and_normal_logic])
+                        & (HasAll("CMP150", "Tranquilizer", "Devastator", "SuperDragon", "DY357-LX", options=[strict_logic])
+                        | (normal_logic & HasAll("Tranquilizer", "DY357-LX") & HasAny("CMP150", "Devastator", "SuperDragon"))
                         | HasAny("CMP150", "Tranquilizer", "Devastator", "SuperDragon", "DY357-LX", options=[hard_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["DY357-LX"], options=[strict_and_normal_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["Tranquilizer"], options=[hard_logic])
-                        | (strict_and_normal_logic
+                        | (strict_logic
                             & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"])
                             & Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["CMP150"])
                             & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"])
                             & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"])
                             & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"]))
+                        | (normal_logic
+                            & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"])
+                            & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["Tranquilizer"])
+                            & (Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["CMP150"])
+                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"])
+                                | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["Devastator"])))
                         | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["DY357-LX"], options=[hard_logic])
                         | Has("Progressive SMG", count=PROGRESSIVE_SMG_NAME_TO_ID["CMP150"], options=[hard_logic])
                         | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["SuperDragon"], options=[hard_logic])
@@ -5448,15 +5497,22 @@ def set_all_extra_location_rules(world: PerfectDarkWorld) -> None:
 
         "Challenge 25": Has("Challenge 25", options=[challenge_item_pool_filter], filtered_resolution=True)
                         & Has("Cloaking Device", options=[strict_and_normal_logic], filtered_resolution=True)
-                        & (HasAll("Mauler", "N-Bomb", "K7 Avenger", "FarSight XR-20", options=[strict_and_normal_logic])
+                        & (HasAll("Mauler", "N-Bomb", "K7 Avenger", "FarSight XR-20", options=[strict_logic])
+                        | (normal_logic & Has("N-Bomb") & HasAny("Mauler", "K7 Avenger", "FarSight XR-20"))
                         | HasAny("Mauler", "N-Bomb", "K7 Avenger", "FarSight XR-20", options=[hard_logic])
-                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"], options=[strict_and_normal_logic])
+                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["FarSight XR-20"], options=[strict_logic])
+                        | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["K7 Avenger"], options=[normal_logic])
                         | Has("Progressive Weapon", count=PROGRESSIVE_WEAPON_NAME_TO_ID["N-Bomb"], options=[hard_logic])
-                        | (strict_and_normal_logic
+                        | (strict_logic
                             & Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"])
                             & Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])
                             & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["N-Bomb"])
                             & Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"]))
+                        | (normal_logic
+                            & Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["N-Bomb"])
+                            & (Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"])
+                                | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"])
+                                | Has("Progressive Other Weapon", count=PROGRESSIVE_OTHER_WEAPON_NAME_TO_ID["FarSight XR-20"])))
                         | Has("Progressive Pistol", count=PROGRESSIVE_PISTOL_NAME_TO_ID["Mauler"], options=[hard_logic])
                         | Has("Progressive Rifle", count=PROGRESSIVE_RIFLE_NAME_TO_ID["K7 Avenger"], options=[hard_logic])
                         | Has("Progressive Explosive", count=PROGRESSIVE_EXPLOSIVE_NAME_TO_ID["N-Bomb"], options=[hard_logic])
